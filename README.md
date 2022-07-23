@@ -13,3 +13,9 @@ Alternatively: you can [install it from Steam](https://store.steampowered.com/ap
 3. open godot, and from the project browser select import.  Navigate to the directory where the repo is cloned, then open the folder `MP Jam Project`.  Select project.godot and choose open.  The Godot editor should open up the project.  Now you should be ready to go! 
 
 
+# Audio Overview
+It is easy to implmenent audio settings if we use [godot's audio bus system](https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html).  
+
+- Master
+  - SFX
+  - Music
