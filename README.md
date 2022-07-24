@@ -14,9 +14,9 @@ Alternatively: you can [install it from Steam](https://store.steampowered.com/ap
 
 
 # UI Menus Screens
- - [Main Menu](https://github.com/mharris382/Multiplayer-Jam-2022/main/README.md#main-menu)
- - [Settings Menu](https://github.com/mharris382/Multiplayer-Jam-2022/main/README.md#settings-menu)
- - [Pause Menu](https://github.com/mharris382/Multiplayer-Jam-2022/main/README.md#pause-menu)
+ - [Main Menu](https://github.com/mharris382/Multiplayer-Jam-2022/blob/main/README.md#main-menu)
+ - [Settings Menu](https://github.com/mharris382/Multiplayer-Jam-2022/blob/main/README.md#settings-menu)
+ - [Pause Menu](https://github.com/mharris382/Multiplayer-Jam-2022/blob/main/README.md#pause-menu)
 
 ## Main Menu
 - Buttons
