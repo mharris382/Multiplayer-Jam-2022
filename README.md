@@ -4,6 +4,7 @@ Jam Project for the Summer 2022 [Multiplayer Game Jam](https://itch.io/jam/multi
 
 # Table of Contents (WIP)
 - [Project Setup Instructions](https://github.com/mharris382/Multiplayer-Jam-2022/blob/main/README.md#project-setup-instructions)
+- [Project Standards](https://github.com/mharris382/Multiplayer-Jam-2022/blob/main/README.md#project-standards)
 - [UI Menu Screens](https://github.com/mharris382/Multiplayer-Jam-2022/blob/main/README.md#ui-menus-screens)
 - [Audio Overview](https://github.com/mharris382/Multiplayer-Jam-2022/blob/main/README.md#audio-overview)
 
