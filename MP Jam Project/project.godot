@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Cell",
+"language": "GDScript",
+"path": "res://source/blocks/Cell.gd"
+}, {
+"base": "Node2D",
+"class": "Grid",
+"language": "GDScript",
+"path": "res://source/blocks/Grid.gd"
+}, {
+"base": "TileMap",
+"class": "GridTileMap",
+"language": "GDScript",
+"path": "res://source/blocks/tilemaps/GridTileMap.gd"
+} ]
+_global_script_class_icons={
+"Cell": "",
+"Grid": "",
+"GridTileMap": ""
+}
+
 [application]
 
 config/name="Mp Jam Project"
