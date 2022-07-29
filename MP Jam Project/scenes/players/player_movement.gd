@@ -7,10 +7,6 @@ export var player_id = "p1"
 var velocity = Vector2.ZERO
 
 
-func _input(event):
-	player_input()
-	
-
 func _change_anim():
 	pass
 
@@ -26,5 +22,6 @@ func player_input():
 
 
 func _physics_process(delta):
+	player_input()
 	velocity.y += delta * gravity
 	velocity = move_and_slide(velocity, Vector2.UP)
