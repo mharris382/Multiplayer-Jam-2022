@@ -18,3 +18,5 @@ shape = SubResource( 1 )
 
 [node name="JumpDetection" type="Timer" parent="."]
 one_shot = true
+
+[node name="Role" type="Node2D" parent="."]
