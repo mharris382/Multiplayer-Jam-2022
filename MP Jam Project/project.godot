@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/Grid.gd"
 }, {
-"base": "Reference",
+"base": "TileMap",
 "class": "GridTileMap",
 "language": "GDScript",
 "path": "res://source/blocks/GridTileMap.gd"
@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "TileMapCellInfo",
 "language": "GDScript",
 "path": "res://source/blocks/TileMapCellInfo.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "player_movement",
+"language": "GDScript",
+"path": "res://source/players/player_movement.gd"
 } ]
 _global_script_class_icons={
 "BlockLbrary": "",
@@ -45,13 +50,21 @@ _global_script_class_icons={
 "CharacterBase": "",
 "Grid": "",
 "GridTileMap": "",
-"TileMapCellInfo": ""
+"TileMapCellInfo": "",
+"player_movement": ""
 }
 
 [application]
 
 config/name="Mp Jam Project"
+run/main_scene="res://source/levels/testing_level/world.tscn"
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unused_signal=false
 
 [input]
 

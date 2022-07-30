@@ -1,4 +1,4 @@
-class_name player_movement
+class_name PlayerMovement
 extends KinematicBody2D
 
 export var player_speed = 500 #200
