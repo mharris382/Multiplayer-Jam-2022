@@ -1,0 +1,204 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/ui/InputLabel.tscn" type="PackedScene" id=1]
+
+[node name="ControlsLayout" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+margin_right = -1.0
+margin_bottom = 304.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="PlayerLabel1" parent="VBoxContainer" instance=ExtResource( 1 )]
+margin_right = 1023.0
+margin_bottom = 40.0
+text = "Player 1"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+margin_top = 44.0
+margin_right = 1023.0
+margin_bottom = 304.0
+grow_horizontal = 0
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+margin_right = 508.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_constants/separation = 15
+
+[node name="InputLabel" parent="VBoxContainer/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_right = 508.0
+margin_bottom = 40.0
+text = "Move left"
+
+[node name="InputLabel2" parent="VBoxContainer/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 55.0
+margin_right = 508.0
+margin_bottom = 95.0
+text = "Move right"
+
+[node name="InputLabel3" parent="VBoxContainer/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 110.0
+margin_right = 508.0
+margin_bottom = 150.0
+text = "Jump"
+
+[node name="InputLabel4" parent="VBoxContainer/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 165.0
+margin_right = 508.0
+margin_bottom = 205.0
+text = "Down"
+
+[node name="InputLabel5" parent="VBoxContainer/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 220.0
+margin_right = 508.0
+margin_bottom = 260.0
+text = "Interact"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+margin_left = 514.0
+margin_right = 1022.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_constants/separation = 15
+
+[node name="Button" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer2"]
+margin_right = 508.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="Button2" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer2"]
+margin_top = 55.0
+margin_right = 508.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="Button3" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer2"]
+margin_top = 110.0
+margin_right = 508.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="Button4" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer2"]
+margin_top = 165.0
+margin_right = 508.0
+margin_bottom = 205.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="Button5" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer2"]
+margin_top = 220.0
+margin_right = 508.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_bottom = 303.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="PlayerLabel2" parent="VBoxContainer2" instance=ExtResource( 1 )]
+margin_right = 1024.0
+margin_bottom = 40.0
+text = "Player 2"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer2"]
+margin_top = 44.0
+margin_right = 1024.0
+margin_bottom = 304.0
+grow_horizontal = 0
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2/GridContainer"]
+margin_right = 509.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_constants/separation = 15
+
+[node name="InputLabel" parent="VBoxContainer2/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_right = 509.0
+margin_bottom = 40.0
+text = "Move left"
+
+[node name="InputLabel2" parent="VBoxContainer2/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 55.0
+margin_right = 509.0
+margin_bottom = 95.0
+text = "Move right"
+
+[node name="InputLabel3" parent="VBoxContainer2/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 110.0
+margin_right = 509.0
+margin_bottom = 150.0
+text = "Jump"
+
+[node name="InputLabel4" parent="VBoxContainer2/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 165.0
+margin_right = 509.0
+margin_bottom = 205.0
+text = "Down"
+
+[node name="InputLabel5" parent="VBoxContainer2/GridContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 220.0
+margin_right = 509.0
+margin_bottom = 260.0
+text = "Interact"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer2/GridContainer"]
+margin_left = 515.0
+margin_right = 1024.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_constants/separation = 15
+
+[node name="Button" type="Button" parent="VBoxContainer2/GridContainer/VBoxContainer2"]
+margin_right = 509.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="Button2" type="Button" parent="VBoxContainer2/GridContainer/VBoxContainer2"]
+margin_top = 55.0
+margin_right = 509.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="Button3" type="Button" parent="VBoxContainer2/GridContainer/VBoxContainer2"]
+margin_top = 110.0
+margin_right = 509.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="Button4" type="Button" parent="VBoxContainer2/GridContainer/VBoxContainer2"]
+margin_top = 165.0
+margin_right = 509.0
+margin_bottom = 205.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
+
+[node name="Button5" type="Button" parent="VBoxContainer2/GridContainer/VBoxContainer2"]
+margin_top = 220.0
+margin_right = 509.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 40 )
+text = "Key"
