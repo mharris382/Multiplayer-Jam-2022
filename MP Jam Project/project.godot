@@ -10,7 +10,7 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
-"class": "BlockLbrary",
+"class": "BlockLibrary",
 "language": "GDScript",
 "path": "res://source/blocks/BlockLibrary.gd"
 }, {
@@ -19,10 +19,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/Cell.gd"
 }, {
-"base": "player_movement",
+"base": "PlayerMovement",
 "class": "CharacterBase",
 "language": "GDScript",
 "path": "res://source/players/CharacterBase.gd"
+}, {
+"base": "RigidBody2D",
+"class": "DynamicBlock",
+"language": "GDScript",
+"path": "res://source/blocks/DynamicBlocks/DynamicBlock.gd"
 }, {
 "base": "Node2D",
 "class": "Grid",
@@ -33,6 +38,11 @@ _global_script_classes=[ {
 "class": "GridTileMap",
 "language": "GDScript",
 "path": "res://source/blocks/GridTileMap.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "PlayerMovement",
+"language": "GDScript",
+"path": "res://source/players/PlayerMovement.gd"
 }, {
 "base": "Node2D",
 "class": "TileMapCellInfo",
@@ -45,13 +55,14 @@ _global_script_classes=[ {
 "path": "res://source/players/player_movement.gd"
 } ]
 _global_script_class_icons={
-"BlockLbrary": "",
+"BlockLibrary": "",
 "Cell": "",
 "CharacterBase": "",
+"DynamicBlock": "",
 "Grid": "",
 "GridTileMap": "",
-"TileMapCellInfo": "",
-"player_movement": ""
+"PlayerMovement": "",
+"TileMapCellInfo": ""
 }
 
 [application]
@@ -60,11 +71,9 @@ config/name="Mp Jam Project"
 run/main_scene="res://source/levels/testing_level/world.tscn"
 config/icon="res://icon.png"
 
-[debug]
+[autoload]
 
-gdscript/warnings/unused_variable=false
-gdscript/warnings/unused_argument=false
-gdscript/warnings/unused_signal=false
+Blocks="*res://source/blocks/Blocks.gd"
 
 [input]
 
