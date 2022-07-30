@@ -1,8 +1,8 @@
-extends Node2D
+extends Node
 
 
-onready var grid : Grid = $DynamicGrid
-var tile_name = "test_tile"
+onready var block_lib = preload("res://assets/BlockLibrary.tres")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

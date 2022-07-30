@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "BlockLbrary",
+"language": "GDScript",
+"path": "res://source/blocks/BlockLibrary.gd"
+}, {
 "base": "Node2D",
 "class": "Cell",
 "language": "GDScript",
@@ -22,18 +27,25 @@ _global_script_classes=[ {
 "base": "TileMap",
 "class": "GridTileMap",
 "language": "GDScript",
-"path": "res://source/blocks/tilemaps/GridTileMap.gd"
+"path": "res://source/blocks/GridTileMap.gd"
 }, {
 "base": "Node2D",
 "class": "TileMapCellInfo",
 "language": "GDScript",
 "path": "res://source/blocks/TileMapCellInfo.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "player_movement",
+"language": "GDScript",
+"path": "res://source/players/player_movement.gd"
 } ]
 _global_script_class_icons={
+"BlockLbrary": "",
 "Cell": "",
 "Grid": "",
 "GridTileMap": "",
-"TileMapCellInfo": ""
+"TileMapCellInfo": "",
+"player_movement": ""
 }
 
 [application]
@@ -43,7 +55,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-BlockLibrary="*res://source/blocks/BlockLibrary.gd"
+Blocks="*res://source/blocks/Blocks.gd"
 
 [input]
 

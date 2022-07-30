@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://source/blocks/testing/GridTest/TestGrid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://source/blocks/testing/GridTest/TestTile_DynamicPrefab.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/blocks/testing/GridTest/GridTest.gd" type="Script" id=3]
+
+[node name="GridTest" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1234, 1173 )
+current = true
+zoom = Vector2( 3.824, 4.116 )
+
+[node name="LevelEnviornment" type="Node2D" parent="."]
+scale = Vector2( 1.01125, 1.01033 )
+
+[node name="Grid" parent="LevelEnviornment" instance=ExtResource( 1 )]
+scale = Vector2( 0.996585, 1.08613 )
+
+[node name="RigidBody2D" parent="LevelEnviornment" instance=ExtResource( 2 )]
+position = Vector2( 698, 308 )
+rotation = -0.304589
+
+[node name="Tween" type="Tween" parent="."]

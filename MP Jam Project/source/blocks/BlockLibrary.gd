@@ -1,4 +1,5 @@
-extends Node
+class_name BlockLbrary
+extends Resource
 
 
 var block_tile_set : TileSet = preload("res://assets/blocks_tileset.tres")

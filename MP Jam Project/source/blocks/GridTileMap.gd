@@ -25,3 +25,4 @@ func on_TileMap_tile_state_changed(tile_id : int, location : Vector2):
 	print("Tie state changed callback: ", tile_id, ", (", location,")")
 	set_cell(location.x, location.y, tile_id)
 	update_dirty_quadrants()
+

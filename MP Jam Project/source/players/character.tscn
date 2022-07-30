@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://source/players/player_movement.gd" type="Script" id=1]
+[ext_resource path="res://source/players/CharacterBase.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/char_template.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -18,3 +18,14 @@ shape = SubResource( 1 )
 
 [node name="JumpDetection" type="Timer" parent="."]
 one_shot = true
+
+[node name="ControlPoints" type="Node2D" parent="."]
+
+[node name="Front" type="Node2D" parent="ControlPoints"]
+position = Vector2( 82, 0 )
+
+[node name="Below" type="Node2D" parent="ControlPoints"]
+position = Vector2( 0, 141 )
+
+[node name="Above" type="Node2D" parent="ControlPoints"]
+position = Vector2( 0, -135 )
