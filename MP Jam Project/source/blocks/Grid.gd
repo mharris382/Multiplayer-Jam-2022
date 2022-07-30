@@ -2,14 +2,43 @@ class_name Grid
 extends Node2D
 
 export var CellSize = Vector2(256,256)
+export var map_size = 1024
 
 var Cell = load("res://source/blocks/Cell.gd")
+var block_lib : BlockLibrary 
 var was_initialised = false
 var grid = []
 
-onready var tile_map = $"DynamicGrid"
+ #width/height of grid in godot units
+
+onready var tile_map : GridTileMap = $DynamicGrid as GridTileMap
+
+func _ready():
+	init_block_lib()
+	init_grid()
+	validate_dependencies()
+
+func init_grid():
+	if was_initialised:
+		return
+	print("Grid - Found Block Library.")
+	print("Grid - Creating Grid...")
+	_init_grid_internal()
+	print("Grid - Created Grid Successful.")
+	
+func init_block_lib():
+	if block_lib == null:
+		block_lib = get_node("/root/BlockLibrary")
+	assert(block_lib!=null)
+	
+func validate_dependencies():
+	assert(tile_map != null)
+	assert(block_lib != null)
 
 
+
+#---------------------------------------------------
+#Public Functions
 
 func create_new_cell(x, y) -> Cell:
 	var grid_transform = Transform2D(transform)
@@ -17,25 +46,34 @@ func create_new_cell(x, y) -> Cell:
 	var new_cell = Cell.new(tile_map, grid_transform, x, y)
 	new_cell.connect("tile_state_changed", tile_map, "on_TileMap_tile_state_changed")
 	return new_cell
-	
 
-func _init_grid():
+func build_block_gridspace(tile_name : String,  gridspace_location : Vector2 ):
+	print("Grid - Building Block (", tile_name, "), Location= (", gridspace_location, ")...")
+	var cell = grid[(gridspace_location.x as int)][(gridspace_location.y as int)] as Cell
+	cell.tile_name = tile_name
+
+#---------------------------------------------------
+#Private Functions
+
+func _init_grid_internal():
 	grid = []
-	var space = 1024
-	var width =  space / CellSize.x
-	var height = space / CellSize.y
-	for x in width:
+	var size = Vector2(map_size / CellSize.x, map_size / CellSize.y)
+	
+	validate_dependencies()
+	
+	for x in size.x:
 		grid.append([])
-		for y in height:
-			grid[x].append(create_new_cell(x,y))
+		for y in size.y:
+			var new_cell = create_new_cell(x,y)
+			grid[x].append(new_cell)
+
 	was_initialised = true
-			
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	_init_grid()
-	#var tileset = tile_map.tile_set
-	#for name in Tiles:
-	#	Tiles[name]=tileset.find_tile_by_name(name)
-	#	assert(Tiles[name] != -1)
-#		print("Name: ", name, ", ID: ", Tiles[name])
-#		continue
+
+
+#---------------------------------------------------
+#Property Methods
+
+func tile_map_set(new_tile_map):
+	pass
+func tile_map_get() -> GridTileMap:
+	return tile_map

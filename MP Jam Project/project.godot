@@ -23,17 +23,27 @@ _global_script_classes=[ {
 "class": "GridTileMap",
 "language": "GDScript",
 "path": "res://source/blocks/tilemaps/GridTileMap.gd"
+}, {
+"base": "Node2D",
+"class": "TileMapCellInfo",
+"language": "GDScript",
+"path": "res://source/blocks/TileMapCellInfo.gd"
 } ]
 _global_script_class_icons={
 "Cell": "",
 "Grid": "",
-"GridTileMap": ""
+"GridTileMap": "",
+"TileMapCellInfo": ""
 }
 
 [application]
 
 config/name="Mp Jam Project"
 config/icon="res://icon.png"
+
+[autoload]
+
+BlockLibrary="*res://source/blocks/BlockLibrary.gd"
 
 [input]
 
