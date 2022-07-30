@@ -3,9 +3,8 @@
 [ext_resource path="res://source/players/player_movement.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/char_template.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 32.0
-height = 92.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24.75, 56 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -14,4 +13,8 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.5, 1 )
 shape = SubResource( 1 )
+
+[node name="JumpDetection" type="Timer" parent="."]
+one_shot = true
