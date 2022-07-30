@@ -24,12 +24,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/players/CharacterBase.gd"
 }, {
+"base": "RigidBody2D",
+"class": "DynamicBlock",
+"language": "GDScript",
+"path": "res://source/blocks/DynamicBlocks/DynamicBlock.gd"
+}, {
 "base": "Node2D",
 "class": "Grid",
 "language": "GDScript",
 "path": "res://source/blocks/Grid.gd"
 }, {
-"base": "Reference",
+"base": "TileMap",
 "class": "GridTileMap",
 "language": "GDScript",
 "path": "res://source/blocks/GridTileMap.gd"
@@ -38,20 +43,31 @@ _global_script_classes=[ {
 "class": "TileMapCellInfo",
 "language": "GDScript",
 "path": "res://source/blocks/TileMapCellInfo.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "player_movement",
+"language": "GDScript",
+"path": "res://source/players/player_movement.gd"
 } ]
 _global_script_class_icons={
 "BlockLbrary": "",
 "Cell": "",
 "CharacterBase": "",
+"DynamicBlock": "",
 "Grid": "",
 "GridTileMap": "",
-"TileMapCellInfo": ""
+"TileMapCellInfo": "",
+"player_movement": ""
 }
 
 [application]
 
 config/name="Mp Jam Project"
 config/icon="res://icon.png"
+
+[autoload]
+
+Blocks="*res://source/blocks/Blocks.gd"
 
 [input]
 
