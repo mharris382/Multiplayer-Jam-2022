@@ -69,6 +69,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Mp Jam Project"
+run/main_scene="res://source/levels/testing_level/world.tscn"
 config/icon="res://icon.png"
 
 [autoload]
