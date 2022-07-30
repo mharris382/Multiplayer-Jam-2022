@@ -10,7 +10,7 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
-"class": "BlockLbrary",
+"class": "BlockLibrary",
 "language": "GDScript",
 "path": "res://source/blocks/BlockLibrary.gd"
 }, {
@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/Cell.gd"
 }, {
-"base": "player_movement",
+"base": "PlayerMovement",
 "class": "CharacterBase",
 "language": "GDScript",
 "path": "res://source/players/CharacterBase.gd"
@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/GridTileMap.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "PlayerMovement",
+"language": "GDScript",
+"path": "res://source/players/PlayerMovement.gd"
+}, {
 "base": "Node2D",
 "class": "TileMapCellInfo",
 "language": "GDScript",
@@ -50,14 +55,14 @@ _global_script_classes=[ {
 "path": "res://source/players/player_movement.gd"
 } ]
 _global_script_class_icons={
-"BlockLbrary": "",
+"BlockLibrary": "",
 "Cell": "",
 "CharacterBase": "",
 "DynamicBlock": "",
 "Grid": "",
 "GridTileMap": "",
-"TileMapCellInfo": "",
-"player_movement": ""
+"PlayerMovement": "",
+"TileMapCellInfo": ""
 }
 
 [application]

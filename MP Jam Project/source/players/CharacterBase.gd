@@ -1,5 +1,5 @@
 class_name CharacterBase
-extends player_movement
+extends PlayerMovement
 
 
 enum AimDirection { FRONT, BELOW, ABOVE }
