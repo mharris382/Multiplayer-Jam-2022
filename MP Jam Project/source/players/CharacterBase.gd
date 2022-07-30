@@ -1,3 +1,4 @@
+class_name CharacterBase
 extends player_movement
 
 
@@ -16,7 +17,6 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
 func get_aim_position(aim_direction):
 	match(aim_direction):
 		AimDirection.FRONT:
@@ -26,3 +26,7 @@ func get_aim_position(aim_direction):
 		AimDirection.ABOVE:
 			return above_aim_point.position
 
+#since the validity is dependent on the kind of action being performed this 
+#function must be implemented in the child classes
+func is_direction_valid(aim_direction) -> bool:
+	return false

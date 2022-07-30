@@ -5,7 +5,7 @@ extends TileMap
 var TileMapCellInfo = load("res://source/blocks/TileMapCellInfo.gd")
 
 func _ready():
-	assert(tile_set != null)
+	#assert(tile_set != null)
 	print("GridTileMap - Ready.")
 
 func get_cell_blockname_from_cell(location: Vector2):

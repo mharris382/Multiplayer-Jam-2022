@@ -21,11 +21,11 @@ one_shot = true
 
 [node name="ControlPoints" type="Node2D" parent="."]
 
-[node name="Front" type="Node2D" parent="ControlPoints"]
+[node name="Front" type="Position2D" parent="ControlPoints"]
 position = Vector2( 82, 0 )
 
-[node name="Below" type="Node2D" parent="ControlPoints"]
-position = Vector2( 0, 141 )
+[node name="Below" type="Position2D" parent="ControlPoints"]
+position = Vector2( 0, 110 )
 
-[node name="Above" type="Node2D" parent="ControlPoints"]
-position = Vector2( 0, -135 )
+[node name="Above" type="Position2D" parent="ControlPoints"]
+position = Vector2( 0, -116 )

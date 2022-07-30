@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/blocks/test_base.png" type="Texture" id=1]
 [ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/blocks/GridTileMap.gd" type="Script" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
@@ -36,7 +37,7 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 } ]
 0/z_index = 0
 
-[node name="world" type="Node2D"]
+[node name="world_TEST" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -46,3 +47,8 @@ tile_data = PoolIntArray( 65543, 0, 0, 65544, 0, 0, 65548, 0, 0, 65549, 0, 0, 65
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 334, 417 )
+
+[node name="GridTileMap" type="TileMap" parent="."]
+cell_size = Vector2( 128, 128 )
+format = 1
+script = ExtResource( 4 )
