@@ -1,5 +1,5 @@
 class_name CharacterBase
-extends player_movement
+extends "res://source/players/player_movement.gd"
 
 
 enum AimDirection { FRONT, BELOW, ABOVE }

@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/Cell.gd"
 }, {
-"base": "player_movement",
+"base": "KinematicBody2D",
 "class": "CharacterBase",
 "language": "GDScript",
 "path": "res://source/players/CharacterBase.gd"
@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/Grid.gd"
 }, {
-"base": "Reference",
+"base": "TileMap",
 "class": "GridTileMap",
 "language": "GDScript",
 "path": "res://source/blocks/GridTileMap.gd"
