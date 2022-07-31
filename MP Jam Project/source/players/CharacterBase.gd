@@ -30,3 +30,27 @@ func get_aim_position(aim_direction):
 #function must be implemented in the child classes
 func is_direction_valid(aim_direction) -> bool:
 	return false
+
+func on_player_move_input(move_input : float):
+	pass
+
+func on_player_pressed_jump():
+	pass
+
+func on_player_released_jump():
+	pass
+
+func on_player_pressed_ability(aim_input: Vector2):
+	pass
+
+func on_player_holding_ability(aim_input: Vector2):
+	pass
+
+func on_player_released_ability(aim_input: Vector2):
+	pass
+	
+func on_player_pressed_interact():
+	pass
+	
+func on_player_released_interact():
+	pass
