@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/GridTileMap.gd"
 }, {
+"base": "Node",
+"class": "Player",
+"language": "GDScript",
+"path": "res://source/game/Player.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "PlayerMovement",
 "language": "GDScript",
@@ -62,6 +67,7 @@ _global_script_class_icons={
 "DynamicBlock": "",
 "Grid": "",
 "GridTileMap": "",
+"Player": "",
 "PlayerMovement": "",
 "TileMapCellInfo": ""
 }
@@ -75,6 +81,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Blocks="*res://source/blocks/Blocks.gd"
+Game="*res://source/game/Game.gd"
 
 [input]
 
