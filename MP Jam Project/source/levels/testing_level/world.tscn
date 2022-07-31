@@ -84,3 +84,5 @@ tile_data = PoolIntArray( 7, 2, 0, 65543, 1, 0, 65544, 1, 0, 65548, 1, 0, 65549,
 [node name="KinematicBody2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 334, 417 )
 script = ExtResource( 3 )
+
+[node name="MainOverlay" type="CanvasLayer" parent="."]
