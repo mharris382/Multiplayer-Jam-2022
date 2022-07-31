@@ -5,6 +5,7 @@ export var player_speed = 500 #200
 export var jump_force = -300 #-100
 export var gravity = 1200 #800
 export var player_id = "p1"
+export var push_force = 50
 
 var velocity = Vector2.ZERO
 var is_jumping = false
@@ -31,12 +32,18 @@ func player_input():
 		else:
 			jump_detection.stop()
 
+func apply_push_to_block():
+	for num in get_slide_count():
+		var collision = get_slide_collision(num)
+		if collision.collider.is_in_group("dynamic_block"):
+			collision.collider.apply_central_impulse(-collision.normal * push_force)
+	
 
 func _physics_process(delta):
 	player_input()
 	velocity.y += delta * gravity
 	velocity = move_and_slide(velocity, Vector2.UP, false, 4, PI/4, false)
-		
+	apply_push_to_block()
 
 #on contact with jumper block
 func block_jumper():
