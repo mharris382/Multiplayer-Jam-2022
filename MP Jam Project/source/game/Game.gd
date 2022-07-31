@@ -4,7 +4,7 @@ enum GameState {MAIN_MENU, CHARACTER_SELECT, LEVEL_SELECT, IN_GAME}
 
 const TRANSPORTER = 1
 const BUILDER = 2
-
+const DEVELEMENT_MODE_ON = true
 
 var players = []
 
@@ -32,7 +32,9 @@ func _ready():
 	for p in players:
 		add_child_below_node(parent_players, p)
 
-	print("ready")
+	if DEVELEMENT_MODE_ON:
+		players[0].assignment = TRANSPORTER
+		players[1].assignment = BUILDER
 
 func _process(delta):
 	var p1 = players[0]
@@ -62,7 +64,6 @@ func _process(delta):
 
 
 func _process_game(delta):
-	
 	for player in players:
 		if player.avatar == null:
 			create_avatar_for_player(player)
