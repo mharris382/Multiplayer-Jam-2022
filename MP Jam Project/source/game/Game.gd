@@ -71,9 +71,9 @@ func _process_game(delta):
 func create_avatar_for_player(player : Player):
 	assert(player.assignment != 0)
 	if player.assignment == TRANSPORTER:
-		return transporter_scene.instance()
+		player.avatar = transporter_scene.instance()
 	else:
-		return builder_scene.instance()
+		player.avatar = builder_scene.instance()
 
 func create_parent(name):
 	var parent =  Node.new()
