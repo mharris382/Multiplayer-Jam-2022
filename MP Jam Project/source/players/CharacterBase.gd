@@ -40,10 +40,10 @@ func on_player_pressed_jump():
 func on_player_released_jump():
 	pass
 
-func on_player_pressed_ability(aim_input: Vector2):
+func on_player_just_pressed_ability(aim_input: Vector2):
 	pass
 
-func on_player_holding_ability(aim_input: Vector2):
+func on_player_pressed_ability(aim_input: Vector2):
 	pass
 
 func on_player_released_ability(aim_input: Vector2):
