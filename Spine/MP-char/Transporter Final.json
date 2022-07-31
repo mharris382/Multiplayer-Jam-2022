@@ -1,0 +1,52 @@
+{ "skeleton": { "images": "B:/Spine/MP-char/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "Paper", "bone": "root", "attachment": "Paper" },
+	{ "name": "R leg", "bone": "root", "attachment": "R leg" },
+	{ "name": "L leg", "bone": "root", "attachment": "L leg" },
+	{ "name": "R arm", "bone": "root", "attachment": "R arm" },
+	{ "name": "R Hand", "bone": "root", "attachment": "R Hand" },
+	{ "name": "Torso", "bone": "root", "attachment": "Torso" },
+	{ "name": "Book", "bone": "root", "attachment": "Book" },
+	{ "name": "L arm", "bone": "root", "attachment": "L arm" },
+	{ "name": "L hand", "bone": "root", "attachment": "L hand" },
+	{ "name": "Head", "bone": "root", "attachment": "Head" }
+],
+"skins": {
+	"default": {
+		"Paper": {
+			"Paper": { "x": 896, "y": -1282, "width": 1794, "height": 2566 }
+		},
+		"R leg": {
+			"R leg": { "x": 1216.5, "y": -1941, "width": 689, "height": 884 }
+		},
+		"L leg": {
+			"L leg": { "x": 777.5, "y": -1944.5, "width": 729, "height": 905 }
+		},
+		"R arm": {
+			"R arm": { "x": 1192, "y": -1408, "width": 420, "height": 508 }
+		},
+		"R Hand": {
+			"R Hand": { "x": 1380.5, "y": -1729, "width": 497, "height": 476 }
+		},
+		"Torso": {
+			"Torso": { "x": 854, "y": -1390, "width": 602, "height": 620 }
+		},
+		"Book": {
+			"Book": { "x": 669.5, "y": -1640, "width": 345, "height": 412 }
+		},
+		"L arm": {
+			"L arm": { "x": 449.5, "y": -1550, "width": 601, "height": 828 }
+		},
+		"L hand": {
+			"L hand": { "x": 382, "y": -1736, "width": 468, "height": 460 }
+		},
+		"Head": {
+			"Head": { "x": 831, "y": -708, "width": 1330, "height": 1154 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}
