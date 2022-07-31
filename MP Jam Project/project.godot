@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Block",
+"language": "GDScript",
+"path": "res://source/blocks/Blocks.gd"
+}, {
 "base": "Resource",
 "class": "BlockLibrary",
 "language": "GDScript",
@@ -44,11 +49,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/game/Player.gd"
 }, {
-"base": "Node",
-"class": "PlayerAvatar",
-"language": "GDScript",
-"path": "res://source/game/PlayerAvatar.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "PlayerMovement",
 "language": "GDScript",
@@ -60,6 +60,7 @@ _global_script_classes=[ {
 "path": "res://source/blocks/TileMapCellInfo.gd"
 } ]
 _global_script_class_icons={
+"Block": "",
 "BlockLibrary": "",
 "Cell": "",
 "CharacterBase": "",
@@ -67,7 +68,6 @@ _global_script_class_icons={
 "Grid": "",
 "GridTileMap": "",
 "Player": "",
-"PlayerAvatar": "",
 "PlayerMovement": "",
 "TileMapCellInfo": ""
 }
@@ -224,6 +224,7 @@ switch_roles={
 2d_physics/layer_1="Characters"
 2d_physics/layer_2="Traps"
 2d_physics/layer_3="Blocks"
+2d_physics/layer_4="StaticBlocks"
 
 [physics]
 

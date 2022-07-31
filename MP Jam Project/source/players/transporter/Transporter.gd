@@ -1,15 +1,6 @@
 extends CharacterBase
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
 		AimDirection.BELOW:
@@ -19,3 +10,19 @@ func is_direction_valid(aim_direction) -> bool:
 		AimDirection.FRONT:
 			return !is_on_floor()
 	return true
+	
+func front_point_position():
+	return $ControlPoints/Front.position
+
+func pick_up_a_block():
+	if Input.is_action_just_pressed("ability_%s" % player_id):
+		var block = move_and_collide(front_point_position(), false, true, true)
+		if block != null:
+			print(block.collider)
+			if block.collider.is_in_group("dynamic_block"):
+				print("We have it")
+			else:
+				print("We don't have it")
+			
+func _input(event):
+	pick_up_a_block()

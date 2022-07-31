@@ -43,7 +43,7 @@ func _process(delta):
 	
 	if p1.is_assigned() and p2.is_assigned():
 		_process_game(delta)
-		print("process game")
+		#print("process game")
 	elif !p1.is_assigned() and !p2.is_assigned():
 		p1._process(delta)
 		p2._process(delta)

@@ -35,8 +35,8 @@ func player_input():
 func _physics_process(delta):
 	player_input()
 	velocity.y += delta * gravity
-	velocity = move_and_slide(velocity, Vector2.UP)
-
+	velocity = move_and_slide(velocity, Vector2.UP, false, 4, PI/4, false)
+		
 
 #on contact with jumper block
 func block_jumper():
