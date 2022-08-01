@@ -1,17 +1,15 @@
 class_name BlockData
 extends Resource
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export var block_name : String
+export var dynamic_block : PackedScene
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func spawn_dynamic_block(transform : Transform2D) -> DynamicBlock:
+	var block = dynamic_block.instance() as DynamicBlock
+	assert(block != null)
+	block.position = transform.get_origin()
+	block.rotation = transform.get_rotation()
+	block.scale = transform.get_scale()
+	return block
