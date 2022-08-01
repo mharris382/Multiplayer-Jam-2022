@@ -2,7 +2,7 @@
 
 [ext_resource path="res://source/blocks/DynamicBlocks/DynamicBlockBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/AimLine.gd" type="Script" id=3]
+[ext_resource path="res://source/ui/AimLine.gd" type="Script" id=3]
 [ext_resource path="res://source/levels/testing_level/TileMapController.gd" type="Script" id=4]
 [ext_resource path="res://source/blocks/base/base_128.png" type="Texture" id=5]
 [ext_resource path="res://source/blocks/jumper/jumper_128.png" type="Texture" id=6]
