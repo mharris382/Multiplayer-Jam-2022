@@ -1,0 +1,1 @@
+since obsidian doesn't support syntax highlighting for gdscript I will use python syntax highlighting since, so *be aware when it says python that is actually gdscript code **not** python code*
