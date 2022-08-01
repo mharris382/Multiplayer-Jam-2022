@@ -43,3 +43,10 @@ func add_drawing_points(delta: float):
 func _draw():
 	for result in array:
 		draw_circle(result, 2, Color(255,255,255))
+
+func notify_dropped():
+	print("dropped block")
+	pass
+func notify_thrown(throw_force):
+	print ("threw block")
+	pass

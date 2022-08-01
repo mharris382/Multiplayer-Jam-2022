@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/Blocks.gd"
 }, {
+"base": "Node",
+"class": "BlockLauncher",
+"language": "GDScript",
+"path": "res://source/blocks/DynamicBlocks/BlockLauncher.gd"
+}, {
 "base": "Resource",
 "class": "BlockLibrary",
 "language": "GDScript",
@@ -61,6 +66,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Block": "",
+"BlockLauncher": "",
 "BlockLibrary": "",
 "Cell": "",
 "CharacterBase": "",
