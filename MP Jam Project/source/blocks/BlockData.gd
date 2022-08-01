@@ -1,9 +1,10 @@
 class_name BlockData
 extends Resource
 
-signal builder_equipped_block(builder, block_id)
+#Character Id: 1=Transporter, 2=Builder
+signal character_collected_block(character_id, block_id, dynamic_block)
+
 signal builder_built_block(builder, block_id, grid_position)
-signal builder_collected_block(builder, block_id, dynamic_block)
 
 signal transporter_picked_up_block(transporter, dynamic_block)
 signal transporter_dropped_block(transporter, idk_what_here)
