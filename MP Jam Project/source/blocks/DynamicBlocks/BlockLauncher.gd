@@ -11,6 +11,3 @@ var facing_right : bool = true
 func get_launch_force():
 	return launch_direction.transform.xform(Vector2.RIGHT) * launch_force
 
-
-	
-

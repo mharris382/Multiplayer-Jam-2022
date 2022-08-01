@@ -73,7 +73,7 @@ _global_script_class_icons={
 "Block": "",
 "BlockData": "",
 "BlockLauncher": "",
-"BlockLibrary": "",
+"BlockLibrary": "res://assets/ui/editor/icon-block.png",
 "Cell": "",
 "CharacterBase": "",
 "DynamicBlock": "",

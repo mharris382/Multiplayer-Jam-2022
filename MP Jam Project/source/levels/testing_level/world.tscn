@@ -1,8 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://source/blocks/DynamicBlocks/DynamicBlockBase.tscn" type="PackedScene" id=1]
-[ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://source/ui/AimLine.gd" type="Script" id=3]
 [ext_resource path="res://source/levels/testing_level/TileMapController.gd" type="Script" id=4]
 [ext_resource path="res://source/blocks/base/base_128.png" type="Texture" id=5]
 [ext_resource path="res://source/blocks/jumper/jumper_128.png" type="Texture" id=6]
@@ -71,9 +69,6 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 } ]
 2/z_index = 0
 
-[sub_resource type="Curve" id=5]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0181818 ), 0.0, 0.0, 0, 0 ]
-
 [node name="world" type="Node2D"]
 
 [node name="StaticMap" type="Node2D" parent="."]
@@ -84,14 +79,6 @@ tile_set = SubResource( 1 )
 cell_size = Vector2( 128, 128 )
 format = 1
 tile_data = PoolIntArray( 7, 2, 0, 65543, 1, 0, 65544, 1, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 131077, 1, 0, 131081, 1, 0, 196612, 2, 0, 196613, 1, 0, 196614, 1, 0, 196618, 1, 0, 196619, 2, 0, 262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0, 262149, 1, 0, 262150, 1, 0, 262151, 1, 0, 262152, 1, 0, 262153, 1, 0, 262154, 1, 0, 262155, 1, 0, 262156, 1, 0, 262157, 1, 0, 262158, 1, 0, 262159, 1, 0 )
-
-[node name="KinematicBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( 338, 298 )
-
-[node name="Line2D" type="Line2D" parent="KinematicBody2D"]
-points = PoolVector2Array( 7, 6, 145, 10 )
-width_curve = SubResource( 5 )
-script = ExtResource( 3 )
 
 [node name="MainOverlay" type="CanvasLayer" parent="."]
 
