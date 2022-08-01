@@ -88,3 +88,4 @@ position = Vector2( 338, 298 )
 
 [node name="DynamicBlock" parent="." instance=ExtResource( 1 )]
 position = Vector2( 145, 449 )
+mass = 1.0
