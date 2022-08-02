@@ -1,8 +1,8 @@
 extends Node2D
 #NOTE: if you have merge conflicts take yours but make sure to comment out line 45 to avoid errors
 
-export var block_base_id = 5 #use id for now, i'm not certain name works yet, but i know id will
-export var block_jump_id = 6 #we don't have a block data for jump yet
+export var block_base_id = 4 #use id for now, i'm not certain name works yet, but i know id will
+export var block_jump_id = 5 #we don't have a block data for jump yet
 
 var block_base = preload("res://source/blocks/BlockFunctions/base/BlockNormalPlatform.tscn")
 var block_jumper = preload("res://source/blocks/BlockFunctions/jumper/BlockJumper.tscn")

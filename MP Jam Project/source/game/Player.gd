@@ -14,12 +14,13 @@ signal input_ability_pressed(aim)
 signal input_ability_just_released(aim)
 
 enum AssignedCharacter { NONE, TRANSPORTER, BUILDER }
+const debug = false
+
 
 var player_number : int = 0
 var assignment = 0 setget assignment_set, assignment_get
 var has_had_input : bool
 var partner : int #partner role, 0=none, 1=tran, 2=build
-
 func _init(player_num):
 	player_number = player_num
 	assignment = AssignedCharacter.NONE
@@ -35,12 +36,12 @@ func _ready():
 func _process(delta):
 	var aim  = Input.get_vector("aim_right_p%d" % player_number, "aim_left_p%d" % player_number, "aim_up_p%d" % player_number, "aim_down_p%d" % player_number)	
 	var move = Input.get_axis("move_left_p%d" % player_number, "move_right_p%d" % player_number)
-	
+	emit_signal("input_move", move)
 	if Input.is_action_just_pressed("interact_p%d"%player_number):
 		emit_signal("input_interact_pressed")
 		
 	if Input.is_action_just_pressed("jump_p%d"%player_number):
-		emit_signal("input_ability_just_pressed")
+		emit_signal("input_jump_just_pressed")
 
 	if Input.is_action_just_released("jump_p%d"%player_number):
 		emit_signal("input_jump_just_released")

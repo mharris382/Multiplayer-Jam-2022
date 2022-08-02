@@ -27,11 +27,14 @@ func _process(delta):
 	if Players.players[0] != null:
 		found_player = true
 		Players.players[0].connect("input_move", self, "on_player_move_input")
+		
 		Players.players[0].connect("input_ability_just_pressed", self, "on_player_just_pressed_ability")
 		Players.players[0].connect("input_ability_pressed", self, "on_player_pressed_ability")
 		Players.players[0].connect("input_ability_just_released", self,"on_player_released_ability")
+		
 		Players.players[0].connect("input_jump_just_pressed", self,"on_player_pressed_jump")
 		Players.players[0].connect("input_jump_just_released", self,"on_player_released_jump")
+		
 		Players.players[0].connect("input_interact_just_pressed", self, "on_player_pressed_interact")
 		
 #since the validity is dependent on the kind of action being performed this 
@@ -40,22 +43,25 @@ func is_direction_valid(aim_direction) -> bool:
 	return false
 
 func on_player_move_input(move_input : float):
-	pass
+	self.move_input = Vector2(move_input, 0)
 
 func on_player_pressed_jump():
+	print("player pressed jump")
+	self.jump_pressed = true
+	self.jump_just_pressed = true
 	pass
 
 func on_player_released_jump():
+	self.jump_pressed = false
 	pass
 
-func on_player_just_pressed_ability(aim_input: Vector2):
+func on_player_just_pressed_ability():
 	pass
 
-func on_player_pressed_ability(aim_input: Vector2):
+func on_player_pressed_ability():
 	pass
 
-func on_player_released_ability(aim_input: Vector2):
-	print("on %s released ability. Aim = ", aim_input )
+func on_player_released_ability():
 	pass
 	
 func on_player_pressed_interact():

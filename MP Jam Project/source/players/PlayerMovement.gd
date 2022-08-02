@@ -12,10 +12,11 @@ var velocity = Vector2.ZERO
 var is_jumping = false
 var move_input : Vector2
 var jump_input : bool
+var jump_just_pressed : bool
+var jump_pressed : bool
 
 onready var jump_detection = $JumpDetection #this is also a timer? not sure what it is used for
 onready var jump_timer = $JumpTimer
-
 
 func _physics_process(delta):
 	player_input()
@@ -26,18 +27,26 @@ func _physics_process(delta):
 
 func player_input():
 	velocity.x = 0
-	if Input.is_action_pressed("move_left_%s" % player_id):
+	if move_input.x < -0.1:
 		velocity.x -= player_speed
-	if Input.is_action_pressed("move_right_%s" % player_id):
+	elif move_input.x > 0.1:
 		velocity.x += player_speed
-	if is_on_floor() and Input.is_action_just_pressed("jump_%s" % player_id):
+	#if Input.is_action_pressed("move_left_%s" % player_id):
+	#if Input.is_action_pressed("move_right_%s" % player_id):
+	if is_on_floor() and just_jumped():
 		velocity.y = jump_force
 		jump_detection.start(0.5)
 	if !jump_detection.is_stopped():
-		if Input.is_action_pressed("jump_%s" % player_id):
+		if jump_pressed:
 			velocity.y += jump_force/8
 		else:
 			jump_detection.stop()
+			
+func just_jumped():
+	if jump_just_pressed:
+		jump_just_pressed = false
+		return true
+	return false
 
 func apply_push_to_block():
 	for num in get_slide_count():
