@@ -38,7 +38,7 @@ func _process(delta):
 	var move = Input.get_axis("move_left_p%d" % player_number, "move_right_p%d" % player_number)
 	emit_signal("input_move", move)
 	if Input.is_action_just_pressed("interact_p%d"%player_number):
-		emit_signal("input_interact_pressed")
+		emit_signal("input_interact_just_pressed")
 		
 	if Input.is_action_just_pressed("jump_p%d"%player_number):
 		emit_signal("input_jump_just_pressed")
