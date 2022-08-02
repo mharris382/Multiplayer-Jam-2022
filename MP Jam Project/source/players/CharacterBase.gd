@@ -54,13 +54,13 @@ func on_player_released_jump():
 	self.jump_pressed = false
 	pass
 
-func on_player_just_pressed_ability():
+func on_player_just_pressed_ability(aim):
 	pass
 
-func on_player_pressed_ability():
+func on_player_pressed_ability(aim):
 	pass
 
-func on_player_released_ability():
+func on_player_released_ability(aim):
 	pass
 	
 func on_player_pressed_interact():

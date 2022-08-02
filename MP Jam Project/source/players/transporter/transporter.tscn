@@ -8,6 +8,7 @@
 
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 1
+[ext_resource path="res://source/players/transporter/Aim.gd" type="Script" id=5]
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -42,4 +43,7 @@ position = Vector2( 0, 107 )
 position = Vector2( 0, -115 )
 
 [node name="Aim" type="Position2D" parent="ControlPoints" index="3"]
-position = Vector2( 81, -74 )
+position = Vector2( 70, -73 )
+script = ExtResource( 5 )
+minimum_range = Vector2( -80, -80 )
+maximum_range = Vector2( 80, 80 )
