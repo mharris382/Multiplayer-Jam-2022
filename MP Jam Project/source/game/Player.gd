@@ -19,7 +19,6 @@ var player_number : int = 0
 var assignment = 0 setget assignment_set, assignment_get
 var has_had_input : bool
 var partner : int #partner role, 0=none, 1=tran, 2=build
-var avatar 
 
 func _init(player_num):
 	player_number = player_num
@@ -68,22 +67,6 @@ func has_input():
 	
 #property functions
 
-func avatar_set(new_character):
-	avatar = new_character
-	if avatar != null: #connect all inputs to the avatar's input callbacks
-		print("connecting avatar callbacks")
-		var character = avatar
-		assert(character != null)
-		connect("input_move", character, "on_player_move_input")
-		connect("input_ability_just_pressed", character, "on_player_just_pressed_ability")
-		connect("input_ability_pressed", character, "on_player_pressed_ability")
-		connect("input_ability_just_released", character,"on_player_released_ability")
-		connect("input_jump_just_pressed", character,"on_player_pressed_jump")
-		connect("input_jump_just_released", character,"on_player_released_jump")
-		connect("input_interact_just_pressed", character, "on_player_pressed_interact")
-
-func avatar_get():
-	return avatar
 
 func assignment_set(new_assignment):
 	if assignment != new_assignment:

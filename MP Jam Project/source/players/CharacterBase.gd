@@ -18,16 +18,22 @@ func _notification(what):
 		if player == null:
 			return
 
-
-func get_aim_position(aim_direction):
-	match(aim_direction):
-		AimDirection.FRONT:
-			return front_aim_point.position
-		AimDirection.BELOW:
-			return below_aim_point.position
-		AimDirection.ABOVE:
-			return above_aim_point.position
-
+var found_player = false
+func _ready(): 
+	._ready()
+func _process(delta):
+	if found_player:
+		return
+	if Players.players[0] != null:
+		found_player = true
+		Players.players[0].connect("input_move", self, "on_player_move_input")
+		Players.players[0].connect("input_ability_just_pressed", self, "on_player_just_pressed_ability")
+		Players.players[0].connect("input_ability_pressed", self, "on_player_pressed_ability")
+		Players.players[0].connect("input_ability_just_released", self,"on_player_released_ability")
+		Players.players[0].connect("input_jump_just_pressed", self,"on_player_pressed_jump")
+		Players.players[0].connect("input_jump_just_released", self,"on_player_released_jump")
+		Players.players[0].connect("input_interact_just_pressed", self, "on_player_pressed_interact")
+		
 #since the validity is dependent on the kind of action being performed this 
 #function must be implemented in the child classes
 func is_direction_valid(aim_direction) -> bool:
@@ -49,10 +55,24 @@ func on_player_pressed_ability(aim_input: Vector2):
 	pass
 
 func on_player_released_ability(aim_input: Vector2):
+	print("on %s released ability. Aim = ", aim_input )
 	pass
 	
 func on_player_pressed_interact():
+	print("on %s pressed interact")
 	pass
 	
 func on_player_released_interact():
+	print("on %s released interact")
 	pass
+
+
+
+func get_aim_position(aim_direction):
+	match(aim_direction):
+		AimDirection.FRONT:
+			return front_aim_point.position
+		AimDirection.BELOW:
+			return below_aim_point.position
+		AimDirection.ABOVE:
+			return above_aim_point.position

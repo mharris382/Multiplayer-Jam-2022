@@ -63,7 +63,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Blocks="*res://source/autoload/Blocks.gd"
-Game="*res://source/autoload/Players.gd"
+Players="*res://source/autoload/Players.gd"
 
 [input]
 

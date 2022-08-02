@@ -18,12 +18,6 @@ var parent_level_select : Node
 var parent_levels : Node
 var parent_ui : Node
 
-onready var transporter_scene = preload("res://source/players/transporter/transporter.tscn")
-onready var builder_scene = preload("res://source/players/builder/builder.tscn")
-
-var transporter : CharacterBase
-var builder : CharacterBase
-
 func _ready():
 	print("game ready")
 	players.append(Player.new(1))
@@ -40,6 +34,7 @@ func _ready():
 	else:
 		game_state = GameState.MAIN_MENU
 		#TODO: load into main menu
+	print("loaded Players.gd")
 
 func _process(delta):
 	var p1 = players[0]
@@ -70,41 +65,16 @@ func _process(delta):
 				game_state = GameState.CHARACTER_SELECT
 			else:
 				for player in players:
-					if player.avatar == null:
-						create_avatar_for_player(player)
 					player._process(delta)
-
-func get_avatar(character_id):
-	
-	match character_id:
-		TRANSPORTER:
-			pass
-		BUILDER:
-			pass
-
-func create_avatar_for_player(player : Player):
-	assert(player.assignment != 0)
-	if player.assignment == TRANSPORTER:
-		player.avatar = transporter_scene.instance()
-	else:
-		player.avatar = builder_scene.instance()
 
 func create_parent(name):
 	var parent =  Node.new()
 	parent.name = name
 	add_child(parent)
-	
+
 func switch_player_roles():
-	destroy_avatars()
 	for player in players:
 		player.switch_role()
-		create_avatar_for_player(player)
-
-func destroy_avatars():
-	if transporter != null:
-		transporter.queue_free()
-	if builder != null:
-		builder.queue_free()
 
 func game_state_get():
 	return game_state
