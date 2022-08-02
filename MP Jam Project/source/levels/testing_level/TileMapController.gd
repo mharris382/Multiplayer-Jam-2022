@@ -1,12 +1,13 @@
 extends Node2D
-
-
+#NOTE: if you have merge conflicts take yours but make sure to comment out line 45 to avoid errors
 
 var block_base = preload("res://source/blocks/base/BlockNormalPlatform.tscn")
 var block_jumper = preload("res://source/blocks/jumper/BlockJumper.tscn")
 var block_ghost = preload("res://source/blocks/ghost/BlockGhost.tscn")
 var FlyingText = preload("res://source/ui/flying_text/FlyingText.tscn")#? move this to UI system
+
 onready var tile_map :TileMap = $"Tilemap"
+
 var last_hovered_tile = Vector2(0,0)
 var preview_block= null
 var ref_array = []
@@ -40,30 +41,24 @@ func _input(event):
 				var grid_position = mouse_to_grid_pos()
 				var block_id =1
 				tile_map.set_cell(grid_position.x, grid_position.y, block_id)
-				
-				#instance an virtual object
+				#instance an block object
 				var block_ins = block_base.instance()
 				#block_ins.Destroyable=true
 				block_ins.global_position=tile_map.map_to_world(Vector2(grid_position.x, grid_position.y))
 				self.add_child(block_ins)
 			#* Destroy
 			elif event.button_index == BUTTON_RIGHT and event.pressed:
-				var target = get_object_under_cursor()				
+				var target = get_object_under_cursor()
 				if(target!=null): 
-					if(target is Block):
 						if(target.Destroyable):#? block hardeness	
 							var grid_position = mouse_to_grid_pos()		
 							tile_map.set_cell(grid_position.x, grid_position.y, -1)			
 							target.queue_free()
 						else:#? move this to UI system
-							
 							var text_ins = FlyingText.instance()
 							text_ins.rect_global_position=get_global_mouse_position()
 							self.add_child(text_ins)
-						
-							
-							
-							
+
 		"InputEventMouseMotion":
 			var grid_position = mouse_to_grid_pos()
 			if(grid_position!=last_hovered_tile):
@@ -80,11 +75,9 @@ func _input(event):
 
 				preview_block.global_position=tile_map.map_to_world(Vector2(grid_position.x, grid_position.y))
 				self.add_child(preview_block)
-			
 
 
 #*mouse to grid pos
-
 func mouse_to_grid_pos() ->Vector2:
 	var x = get_local_mouse_position().x / tile_map.cell_size.x
 	var y = get_local_mouse_position().y / tile_map.cell_size.y
