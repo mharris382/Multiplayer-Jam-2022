@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://source/blocks/DynamicBlocks/DynamicBlock.gd" type="Script" id=1]
+[ext_resource path="" type="PackedScene" id=2]
+[ext_resource path="res://assets/blocks/TestBlocks/test sprites/test_tiles_128x128.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 58.5, 58.5 )
+
+[sub_resource type="PackedScene" id=2]
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray( "DynBlock_Base_128px", "RigidBody2D", "script", "Sprite", "Sprite", "texture", "region_enabled", "region_rect", "CollisionShape2D", "CollisionShape2D", "shape" ),
+"node_count": 3,
+"node_paths": [ NodePath("."), NodePath(".") ],
+"nodes": PoolIntArray( -1, -1, 1, 0, -1, 1, 2, 0, 0, 1073741824, 0, 4, 3, -1, 3, 5, 1, 6, 2, 7, 3, 0, 1073741825, 0, 9, 8, -1, 1, 10, 4, 0 ),
+"variants": [ ExtResource( 1 ), ExtResource( 3 ), true, Rect2( 132, 128, 128, 128 ), SubResource( 1 ) ],
+"version": 2
+}
+
+[node name="DynBlock_Base_128px" instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="." index="0"]
+region_rect = Rect2( 257, 385, 128, 128 )

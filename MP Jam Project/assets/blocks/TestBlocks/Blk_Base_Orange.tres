@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://source/blocks/BlockData.gd" type="Script" id=1]
-[ext_resource path="res://assets/blocks/TestBlocks/DynamicBlockScenes/DynBlock_Base_Grey_128px.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/blocks/TestBlocks/DynamicBlockScenes/DynBlk_Base_Orange_128px.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-block_name = "base_block_grey"
+block_name = "base_block_orange"
 dynamic_block = ExtResource( 2 )

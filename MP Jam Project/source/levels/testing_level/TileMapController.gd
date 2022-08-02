@@ -14,7 +14,6 @@ var ref_array = []
 
 #*Initial the Virtual Block packed OBJ grid
 func _ready():	
-	
 	var used_tiles = tile_map.get_used_cells()
 	for used_tile in used_tiles:
 		var id = tile_map.get_cell(used_tile.x, used_tile.y)
@@ -32,26 +31,19 @@ func _ready():
 	#turn off the tilemap texture which only use for level designing
 	tile_map.modulate = Color(1,1,1,0)
 
-
-
-
-
-
 #*On mouse input (placing blocks)
 func _input(event):
 	match event.get_class():
 		"InputEventMouseButton":
 			#*place
 			if event.button_index == BUTTON_LEFT and event.pressed:
-
 				var grid_position = mouse_to_grid_pos()
-
 				var block_id =1
 				tile_map.set_cell(grid_position.x, grid_position.y, block_id)
 				
 				#instance an virtual object
 				var block_ins = block_base.instance()
-				block_ins.Destroyable=true
+				#block_ins.Destroyable=true
 				block_ins.global_position=tile_map.map_to_world(Vector2(grid_position.x, grid_position.y))
 				self.add_child(block_ins)
 			#* Destroy

@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
-"class": "Block",
-"language": "GDScript",
-"path": "res://source/blocks/Blocks.gd"
-}, {
 "base": "Resource",
 "class": "BlockData",
 "language": "GDScript",
@@ -70,7 +65,6 @@ _global_script_classes=[ {
 "path": "res://source/blocks/TileMapCellInfo.gd"
 } ]
 _global_script_class_icons={
-"Block": "",
 "BlockData": "",
 "BlockLauncher": "",
 "BlockLibrary": "res://assets/ui/editor/icon-block.png",

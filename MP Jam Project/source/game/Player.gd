@@ -3,15 +3,15 @@ extends Node
 
 signal assignment_changed
 
-signal input_move
+signal input_move(move)
 signal input_interact_just_pressed
 
 signal input_jump_just_pressed
 signal input_jump_just_released
 
-signal input_ability_just_pressed
-signal input_ability_pressed
-signal input_ability_just_released
+signal input_ability_just_pressed(aim)
+signal input_ability_pressed(aim)
+signal input_ability_just_released(aim)
 
 enum AssignedCharacter { NONE, TRANSPORTER, BUILDER }
 
@@ -38,22 +38,30 @@ func _process(delta):
 	var move = Input.get_axis("move_left_p%d" % player_number, "move_right_p%d" % player_number)
 	
 	if Input.is_action_just_pressed("interact_p%d"%player_number):
+		print("P%d pressed interact"% player_number)
 		emit_signal("input_interact_pressed")
 		
 	if Input.is_action_just_pressed("jump_p%d"%player_number):
+		print("P%d pressed jump"% player_number)
 		emit_signal("input_ability_just_pressed")
 
 	if Input.is_action_just_released("jump_p%d"%player_number):
+		print("P%d released jump"% player_number)
 		emit_signal("input_jump_just_released")
 		
 	if Input.is_action_just_pressed("ability_p%d"%player_number):
+		print("P%d pressed ability"% player_number)
 		emit_signal("input_ability_just_pressed", aim)
 		
 	elif Input.is_action_pressed("ability_p%d"%player_number):
+		print("P%d pressing ability"% player_number)
 		emit_signal("input_ability_pressed", aim)
 
 	if Input.is_action_just_released("ability_p%d"%player_number):
+		print("P%d released ability"% player_number)
 		emit_signal("input_ability_just_released", aim)
+
+#public functions
 
 func reset_input():
 	has_had_input = false
@@ -63,18 +71,22 @@ func is_assigned():
 
 func has_input():
 	return has_had_input
+	
+#property functions
 
 func avatar_set(new_character):
 	avatar = new_character
 	if avatar != null: #connect all inputs to the avatar's input callbacks
 		print("connecting avatar callbacks")
-		connect("input_move", avatar, "on_player_move_input")
-		connect("input_ability_just_pressed", avatar, "on_player_just_pressed_ability")
-		connect("input_ability_pressed", avatar, "on_player_pressed_ability")
-		connect("input_ability_just_released", avatar,"on_player_released_ability")
-		connect("input_jump_just_pressed", avatar,"on_player_pressed_jump")
-		connect("input_jump_just_released", avatar,"on_player_released_jump")
-		connect("input_interact_just_pressed", avatar, "on_player_pressed_interact")
+		var character = avatar as CharacterBase
+		assert(character != null)
+		connect("input_move", character, "on_player_move_input")
+		connect("input_ability_just_pressed", character, "on_player_just_pressed_ability")
+		connect("input_ability_pressed", character, "on_player_pressed_ability")
+		connect("input_ability_just_released", character,"on_player_released_ability")
+		connect("input_jump_just_pressed", character,"on_player_pressed_jump")
+		connect("input_jump_just_released", character,"on_player_released_jump")
+		connect("input_interact_just_pressed", character, "on_player_pressed_interact")
 
 func avatar_get():
 	return avatar
@@ -93,6 +105,8 @@ func assignment_set(new_assignment):
 func assignment_get() :
 	print("getter called, ", assignment)
 	return assignment
+
+#helper functions
 
 func switch_role():
 	if assignment == AssignedCharacter.NONE:
