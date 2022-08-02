@@ -7,8 +7,6 @@ var can_throw = false
 onready var throw_origin : Node2D #these can be the same transform
 onready var aim_transform : Position2D = $ControlPoints/Aim
 
-
-
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
 		AimDirection.BELOW:
@@ -43,7 +41,7 @@ func throw_a_block():
 		var new_block = test_block.instance()
 		get_parent().add_child(new_block)
 		new_block.set("should_teleport", true)
-		new_block.set("node_ref", front_aim_point)
+		new_block.set("node_pos", to_global(front_aim_point.position))
 		front_aim_point.get_child(0).queue_free()
 		can_throw = false
 	#get block PackedScene

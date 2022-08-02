@@ -2,13 +2,12 @@ class_name DynamicBlock
 extends RigidBody2D
 
 var should_teleport: bool = false
-var node_ref = null
+var node_pos = Vector2(0,0)
 
 func _integrate_forces(state):
 	if should_teleport:
-		var current_pos = state.transform
-		current_pos = node_ref.transform
-		state.transform = current_pos
+		state.transform.origin.x = node_pos.x
+		state.transform.origin.y = node_pos.y
 		should_teleport = false
 
 func get_trajectory_point(step, start_pos, velocity: Vector2, gravity: Vector2, time = 1/60.0) -> Vector2:
