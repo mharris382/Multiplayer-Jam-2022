@@ -46,7 +46,6 @@ func on_player_move_input(move_input : float):
 	self.move_input = Vector2(move_input, 0)
 
 func on_player_pressed_jump():
-	print("player pressed jump")
 	self.jump_pressed = true
 	self.jump_just_pressed = true
 	pass
@@ -65,11 +64,9 @@ func on_player_released_ability():
 	pass
 	
 func on_player_pressed_interact():
-	print("on %s pressed interact")
 	pass
 	
 func on_player_released_interact():
-	print("on %s released interact")
 	pass
 
 

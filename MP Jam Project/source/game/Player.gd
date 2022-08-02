@@ -74,14 +74,14 @@ func assignment_set(new_assignment):
 		assignment = new_assignment
 		if assignment != AssignedCharacter.NONE:
 			if assignment == AssignedCharacter.TRANSPORTER:
+				print("Player%d assigned to transporter" % player_number)
 				partner = AssignedCharacter.BUILDER
 			else:
+				print("Player%d assigned to builder" % player_number)
 				partner = AssignedCharacter.TRANSPORTER
-		print("setter called, ", assignment)
 		emit_signal("assignment_changed", assignment)
 
 func assignment_get() :
-	print("getter called, ", assignment)
 	return assignment
 
 #helper functions
