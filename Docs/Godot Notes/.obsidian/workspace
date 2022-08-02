@@ -1,0 +1,144 @@
+{
+  "main": {
+    "id": "4217cbefe4d7ae53",
+    "type": "split",
+    "children": [
+      {
+        "id": "e6a7319dd2fa395c",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "GDScript/Basics/Flow Control/Match.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3b3a17083a1f0671",
+    "type": "split",
+    "children": [
+      {
+        "id": "8ecde478ec518da7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cceb9492bcd4124e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "934d846ca4b2d945",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "4a2143803d0fa19e",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 372.5
+  },
+  "right": {
+    "id": "0eb67192b2bfd2a3",
+    "type": "split",
+    "children": [
+      {
+        "id": "a5f63a86a8e754ae",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d1e13e4034e0ee43",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "GDScript/Basics/Flow Control/Match.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          },
+          {
+            "id": "e566b56bed49af16",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "GDScript/Basics/Flow Control/Match.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "972ea815db34bf2f",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "2e4e1cd73317c397",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "GDScript/Basics/Flow Control/Match.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "e6a7319dd2fa395c",
+  "lastOpenFiles": [
+    "GDScript/Classes/Inheritence.md",
+    "GDScript/Exports/Exports.md",
+    "GDScript/Exports/Advanced Exports.md",
+    "GDScript/Exports/Exporting Properties.md",
+    "GDScript/Basics/Signals.md",
+    "GDScript/Basics/Enums.md",
+    "GDScript/Basics/Keywords.md",
+    "GDScript/Basics/Constants.md",
+    "GDScript/Classes/Inner Classes.md",
+    "GDScript/Classes/Class Constructor.md"
+  ]
+}
