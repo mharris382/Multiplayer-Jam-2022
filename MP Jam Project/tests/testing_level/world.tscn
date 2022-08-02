@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://tests/testing_level/TileMapController.gd" type="Script" id=1]
 [ext_resource path="res://source/blocks/BlockFunctions/jumper/jumper_128.png" type="Texture" id=2]
@@ -70,6 +70,8 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 } ]
 2/z_index = 0
 
+[sub_resource type="PhysicsMaterial" id=5]
+
 [node name="world" type="Node2D"]
 
 [node name="StaticMap" type="Node2D" parent="."]
@@ -85,7 +87,7 @@ tile_data = PoolIntArray( 7, 2, 0, 65543, 1, 0, 65544, 1, 0, 65548, 1, 0, 65549,
 
 [node name="DynamicBlock" parent="." instance=ExtResource( 4 )]
 position = Vector2( 145, 449 )
-mass = 1.0
+physics_material_override = SubResource( 5 )
 can_sleep = false
 
 [node name="KinematicBody2D2" parent="." instance=ExtResource( 5 )]
