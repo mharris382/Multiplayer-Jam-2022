@@ -17,7 +17,7 @@ func is_direction_valid(aim_direction) -> bool:
 			return !is_on_floor()
 	return true
 
-func on_player_pressed_ability(null):
+func on_player_pressed_ability(aim):
 	throw_a_block()
 	
 func on_player_pressed_interact():
