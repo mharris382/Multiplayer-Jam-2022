@@ -4,6 +4,8 @@ export var throw_force : float = 100
 onready var throw_origin : Node2D #these can be the same transform
 onready var aim_transform : Node2D
 
+
+
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
 		AimDirection.BELOW:

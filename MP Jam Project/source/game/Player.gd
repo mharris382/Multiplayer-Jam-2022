@@ -19,7 +19,7 @@ var player_number : int = 0
 var assignment = 0 setget assignment_set, assignment_get
 var has_had_input : bool
 var partner : int #partner role, 0=none, 1=tran, 2=build
-var avatar : CharacterBase
+var avatar 
 
 func _init(player_num):
 	player_number = player_num
@@ -38,27 +38,21 @@ func _process(delta):
 	var move = Input.get_axis("move_left_p%d" % player_number, "move_right_p%d" % player_number)
 	
 	if Input.is_action_just_pressed("interact_p%d"%player_number):
-		print("P%d pressed interact"% player_number)
 		emit_signal("input_interact_pressed")
 		
 	if Input.is_action_just_pressed("jump_p%d"%player_number):
-		print("P%d pressed jump"% player_number)
 		emit_signal("input_ability_just_pressed")
 
 	if Input.is_action_just_released("jump_p%d"%player_number):
-		print("P%d released jump"% player_number)
 		emit_signal("input_jump_just_released")
 		
 	if Input.is_action_just_pressed("ability_p%d"%player_number):
-		print("P%d pressed ability"% player_number)
 		emit_signal("input_ability_just_pressed", aim)
 		
 	elif Input.is_action_pressed("ability_p%d"%player_number):
-		print("P%d pressing ability"% player_number)
 		emit_signal("input_ability_pressed", aim)
 
 	if Input.is_action_just_released("ability_p%d"%player_number):
-		print("P%d released ability"% player_number)
 		emit_signal("input_ability_just_released", aim)
 
 #public functions
@@ -78,7 +72,7 @@ func avatar_set(new_character):
 	avatar = new_character
 	if avatar != null: #connect all inputs to the avatar's input callbacks
 		print("connecting avatar callbacks")
-		var character = avatar as CharacterBase
+		var character = avatar
 		assert(character != null)
 		connect("input_move", character, "on_player_move_input")
 		connect("input_ability_just_pressed", character, "on_player_just_pressed_ability")

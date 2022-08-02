@@ -6,13 +6,13 @@ var block_tile_set : TileSet = preload("res://assets/blocks/Blocks_TileSet(place
 var tile_lookup = {}
 
 
-func tile_get_static_functionality(tile_name : String):
-	pass
-
-func tile_get_dynamic_block_prefab(tile_name : String) -> PackedScene:
-	return null
-
 func get_tile_id(tile_name : String):
+	if(!tile_lookup.has(tile_name)):
+		return -1
+	return tile_lookup[tile_name]
+	
+	
+func get_block_data(tile_name):
 	if(!tile_lookup.has(tile_name)):
 		return -1
 	return tile_lookup[tile_name]
@@ -23,4 +23,3 @@ func _ready():
 	for tile_id in tiles:
 		var tile_name = block_tile_set.tile_get_name(tile_id)
 		#tile_lookup[tile_name] = BlockData.new(tile_id)
-

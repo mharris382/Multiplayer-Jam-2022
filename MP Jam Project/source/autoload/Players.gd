@@ -25,11 +25,7 @@ var transporter : CharacterBase
 var builder : CharacterBase
 
 func _ready():
-	parent_level_select = create_parent("LevelSelection")
-	parent_players = create_parent("Player")
-	parent_levels = create_parent("Levels")
-	parent_ui = create_parent("UI")
-	
+	print("game ready")
 	players.append(Player.new(1))
 	players.append(Player.new(2))
 

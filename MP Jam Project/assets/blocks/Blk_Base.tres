@@ -1,10 +1,10 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://source/blocks/BlockData.gd" type="Script" id=1]
-[ext_resource path="res://assets/blocks/TestBlocks/DynamicBlockScenes/DynBlk_Base_Gray_128px.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/blocks/BlockFunctions/base/BlockNormalPlatform.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
 destructable = false
 tile_name = ""
-dynamic_block = ExtResource( 2 )
+static_block = ExtResource( 2 )

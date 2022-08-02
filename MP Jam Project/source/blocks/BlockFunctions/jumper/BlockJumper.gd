@@ -1,4 +1,4 @@
-extends Block
+extends Node2D
 
 
 

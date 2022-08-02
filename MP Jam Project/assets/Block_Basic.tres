@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-block_name = ""
+destructable = false
+tile_name = ""

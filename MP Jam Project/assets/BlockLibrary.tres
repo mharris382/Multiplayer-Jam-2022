@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://source/blocks/BlockLibrary.gd" type="Script" id=1]
 [ext_resource path="res://assets/Block_Pipes.tres" type="Resource" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://assets/blocks/TestBlocks/Blk_Base_White.tres" type="Resource" id=5]
 [ext_resource path="res://assets/blocks/TestBlocks/Blk_Base_Grey.tres" type="Resource" id=6]
 [ext_resource path="res://assets/blocks/TestBlocks/Blk_Base_Orange.tres" type="Resource" id=7]
+[ext_resource path="res://assets/blocks/Blk_Base.tres" type="Resource" id=8]
+[ext_resource path="res://assets/blocks/Blk_Jumper.tres" type="Resource" id=9]
 
 [resource]
 script = ExtResource( 1 )
-blocks = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ) ]
+blocks = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 9 ) ]

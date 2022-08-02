@@ -8,6 +8,17 @@ onready var front_aim_point = $"ControlPoints/Front"
 onready var below_aim_point = $"ControlPoints/Below"
 onready var above_aim_point = $"ControlPoints/Above"
 
+
+func _notification(what):
+	if what == NOTIFICATION_UNPARENTED:
+		print("Unparented ", name)
+	elif what == NOTIFICATION_PARENTED:
+		print("Parented ", name, "to ", get_parent().name)
+		var player = get_parent() as Player
+		if player == null:
+			return
+
+
 func get_aim_position(aim_direction):
 	match(aim_direction):
 		AimDirection.FRONT:
