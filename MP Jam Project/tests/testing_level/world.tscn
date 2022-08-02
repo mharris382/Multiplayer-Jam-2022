@@ -449,8 +449,6 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 } ]
 2/z_index = 0
 
-[sub_resource type="PhysicsMaterial" id=5]
-
 [node name="world" type="Node2D"]
 
 [node name="Background" type="TileMap" parent="."]
@@ -475,7 +473,6 @@ tile_data = PoolIntArray( -655387, -1610612735, 0, -655386, 1610612737, 0, -6553
 
 [node name="DynamicBlock" parent="." instance=ExtResource( 4 )]
 position = Vector2( 145, 449 )
-physics_material_override = SubResource( 5 )
 
 [node name="KinematicBody2D2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 34, -144 )
