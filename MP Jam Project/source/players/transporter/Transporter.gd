@@ -35,7 +35,7 @@ func dynamise_block():
 		var block = move_and_collide(front_aim_point.position, false, true, true)
 		if block != null:
 			if "tile_set" in block.collider:
-				var pos = block.collider.world_to_map(block.position)
+				var pos = block.collider.world_to_map(block.position - block.normal)
 				var tilemap = block.collider.get_parent()
 				tilemap.delete_tile(pos)
 

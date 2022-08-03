@@ -107,9 +107,6 @@ func get_object_under_cursor():
 
 func delete_tile(tile_position):
 	print(tile_position)
-	#print(tile_map.get_used_cells())
 	var id = tile_map.get_cell(tile_position.x, tile_position.y)
-	print(id)
 	var name = tile_map.tile_set.tile_get_name(id)
-	print(name)
-	tile_map.set_cell(position.x, position.y, -1)
+	tile_map.set_cell(tile_position.x, tile_position.y, -1)
