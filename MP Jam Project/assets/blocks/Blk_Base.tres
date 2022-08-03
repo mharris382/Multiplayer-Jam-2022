@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource( 1 )
 destructable = false
-tile_name = ""
+tile_name = "base"
 static_block = ExtResource( 2 )

@@ -105,9 +105,13 @@ func get_object_under_cursor():
 			ret = result.collider.owner
 	return ret
 
-func delete_tile(tile_position):
-	print(tile_position)
+func delete_tile(tile_position, dynamic: bool):
 	var id = tile_map.get_cell(tile_position.x, tile_position.y)
 	var name = tile_map.tile_set.tile_get_name(id)
-	tile_map.set_cell(tile_position.x, tile_position.y, -1)
-	tile_map.fix_invalid_tiles()
+	var data = Blocks.get_block_data(name)
+	if data.destructable:
+		tile_map.set_cell(tile_position.x, tile_position.y, -1)
+		tile_map.fix_invalid_tiles()
+		if dynamic:
+			var dynamic_block = data.instance()
+			get_parent().add_child(dynamic_block)
