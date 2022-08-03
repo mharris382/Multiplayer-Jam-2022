@@ -10,7 +10,7 @@
 [sub_resource type="CanvasItemMaterial" id=25]
 light_mode = 1
 
-[node name="KinematicBody2D" groups=["Characters"] instance=ExtResource( 1 )]
+[node name="Transporter" groups=["Characters"] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 test_block = ExtResource( 4 )
 

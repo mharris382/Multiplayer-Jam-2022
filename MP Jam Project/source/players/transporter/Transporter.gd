@@ -32,7 +32,9 @@ func on_player_pressed_interact():
 
 func dynamise_block():
 	if not holds_block:
-		var block = move_and_collide(front_aim_point.position, false, true, true)
+		var collision = front_aim_point.position
+		collision.y -= 1
+		var block = move_and_collide(collision, false, true, true)
 		if block != null:
 			if "tile_set" in block.collider:
 				var pos = block.collider.world_to_map(block.position - block.normal)

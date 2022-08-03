@@ -110,3 +110,4 @@ func delete_tile(tile_position):
 	var id = tile_map.get_cell(tile_position.x, tile_position.y)
 	var name = tile_map.tile_set.tile_get_name(id)
 	tile_map.set_cell(tile_position.x, tile_position.y, -1)
+	tile_map.fix_invalid_tiles()
