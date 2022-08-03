@@ -113,5 +113,5 @@ func delete_tile(tile_position, dynamic: bool):
 		tile_map.set_cell(tile_position.x, tile_position.y, -1)
 		tile_map.fix_invalid_tiles()
 		if dynamic:
-			var dynamic_block = data.instance()
+			var dynamic_block = data.dynamic_block.instance()
 			get_parent().add_child(dynamic_block)

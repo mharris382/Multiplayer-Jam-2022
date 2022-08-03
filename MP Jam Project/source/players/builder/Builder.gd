@@ -1,6 +1,8 @@
 class_name Builder
 extends CharacterBase
 
+var block_schemes : Array = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	._ready()
