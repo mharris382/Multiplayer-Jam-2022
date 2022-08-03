@@ -7,7 +7,7 @@
 [ext_resource path="res://source/players/transporter/Aim.gd" type="Script" id=5]
 [ext_resource path="res://assets/blocks/vfx/lighting/light.png" type="Texture" id=6]
 
-[sub_resource type="CanvasItemMaterial" id=1]
+[sub_resource type="CanvasItemMaterial" id=25]
 light_mode = 1
 
 [node name="KinematicBody2D" groups=["Characters"] instance=ExtResource( 1 )]
@@ -23,7 +23,7 @@ energy = 4.0
 shadow_enabled = true
 
 [node name="Sprite" parent="." index="1"]
-material = SubResource( 1 )
+material = SubResource( 25 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="2"]

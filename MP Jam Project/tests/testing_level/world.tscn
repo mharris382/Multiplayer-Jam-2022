@@ -1,10 +1,10 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://tests/testing_level/TileMapController.gd" type="Script" id=1]
 [ext_resource path="res://source/blocks/BlockFunctions/jumper/jumper_128.png" type="Texture" id=2]
 [ext_resource path="res://source/blocks/BlockFunctions/base/base_128.png" type="Texture" id=3]
 [ext_resource path="res://source/blocks/DynamicBlocks/DynamicBlockBase.tscn" type="PackedScene" id=4]
-[ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sprites/transporter.png" type="Texture" id=5]
 [ext_resource path="res://assets/blocks/sprite/Block 3.png" type="Texture" id=6]
 [ext_resource path="res://assets/blocks/sprite/F Block 3.png" type="Texture" id=7]
 [ext_resource path="res://assets/blocks/sprite/J Block 3.png" type="Texture" id=8]
@@ -23,6 +23,8 @@
 [ext_resource path="res://assets/blocks/sprite/F Block 1.png" type="Texture" id=21]
 [ext_resource path="res://assets/blocks/sprite/Block 8.png" type="Texture" id=22]
 [ext_resource path="res://source/players/builder/builder.tscn" type="PackedScene" id=23]
+[ext_resource path="res://source/players/transporter/Transporter.gd" type="Script" id=24]
+[ext_resource path="res://source/players/transporter/Aim.gd" type="Script" id=25]
 
 [sub_resource type="TileSet" id=5]
 0/name = "Block 3.png 0"
@@ -860,6 +862,12 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 } ]
 2/z_index = 0
 
+[sub_resource type="CanvasItemMaterial" id=25]
+light_mode = 1
+
+[sub_resource type="RectangleShape2D" id=26]
+extents = Vector2( 24.75, 56 )
+
 [node name="world" type="Node2D"]
 
 [node name="Background" type="TileMap" parent="."]
@@ -890,15 +898,48 @@ tile_data = PoolIntArray( -655387, -1610612735, 0, -655386, 1610612737, 0, -6553
 [node name="MainOverlay" type="CanvasLayer" parent="."]
 
 [node name="DynamicBlock" parent="." instance=ExtResource( 4 )]
-position = Vector2( 145, 449 )
+position = Vector2( 200, -100 )
 
-[node name="KinematicBody2D2" parent="." instance=ExtResource( 5 )]
+[node name="KinematicBody2D2" type="KinematicBody2D" parent="." groups=["Characters"]]
 position = Vector2( 34, -144 )
+collision_mask = 14
+script = ExtResource( 24 )
+test_block = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D2"]
+material = SubResource( 25 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D2"]
+position = Vector2( -1, 14 )
+shape = SubResource( 26 )
+
+[node name="JumpDetection" type="Timer" parent="KinematicBody2D2"]
+one_shot = true
+
+[node name="ControlPoints" type="Node2D" parent="KinematicBody2D2"]
+
+[node name="Front" type="Position2D" parent="KinematicBody2D2/ControlPoints"]
+position = Vector2( 82, 0 )
+
+[node name="Below" type="Position2D" parent="KinematicBody2D2/ControlPoints"]
+position = Vector2( 0, 107 )
+
+[node name="Above" type="Position2D" parent="KinematicBody2D2/ControlPoints"]
+position = Vector2( 0, -115 )
+
+[node name="Aim" type="Position2D" parent="KinematicBody2D2/ControlPoints"]
+position = Vector2( 70, -73 )
+script = ExtResource( 25 )
+minimum_range = Vector2( -80, -80 )
+maximum_range = Vector2( 80, 80 )
+
+[node name="JumpTimer" type="Timer" parent="KinematicBody2D2"]
+
+[node name="Camera2D" type="Camera2D" parent="KinematicBody2D2"]
+position = Vector2( -403, -469 )
+current = true
+zoom = Vector2( 2, 2 )
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 23 )]
 position = Vector2( -999, -118 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( -369, -613 )
-current = true
-zoom = Vector2( 2, 2 )

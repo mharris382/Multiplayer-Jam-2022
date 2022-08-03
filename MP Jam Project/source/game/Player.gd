@@ -106,7 +106,7 @@ func switch_role():
 	assignment = partner
 	emit_signal("assignment_changed", assignment)
 
-func on_any_input():
+func on_any_input(arg = null):
 	has_had_input = true
 
 
