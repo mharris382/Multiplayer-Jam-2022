@@ -1,14 +1,10 @@
+class_name Builder
 extends CharacterBase
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	._ready()
+	assign_player(Players.players[1])
 
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):

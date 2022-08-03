@@ -1,3 +1,4 @@
+class_name Transporter
 extends CharacterBase
 export var throw_force : float = 5
 export (PackedScene) var test_block
@@ -6,6 +7,10 @@ var can_throw = false
 
 onready var throw_origin : Node2D #these can be the same transform
 onready var aim_transform : Position2D = $ControlPoints/Aim
+
+func _ready():
+	._ready()
+	assign_player(Players.players[0])
 
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
@@ -25,13 +30,13 @@ func on_player_pressed_interact():
 
 func pick_up_a_block():
 	#if Input.is_action_just_pressed("interact_%s" % player_id):
-		var block = move_and_collide(front_aim_point.position, false, true, true)
-		if block != null:
-			if block.collider.is_in_group("dynamic_block"):
-				var new_block = load("res://source/blocks/DynamicBlocks/PickedBlock.tscn").instance()
-				block.collider.queue_free()
-				front_aim_point.add_child(new_block)
-				can_throw = true
+	var block = move_and_collide(front_aim_point.position, false, true, true)
+	if block != null:
+		if block.collider.is_in_group("dynamic_block"):
+			var new_block = load("res://source/blocks/DynamicBlocks/PickedBlock.tscn").instance()
+			block.collider.queue_free()
+			front_aim_point.add_child(new_block)
+			can_throw = true
 
 
 func throw_a_block():

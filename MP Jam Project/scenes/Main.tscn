@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://source/autoload/Players.gd" type="Script" id=1]
 [ext_resource path="res://source/game/Progress.gd" type="Script" id=2]
+[ext_resource path="res://source/players/builder/builder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,6 +21,17 @@ script = ExtResource( 2 )
 
 [node name="Level_2_3" type="Node" parent="Game/Levels/Floor 2"]
 
+[node name="Level_Lobby" type="Node" parent="Game/Levels/Floor 2"]
+
+[node name="ACTUAL LOADED LEVEL GOES HEREE" type="Node2D" parent="Game/Levels/Floor 2/Level_Lobby"]
+
+[node name="Builder" parent="Game/Levels/Floor 2/Level_Lobby/ACTUAL LOADED LEVEL GOES HEREE" instance=ExtResource( 3 )]
+position = Vector2( 813, -2 )
+
+[node name="Transporter" parent="Game/Levels/Floor 2/Level_Lobby/ACTUAL LOADED LEVEL GOES HEREE" instance=ExtResource( 4 )]
+
+[node name="PLAYERS CHARACTERS ARE MOVED TO LEVEL ON LOAD" type="Node" parent="Game/Levels/Floor 2/Level_Lobby/ACTUAL LOADED LEVEL GOES HEREE"]
+
 [node name="Floor 1" type="Node" parent="Game/Levels"]
 
 [node name="Level_1_1" type="Node" parent="Game/Levels/Floor 1"]
@@ -28,6 +41,14 @@ script = ExtResource( 2 )
 [node name="Level_1_3" type="Node" parent="Game/Levels/Floor 1"]
 
 [node name="Level_1_4" type="Node" parent="Game/Levels/Floor 1"]
+
+[node name="Level_Lobby" type="Node" parent="Game/Levels/Floor 1"]
+
+[node name="Lobby" type="Node" parent="Game/Levels"]
+
+[node name="Transition" type="Node" parent="Game/Levels"]
+
+[node name="PLAYERS CHARACTERS PUT HERE WHILE LOADING_and_UNLOADING" type="Node" parent="Game/Levels/Transition"]
 
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
@@ -56,5 +77,16 @@ margin_bottom = 40.0
 [node name="Pause Menu" type="Control" parent="UI/Menu Screens"]
 margin_right = 40.0
 margin_bottom = 40.0
+
+[node name="Camera" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="Camera"]
+position = Vector2( 594, -2 )
+
+[node name="TranporterRemoteTransform" type="RemoteTransform2D" parent="Camera"]
+remote_path = NodePath("../../Game/Levels/Floor 2/Level_Lobby/ACTUAL LOADED LEVEL GOES HEREE/Transporter")
+
+[node name="BuilderRemoteTransform" type="RemoteTransform2D" parent="Camera"]
+remote_path = NodePath(".")
 
 [node name="Players" type="Node" parent="."]

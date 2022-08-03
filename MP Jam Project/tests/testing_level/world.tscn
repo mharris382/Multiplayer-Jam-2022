@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://tests/testing_level/TileMapController.gd" type="Script" id=1]
 [ext_resource path="res://source/blocks/BlockFunctions/jumper/jumper_128.png" type="Texture" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://assets/blocks/sprite/Block 2.png" type="Texture" id=20]
 [ext_resource path="res://assets/blocks/sprite/F Block 1.png" type="Texture" id=21]
 [ext_resource path="res://assets/blocks/sprite/Block 8.png" type="Texture" id=22]
+[ext_resource path="res://source/players/builder/builder.tscn" type="PackedScene" id=23]
 
 [sub_resource type="TileSet" id=5]
 0/name = "Block 3.png 0"
@@ -476,3 +477,11 @@ position = Vector2( 145, 449 )
 
 [node name="KinematicBody2D2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 34, -144 )
+
+[node name="KinematicBody2D" parent="." instance=ExtResource( 23 )]
+position = Vector2( -999, -118 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -369, -613 )
+current = true
+zoom = Vector2( 2, 2 )

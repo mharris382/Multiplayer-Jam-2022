@@ -1,8 +1,14 @@
 class_name CharacterBase
 extends PlayerMovement
 
+signal player_assigned_to_character(player)
+signal character_changed_direction(direction) #LEFT = -1, #RIGHT = 1
 
 enum AimDirection { FRONT, BELOW, ABOVE }
+enum FacingDirection { LEFT=-1, RIGHT=1 }
+
+var facing_direction = FacingDirection.RIGHT
+var aim_input : Vector2
 
 onready var front_aim_point = $"ControlPoints/Front"
 onready var below_aim_point = $"ControlPoints/Below"
@@ -17,31 +23,38 @@ func _notification(what):
 		var player = get_parent() as Player
 		if player == null:
 			return
+			
+
+func assign_player(player):
+	player.connect("input_move", self, "on_player_move_input")
+	player.connect("input_ability_just_pressed", self, "on_player_just_pressed_ability")
+	player.connect("input_ability_pressed", self, "on_player_pressed_ability")
+	player.connect("input_ability_just_released", self,"on_player_released_ability")
+	player.connect("input_jump_just_pressed", self,"on_player_pressed_jump")
+	player.connect("input_jump_just_released", self,"on_player_released_jump")
+	player.connect("input_interact_just_pressed", self, "on_player_pressed_interact")
+	emit_signal("player_assigned_to_character", player)
+
+func unassign_player(player):
+	player.disconnect("input_move", self, "on_player_move_input")
+	player.disconnect("input_ability_just_pressed", self, "on_player_just_pressed_ability")
+	player.disconnect("input_ability_pressed", self, "on_player_pressed_ability")
+	player.disconnect("input_ability_just_released", self,"on_player_released_ability")
+	player.disconnect("input_jump_just_pressed", self,"on_player_pressed_jump")
+	player.disconnect("input_jump_just_released", self,"on_player_released_jump")
+	player.disconnect("input_interact_just_pressed", self, "on_player_pressed_interact")
+	emit_signal("player_assigned_to_character", null)
 
 var found_player = false
 func _ready(): 
 	._ready()
-func _process(delta):
-	if found_player:
-		return
-	if Players.players[0] != null:
-		found_player = true
-		Players.players[0].connect("input_move", self, "on_player_move_input")
-		
-		Players.players[0].connect("input_ability_just_pressed", self, "on_player_just_pressed_ability")
-		Players.players[0].connect("input_ability_pressed", self, "on_player_pressed_ability")
-		Players.players[0].connect("input_ability_just_released", self,"on_player_released_ability")
-		
-		Players.players[0].connect("input_jump_just_pressed", self,"on_player_pressed_jump")
-		Players.players[0].connect("input_jump_just_released", self,"on_player_released_jump")
-		
-		Players.players[0].connect("input_interact_just_pressed", self, "on_player_pressed_interact")
-		
+
 #since the validity is dependent on the kind of action being performed this 
 #function must be implemented in the child classes
 func is_direction_valid(aim_direction) -> bool:
 	return false
-
+func on_player_aim_input(aim_input : Vector2):
+	self.aim_input = aim_input
 func on_player_move_input(move_input : float):
 	self.move_input = Vector2(move_input, 0)
 

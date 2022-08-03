@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/BlockLibrary.gd"
 }, {
+"base": "CharacterBase",
+"class": "Builder",
+"language": "GDScript",
+"path": "res://source/players/builder/Builder.gd"
+}, {
 "base": "PlayerMovement",
 "class": "CharacterBase",
 "language": "GDScript",
@@ -35,6 +40,11 @@ _global_script_classes=[ {
 "path": "res://source/blocks/DynamicBlocks/DynamicBlock.gd"
 }, {
 "base": "Node",
+"class": "Level",
+"language": "GDScript",
+"path": "res://source/levels/Level.gd"
+}, {
+"base": "Node",
 "class": "Player",
 "language": "GDScript",
 "path": "res://source/game/Player.gd"
@@ -43,15 +53,41 @@ _global_script_classes=[ {
 "class": "PlayerMovement",
 "language": "GDScript",
 "path": "res://source/players/PlayerMovement.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://source/players/states/State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://source/players/states/StateMachine.gd"
+}, {
+"base": "Reference",
+"class": "States",
+"language": "GDScript",
+"path": "res://source/players/states/EnumStates.gd"
+}, {
+"base": "CharacterBase",
+"class": "Transporter",
+"language": "GDScript",
+"path": "res://source/players/transporter/Transporter.gd"
 } ]
 _global_script_class_icons={
 "BlockData": "",
 "BlockLauncher": "",
 "BlockLibrary": "res://assets/ui/editor/icon-block.png",
+"Builder": "",
 "CharacterBase": "",
 "DynamicBlock": "",
+"Level": "",
 "Player": "",
-"PlayerMovement": ""
+"PlayerMovement": "",
+"State": "",
+"StateMachine": "",
+"States": "",
+"Transporter": ""
 }
 
 [application]
@@ -64,6 +100,7 @@ config/icon="res://icon.png"
 
 Blocks="*res://source/autoload/Blocks.gd"
 Players="*res://source/autoload/Players.gd"
+Characters="*res://source/autoload/Characters.gd"
 
 [display]
 
