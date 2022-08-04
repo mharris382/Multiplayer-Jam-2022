@@ -62,8 +62,8 @@ func cell_has_block(grid_position):
 	var tile_name = tile_map.tile_set.tile_get_name(id)
 	return Blocks.has_block(tile_name)
 
-func cell_get_block_data(grid_position) -> BlockData:
-	var id = tile_map.get_cell(grid_position.x, grid_position.y)
+func cell_get_block_data(grid_pos) -> BlockData:
+	var id = tile_map.get_cell(grid_pos.x, grid_pos.y)
 	var tile_name = tile_map.tile_set.tile_get_name(id)
 	return Blocks.get_block_data(tile_name)
 
@@ -108,9 +108,13 @@ func get_or_create_block_wrapper(grid_pos : Vector2) -> Node2D:
 
 func build_static_block(block, grid_pos):
 	if Blocks.block_has_static_scene(block):
-		var block_ins = Blocks.instance_static_block(block, tile_map.map_to_world(Vector2(grid_pos.x, grid_pos.y)))
+		var block_ins = Blocks.instance_static_block(block)#, tile_map.map_to_world(Vector2(grid_pos.x, grid_pos.y)))
 		get_or_create_block_wrapper(grid_pos).add_child(block_ins)
 
+func build_dynamic_block(grid_pos):
+	var block_name = delete_tile(grid_pos)
+	if block_name != null:
+		pass
 
 #*mouse to grid pos
 func mouse_to_grid_pos() ->Vector2:
@@ -130,11 +134,14 @@ func get_object_under_cursor():
 	return ret
 
 func delete_tile(tile_position):
-	print(tile_position)
 	var id = tile_map.get_cell(tile_position.x, tile_position.y)
-	var name = tile_map.tile_set.tile_get_name(id)
-	tile_map.set_cell(tile_position.x, tile_position.y, -1)
-	tile_map.fix_invalid_tiles()
+	if id != -1:
+		var name = tile_map.tile_set.tile_get_name(id)
+		tile_map.set_cell(tile_position.x, tile_position.y, -1)
+		tile_map.fix_invalid_tiles()
+		return name
+	else:
+		return null
 
 # Tilemap should not be recieving input.  that is not part of it's responsibility
 # See Single Responsibility Principle - SOLID 

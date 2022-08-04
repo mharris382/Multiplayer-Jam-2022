@@ -808,7 +808,7 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [sub_resource type="TileSet" id=1]
-1/name = "base"
+1/name = "Block_Red_Steel"
 1/texture = ExtResource( 3 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
@@ -919,7 +919,7 @@ tile_data = PoolIntArray( -655387, 2, 196623, -655386, 2, 262145, -655385, 2, 26
 
 [node name="Cells" type="Node2D" parent="Level Tilemaps/StaticMap Actual"]
 
-[node name="StaticMap Solution" type="Node2D" parent="Level Tilemaps"]
+[node name="StaticMap Solution" type="Node2D" parent="Level Tilemaps" groups=["Tilemap"]]
 modulate = Color( 0.470588, 0.470588, 0.470588, 1 )
 script = ExtResource( 1 )
 custom_tile_mapping = {

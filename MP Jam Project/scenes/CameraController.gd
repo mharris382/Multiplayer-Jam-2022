@@ -7,9 +7,9 @@ onready var transporter_position : RemoteTransform2D = $TranporterRemoteTransfor
 
 
 func _ready():
-	
 	pass
 
 
 func _process(delta):
-	if builder_position.
+	#if builder_position.
+	pass

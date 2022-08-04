@@ -24,7 +24,7 @@ static func get_block_data(block) -> BlockData:
 	print("ERROR: invalid block id: ", typeof(block))
 	return null
 
-static func instance_static_block(block, position) -> Node2D:
+static func instance_static_block(block) -> Node2D:
 	if !Blocks.block_has_static_scene(block):
 		return null
 	var block_data = get_block_data(block).static_block.instance()

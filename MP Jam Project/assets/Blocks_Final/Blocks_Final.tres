@@ -1,8 +1,7 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://source/blocks/BlockLibrary.gd" type="Script" id=1]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Conveyor.tres" type="Resource" id=2]
-[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Base.tres" type="Resource" id=3]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Plate.tres" type="Resource" id=4]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Metal_Mesh.tres" type="Resource" id=5]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Colored_Plates.tres" type="Resource" id=6]
@@ -10,4 +9,4 @@
 [resource]
 script = ExtResource( 1 )
 bugfixes = 1
-blocks = [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ) ]
+blocks = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ) ]

@@ -39,7 +39,10 @@ func make_block_dynamic():
 			if "tile_set" in block.collider:
 				var pos = block.collider.world_to_map(block.position - block.normal)
 				var tilemap = block.collider.get_parent()
-				tilemap.delete_tile(pos, true)
+				var data = tilemap.cell_get_block_data(pos)
+				if data != -1:
+					if data.destructable != false:
+						tilemap.delete_tile(pos)
 
 func pick_up_a_block():
 	#if Input.is_action_just_pressed("interact_%s" % player_id):
