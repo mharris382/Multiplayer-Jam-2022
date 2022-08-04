@@ -5,8 +5,8 @@
 [ext_resource path="res://assets/blocks/TestBlocks/Blk_Base_White.tres" type="Resource" id=5]
 [ext_resource path="res://assets/blocks/TestBlocks/Blk_Base_Grey.tres" type="Resource" id=6]
 [ext_resource path="res://assets/blocks/TestBlocks/Blk_Base_Orange.tres" type="Resource" id=7]
-[ext_resource path="res://assets/blocks/Blk_Base.tres" type="Resource" id=8]
-[ext_resource path="res://assets/blocks/Blk_Jumper.tres" type="Resource" id=9]
+[ext_resource path="res://assets/blocks/TestBlocks/Blk_Base.tres" type="Resource" id=8]
+[ext_resource path="res://assets/blocks/TestBlocks/Blk_Jumper.tres" type="Resource" id=9]
 
 [resource]
 script = ExtResource( 1 )
