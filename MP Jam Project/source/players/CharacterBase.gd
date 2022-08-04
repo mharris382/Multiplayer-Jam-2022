@@ -68,18 +68,23 @@ func on_player_released_jump():
 	pass
 
 func on_player_just_pressed_ability(aim):
+	print("%s just pressed ability" % name)
 	pass
 
 func on_player_pressed_ability(aim):
+	print("%s pressed ability" % name)
 	pass
 
 func on_player_released_ability(aim):
+	print("%s released ability" % name)
 	pass
 	
 func on_player_pressed_interact():
+	print("%s pressed interact" % name)
 	pass
 	
 func on_player_released_interact():
+	print("%s released interact" % name)
 	pass
 
 

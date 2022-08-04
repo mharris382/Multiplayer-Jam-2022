@@ -26,7 +26,7 @@ var player_number : int = 0
 var assignment = 0 setget assignment_set, assignment_get
 var has_had_input : bool
 var partner : int #partner role, 0=none, 1=tran, 2=build
-
+var ability_pressed = false
 func _init(player_num):
 	player_number = player_num
 	name = "player_%d" % player_num
@@ -62,7 +62,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ability_p%d"%player_number):
 		emit_signal("input_ability_just_pressed", aim)
 		
-	elif Input.is_action_pressed("ability_p%d"%player_number):
+	if Input.is_action_pressed("ability_p%d"%player_number):
 		emit_signal("input_ability_pressed", aim)
 
 	if Input.is_action_just_released("ability_p%d"%player_number):

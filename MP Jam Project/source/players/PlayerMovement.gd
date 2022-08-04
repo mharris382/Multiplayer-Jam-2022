@@ -32,8 +32,10 @@ func _physics_process(delta):
 func flip():
 	var sprite = $Sprite as Sprite
 	sprite.flip_h = !sprite.flip_h
+	
 	$"ControlPoints/Front".position.x *=-1
-	$"ControlPoints/Aim".position.x *=-1
+	if has_node("ControlPoints/Aim"):
+		$"ControlPoints/Aim".position.x *=-1
 
 func player_input():
 	velocity.x = 0

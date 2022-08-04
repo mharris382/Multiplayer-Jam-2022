@@ -23,6 +23,7 @@ func is_direction_valid(aim_direction) -> bool:
 	return true
 
 func on_player_just_pressed_ability(aim):
+	.on_player_just_pressed_ability(aim)
 	make_block_dynamic()
 	throw_a_block()
 	
