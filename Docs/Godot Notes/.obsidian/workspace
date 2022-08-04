@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "GDScript/Basics/Enums.md",
+            "file": "GDScript/Assert.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "GDScript/Basics/Enums.md",
+                "file": "GDScript/Assert.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "GDScript/Basics/Enums.md",
+                "file": "GDScript/Assert.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GDScript/Basics/Enums.md"
+                "file": "GDScript/Assert.md"
               }
             }
           }
@@ -130,15 +130,15 @@
   },
   "active": "e6a7319dd2fa395c",
   "lastOpenFiles": [
+    "GDScript/Tool Mode.md",
+    "GDScript/Basics/Constants.md",
+    "GDScript/Basics/Enums.md",
     "GDScript/Basics/Flow Control/Match.md",
     "GDScript/Classes/Inheritence.md",
     "GDScript/Exports/Exports.md",
     "GDScript/Exports/Advanced Exports.md",
     "GDScript/Exports/Exporting Properties.md",
     "GDScript/Basics/Signals.md",
-    "GDScript/Basics/Enums.md",
-    "GDScript/Basics/Keywords.md",
-    "GDScript/Basics/Constants.md",
-    "GDScript/Classes/Inner Classes.md"
+    "GDScript/Basics/Keywords.md"
   ]
 }

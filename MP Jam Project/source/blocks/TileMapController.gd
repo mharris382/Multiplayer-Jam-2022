@@ -1,6 +1,6 @@
 extends Node2D
 #NOTE: if you have merge conflicts take yours but make sure to comment out line 45 to avoid errors
-
+export var map_is_solution = false
 export var custom_tile_mapping = {
 	"base" : "",
 	"jump" : ""
@@ -38,7 +38,6 @@ func _ready():
 				max_cell.y = used_tile.y
 			elif min_cell.y > used_tile.y:
 				min_cell.y = used_tile.y
-
 #		match name:
 #			"base":
 #				if Blocks.block_has_static_scene(block_base_id):
@@ -57,7 +56,11 @@ func _ready():
 	print("Grid size = ", grid_size)
 
 func cell_has_block(grid_position):
-	return
+	var id = tile_map.get_cell(grid_position.x, grid_position.y)
+	if(id == -1):
+		return false
+	var tile_name = tile_map.tile_set.tile_get_name(id)
+	return Blocks.has_block(tile_name)
 
 func cell_get_block_data(grid_position) -> BlockData:
 	var id = tile_map.get_cell(grid_position.x, grid_position.y)

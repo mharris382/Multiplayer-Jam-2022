@@ -1,5 +1,7 @@
 extends Node
 
+signal level_completed
+
 enum PuzzleState { Unsolved=0, Solved=1, In_Progress=2 }
 
 var puzzle_state = 0
@@ -12,7 +14,3 @@ func _notification(what):
 			pass
 		return
 	pass
-
-func _ready():
-	pass # Replace with function body.
-

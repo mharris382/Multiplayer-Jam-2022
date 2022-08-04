@@ -1,7 +1,7 @@
 extends Node
 
 
-onready var block_library : BlockLibrary = preload("res://assets/BlockLibrary.tres")
+onready var block_library : BlockLibrary = preload("res://assets/Blocks_Final/Blocks_Final.tres")
 
 #block can be either block name, block id, or an array or ids or strings
 static func get_block_data(block) -> BlockData:

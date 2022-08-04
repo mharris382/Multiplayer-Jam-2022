@@ -26,7 +26,8 @@
 [ext_resource path="res://assets/blocks/TestBlocks/Blk_Base_Copper.tres" type="Resource" id=24]
 [ext_resource path="res://assets/blocks/TestBlocks/Blk_Base_Grey.tres" type="Resource" id=25]
 [ext_resource path="res://source/blocks/LevelBlocks.gd" type="Script" id=26]
-[ext_resource path="res://tests/testing_level/Puzzle.gd" type="Script" id=27]
+[ext_resource path="res://source/levels/Puzzle.gd" type="Script" id=27]
+
 
 [sub_resource type="TileSet" id=5]
 0/name = "Block 3.png 0"

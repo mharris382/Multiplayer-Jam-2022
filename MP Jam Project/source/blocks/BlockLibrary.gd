@@ -1,7 +1,9 @@
 class_name BlockLibrary, "res://assets/ui/editor/icon-block.png"
 extends Resource
 
+export var bugfixes = 1
 export(Array, Resource) var blocks = []
+
 var block_tile_set : TileSet = preload("res://assets/blocks/Blocks_TileSet(placeholder).tres")
 var tile_lookup = {}
 
