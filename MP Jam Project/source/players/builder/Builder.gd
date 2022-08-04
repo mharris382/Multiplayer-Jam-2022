@@ -1,8 +1,8 @@
 class_name Builder
 extends CharacterBase
 
-var block_schemes: Array = []
-var picked_id: int = -1 
+export var block_schemes: Array = []
+var picked_id: int = 0 
 var charges = 0
 var placement_position: Vector2 = Vector2(0,0)
 var build_mode = false
@@ -27,14 +27,16 @@ func is_direction_valid(aim_direction) -> bool:
 
 func on_player_just_pressed_ability(aim):
 	build_mode = !build_mode
-	
+
+func on_player_just_pressed_interact():
+	destroy_block()
 	
 func manage_building():
 	if build_mode == true:
-		var mouse_pos = get_local_mouse_position()
-		placement_position.x = round(mouse_pos.x / 128)
-		placement_position.y = round(mouse_pos.y / 128)
-		placement_position *= 128
+		transform_position_to_grid()
+		if Input.is_mouse_button_pressed(BUTTON_LEFT):
+			build_block()
+			build_mode = false
 	
 func build_block():
 	if charges > 0 and block_schemes.size() > 0:
@@ -46,13 +48,31 @@ func build_block():
 					if id != -1:
 						var block_position = node.global_to_map(placement_position)
 						node.set_cellv(block_position, id)
+						change_picked_by(-1)
 						break
 		else:
 			var block = Blocks.instance_static_block(block_schemes[picked_id])
 			if block != null:
 				get_parent().add_child(block)
 				block.position = to_global(placement_position)
+				change_picked_by(-1)
+	
+func destroy_block():
+	var collision_pos = front_aim_point.position
+	collision_pos.y += 1
+	var collided_block = move_and_collide(collision_pos, false, true, true)
+	if collided_block != null:
+		if "should_teleport" in collided_block:
+			collided_block.queue_free()
+			change_picked_by(1)
 	
 	
+func transform_position_to_grid():
+	var mouse_pos = get_local_mouse_position()
+	placement_position.x = round(mouse_pos.x / 128)
+	placement_position.y = round(mouse_pos.y / 128)
+	placement_position *= 128
+		
+		
 func change_picked_by(value):
 	picked_id = clamp(picked_id + value, 0, block_schemes.size())
