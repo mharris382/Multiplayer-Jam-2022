@@ -904,7 +904,7 @@ position = Vector2( 34, -144 )
 position = Vector2( -999, -118 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( -369, -613 )
+position = Vector2( -127, -474 )
 current = true
 zoom = Vector2( 2, 2 )
 
