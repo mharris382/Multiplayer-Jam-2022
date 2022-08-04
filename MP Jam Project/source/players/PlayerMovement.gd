@@ -30,10 +30,10 @@ func _physics_process(delta):
 
 
 func flip():
-	print(facing)
 	var sprite = $Sprite as Sprite
 	sprite.flip_h = !sprite.flip_h
-	$ControlPoints.scale.x *=-1
+	$"ControlPoints/Front".position.x *=-1
+	$"ControlPoints/Aim".position.x *=-1
 
 func player_input():
 	velocity.x = 0
