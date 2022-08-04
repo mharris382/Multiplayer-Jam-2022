@@ -98,9 +98,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Blocks="*res://source/autoload/Blocks.gd"
 Players="*res://source/autoload/Players.gd"
 Characters="*res://source/autoload/Characters.gd"
+Blocks="*res://source/autoload/Blocks.gd"
 
 [display]
 

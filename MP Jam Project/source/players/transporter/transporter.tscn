@@ -19,7 +19,7 @@ show_behind_parent = true
 texture = ExtResource( 6 )
 texture_scale = 3.0
 color = Color( 1, 0.992157, 0.588235, 1 )
-energy = 4.0
+energy = 0.52
 shadow_enabled = true
 
 [node name="Sprite" parent="." index="1"]

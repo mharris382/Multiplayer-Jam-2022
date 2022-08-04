@@ -22,13 +22,15 @@ func _TESTS():
 	assert(_get_other_player(p1)==p2)
 	assert(_get_other_player(p2)==p1)
 	
-func _init():
-	players.append(Player.new(1))
-	players.append(Player.new(2))
+
+func _ready():
+	if Players.players.size() == 2:
+		queue_free()
+	Players.players.append(Player.new(1))
+	Players.players.append(Player.new(2))
 	for p in players:
 		add_child(p)
 	
-func _ready():
 	var tree = get_tree()
 	assert(tree != null)
 	assert(tree.root != null)
@@ -46,6 +48,9 @@ func _ready():
 	print("loaded Players.gd")
 
 func _process(delta):
+	if Players.players.size() != 2:
+		print("Extra Game.gd")
+		return
 	var p1 = players[0]
 	var p2 = players[1]
 	match game_state:
