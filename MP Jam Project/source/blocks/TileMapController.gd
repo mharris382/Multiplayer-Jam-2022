@@ -25,19 +25,19 @@ var max_cell : Vector2
 func _ready():	
 	max_cell = Vector2(-1000000, -1000000)
 	min_cell = Vector2(10000000, 10000000)
-	var used_tiles = tile_map.get_used_cells()
-	for used_tile in used_tiles:
-		var block = cell_get_block_data(used_tile)
-		if block != null:
-			build_static_block(block, used_tile)
-			if max_cell.x < used_tile.x:
-				max_cell.x = used_tile.x
-			elif min_cell.x > used_tile.x:
-				min_cell.x = used_tile.x
-			if max_cell.y < used_tile.y:
-				max_cell.y = used_tile.y
-			elif min_cell.y > used_tile.y:
-				min_cell.y = used_tile.y
+#	var used_tiles = tile_map.get_used_cells()
+#	for used_tile in used_tiles:
+#		var block = cell_get_block_data(used_tile)
+#		if block != null:
+#			build_static_block(block, used_tile)
+#			if max_cell.x < used_tile.x:
+#				max_cell.x = used_tile.x
+#			elif min_cell.x > used_tile.x:
+#				min_cell.x = used_tile.x
+#			if max_cell.y < used_tile.y:
+#				max_cell.y = used_tile.y
+#			elif min_cell.y > used_tile.y:
+#				min_cell.y = used_tile.y
 #		match name:
 #			"base":
 #				if Blocks.block_has_static_scene(block_base_id):
@@ -51,9 +51,9 @@ func _ready():
 #					self.add_child(block_ins)
 
 	#turn off the tilemap texture which only use for level designing
-	tile_map.modulate = Color(1,1,1,0) #this is interesting, i like it
-	var grid_size = max_cell - min_cell
-	print("Grid size = ", grid_size)
+#	tile_map.modulate = Color(1,1,1,0) #this is interesting, i like it
+#	var grid_size = max_cell - min_cell
+#	print("Grid size = ", grid_size)
 
 func cell_has_block(grid_position):
 	var id = tile_map.get_cell(grid_position.x, grid_position.y)
