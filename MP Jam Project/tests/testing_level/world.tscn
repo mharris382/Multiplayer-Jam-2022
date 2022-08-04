@@ -876,6 +876,7 @@ tile_data = PoolIntArray( -655387, 1, 0, -655386, 1, 0, -655385, 1, 0, -655384, 
 
 [node name="Objective" type="TileMap" parent="."]
 modulate = Color( 0.662745, 0.952941, 0.568627, 0.227451 )
+position = Vector2( 2, 3 )
 tile_set = SubResource( 7 )
 cell_size = Vector2( 128, 128 )
 format = 1

@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scenes/TileMap_Template_Dyn.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/Template_TileMap_Background.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/TileMap_Template_Solution.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Templates/TileMap_Template_Dyn.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Templates/Template_TileMap_Background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Templates/TileMap_Template_Solution.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/blocks/LevelBlocks.gd" type="Script" id=4]
-[ext_resource path="res://scenes/TileMap_Template_Spawn.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Templates/TileMap_Template_Spawn.tscn" type="PackedScene" id=5]
 
 [node name="TEMPLATE LEVEL" type="Node2D"]
 
