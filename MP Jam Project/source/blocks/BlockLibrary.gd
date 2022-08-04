@@ -1,6 +1,7 @@
 class_name BlockLibrary, "res://assets/ui/editor/icon-block.png"
 extends Resource
 
+export var bugfixes2 = 1
 export var bugfixes = 1
 export(Array, Resource) var blocks = []
 
