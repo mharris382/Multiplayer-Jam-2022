@@ -114,7 +114,13 @@ func build_static_block(block, grid_pos):
 func build_dynamic_block(grid_pos):
 	var block_name = delete_tile(grid_pos)
 	if block_name != null:
-		pass
+		var data = Blocks.get_block_data(block_name)
+		if data.dynamic_block != null:
+			var new_block = data.dynamic_block.instance()
+			var pos = tile_map.map_to_world(grid_pos)
+			get_parent().add_child(new_block)
+			new_block.position = pos
+			
 
 #*mouse to grid pos
 func mouse_to_grid_pos() ->Vector2:

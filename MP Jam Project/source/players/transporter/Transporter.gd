@@ -43,7 +43,7 @@ func make_block_dynamic():
 				var data = tilemap.cell_get_block_data(pos)
 				if data != -1:
 					if data.destructable != false:
-						tilemap.delete_tile(pos)
+						tilemap.build_dynamic_block(pos)
 
 func pick_up_a_block():
 	#if Input.is_action_just_pressed("interact_%s" % player_id):
