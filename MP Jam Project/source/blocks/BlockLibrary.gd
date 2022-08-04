@@ -1,7 +1,9 @@
 class_name BlockLibrary, "res://assets/ui/editor/icon-block.png"
 extends Resource
 
+export var bugfixes = 1
 export(Array, Resource) var blocks = []
+
 var block_tile_set : TileSet = preload("res://assets/blocks/Blocks_TileSet(placeholder).tres")
 var tile_lookup = {}
 
@@ -11,11 +13,15 @@ func get_tile_id(tile_name : String):
 		return -1
 	return tile_lookup[tile_name]
 	
-	
 func get_block_data(tile_name):
-	if(!tile_lookup.has(tile_name)):
-		return -1
-	return tile_lookup[tile_name]
+	for item in blocks:
+		if item.tile_name == tile_name:
+			return item
+	return -1	
+#func get_block_data(tile_name):
+	#if(!tile_lookup.has(tile_name)):
+		#return -1
+	#return tile_lookup[tile_name]
 
 func _ready():
 	assert(block_tile_set != null)

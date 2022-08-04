@@ -15,6 +15,8 @@ var jump_input : bool
 var jump_just_pressed : bool
 var jump_pressed : bool
 
+var facing = "right"
+
 onready var jump_detection = $JumpDetection #this is also a timer? not sure what it is used for
 onready var jump_timer = $JumpTimer
 
@@ -25,12 +27,29 @@ func _physics_process(delta):
 	apply_push_to_block()
 
 
+
+
+func flip():
+	print(facing)
+	var sprite = $Sprite as Sprite
+	sprite.flip_h = !sprite.flip_h
+	$ControlPoints.scale.x *=-1
+
 func player_input():
 	velocity.x = 0
+
 	if move_input.x < -0.1:
-		velocity.x -= player_speed
+		velocity.x -= player_speed		
+		if(facing == "right" ):			
+			flip()
+			facing="left"
+			
 	elif move_input.x > 0.1:
 		velocity.x += player_speed
+		if(facing == "left" ):			
+			flip()
+			facing="right"
+			
 	#if Input.is_action_pressed("move_left_%s" % player_id):
 	#if Input.is_action_pressed("move_right_%s" % player_id):
 	if is_on_floor() and just_jumped():

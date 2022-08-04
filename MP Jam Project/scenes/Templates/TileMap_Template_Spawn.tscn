@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=1]
+[ext_resource path="res://source/blocks/TileMapController.gd" type="Script" id=2]
+
+[node name="StaticMap Spawn Dynamic" type="TileMap"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( 262149, 1610612745, 0, 262154, -1610612727, 0, 262158, 9, 0, 327685, -1073741815, 0, 327690, -1610612727, 0, 327694, -1073741815, 0, 393221, 9, 0, 393226, 1610612745, 0, 393230, 1610612745, 0, 458757, 1610612745, 0, 458762, -1073741815, 0, 524293, -1073741815, 0, 524298, 9, 0, 589829, -1073741815, 0, 589834, -1610612727, 0, 655365, 9, 0 )
+script = ExtResource( 2 )

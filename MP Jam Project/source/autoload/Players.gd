@@ -1,6 +1,8 @@
 extends Node
 
 signal game_state_changed(prev_state, new_state)
+signal players_assigned(transporter_player, builder_player)
+
 
 enum GameState {MAIN_MENU, CHARACTER_SELECT, IN_GAME}
 
@@ -12,20 +14,29 @@ const DEVELEMENT_MODE_ON = true
 var players = []
 var game_state setget game_state_set, game_state_get
 
-#for organization of dynamic nodes
-var parent_players : Node
-var parent_level_select : Node
-var parent_levels : Node
-var parent_ui : Node
+func _TESTS():
+	var p1 = get_player_1()
+	assert(players[0] == p1)
+	var p2 = get_player_2()
+	assert(players[1] == p2)
+	assert(_get_other_player(p1)==p2)
+	assert(_get_other_player(p2)==p1)
+	
 
 func _ready():
-	print("game ready")
-	players.append(Player.new(1))
-	players.append(Player.new(2))
-
+	if Players.players.size() == 2:
+		queue_free()
+	Players.players.append(Player.new(1))
+	Players.players.append(Player.new(2))
 	for p in players:
-		add_child_below_node(parent_players, p)
-
+		add_child(p)
+	
+	var tree = get_tree()
+	assert(tree != null)
+	assert(tree.root != null)
+	#assert(parent_players != null)
+	#for p in players:
+	#	add_child_below_node(parent_players, p)
 	if DEVELEMENT_MODE_ON:
 		players[0].assignment = TRANSPORTER
 		players[1].assignment = BUILDER
@@ -37,6 +48,9 @@ func _ready():
 	print("loaded Players.gd")
 
 func _process(delta):
+	if Players.players.size() != 2:
+		print("Extra Game.gd")
+		return
 	var p1 = players[0]
 	var p2 = players[1]
 	match game_state:
@@ -84,3 +98,22 @@ func game_state_set(new_state):
 		var prev_state = game_state
 		game_state = new_state
 		emit_signal("game_state_changed", prev_state, game_state)
+
+static func get_player_1() -> Player:
+	return Players.players[0] as Player
+
+static func get_player_2() -> Player:
+	return Players.players[1] as Player
+
+func _get_other_player(player):
+	assert(player != null)
+	var p1 = get_player_1()
+	var p2 = get_player_2()
+	match player.player_number:
+		1:
+			return p2
+		2:
+			return p1
+	return null
+
+
