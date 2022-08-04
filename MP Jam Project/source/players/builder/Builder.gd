@@ -10,6 +10,10 @@ var build_mode = false
 func _ready():
 	assign_player(Players.players[1])
 
+func _process(delta):
+	manage_building()
+	
+	
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
 		AimDirection.BELOW:
@@ -19,6 +23,11 @@ func is_direction_valid(aim_direction) -> bool:
 		AimDirection.FRONT:
 			return !is_on_floor()
 	return true
+
+
+func on_player_just_pressed_ability(aim):
+	build_mode = !build_mode
+	
 	
 func manage_building():
 	if build_mode == true:
