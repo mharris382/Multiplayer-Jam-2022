@@ -5,7 +5,7 @@ signal assignment_changed(player, role)# 1=TRANSPORTER, 2=BUILDER
 
 signal input_aim(aim, use_mouse)
 signal input_move(move)
-signal input_interact_just_pressed
+signal input_interact_just_pressed()
 
 signal input_jump_just_pressed
 signal input_jump_just_released

@@ -27,7 +27,8 @@ func on_player_just_pressed_ability(aim):
 	make_block_dynamic()
 	throw_a_block()
 	
-func on_player_pressed_interact():
+func on_player_just_pressed_interact():
+	.on_player_just_pressed_interact()
 	pick_up_a_block()
 
 

@@ -32,7 +32,7 @@ func assign_player(player):
 	player.connect("input_ability_just_released", self,"on_player_released_ability")
 	player.connect("input_jump_just_pressed", self,"on_player_pressed_jump")
 	player.connect("input_jump_just_released", self,"on_player_released_jump")
-	player.connect("input_interact_just_pressed", self, "on_player_pressed_interact")
+	player.connect("input_interact_just_pressed", self, "on_player_just_pressed_interact")
 	emit_signal("player_assigned_to_character", player)
 
 func unassign_player(player):
@@ -42,7 +42,7 @@ func unassign_player(player):
 	player.disconnect("input_ability_just_released", self,"on_player_released_ability")
 	player.disconnect("input_jump_just_pressed", self,"on_player_pressed_jump")
 	player.disconnect("input_jump_just_released", self,"on_player_released_jump")
-	player.disconnect("input_interact_just_pressed", self, "on_player_pressed_interact")
+	player.disconnect("input_interact_just_pressed", self, "on_player_just_pressed_interact")
 	emit_signal("player_assigned_to_character", null)
 
 var found_player = false
@@ -79,7 +79,7 @@ func on_player_released_ability(aim):
 	print("%s released ability" % name)
 	pass
 	
-func on_player_pressed_interact():
+func on_player_just_pressed_interact():
 	print("%s pressed interact" % name)
 	pass
 	

@@ -49,3 +49,7 @@ position = Vector2( 3226, 1834 )
 position = Vector2( 1917, 1076 )
 current = true
 zoom = Vector2( 4, 4 )
+
+[node name="Node1" type="Node" parent="Camera2D"]
+
+[node name="Node2" type="Node" parent="Camera2D"]
