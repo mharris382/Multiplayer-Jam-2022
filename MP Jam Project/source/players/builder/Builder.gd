@@ -35,7 +35,6 @@ func manage_building():
 		placement_position.x = round(mouse_pos.x / 128)
 		placement_position.y = round(mouse_pos.y / 128)
 		placement_position *= 128
-		print(placement_position)
 	
 func build_block():
 	if charges > 0 and block_schemes.size() > 0:
