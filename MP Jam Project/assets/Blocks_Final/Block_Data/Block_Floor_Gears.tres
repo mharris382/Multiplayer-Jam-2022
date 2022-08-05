@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource( 1 )
 destructable = true
-tile_name = ""
+tile_name = "Block_Floor_Gears"

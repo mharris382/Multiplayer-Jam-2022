@@ -3,12 +3,13 @@ extends CharacterBase
 
 export var block_schemes: Array = []
 var picked_id: int = 0 
-var charges = 0
+var charges = 1
 var placement_position: Vector2 = Vector2(0,0)
 var build_mode = false
 
 func _ready():
 	assign_player(Players.players[1])
+
 
 func _process(delta):
 	manage_building()
@@ -27,27 +28,33 @@ func is_direction_valid(aim_direction) -> bool:
 
 func on_player_just_pressed_ability(aim):
 	build_mode = !build_mode
+	print("Build mode is %s, right now." % build_mode)
+
 
 func on_player_just_pressed_interact():
 	destroy_block()
+
 	
 func manage_building():
 	if build_mode == true:
-		transform_position_to_grid()
+		update_placement_position()
 		if Input.is_mouse_button_pressed(BUTTON_LEFT):
 			build_block()
 			build_mode = false
 	
+	
 func build_block():
 	if charges > 0 and block_schemes.size() > 0:
+		var position_for_block = position + placement_position
 		var look_for_tile = !Blocks.block_has_static_scene(block_schemes[picked_id])
 		if look_for_tile:
 			if Blocks.has_block(block_schemes[picked_id]):
 				for node in get_tree().get_nodes_in_group("Tilemap"):
-					var id = node.find_tile_by_name(block_schemes[picked_id])
+					var id = node.tile_set.find_tile_by_name(block_schemes[picked_id])
 					if id != -1:
-						var block_position = node.global_to_map(placement_position)
+						var block_position = node.world_to_map(position_for_block)
 						node.set_cellv(block_position, id)
+						node.update_dirty_quadrants()
 						change_picked_by(-1)
 						break
 		else:
@@ -57,21 +64,19 @@ func build_block():
 				block.position = to_global(placement_position)
 				change_picked_by(-1)
 	
+
 func destroy_block():
 	var collision_pos = front_aim_point.position
-	collision_pos.y += 1
-	var collided_block = move_and_collide(collision_pos, false, true, true)
+	var collided_block = move_and_collide(collision_pos + Vector2(0,1), false, true, true)
 	if collided_block != null:
 		if "should_teleport" in collided_block:
 			collided_block.queue_free()
 			change_picked_by(1)
 	
 	
-func transform_position_to_grid():
+func update_placement_position():
 	var mouse_pos = get_local_mouse_position()
-	placement_position.x = round(mouse_pos.x / 128)
-	placement_position.y = round(mouse_pos.y / 128)
-	placement_position *= 128
+	placement_position = mouse_pos
 		
 		
 func change_picked_by(value):
