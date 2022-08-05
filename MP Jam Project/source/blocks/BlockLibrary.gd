@@ -18,7 +18,7 @@ func get_block_data(tile_name):
 	for item in blocks:
 		if item.tile_name == tile_name:
 			return item
-	return -1	
+	return null	
 #func get_block_data(tile_name):
 	#if(!tile_lookup.has(tile_name)):
 		#return -1

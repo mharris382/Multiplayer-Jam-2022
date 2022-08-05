@@ -68,10 +68,11 @@ func build_block():
 
 func destroy_block():
 	var collision_pos = front_aim_point.position
-	var collided_block = move_and_collide(collision_pos + Vector2(0,1), false, true, true)
+	var collided_block = move_and_collide(collision_pos, false, true, true)
 	if collided_block != null:
-		if "should_teleport" in collided_block:
-			collided_block.queue_free()
+		if "should_teleport" in collided_block.collider:
+			print("it does work")
+			collided_block.collider.queue_free()
 			charges += 1
 	
 	
