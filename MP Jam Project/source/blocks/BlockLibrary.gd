@@ -1,6 +1,7 @@
 class_name BlockLibrary, "res://assets/ui/editor/icon-block.png"
 extends Resource
 
+export var bugfixes2 = 1
 export var bugfixes = 1
 export(Array, Resource) var blocks = []
 
@@ -17,7 +18,7 @@ func get_block_data(tile_name):
 	for item in blocks:
 		if item.tile_name == tile_name:
 			return item
-	return -1	
+	return null	
 #func get_block_data(tile_name):
 	#if(!tile_lookup.has(tile_name)):
 		#return -1

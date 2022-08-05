@@ -59,8 +59,8 @@ func _process(delta):
 				game_state = GameState.IN_GAME
 				#print("process game")
 			elif !p1.is_assigned() and !p2.is_assigned():
-				p1._process(delta)
-				p2._process(delta)
+				#p1._process(delta)
+				#p2._process(delta)
 				
 				# the first player to press a button will be transporter (for now)
 				if p1.has_input():
@@ -77,9 +77,9 @@ func _process(delta):
 		GameState.IN_GAME:
 			if !p1.is_assigned() or !p2.is_assigned():
 				game_state = GameState.CHARACTER_SELECT
-			else:
-				for player in players:
-					player._process(delta)
+			#else:
+				#for player in players:
+					#player._process(delta)
 
 func create_parent(name):
 	var parent =  Node.new()

@@ -9,8 +9,8 @@ onready var throw_origin : Node2D #these can be the same transform
 onready var aim_transform : Position2D = $ControlPoints/Aim
 
 func _ready():
-	._ready()
 	assign_player(Players.players[0])
+	
 
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
@@ -23,26 +23,29 @@ func is_direction_valid(aim_direction) -> bool:
 	return true
 
 func on_player_just_pressed_ability(aim):
+	.on_player_just_pressed_ability(aim)
 	make_block_dynamic()
 	throw_a_block()
 	
-func on_player_pressed_interact():
+func on_player_just_pressed_interact():
+	.on_player_just_pressed_interact()
 	pick_up_a_block()
 
 
 func make_block_dynamic():
 	if not holds_block:
 		var collision = front_aim_point.position
-		collision.y -= 1
+		collision.y = -1
 		var block = move_and_collide(collision, false, true, true)
 		if block != null:
 			if "tile_set" in block.collider:
+				#print(block.position)
+				var tilemap = block.collider as TileMap
 				var pos = block.collider.world_to_map(block.position - block.normal)
-				var tilemap = block.collider.get_parent()
 				var data = tilemap.cell_get_block_data(pos)
-				if data != -1:
+				if data != null:
 					if data.destructable != false:
-						tilemap.delete_tile(pos)
+						tilemap.build_dynamic_block(pos)
 
 func pick_up_a_block():
 	#if Input.is_action_just_pressed("interact_%s" % player_id):
