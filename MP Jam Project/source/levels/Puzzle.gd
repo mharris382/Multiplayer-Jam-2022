@@ -1,16 +1,32 @@
-extends Node
+extends Node2D
 
-signal level_completed
+onready var actual_map = $Interactives/Actual
+onready var solution_map = $Interactives/Solution
+var solution_tiles: Dictionary = {}
 
-enum PuzzleState { Unsolved=0, Solved=1, In_Progress=2 }
+func _ready():
+	initialise_puzzle()
+	print(puzzle_percent())
+	
+		
+func initialise_puzzle():
+	for cell in solution_map.get_used_cells():
+		var id = solution_map.get_cellv(cell)
+		solution_tiles[cell] = id
 
-var puzzle_state = 0
-
-func _notification(what):
-	if what == NOTIFICATION_PARENTED:
-		var parent = get_parent()
-		if parent.has_node("StaticMap Actual") and parent.has_node("StaticMap Solution"):
-			#this puzzle was just started
-			pass
-		return
-	pass
+func is_puzzle_correct() -> bool:
+	var positions = solution_tiles.keys()
+	for tile_pos in positions:
+		var id = actual_map.get_cellv(tile_pos)
+		if id != solution_tiles[tile_pos]:
+			return false
+	return true
+	
+func puzzle_percent():
+	var positions = solution_tiles.keys()
+	var count = 0
+	for tile_pos in positions:
+		var id = actual_map.get_cellv(tile_pos)
+		if id == solution_tiles[tile_pos]:
+			count += 1
+	return float(count) / positions.size()

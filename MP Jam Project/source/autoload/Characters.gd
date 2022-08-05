@@ -12,7 +12,8 @@ var wait_for_players_ready_timer  : Timer
 func _ready():
 	var  tree = get_tree()
 	var characters = tree.get_nodes_in_group(character_group)
-	assert(characters.size() >= 2)
+	if !characters.size() >= 2:
+		return
 	for character in characters:
 		if character is Transporter:
 			transporter = (character as Transporter)
