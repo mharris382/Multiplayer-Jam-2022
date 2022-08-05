@@ -1,11 +1,14 @@
 class_name Builder
 extends CharacterBase
 
+signal block_built
+
 export var block_schemes: Array = []
 var picked_id: int = 0 
 var charges = 1
 var placement_position: Vector2 = Vector2(0,0)
 var build_mode = false
+
 
 func _ready():
 	assign_player(Players.players[1])
@@ -57,6 +60,7 @@ func build_block():
 							node.set_cellv(block_position, id)
 							node.update_dirty_quadrants()
 							charges -= 1
+							emit_signal("block_built")
 							break
 		else:
 			var block = Blocks.instance_static_block(block_schemes[picked_id])
@@ -64,6 +68,7 @@ func build_block():
 				get_parent().add_child(block)
 				block.position = to_global(placement_position)
 				charges -= 1
+				emit_signal("block_built")
 	
 
 func destroy_block():

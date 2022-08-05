@@ -54,7 +54,6 @@ func _ready():
 #	tile_map.modulate = Color(1,1,1,0) #this is interesting, i like it
 #	var grid_size = max_cell - min_cell
 #	print("Grid size = ", grid_size)
-
 func cell_has_block(grid_position):
 	var id = get_cell(grid_position.x, grid_position.y)
 	if(id == -1):
@@ -201,6 +200,3 @@ func delete_tile(tile_position):
 #
 #				preview_block.global_position=tile_map.map_to_world(Vector2(grid_position.x, grid_position.y))
 #				self.add_child(preview_block)
-
-
-
