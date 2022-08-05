@@ -56,14 +56,14 @@ func build_block():
 						if node.get_cellv(block_position) == -1:
 							node.set_cellv(block_position, id)
 							node.update_dirty_quadrants()
-							change_picked_by(-1)
+							charges -= 1
 							break
 		else:
 			var block = Blocks.instance_static_block(block_schemes[picked_id])
 			if block != null:
 				get_parent().add_child(block)
 				block.position = to_global(placement_position)
-				change_picked_by(-1)
+				charges -= 1
 	
 
 func destroy_block():
@@ -72,7 +72,7 @@ func destroy_block():
 	if collided_block != null:
 		if "should_teleport" in collided_block:
 			collided_block.queue_free()
-			change_picked_by(1)
+			charges += 1
 	
 	
 func colliding_with_block(block_position):
