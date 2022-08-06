@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/ui/Quit_BackButton.tres" type="ButtonGroup" id=1]
+[ext_resource path="res://assets/ui/Quit_QuitButton.tres" type="ButtonGroup" id=2]
+[ext_resource path="res://source/ui/QuitPopupDialogue.gd" type="Script" id=3]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PopupDialog" type="PopupDialog" parent="."]
+anchor_left = 0.331
+anchor_top = 0.289
+anchor_right = 0.62
+anchor_bottom = 0.587
+margin_left = 0.23996
+margin_top = -0.0599976
+margin_right = -0.200012
+margin_bottom = 0.019989
+script = ExtResource( 3 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PopupDialog"]
+margin_left = 20.0
+margin_top = 17.0
+margin_right = 233.0
+margin_bottom = 89.0
+text = "Are you sure you want to quit?
+
+Unsaved progress will be lost"
+
+[node name="Yes Button" type="Button" parent="PopupDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.5
+margin_top = 1.5
+margin_right = -4.0
+margin_bottom = -5.0
+group = ExtResource( 2 )
+text = "Quit"
+
+[node name="No Button" type="Button" parent="PopupDialog"]
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 2.5
+margin_right = -1.5
+margin_bottom = -6.0
+group = ExtResource( 1 )
+text = "Back"
+
+[connection signal="button_down" from="PopupDialog/Yes Button" to="PopupDialog" method="_on_Quit_Quit_Button_down"]
+[connection signal="button_down" from="PopupDialog/No Button" to="PopupDialog" method="_on_Quit_Canceled_Button_down"]

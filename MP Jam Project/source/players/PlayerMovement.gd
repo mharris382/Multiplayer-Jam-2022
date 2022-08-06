@@ -81,7 +81,6 @@ func block_jumper():
 func _change_anim():
 	pass
 
-
 func on_jump_start():
 	pass
 

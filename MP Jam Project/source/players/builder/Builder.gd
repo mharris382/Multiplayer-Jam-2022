@@ -2,8 +2,10 @@ class_name Builder
 extends CharacterBase
 
 signal block_built
+signal try_pickup_blocks()
 
 export var block_schemes: Array = []
+export var auto_pickup_blocks = true
 var picked_id: int = 0 
 var charges = 1
 var placement_position: Vector2 = Vector2(0,0)
@@ -16,6 +18,8 @@ func _ready():
 
 func _process(delta):
 	manage_building()
+	if auto_pickup_blocks:
+		get_node("Block Area2D").enable_pickups = true
 	
 	
 func is_direction_valid(aim_direction) -> bool:
@@ -35,41 +39,47 @@ func on_player_just_pressed_ability(aim):
 
 
 func on_player_just_pressed_interact():
-	destroy_block()
-
+	emit_signal("try_pickup_blocks")
 	
 func manage_building():
 	if build_mode == true:
 		update_placement_position()
 		if Input.is_mouse_button_pressed(BUTTON_LEFT):
 			build_block()
-			build_mode = false
-	
-	
+#			build_mode = false
+
 func build_block():
 	if charges > 0 and block_schemes.size() > 0:
 		var position_for_block = position + placement_position
-		var look_for_tile = !Blocks.block_has_static_scene(block_schemes[picked_id])
-		if look_for_tile:
-			if Blocks.has_block(block_schemes[picked_id]):
-				for node in get_tree().get_nodes_in_group("Tilemap"):
-					var id = node.tile_set.find_tile_by_name(block_schemes[picked_id])
-					if id != -1:
-						var block_position = node.world_to_map(position_for_block)
-						if node.get_cellv(block_position) == -1:
-							node.set_cellv(block_position, id)
-							node.update_dirty_quadrants()
-							charges -= 1
-							emit_signal("block_built")
-							break
-		else:
-			var block = Blocks.instance_static_block(block_schemes[picked_id])
-			if block != null:
-				get_parent().add_child(block)
-				block.position = to_global(placement_position)
-				charges -= 1
-				emit_signal("block_built")
-	
+		var block_name = block_schemes[picked_id]
+		_build_block_internal(position_for_block, block_name)
+		
+func _build_block_internal(position_for_block, block_name):
+	if  !Blocks.block_has_static_scene(block_name):
+		_build_block_as_tile(position_for_block, block_name)
+	else:
+		_build_block_as_static_block(position_for_block, block_name)
+
+func _build_block_as_tile(position_for_block, block_name):
+	if Blocks.has_block(block_name):
+			for node in get_tree().get_nodes_in_group("Tilemap"):
+				var id = node.tile_set.find_tile_by_name(block_name)
+				if id != -1:
+					var block_position = node.world_to_map(position_for_block)
+					if node.get_cellv(block_position) == -1:
+						node.set_cellv(block_position, id)
+						node.update_dirty_quadrants()
+						charges -= 1
+						emit_signal("block_built")
+						break
+
+func _build_block_as_static_block(position_for_block, block_name):
+	var block = Blocks.instance_static_block(block_name)
+	if block != null:
+		get_parent().add_child(block)
+		block.position = to_global(placement_position)
+		charges -= 1
+		emit_signal("block_built")
 
 func destroy_block():
 	var collision_pos = front_aim_point.position
@@ -92,7 +102,12 @@ func colliding_with_block(block_position):
 func update_placement_position():
 	var mouse_pos = get_local_mouse_position()
 	placement_position = mouse_pos
-		
-		
+	
+	
 func change_picked_by(value):
 	picked_id = clamp(picked_id + value, 0, block_schemes.size())
+
+
+func _on_block_picked_up(block_data):
+	#AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_PICKUP)
+	pass # Replace with function body.

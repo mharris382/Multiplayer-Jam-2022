@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gameplay_feedback_correct_1.wav-203e7bd6a74b255d570c9be9a15a1abc.sample"
+
+[deps]
+
+source_file="res://assets/Audio/sounds/Feedbacks/gameplay_feedback_correct_1.wav"
+dest_files=[ "res://.import/gameplay_feedback_correct_1.wav-203e7bd6a74b255d570c9be9a15a1abc.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
