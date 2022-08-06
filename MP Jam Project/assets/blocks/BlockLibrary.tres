@@ -10,5 +10,6 @@
 
 [resource]
 script = ExtResource( 3 )
+bugfixes2 = 1
 bugfixes = 1
 blocks = [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ) ]

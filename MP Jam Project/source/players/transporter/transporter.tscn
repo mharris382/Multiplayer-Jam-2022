@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://source/players/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/transporter.png" type="Texture" id=2]
 [ext_resource path="res://source/players/transporter/Transporter.gd" type="Script" id=3]
-[ext_resource path="res://source/blocks/DynamicBlocks/DynamicBlockBase.tscn" type="PackedScene" id=4]
 [ext_resource path="res://source/players/transporter/Aim.gd" type="Script" id=5]
 [ext_resource path="res://assets/blocks/vfx/lighting/light.png" type="Texture" id=6]
 [ext_resource path="res://assets/animation/builder_animator.tscn" type="PackedScene" id=7]
@@ -14,7 +13,7 @@ light_mode = 1
 
 [node name="Transporter" groups=["Characters"] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-test_block = ExtResource( 4 )
+throw_force = 5.0
 
 [node name="Light2D" type="Light2D" parent="." index="0"]
 show_behind_parent = true
@@ -48,7 +47,7 @@ maximum_range = Vector2( 80, 80 )
 scale = Vector2( 0.369, 0.369 )
 frames = ExtResource( 8 )
 animation = "idle"
-frame = 0
+frame = 22
 
 [connection signal="character_changed_direction" from="." to="Animator" method="_on_character_changed_direction"]
 [connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]
