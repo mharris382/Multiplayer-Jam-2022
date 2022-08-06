@@ -37,3 +37,7 @@ cell_size = Vector2( 128, 128 )
 occluder_light_mask = 0
 format = 1
 tile_data = PoolIntArray( 851974, 11, 0, 851975, 11, 0, 851976, 11, 0, 851987, 11, 0, 851988, 11, 0, 851989, 11, 0, 917510, 11, 0, 917511, 11, 0, 917512, 11, 0, 917523, 11, 0, 917524, 11, 0, 917525, 11, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1928, 1088 )
+zoom = Vector2( 4, 4 )
