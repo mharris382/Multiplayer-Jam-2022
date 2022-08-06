@@ -81,6 +81,7 @@ func has_input():
 	
 #property functions
 
+
 func assignment_set(new_assignment):
 	if assignment != new_assignment:
 		assignment = new_assignment

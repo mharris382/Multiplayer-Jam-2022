@@ -119,6 +119,7 @@ config/icon="res://icon.png"
 Players="*res://source/autoload/Players.gd"
 Characters="*res://source/autoload/Characters.gd"
 Blocks="*res://source/autoload/Blocks.gd"
+AudioManager="*res://source/autoload/AudioManager.gd"
 
 [display]
 

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/animation/builder_spriteframes.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/animation/CharacterAnimator.gd" type="Script" id=2]
+
+[node name="Animator" type="AnimatedSprite"]
+z_index = 13
+frames = ExtResource( 1 )
+animation = "jump-rise"
+frame = 3
+playing = true
+script = ExtResource( 2 )

@@ -1,15 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://source/players/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/builder.png" type="Texture" id=2]
 [ext_resource path="res://source/players/builder/Builder.gd" type="Script" id=3]
 [ext_resource path="res://source/players/builder/DynamicBlockPicker.tscn" type="PackedScene" id=4]
 [ext_resource path="res://source/players/builder/InteractPickupTimer.gd" type="Script" id=5]
+[ext_resource path="res://assets/animation/builder_animator.tscn" type="PackedScene" id=6]
 
 [node name="Builder" groups=["Characters"] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
+visible = false
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="1"]
@@ -21,6 +23,14 @@ script = ExtResource( 5 )
 
 [node name="Block Area2D" parent="." index="6" instance=ExtResource( 4 )]
 
+[node name="Animator" parent="." index="7" instance=ExtResource( 6 )]
+scale = Vector2( 0.369413, 0.369413 )
+animation = "idle"
+frame = 0
+playing = false
+
+[connection signal="character_changed_direction" from="." to="Animator" method="_on_character_changed_direction"]
+[connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]
 [connection signal="try_pickup_blocks" from="." to="Interact Pickup Timer" method="_on_Builder_try_pickup_blocks"]
 [connection signal="try_pickup_blocks" from="." to="Block Area2D" method="_on_Builder_try_pickup_blocks"]
 [connection signal="timeout" from="Interact Pickup Timer" to="Block Area2D" method="_on_Interact_Pickup_Timer_timeout"]

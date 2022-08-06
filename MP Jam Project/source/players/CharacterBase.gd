@@ -3,12 +3,21 @@ extends PlayerMovement
 
 signal player_assigned_to_character(player)
 signal character_changed_direction(direction) #LEFT = -1, #RIGHT = 1
+signal character_state_changed(prev_state, next_state, move_input)
+enum PlayerState{
+	IDLE=1,
+	RUNNING=2,
+	IN_AIR=3
+}
 
 enum AimDirection { FRONT, BELOW, ABOVE }
 enum FacingDirection { LEFT=-1, RIGHT=1 }
 
 var facing_direction = FacingDirection.RIGHT
 var aim_input : Vector2
+var found_player = false
+var last_player_state = 1
+var last_direction = 1
 
 onready var front_aim_point = $"ControlPoints/Front"
 onready var below_aim_point = $"ControlPoints/Below"
@@ -24,6 +33,39 @@ func _notification(what):
 		if player == null:
 			return
 			
+
+func _ready(): 
+	._ready()
+	
+	
+func _process(delta):
+	var current_state= last_player_state
+	if not is_on_floor():
+		current_state = PlayerState.IN_AIR
+	elif move_input.length() > 0.1:
+		current_state = PlayerState.RUNNING
+	else:
+		current_state = PlayerState.IDLE
+	if last_player_state != current_state:
+		var _mv_input = move_input
+		if is_jumping:
+			_mv_input.y = 1
+		else:
+			_mv_input.y = -1
+		emit_signal("character_state_changed", last_player_state, current_state, move_input)
+		last_player_state = current_state
+
+	if move_input.length_squared() > 0:
+		var direction = last_direction
+		if move_input.x > 0 and direction < 0:
+			direction = 1
+			emit_signal("character_changed_direction", direction)
+			last_direction = direction
+		elif move_input.x < 0 and direction > 0:
+			direction = -1
+			emit_signal("character_changed_direction", direction)
+			last_direction = direction
+
 
 func assign_player(player):
 	player.connect("input_move", self, "on_player_move_input")
@@ -45,9 +87,6 @@ func unassign_player(player):
 	player.disconnect("input_interact_just_pressed", self, "on_player_just_pressed_interact")
 	emit_signal("player_assigned_to_character", null)
 
-var found_player = false
-func _ready(): 
-	._ready()
 
 #since the validity is dependent on the kind of action being performed this 
 #function must be implemented in the child classes
