@@ -34,18 +34,14 @@ func on_player_just_pressed_interact():
 
 func make_block_dynamic():
 	if not holds_block:
-		var collision = front_aim_point.position
-		collision.y = -1
-		var block = move_and_collide(collision, false, true, true)
-		if block != null:
-			if "tile_set" in block.collider:
-				#print(block.position)
-				var tilemap = block.collider as TileMap
-				var pos = block.collider.world_to_map(block.position - block.normal)
-				var data = tilemap.cell_get_block_data(pos)
-				if data != null:
-					if data.destructable != false:
-						tilemap.build_dynamic_block(pos)
+		var aim_position: Vector2 = get_aim_direction(facing).position
+		var tilemap = get_tree().get_nodes_in_group("Tilemap")[0]
+		var block_position = tilemap.world_to_map(position + aim_position)
+		var data = tilemap.cell_get_block_data(block_position)
+		if data != null and data.destructable != false:
+			tilemap.build_dynamic_block(block_position)
+		
+
 
 func pick_up_a_block():
 	#if Input.is_action_just_pressed("interact_%s" % player_id):
@@ -53,8 +49,8 @@ func pick_up_a_block():
 	if block != null:
 		if block.collider.is_in_group("dynamic_block"):
 			var new_block = load("res://source/blocks/DynamicBlocks/PickedBlock.tscn").instance()
-			block.collider.queue_free()
 			front_aim_point.add_child(new_block)
+			block.collider.queue_free()
 			holds_block = true
 
 

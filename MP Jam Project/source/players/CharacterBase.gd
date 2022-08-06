@@ -88,6 +88,11 @@ func on_player_released_interact():
 	pass
 
 
+# making this function until we make use of aim parameter from ability
+func get_aim_direction(value):
+	if value == "left" or value == "right":
+		return front_aim_point
+
 
 func get_aim_position(aim_direction):
 	match(aim_direction):

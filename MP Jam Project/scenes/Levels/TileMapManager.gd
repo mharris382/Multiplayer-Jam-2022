@@ -18,7 +18,8 @@ func build_dynamic_block(grid_pos):
 			var new_block = data.dynamic_block.instance()
 			var pos = map_to_world(grid_pos)
 			get_parent().add_child(new_block)
-			new_block.position = pos
+			new_block.should_teleport = true
+			new_block.node_pos = pos
 			
 func update_dirty_quadrants():
 	.update_dirty_quadrants()

@@ -109,5 +109,5 @@ func change_picked_by(value):
 
 
 func _on_block_picked_up(block_data):
-	AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_PICKUP)
+	#AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_PICKUP)
 	pass # Replace with function body.
