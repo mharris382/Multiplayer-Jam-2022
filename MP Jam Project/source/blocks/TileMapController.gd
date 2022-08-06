@@ -1,4 +1,4 @@
-extends Node2D
+extends TileMap
 #NOTE: if you have merge conflicts take yours but make sure to comment out line 45 to avoid errors
 export var map_is_solution = false
 export var custom_tile_mapping = {
@@ -12,7 +12,7 @@ var block_wrapper : PackedScene = preload("res://source/utils/BlockWrapper.tscn"
 var block_ghost =preload("res://source/blocks/BlockFunctions/ghost/BlockGhost.tscn")
 var FlyingText = preload("res://source/ui/flying_text/FlyingText.tscn")#? move this to UI system
 
-onready var tile_map :TileMap = $"Tilemap"
+#onready var tile_map :TileMap = $"Tilemap"
 onready var cells = $Cells
 
 var last_hovered_tile = Vector2(0,0)
@@ -54,22 +54,21 @@ func _ready():
 #	tile_map.modulate = Color(1,1,1,0) #this is interesting, i like it
 #	var grid_size = max_cell - min_cell
 #	print("Grid size = ", grid_size)
-
 func cell_has_block(grid_position):
-	var id = tile_map.get_cell(grid_position.x, grid_position.y)
+	var id = get_cell(grid_position.x, grid_position.y)
 	if(id == -1):
 		return false
-	var tile_name = tile_map.tile_set.tile_get_name(id)
+	var tile_name = tile_set.tile_get_name(id)
 	return Blocks.has_block(tile_name)
 
 func cell_get_block_data(grid_pos) -> BlockData:
-	var id = tile_map.get_cell(grid_pos.x, grid_pos.y)
-	var tile_name = tile_map.tile_set.tile_get_name(id)
+	var id = get_cell(grid_pos.x, grid_pos.y)
+	var tile_name = tile_set.tile_get_name(id)
 	return Blocks.get_block_data(tile_name)
 
 func cell_has_block_data(grid_position) -> bool:
-	var id = tile_map.get_cell(grid_position.x, grid_position.y)
-	var tile_name = tile_map.tile_set.tile_get_name(id)
+	var id = get_cell(grid_position.x, grid_position.y)
+	var tile_name = tile_set.tile_get_name(id)
 	return Blocks.has_block(tile_name)
 
 func cell_clear(grid_pos):
@@ -79,8 +78,8 @@ func cell_clear(grid_pos):
 		delete_tile(grid_pos)
 	
 func cell_init_block_wrapper(grid_pos):
-	var tile_id = tile_map.get_cellv(grid_pos)
-	var tile_name = tile_map.tile_set.tile_get_name(tile_id)
+	var tile_id = get_cellv(grid_pos)
+	var tile_name = tile_set.tile_get_name(tile_id)
 	if !Blocks.has_block(tile_name):
 		return
 	var block_wrapper = get_or_create_block_wrapper(grid_pos)
@@ -103,7 +102,7 @@ func get_or_create_block_wrapper(grid_pos : Vector2) -> Node2D:
 		return existing_wrapper
 	
 	var new_block_wrapper=block_wrapper.instance()
-	tile_map.map_to_world(grid_pos)
+	map_to_world(grid_pos)
 	return new_block_wrapper
 
 func build_static_block(block, grid_pos):
@@ -117,16 +116,16 @@ func build_dynamic_block(grid_pos):
 		var data = Blocks.get_block_data(block_name)
 		if data.dynamic_block != null:
 			var new_block = data.dynamic_block.instance()
-			var pos = tile_map.map_to_world(grid_pos)
+			var pos = map_to_world(grid_pos)
 			get_parent().add_child(new_block)
 			new_block.position = pos
 			
 
 #*mouse to grid pos
 func mouse_to_grid_pos() ->Vector2:
-	var x = get_local_mouse_position().x / tile_map.cell_size.x
-	var y = get_local_mouse_position().y / tile_map.cell_size.y
-	return tile_map.world_to_map(Vector2(x, y) * tile_map.cell_size)
+	var x = get_local_mouse_position().x / cell_size.x
+	var y = get_local_mouse_position().y / cell_size.y
+	return world_to_map(Vector2(x, y) * cell_size)
 
 #*get the current object those are under the cursor rn base on ySort
 func get_object_under_cursor():
@@ -140,11 +139,11 @@ func get_object_under_cursor():
 	return ret
 
 func delete_tile(tile_position):
-	var id = tile_map.get_cell(tile_position.x, tile_position.y)
+	var id = get_cell(tile_position.x, tile_position.y)
 	if id != -1:
-		var name = tile_map.tile_set.tile_get_name(id)
-		tile_map.set_cell(tile_position.x, tile_position.y, -1)
-		tile_map.fix_invalid_tiles()
+		var name = tile_set.tile_get_name(id)
+		set_cell(tile_position.x, tile_position.y, -1)
+		fix_invalid_tiles()
 		return name
 	else:
 		return null
@@ -201,6 +200,3 @@ func delete_tile(tile_position):
 #
 #				preview_block.global_position=tile_map.map_to_world(Vector2(grid_position.x, grid_position.y))
 #				self.add_child(preview_block)
-
-
-

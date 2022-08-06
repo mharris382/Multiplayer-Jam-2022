@@ -35,14 +35,15 @@ func on_player_just_pressed_interact():
 func make_block_dynamic():
 	if not holds_block:
 		var collision = front_aim_point.position
-		collision.y -= 1
+		collision.y = -1
 		var block = move_and_collide(collision, false, true, true)
 		if block != null:
 			if "tile_set" in block.collider:
+				#print(block.position)
+				var tilemap = block.collider as TileMap
 				var pos = block.collider.world_to_map(block.position - block.normal)
-				var tilemap = block.collider.get_parent()
 				var data = tilemap.cell_get_block_data(pos)
-				if data != -1:
+				if data != null:
 					if data.destructable != false:
 						tilemap.build_dynamic_block(pos)
 

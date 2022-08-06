@@ -1,11 +1,14 @@
 class_name Builder
 extends CharacterBase
 
+signal block_built
+
 export var block_schemes: Array = []
 var picked_id: int = 0 
 var charges = 1
 var placement_position: Vector2 = Vector2(0,0)
 var build_mode = false
+
 
 func _ready():
 	assign_player(Players.players[1])
@@ -53,25 +56,37 @@ func build_block():
 					var id = node.tile_set.find_tile_by_name(block_schemes[picked_id])
 					if id != -1:
 						var block_position = node.world_to_map(position_for_block)
-						node.set_cellv(block_position, id)
-						node.update_dirty_quadrants()
-						change_picked_by(-1)
-						break
+						if node.get_cellv(block_position) == -1:
+							node.set_cellv(block_position, id)
+							node.update_dirty_quadrants()
+							charges -= 1
+							emit_signal("block_built")
+							break
 		else:
 			var block = Blocks.instance_static_block(block_schemes[picked_id])
 			if block != null:
 				get_parent().add_child(block)
 				block.position = to_global(placement_position)
-				change_picked_by(-1)
+				charges -= 1
+				emit_signal("block_built")
 	
 
 func destroy_block():
 	var collision_pos = front_aim_point.position
-	var collided_block = move_and_collide(collision_pos + Vector2(0,1), false, true, true)
+	var collided_block = move_and_collide(collision_pos, false, true, true)
 	if collided_block != null:
-		if "should_teleport" in collided_block:
-			collided_block.queue_free()
-			change_picked_by(1)
+		if "should_teleport" in collided_block.collider:
+			print("it does work")
+			collided_block.collider.queue_free()
+			charges += 1
+	
+	
+func colliding_with_block(block_position):
+	var collision = move_and_collide(block_position, false, true, true)
+	var tilemap = get_tree().get_nodes_in_group("Tilemap")[0]
+	var predicted_position = tilemap.world_to_map(collision.position - collision.normal)
+	var actual_position = tilemap.world_to_map(block_position + position)
+	return predicted_position == actual_position
 	
 	
 func update_placement_position():
