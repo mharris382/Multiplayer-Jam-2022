@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=19 format=2]
+[gd_resource type="Resource" load_steps=20 format=2]
 
 [ext_resource path="res://source/blocks/BlockLibrary.gd" type="Script" id=1]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Conveyor.tres" type="Resource" id=2]
@@ -18,9 +18,10 @@
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_4.tres" type="Resource" id=16]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_2.tres" type="Resource" id=17]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_5.tres" type="Resource" id=18]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Metal_Screws.tres" type="Resource" id=19]
 
 [resource]
 script = ExtResource( 1 )
 bugfixes2 = 1
 bugfixes = 1
-blocks = [ ExtResource( 10 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 13 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 17 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 18 ) ]
+blocks = [ ExtResource( 13 ), ExtResource( 10 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 19 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 17 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 18 ) ]

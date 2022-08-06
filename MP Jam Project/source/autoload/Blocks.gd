@@ -5,10 +5,17 @@ onready var tile_set :TileSet= preload("res://assets/Blocks_Final/TileSet_Blocks
 onready var block_library  = preload("res://assets/Blocks_Final/Blocks_Final.tres")
 onready var dynamic_block_null_object = preload("res://scenes/objects/DynamicBlock.tscn")
 onready var universal_dynamic_block = preload("res://scenes/dynamic_blocks/DynamicBlock_UniversalBlock.tscn")
+
+var remapped_suffixes = [
+	"_On", "_Off"
+]
+
 static func get_null_object_block_data():
 	return Blocks.block_library.blocks[0]
 #block can be either block name, block id, or an array or ids or strings
 static func get_block_data(block) -> BlockData:
+	if block is BlockData or (block == null):
+		return block
 	match typeof(block):
 		TYPE_INT:
 			return Blocks.block_library.blocks[block]
@@ -28,34 +35,23 @@ static func get_block_data(block) -> BlockData:
 	print("ERROR: invalid block id: ", typeof(block))
 	return null
 
-static func instance_dynamic_block_at_location(block, location):
-	var block_data = get_block_data(block)
-	if block_data == null:
-		return
-	pass
+static func get_block_tile_name(block):
+	assert(block !=null)
+	if block is BlockData:
+		if block.resource_name != block.tile_name:
+			print("ERROR The block: ", block.resource_name, " does not match the tile name: ", block.tile_name)	
+		return block.resource_name
+	elif block is String:
+		
+		pass
+		
+static func remap_block_name(block_name:String)->String:
+	for suffix in Blocks.remapped_suffixes:
+			if block_name.ends_with(suffix):
+				return block_name.left(block_name.length() - suffix.length())
+	return block_name
 
-static func instance_dynamic_block(block):
-	var block_data = get_block_data(block)
-	if block_data == null:
-		return
-	pass
-#	var block_data = get_block_data(block)
-#	if block_data == null or !block_data.dynamic_block !=null:
-#
-##		if sprite == null:
-##			print("Null Dynamic Block missing sprite")
-##			return null_block
-##
-##		var tile_id = Blocks.tile_set.find_tile_by_name(block_data.resource_name)
-##
-##		if tile_id == -1:
-##			Blocks.tile_set.find_tile_by_name(block_data.tile_name)
-##			if tile_id == -1:
-##				return null_block
-#
-#		sprite.region_enabled = true
-##		sprite.region_rect = Blocks.tile_set.tile_get_region(tile_id)
-#	return Blocks.get_block_data(block).dynamic_block
+
 
 static func build_static_block(block, grid_position, target_tile_map):
 	if target_tile_map == null:
@@ -75,3 +71,23 @@ static func block_has_static_scene(block) -> bool:
 	if !has_block(block):
 		return false
 	return get_block_data(block).static_block != null
+
+
+func instance_dynamic_block_at_location(block, location, parent_node):
+	if parent_node == null:
+		parent_node = self
+	if not Blocks.has_block(block):
+		print("ERROR at Blocks.instance_dynamic_block_at_location")
+		return
+		
+	var instance = Blocks.universal_dynamic_block.instance()
+	instance.name = block
+	instance.block_name = block
+	instance.position = location
+	print("Created Dynamic Block(", instance.block_name, ") at location: ", location)
+	if parent_node !=null:
+		parent_node.add_child(instance)
+	return instance
+
+func instance_dynamic_block(block):
+	return instance_dynamic_block_at_location(block, Vector2.ZERO, self)

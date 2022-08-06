@@ -2,22 +2,23 @@ extends Sprite
 
 
 func _on_block_changed(block):
-	if block is BlockData:
-		_update_block_sprite(block as BlockData)
-	elif block is String:
-		var data =Blocks.get_block_data(block)
-		if data != null:
-			_update_block_sprite(data)
+	print("BlockSprite: on block changed to ", block)
+	if block is String:
+		
+		_update_block_sprite(block)
 	else:
-		print("Invalid block changed parameter: ", block)
+		print("BlockSprite: Invalid block changed parameter:() must be string type) ", block)
 		
 		
-func _update_block_sprite(block_data:BlockData):
+func _update_block_sprite(block_name : String):
 	region_enabled = true
-	var tile_set : TileSet = Blocks.block_library.tile_set
-	var tile_name = block_data.resource_name
-	var tile_id = tile_set.find_tile_by_name(tile_name)
+	var tile_set : TileSet = Blocks.block_library.block_tile_set
+	var tile_id = tile_set.find_tile_by_name(block_name)
 	if tile_id == -1:
-		print("Error: no tile found in tile_set:", tile_set, " named ", tile_name)
+		print("BlockSprite: Error: no tile found in tile_set:", tile_set, " named ", block_name)
 	else:
 		region_rect = tile_set.tile_get_region(tile_id)
+
+static func get_block_region(block_name):
+	var tile_set : TileSet = Blocks.block_library.tile_set
+	var tile_id = tile_set.find_tile_by_name(block_name)

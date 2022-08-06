@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://source/utils/BlockSprite.gd" type="Script" id=1]
+[ext_resource path="res://assets/Blocks_Final/single-blocks.png" type="Texture" id=2]
 
 [node name="BlockSprite" type="Sprite"]
+position = Vector2( -8, 0 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 128, 128, 128, 128 )
+region_filter_clip = true
 script = ExtResource( 1 )

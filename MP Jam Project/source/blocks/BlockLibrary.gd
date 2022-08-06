@@ -5,7 +5,7 @@ export var bugfixes2 = 1
 export var bugfixes = 1
 export(Array, Resource) var blocks = []
 
-var block_tile_set : TileSet = preload("res://assets/blocks/Blocks_TileSet(placeholder).tres")
+var block_tile_set : TileSet = preload("res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres")
 var tile_lookup = {}
 
 
