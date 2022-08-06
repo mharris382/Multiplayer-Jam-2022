@@ -3,6 +3,7 @@
 [ext_resource path="res://source/blocks/DynamicBlocks/DynamicBlock.gd" type="Script" id=1]
 [ext_resource path="res://assets/blocks/TestBlocks/test sprites/test_tiles_128x128.png" type="Texture" id=2]
 
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 58.5, 58.5 )
 

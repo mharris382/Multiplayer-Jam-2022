@@ -271,6 +271,7 @@ switch_roles={
 2d_physics/layer_2="Traps"
 2d_physics/layer_3="Blocks"
 2d_physics/layer_4="StaticBlocks"
+2d_physics/layer_5="Doors"
 
 [physics]
 

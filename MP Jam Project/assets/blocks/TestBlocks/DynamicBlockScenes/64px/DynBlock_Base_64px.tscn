@@ -4,6 +4,7 @@
 [ext_resource path="res://assets/blocks/TestBlocks/test sprites/test_tiles_64x64.png" type="Texture" id=2]
 
 
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 29.5, 29.5 )
 
