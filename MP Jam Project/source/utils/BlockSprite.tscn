@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/utils/BlockSprite.gd" type="Script" id=1]
+
+[node name="BlockSprite" type="Sprite"]
+script = ExtResource( 1 )

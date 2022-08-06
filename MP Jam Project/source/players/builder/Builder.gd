@@ -101,7 +101,7 @@ func colliding_with_block(block_position):
 	var actual_position = tilemap.world_to_map(block_position + position)
 	return predicted_position == actual_position
 	
-	
+
 func update_placement_position():
 	var mouse_pos = get_local_mouse_position()
 	placement_position = mouse_pos

@@ -4,7 +4,7 @@ extends Node
 onready var tile_set :TileSet= preload("res://assets/Blocks_Final/TileSet_Blocks.tres")
 onready var block_library  = preload("res://assets/Blocks_Final/Blocks_Final.tres")
 onready var dynamic_block_null_object = preload("res://scenes/objects/DynamicBlock.tscn")
-
+onready var universal_dynamic_block = preload("res://scenes/dynamic_blocks/DynamicBlock_UniversalBlock.tscn")
 static func get_null_object_block_data():
 	return Blocks.block_library.blocks[0]
 #block can be either block name, block id, or an array or ids or strings
@@ -28,7 +28,16 @@ static func get_block_data(block) -> BlockData:
 	print("ERROR: invalid block id: ", typeof(block))
 	return null
 
+static func instance_dynamic_block_at_location(block, location):
+	var block_data = get_block_data(block)
+	if block_data == null:
+		return
+	pass
+
 static func instance_dynamic_block(block):
+	var block_data = get_block_data(block)
+	if block_data == null:
+		return
 	pass
 #	var block_data = get_block_data(block)
 #	if block_data == null or !block_data.dynamic_block !=null:
@@ -43,12 +52,14 @@ static func instance_dynamic_block(block):
 ##			Blocks.tile_set.find_tile_by_name(block_data.tile_name)
 ##			if tile_id == -1:
 ##				return null_block
-##
-##		sprite.region_enabled = true
+#
+#		sprite.region_enabled = true
 ##		sprite.region_rect = Blocks.tile_set.tile_get_region(tile_id)
 #	return Blocks.get_block_data(block).dynamic_block
-#
 
+static func build_static_block(block, grid_position, target_tile_map):
+	if target_tile_map == null:
+		target_tile_map = Blocks.get_tree().get_nodes_in_group("Tilemap")
 
 static func instance_static_block(block) -> Node2D:
 	if !Blocks.block_has_static_scene(block):

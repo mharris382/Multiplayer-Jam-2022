@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/ui/Quit_BackButton.tres" type="ButtonGroup" id=1]
 [ext_resource path="res://assets/ui/Quit_QuitButton.tres" type="ButtonGroup" id=2]
 [ext_resource path="res://source/ui/QuitPopupDialogue.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Audio/Music/Music_Main_Menu.tscn" type="PackedScene" id=4]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -50,6 +51,8 @@ margin_right = -1.5
 margin_bottom = -6.0
 group = ExtResource( 1 )
 text = "Back"
+
+[node name="Music_Track_Menu" parent="." instance=ExtResource( 4 )]
 
 [connection signal="button_down" from="PopupDialog/Yes Button" to="PopupDialog" method="_on_Quit_Quit_Button_down"]
 [connection signal="button_down" from="PopupDialog/No Button" to="PopupDialog" method="_on_Quit_Canceled_Button_down"]

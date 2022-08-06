@@ -2,10 +2,15 @@ class_name DynamicBlock
 extends RigidBody2D
 
 export var block_data : Resource = null
-
+signal block_changed(block_name)
 var should_teleport: bool = false
 var node_pos = Vector2(0,0)
 
+func on_block_changed(block_name):
+	if not Blocks.has_block(block_name):
+		print("Error: No block found named ", block_name)
+		return
+	
 
 func _integrate_forces(state):
 	if should_teleport:
