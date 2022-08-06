@@ -31,4 +31,8 @@ func _on_Music_Lobby_Button_button_down():
 
 
 func _on_Feedback_Ambient_Button_button_down():
-	AudioManager.change_ambient_track(load("res://scenes/Audio/Sounds/Ambient/SFX_Ambient.tscn"))
+	AudioManager.change_ambient_track(load("res://scenes/Audio/Sounds/Ambient/SFX_Ambient.tscn"), 1)
+
+
+func _on_Feedback_Good_Button_button_down():
+	AudioManager.play_feedback(AudioEnums.AudioFeedbacks.PUZZLE_GOOD)

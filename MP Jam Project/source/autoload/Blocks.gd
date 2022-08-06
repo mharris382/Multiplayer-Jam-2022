@@ -27,29 +27,25 @@ static func get_block_data(block) -> BlockData:
 	return null
 
 static func instance_dynamic_block(block):
-	
-	var block_data = get_block_data(block)
-	if block_data == null or !block_data.dynamic_block !=null:
-		
-		var null_block= Blocks.dynamic_block_null_object
-		var sprite = null_block.get_node("Sprite") as Sprite
-		
-		if sprite == null:
-			print("Null Dynamic Block missing sprite")
-			return null_block
-	
-		var tile_id = Blocks.tile_set.find_tile_by_name(block_data.resource_name)
-		
-		if tile_id == -1:
-			Blocks.tile_set.find_tile_by_name(block_data.tile_name)
-			if tile_id == -1:
-				return null_block
-		
-		sprite.region_enabled = true
-		sprite.region_rect = Blocks.tile_set.tile_get_region(tile_id)
-		return null_block
-	return Blocks.get_block_data(block).dynamic_block
-
+	pass
+#	var block_data = get_block_data(block)
+#	if block_data == null or !block_data.dynamic_block !=null:
+#
+##		if sprite == null:
+##			print("Null Dynamic Block missing sprite")
+##			return null_block
+##
+##		var tile_id = Blocks.tile_set.find_tile_by_name(block_data.resource_name)
+##
+##		if tile_id == -1:
+##			Blocks.tile_set.find_tile_by_name(block_data.tile_name)
+##			if tile_id == -1:
+##				return null_block
+##
+##		sprite.region_enabled = true
+##		sprite.region_rect = Blocks.tile_set.tile_get_region(tile_id)
+#	return Blocks.get_block_data(block).dynamic_block
+#
 
 
 static func instance_static_block(block) -> Node2D:
