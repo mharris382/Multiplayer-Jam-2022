@@ -5,6 +5,8 @@ onready var tile_set :TileSet= preload("res://assets/Blocks_Final/TileSet_Blocks
 onready var block_library  = preload("res://assets/Blocks_Final/Blocks_Final.tres")
 onready var dynamic_block_null_object = preload("res://scenes/objects/DynamicBlock.tscn")
 
+static func get_null_object_block_data():
+	return Blocks.block_library.blocks[0]
 #block can be either block name, block id, or an array or ids or strings
 static func get_block_data(block) -> BlockData:
 	match typeof(block):
