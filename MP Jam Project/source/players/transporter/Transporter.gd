@@ -45,6 +45,8 @@ func make_block_dynamic():
 			tilemap.build_dynamic_block(block_position)
 		
 
+func get_block_from_pick():
+	pass
 
 func pick_up_a_block():
 	#if Input.is_action_just_pressed("interact_%s" % player_id):
@@ -52,8 +54,11 @@ func pick_up_a_block():
 	if block != null:
 		if block.collider.is_in_group("dynamic_block"):
 			var new_block = load("res://source/blocks/DynamicBlocks/PickedBlock.tscn").instance()
+			var dynamic_block = block.collider as RigidBody2D
+			new_block.tile_name = dynamic_block.block_data.tile_name
+			new_block.set_picked_texture(dynamic_block.get_block_texture())
 			front_aim_point.add_child(new_block)
-			block.collider.queue_free()
+			dynamic_block.queue_free()
 			holds_block = true
 
 

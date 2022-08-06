@@ -6,6 +6,7 @@ export var block_data : Resource = null
 var should_teleport: bool = false
 var node_pos = Vector2(0,0)
 
+
 func _integrate_forces(state):
 	if should_teleport:
 		state.transform.origin.x = node_pos.x
@@ -17,6 +18,10 @@ func get_trajectory_point(step, start_pos, velocity: Vector2, gravity: Vector2, 
 	var velocity_t = t * velocity
 	var gravity_t = t * t * gravity
 	return start_pos + step * velocity_t + 0.5 * (step * step + step) * gravity_t
+
+
+func get_block_texture():
+	return $Sprite.texture
 
 func notify_dropped():
 	print("dropped block")
