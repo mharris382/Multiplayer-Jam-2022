@@ -18,8 +18,6 @@ lobby_reference = ExtResource( 3 )
 
 [node name="Builder" parent="Game/LevelEnvironment/Lobby" instance=ExtResource( 2 )]
 position = Vector2( 2113, 1794 )
-block_schemes = [  ]
-auto_pickup_blocks = true
 
 [node name="Transporter" parent="Game/LevelEnvironment/Lobby" instance=ExtResource( 4 )]
 position = Vector2( 1756, 1792 )
