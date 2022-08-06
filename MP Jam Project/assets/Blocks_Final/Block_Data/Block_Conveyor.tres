@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource( 2 )
-destructable = true
+destructable = false
 tile_name = "Block_Conveyor"
 static_block = ExtResource( 1 )

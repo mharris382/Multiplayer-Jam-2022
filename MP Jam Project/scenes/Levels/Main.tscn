@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/CameraController.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Levels/Lobby.tscn" type="PackedScene" id=2]
-[ext_resource path="res://source/players/builder/builder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/players/builder/builder.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Levels/Lobby.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://source/levels/Level.gd" type="Script" id=5]
 
@@ -12,11 +12,11 @@
 
 [node name="LevelEnvironment" type="Node2D" parent="Game"]
 script = ExtResource( 5 )
-lobby_reference = ExtResource( 2 )
+lobby_reference = ExtResource( 3 )
 
-[node name="Lobby" parent="Game/LevelEnvironment" instance=ExtResource( 2 )]
+[node name="Lobby" parent="Game/LevelEnvironment" instance=ExtResource( 3 )]
 
-[node name="Builder" parent="Game/LevelEnvironment/Lobby" instance=ExtResource( 3 )]
+[node name="Builder" parent="Game/LevelEnvironment/Lobby" instance=ExtResource( 2 )]
 position = Vector2( 2113, 1794 )
 
 [node name="Transporter" parent="Game/LevelEnvironment/Lobby" instance=ExtResource( 4 )]
