@@ -20,10 +20,7 @@ func get_block_data(tile_name):
 		if item.tile_name == tile_name:
 			return item
 	return null
-#func get_block_data(tile_name):
-	#if(!tile_lookup.has(tile_name)):
-		#return -1
-	#return tile_lookup[tile_name]
+
 func _remap_tile_name(tile_name)->String:
 	if tile_name.ends_with("_On"):
 		print("Found Special Tile: ", tile_name)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/invalid_block_placement_1.wav-8c0425aec4a43db54661ceb9567b4301.sample"
+
+[deps]
+
+source_file="res://assets/Audio/sounds/Feedbacks/invalid_block_placement_1.wav"
+dest_files=[ "res://.import/invalid_block_placement_1.wav-8c0425aec4a43db54661ceb9567b4301.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

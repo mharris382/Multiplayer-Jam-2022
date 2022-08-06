@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Thief_On_Board_demo_2.mp3-3feb20e6099632a6f1bc52a0a41e094a.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/music/Thief_On_Board_demo_2.mp3"
+dest_files=[ "res://.import/Thief_On_Board_demo_2.mp3-3feb20e6099632a6f1bc52a0a41e094a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

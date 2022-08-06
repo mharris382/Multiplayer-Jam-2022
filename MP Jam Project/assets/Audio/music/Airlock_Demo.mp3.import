@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Airlock_Demo.mp3-5b75f01eb8e610f939e98a82dac48d08.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/music/Airlock_Demo.mp3"
+dest_files=[ "res://.import/Airlock_Demo.mp3-5b75f01eb8e610f939e98a82dac48d08.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
