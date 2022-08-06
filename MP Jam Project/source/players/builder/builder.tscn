@@ -25,6 +25,9 @@ script = ExtResource( 5 )
 
 [node name="Animator" parent="." index="7" instance=ExtResource( 6 )]
 scale = Vector2( 0.369413, 0.369413 )
+animation = "idle"
+frame = 0
+playing = false
 
 [connection signal="character_changed_direction" from="." to="Animator" method="_on_character_changed_direction"]
 [connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]

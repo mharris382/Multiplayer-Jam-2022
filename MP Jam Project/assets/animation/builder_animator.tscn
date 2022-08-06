@@ -6,5 +6,7 @@
 [node name="Animator" type="AnimatedSprite"]
 z_index = 13
 frames = ExtResource( 1 )
-animation = "idle"
+animation = "jump-rise"
+frame = 3
+playing = true
 script = ExtResource( 2 )
