@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/animation/builder_spriteframes.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://assets/animation/BuilderAnimator.gd" type="Script" id=2]
+[ext_resource path="res://assets/animation/CharacterAnimator.gd" type="Script" id=2]
 
 [node name="Animator" type="AnimatedSprite"]
 frames = ExtResource( 1 )
