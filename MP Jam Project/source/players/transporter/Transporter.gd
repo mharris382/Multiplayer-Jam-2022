@@ -9,9 +9,12 @@ onready var throw_origin : Node2D #these can be the same transform
 onready var aim_transform : Position2D = $ControlPoints/Aim
 
 func _ready():
+	._ready()
 	assign_player(Players.players[0])
 	
-
+func _process(delta):
+	._process(delta)
+	
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
 		AimDirection.BELOW:

@@ -16,33 +16,48 @@ var _default_anim = IDLE
 var _current_anim = IDLE
 var _speed_scale = 1 setget set_speed_scale
 var _facing_dir = Direction.RIGHT
-
-
+var in_air = false
+var last_frame_position
 
 
 func _ready():
 	_current_anim = IDLE
 	flip_h = false
 	play(_d_anim_names[_current_anim])
+	last_frame_position = get_transform().get_origin()
 	pass
-
-func _process(delta):	
-	if Input.is_action_just_pressed("ui_up") :
-		on_jump_start()
-		
-	elif Input.is_action_pressed("ui_right") :
-		on_run_start()
-		
-	elif Input.is_action_just_pressed("ui_down") :
-		on_fall()
-		
-	elif Input.is_action_just_pressed("ui_left"):
-		on_stop()
-		
-	else:
-		pass
-		
-	pass
+#
+#func _process(delta):
+#	var position = get_transform().get_origin()
+#	var air_direction = position.y - last_frame_position.y
+#	last_frame_position = position
+#	if in_air:
+#		if air_direction > 0:
+#			on_jump_start()
+#			pass
+#		elif air_direction < 0:
+#			on_fall()
+#			pass
+#		else:
+#			#at peak
+#			pass
+#
+#	if Input.is_action_just_pressed("ui_up") :
+#		on_jump_start()
+#
+#	elif Input.is_action_pressed("ui_right") :
+#		on_run_start()
+#
+#	elif Input.is_action_just_pressed("ui_down") :
+#		on_fall()
+#
+#	elif Input.is_action_just_pressed("ui_left"):
+#		on_stop()
+#
+#	else:
+#		pass
+#
+#	pass
 	
 	
 	
@@ -101,3 +116,40 @@ func jump_up():
 		
 
 
+
+
+func _on_character_state_changed(prev_state, next_state, move_input):
+	print("on character state changed")
+	if prev_state == CharacterBase.PlayerState.IN_AIR:
+		#just landed
+		on_land()
+		pass
+	match next_state:
+		CharacterBase.PlayerState.IDLE:
+			on_stop()
+			pass
+		
+		CharacterBase.PlayerState.RUNNING:
+			on_run_start()
+			pass
+		
+		CharacterBase.PlayerState.IN_AIR:
+			if move_input.y > 0:
+				on_jump_start()
+			else:
+				on_fall()
+			pass
+	pass
+
+
+
+func _on_Animator_animation_finished():
+	pass # Replace with function body.
+
+
+
+func _on_character_changed_direction(direction):
+	if direction == 1:
+		flip_h = false
+	else:
+		flip_h = true

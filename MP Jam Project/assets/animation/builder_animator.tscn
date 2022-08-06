@@ -4,6 +4,7 @@
 [ext_resource path="res://assets/animation/CharacterAnimator.gd" type="Script" id=2]
 
 [node name="Animator" type="AnimatedSprite"]
+z_index = 13
 frames = ExtResource( 1 )
 animation = "idle"
 script = ExtResource( 2 )

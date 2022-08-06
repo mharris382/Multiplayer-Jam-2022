@@ -13,10 +13,13 @@ var build_mode = false
 
 
 func _ready():
+	._ready()
 	assign_player(Players.players[1])
 
 
 func _process(delta):
+	._process(delta)
+	
 	manage_building()
 	if auto_pickup_blocks:
 		get_node("Block Area2D").enable_pickups = true
