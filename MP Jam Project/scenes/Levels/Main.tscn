@@ -20,7 +20,7 @@ lobby_reference = ExtResource( 3 )
 position = Vector2( 2113, 1794 )
 
 [node name="Transporter" parent="Game/LevelEnvironment/Lobby" instance=ExtResource( 4 )]
-position = Vector2( 1752, 1800 )
+position = Vector2( 1756, 1792 )
 
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0

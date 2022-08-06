@@ -1,7 +1,6 @@
 class_name DynamicBlock
 extends RigidBody2D
 
-export var block_data : Resource = null
 signal block_changed(block_name)
 var should_teleport: bool = false
 var node_pos = Vector2(0,0)
