@@ -81,10 +81,12 @@ func on_player_released_ability(aim):
 	
 func on_player_just_pressed_interact():
 	print("%s pressed interact" % name)
+	set_collision_layer_bit(5, true)
 	pass
 	
 func on_player_released_interact():
 	print("%s released interact" % name)
+	set_collision_layer_bit(5, false)
 	pass
 
 

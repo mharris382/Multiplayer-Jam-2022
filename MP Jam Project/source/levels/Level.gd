@@ -11,15 +11,21 @@ signal on_level_complete(level)
 var transporter : Transporter
 var builder : Builder
 var is_completed = false
+export var lobby_reference: PackedScene
 
 
-
-
-
-
-
+func _ready():
+	var doors = $Lobby/Doors
+	for door in doors.get_children():
+		door.connect("move_to_puzzle", self, "on_Level_move_to_puzzle")
 
 # PROPERTIES
+func on_Level_move_to_puzzle(puzzle):
+	var new_level = puzzle.puzzle_scene.instance()
+	$Lobby.queue_free()
+	call_deferred("add_child", new_level)
+	
+
 func is_completed_get():
 	return is_completed
 	
