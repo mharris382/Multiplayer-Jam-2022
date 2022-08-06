@@ -2,7 +2,7 @@ extends Node
 
 
 onready var tile_set :TileSet= preload("res://assets/Blocks_Final/TileSet_Blocks.tres")
-onready var block_library  = preload("res://assets/Blocks_Final/Blocks_Final.tres")
+onready var block_library = preload("res://assets/Blocks_Final/Blocks_Final.tres")
 onready var dynamic_block_null_object = preload("res://scenes/objects/DynamicBlock.tscn")
 onready var universal_dynamic_block = preload("res://scenes/dynamic_blocks/DynamicBlock_UniversalBlock.tscn")
 static func get_null_object_block_data():
