@@ -1,5 +1,5 @@
 extends Sprite
-
+var current_name
 
 func _on_block_changed(block):
 	print("BlockSprite: on block changed to ", block)
@@ -17,6 +17,7 @@ func _update_block_sprite(block_name : String):
 	if tile_id == -1:
 		print("BlockSprite: Error: no tile found in tile_set:", tile_set, " named ", block_name)
 	else:
+		current_name = block_name
 		region_rect = tile_set.tile_get_region(tile_id)
 
 static func get_block_region(block_name):

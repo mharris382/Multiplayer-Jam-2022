@@ -5,11 +5,11 @@ signal block_built
 signal try_pickup_blocks()
 export var picked_block_name = "Block_Floor_Pipe_1"
 
-export var block_schemes: Array = []
+export var block_schemes: PoolStringArray = []
+export var charges = 1
 export var auto_pickup_blocks = true
 
 var picked_id: int = 0 
-var charges = 1
 var placement_position: Vector2 = Vector2(0,0)
 var build_mode = false
 
@@ -115,15 +115,7 @@ func destroy_block():
 			print("it does work")
 			collided_block.collider.queue_free()
 			charges += 1
-	
-	
-func colliding_with_block(block_position):
-	var collision = move_and_collide(block_position, false, true, true)
-	var tilemap = get_tree().get_nodes_in_group("Tilemap")[0]
-	var predicted_position = tilemap.world_to_map(collision.position - collision.normal)
-	var actual_position = tilemap.world_to_map(block_position + position)
-	return predicted_position == actual_position
-	
+			
 
 func update_placement_position():
 	var mouse_pos = get_local_mouse_position()
@@ -135,5 +127,6 @@ func change_picked_by(value):
 
 
 func _on_block_picked_up(block_data):
-	#AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_PICKUP)
+	AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_PICKUP)
+	charges += 1
 	pass # Replace with function body.

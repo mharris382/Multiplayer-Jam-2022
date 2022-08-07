@@ -108,24 +108,24 @@ func on_player_released_jump():
 	pass
 
 func on_player_just_pressed_ability(aim):
-	print("CharacterBase.%s just pressed ability" % name)
+	#print("CharacterBase.%s just pressed ability" % name)
 	pass
 
 func on_player_pressed_ability(aim):
-	print("CharacterBase.%s pressed ability" % name)
+	#print("CharacterBase.%s pressed ability" % name)
 	pass
 
 func on_player_released_ability(aim):
-	print("CharacterBase.%s released ability" % name)
+	#print("CharacterBase.%s released ability" % name)
 	pass
 	
 func on_player_just_pressed_interact():
-	print("CharacterBase. %s pressed interact" % name)
+	#print("CharacterBase. %s pressed interact" % name)
 	set_collision_layer_bit(5, true)
 	pass
 	
 func on_player_released_interact():
-	print("CharacterBase.%s released interact" % name)
+	#print("CharacterBase.%s released interact" % name)
 	set_collision_layer_bit(5, false)
 	pass
 

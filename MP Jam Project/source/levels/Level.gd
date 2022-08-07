@@ -11,6 +11,7 @@ signal on_level_complete(level)
 var transporter : Transporter
 var builder : Builder
 var is_completed = false
+var current_puzzle
 export var lobby_reference: PackedScene
 
 
@@ -21,6 +22,7 @@ func _ready():
 
 # PROPERTIES
 func on_Level_move_to_puzzle(puzzle):
+	current_puzzle = puzzle
 	var new_level = puzzle.puzzle_scene.instance()
 	$Lobby.queue_free()
 	call_deferred("add_child", new_level)

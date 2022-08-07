@@ -15,7 +15,9 @@ func _ready():
 	print(test_word.left(test_word.length()-3))
 	_initialize_scene()
 	_initialise_puzzle()
-	print(puzzle_percent())
+	print("Puzzle completion: ", puzzle_percent())
+	$Builder.connect("block_built", self, "_on_Puzzle_block_built")
+
 
 
 func is_puzzle_correct() -> bool:
@@ -39,6 +41,12 @@ func puzzle_percent():
 	return float(count) / positions.size()
 
 
+func _on_Puzzle_block_built():
+	var result = puzzle_percent()
+	if result == 1.0:
+		print("Level is completed!")
+	else:
+		print("Puzzle has curently %d percent completion" % [result*100])
 
 # makes sure correct tilemap is visible, turns on scene camera (if one exists)
 func _initialize_scene():

@@ -46,17 +46,17 @@ func make_block_dynamic():
 		
 
 func get_block_from_pick():
-	pass
+	var block_name = front_aim_point.get_child(0).current_name
+	return Blocks.instance_dynamic_block_at_location(block_name, to_global(front_aim_point.position), get_parent())
 
 func pick_up_a_block():
 	#if Input.is_action_just_pressed("interact_%s" % player_id):
 	var block = move_and_collide(front_aim_point.position, false, true, true)
 	if block != null:
 		if block.collider.is_in_group("dynamic_block"):
-			var new_block = load("res://source/blocks/DynamicBlocks/PickedBlock.tscn").instance()
+			var new_block = load("res://source/utils/BlockSprite.tscn").instance()
 			var dynamic_block = block.collider as RigidBody2D
-			new_block.tile_name = dynamic_block.block_data.tile_name
-			new_block.set_picked_texture(dynamic_block.get_block_texture())
+			new_block._on_block_changed(dynamic_block.block_name)
 			front_aim_point.add_child(new_block)
 			dynamic_block.queue_free()
 			holds_block = true
@@ -64,13 +64,9 @@ func pick_up_a_block():
 
 func throw_a_block():
 	if holds_block:
-		#var spawn_position = throw_origin.position
 		var impulse_force = aim_transform.transform.xform(Vector2.RIGHT) * throw_force
 		print("Impulse is a force of %s." % impulse_force)
-		var new_block = test_block.instance()
-		get_parent().add_child(new_block)
-		new_block.set("should_teleport", true)
-		new_block.set("node_pos", to_global(front_aim_point.position))
+		var new_block = get_block_from_pick()
 		new_block.apply_impulse(Vector2(0,0), impulse_force)
 		front_aim_point.get_child(0).queue_free()
 		holds_block = false

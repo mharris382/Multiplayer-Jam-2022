@@ -83,7 +83,8 @@ func instance_dynamic_block_at_location(block, location, parent_node):
 	var instance = Blocks.universal_dynamic_block.instance()
 	instance.name = block
 	instance.block_name = block
-	instance.position = location
+	instance.node_pos = location
+	instance.should_teleport = true
 	print("Created Dynamic Block(", instance.block_name, ") at location: ", location)
 	if parent_node !=null:
 		parent_node.add_child(instance)

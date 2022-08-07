@@ -18,9 +18,15 @@ lobby_reference = ExtResource( 3 )
 
 [node name="Builder" parent="Game/LevelEnvironment/Lobby" instance=ExtResource( 2 )]
 position = Vector2( 2113, 1794 )
+picked_block_name = "Block_Floor_Pipe_1"
+block_schemes = PoolStringArray(  )
+charges = 1
+auto_pickup_blocks = true
 
 [node name="Transporter" parent="Game/LevelEnvironment/Lobby" instance=ExtResource( 4 )]
 position = Vector2( 1756, 1792 )
+throw_force = 5.0
+test_block = null
 
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
