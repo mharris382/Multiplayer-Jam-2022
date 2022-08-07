@@ -111,7 +111,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Mp Jam Project"
-run/main_scene="res://assets/Blocks_Final/static-blocks/StaticTile_Area2D.tscn"
+run/main_scene="res://scenes/Levels/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
