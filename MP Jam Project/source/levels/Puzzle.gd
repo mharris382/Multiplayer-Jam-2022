@@ -2,6 +2,8 @@ tool
 class_name Puzzle
 extends Node2D
 
+signal puzzle_completed(puzzle)
+
 export var toggle_tilemaps_in_editor = false
 onready var actual_map : TileMap = $Interactives/Actual
 onready var solution_map: TileMap = $Interactives/Solution
@@ -45,6 +47,7 @@ func _on_Puzzle_block_built():
 	var result = puzzle_percent()
 	if result == 1.0:
 		print("Level is completed!")
+		emit_signal("puzzle_completed", self)
 	else:
 		print("Puzzle has curently %d percent completion" % [result*100])
 

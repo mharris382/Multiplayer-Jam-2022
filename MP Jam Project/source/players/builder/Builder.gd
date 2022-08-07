@@ -65,6 +65,7 @@ func on_player_just_pressed_ability(aim):
 
 
 func on_player_just_pressed_interact():
+	.on_player_just_pressed_interact()
 	emit_signal("try_pickup_blocks")
 	
 func manage_building():

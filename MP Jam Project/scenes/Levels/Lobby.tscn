@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Levels/TileMapManager.gd" type="Script" id=1]
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/puzzles/Puzzle_1.tres" type="Resource" id=4]
 [ext_resource path="res://assets/puzzles/Puzzle_2.tres" type="Resource" id=5]
 [ext_resource path="res://scenes/Audio/Music/Music_Lobby.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/players/builder/builder.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=8]
 
 [node name="Lobby" type="Node2D"]
 
@@ -43,34 +45,21 @@ puzzle = ExtResource( 4 )
 position = Vector2( 2432, 1824 )
 puzzle = ExtResource( 5 )
 
-[node name="LevelTransition3" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 384, 672 )
-
-[node name="LevelTransition4" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 1088, 1184 )
-
-[node name="LevelTransition5" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 768, 1184 )
-
-[node name="LevelTransition6" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 384, 1184 )
-
-[node name="LevelTransition7" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 3456, 1184 )
-
-[node name="LevelTransition8" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 3136, 1184 )
-
-[node name="LevelTransition9" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 2752, 1184 )
-
-[node name="LevelTransition10" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 3456, 672 )
-
-[node name="LevelTransition11" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 3136, 672 )
-
-[node name="LevelTransition12" parent="Doors" instance=ExtResource( 3 )]
-position = Vector2( 2752, 672 )
-
 [node name="Music_Track_Lobby" parent="." instance=ExtResource( 6 )]
+
+[node name="Transporter" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1606, 1852 )
+throw_force = 5.0
+test_block = null
+
+[node name="Builder" parent="." instance=ExtResource( 7 )]
+position = Vector2( 2208, 1839 )
+picked_block_name = "Block_Floor_Pipe_1"
+block_schemes = PoolStringArray(  )
+charges = 1
+auto_pickup_blocks = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1915, 1084 )
+current = true
+zoom = Vector2( 4, 4 )

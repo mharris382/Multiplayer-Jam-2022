@@ -18,7 +18,6 @@ var jump_pressed : bool
 var facing = "right"
 
 onready var jump_detection = $JumpDetection #this is also a timer? not sure what it is used for
-onready var jump_timer = $JumpTimer
 
 func _physics_process(delta):
 	player_input()

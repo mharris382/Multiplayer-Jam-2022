@@ -4,6 +4,9 @@ signal move_to_puzzle(puzzle)
 
 export var puzzle: Resource
 
+func _ready():
+	if puzzle.completed:
+		modulate = Color(49, 164, 51, 255)
 
 func _on_LevelTransition_body_entered(body):
 	if body is PlayerMovement:
@@ -11,3 +14,4 @@ func _on_LevelTransition_body_entered(body):
 			emit_signal("move_to_puzzle", puzzle)
 		else:
 			print("Puzzle %s has been completed" % puzzle.puzzle_name)
+		body.set_collision_layer_bit(5, false)
