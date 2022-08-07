@@ -4,6 +4,14 @@ extends PlayerMovement
 signal player_assigned_to_character(player)
 signal character_changed_direction(direction) #LEFT = -1, #RIGHT = 1
 signal character_state_changed(prev_state, next_state, move_input)
+
+
+signal start_aiming(direction)
+signal stop_aiming()
+
+#called each frame while aiming
+signal aiming(aim_direction_input)
+
 enum PlayerState{
 	IDLE=1,
 	RUNNING=2,
@@ -13,6 +21,7 @@ enum PlayerState{
 enum AimDirection { FRONT, BELOW, ABOVE, RIGHT, LEFT }
 enum FacingDirection { LEFT=-1, RIGHT=1 }
 
+var aiming = false
 var facing_direction = FacingDirection.RIGHT
 var aim_input : Vector2
 var found_player = false
@@ -40,6 +49,9 @@ func _ready():
 	
 	
 func _process(delta):
+	
+	
+	
 	var current_state= last_player_state
 	if not is_on_floor():
 		current_state = PlayerState.IN_AIR

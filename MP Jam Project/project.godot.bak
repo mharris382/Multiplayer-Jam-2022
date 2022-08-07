@@ -10,11 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "Ability",
-"language": "GDScript",
-"path": "res://source/Abilities/AbilityBase.gd"
-}, {
-"base": "Reference",
 "class": "AudioEnums",
 "language": "GDScript",
 "path": "res://source/utils/AudioEnums.gd"
@@ -95,7 +90,6 @@ _global_script_classes=[ {
 "path": "res://source/players/transporter/Transporter.gd"
 } ]
 _global_script_class_icons={
-"Ability": "",
 "AudioEnums": "",
 "BlockData": "",
 "BlockLauncher": "",
@@ -308,18 +302,6 @@ ability_right_p1={
 ability_left_p1={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
- ]
-}
-aim_ability_p1={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
- ]
-}
-aim_ability_p2={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://source/players/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/builder.png" type="Texture" id=2]
@@ -7,9 +7,16 @@
 [ext_resource path="res://source/players/builder/InteractPickupTimer.gd" type="Script" id=5]
 [ext_resource path="res://assets/animation/builder_animator.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/utils/BuilderValidityChecker.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/Abilities/Ability_Builder.tscn" type="PackedScene" id=8]
 
 [node name="Builder" groups=["Characters"] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+player_speed = 500
+jump_force = -300
+gravity = 1200
+player_id = "p1"
+push_force = 50
+max_jump_time = 1
 
 [node name="Sprite" parent="." index="0"]
 visible = false
@@ -42,9 +49,7 @@ animation = "idle"
 frame = 0
 playing = false
 
-[connection signal="character_changed_direction" from="." to="Animator" method="_on_character_changed_direction"]
-[connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]
-[connection signal="try_pickup_blocks" from="." to="Interact Pickup Timer" method="_on_Builder_try_pickup_blocks"]
-[connection signal="try_pickup_blocks" from="." to="Block Area2D" method="_on_Builder_try_pickup_blocks"]
+[node name="Ability" parent="." index="8" instance=ExtResource( 8 )]
+
 [connection signal="timeout" from="Interact Pickup Timer" to="Block Area2D" method="_on_Interact_Pickup_Timer_timeout"]
 [connection signal="block_picked_up" from="Block Area2D" to="." method="_on_block_picked_up"]

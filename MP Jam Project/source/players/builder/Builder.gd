@@ -3,6 +3,8 @@ extends CharacterBase
 
 signal block_built
 signal try_pickup_blocks()
+
+
 export var picked_block_name = "Block_Floor_Pipe_1"
 
 export var block_schemes: Array = []
@@ -27,7 +29,6 @@ func _process(delta):
 	manage_building()
 	if auto_pickup_blocks:
 		get_node("Block Area2D").enable_pickups = true
-	
 	
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
@@ -135,5 +136,5 @@ func change_picked_by(value):
 
 
 func _on_block_picked_up(block_data):
-	#AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_PICKUP)
+	AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_PICKUP)
 	pass # Replace with function body.

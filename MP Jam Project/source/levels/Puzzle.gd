@@ -1,4 +1,3 @@
-tool
 class_name Puzzle
 extends Node2D
 
