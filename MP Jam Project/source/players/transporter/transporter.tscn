@@ -13,7 +13,6 @@ light_mode = 1
 
 [node name="Transporter" groups=["Characters"] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-throw_force = 5.0
 
 [node name="Light2D" type="Light2D" parent="." index="0"]
 show_behind_parent = true
@@ -47,7 +46,7 @@ maximum_range = Vector2( 80, 80 )
 scale = Vector2( 0.369, 0.369 )
 frames = ExtResource( 8 )
 animation = "idle"
-frame = 22
+frame = 7
 
 [connection signal="character_changed_direction" from="." to="Animator" method="_on_character_changed_direction"]
 [connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]

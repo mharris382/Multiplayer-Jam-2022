@@ -119,7 +119,7 @@ func jump_up():
 
 
 func _on_character_state_changed(prev_state, next_state, move_input):
-	print("on character state changed")
+	#print("CharacterAnimator. on character state changed from: ", prev_state, " to ", next_state)
 	if prev_state == CharacterBase.PlayerState.IN_AIR:
 		#just landed
 		on_land()

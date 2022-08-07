@@ -10,7 +10,7 @@ enum PlayerState{
 	IN_AIR=3
 }
 
-enum AimDirection { FRONT, BELOW, ABOVE }
+enum AimDirection { FRONT, BELOW, ABOVE, RIGHT, LEFT }
 enum FacingDirection { LEFT=-1, RIGHT=1 }
 
 var facing_direction = FacingDirection.RIGHT
@@ -22,13 +22,14 @@ var last_direction = 1
 onready var front_aim_point = $"ControlPoints/Front"
 onready var below_aim_point = $"ControlPoints/Below"
 onready var above_aim_point = $"ControlPoints/Above"
-
+onready var right_aim_point = $"ControlPoints/Right"
+onready var left_aim_point = $"ControlPoints/Left"
 
 func _notification(what):
 	if what == NOTIFICATION_UNPARENTED:
-		print("Unparented ", name)
+		print("CharacterBase.Unparented ", name)
 	elif what == NOTIFICATION_PARENTED:
-		print("Parented ", name, "to ", get_parent().name)
+		print("CharacterBase.Parented ", name, "to ", get_parent().name)
 		var player = get_parent() as Player
 		if player == null:
 			return
@@ -107,24 +108,24 @@ func on_player_released_jump():
 	pass
 
 func on_player_just_pressed_ability(aim):
-	print("%s just pressed ability" % name)
+	print("CharacterBase.%s just pressed ability" % name)
 	pass
 
 func on_player_pressed_ability(aim):
-	print("%s pressed ability" % name)
+	print("CharacterBase.%s pressed ability" % name)
 	pass
 
 func on_player_released_ability(aim):
-	print("%s released ability" % name)
+	print("CharacterBase.%s released ability" % name)
 	pass
 	
 func on_player_just_pressed_interact():
-	print("%s pressed interact" % name)
+	print("CharacterBase. %s pressed interact" % name)
 	set_collision_layer_bit(5, true)
 	pass
 	
 func on_player_released_interact():
-	print("%s released interact" % name)
+	print("CharacterBase.%s released interact" % name)
 	set_collision_layer_bit(5, false)
 	pass
 

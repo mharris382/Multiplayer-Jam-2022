@@ -3,14 +3,18 @@ extends CharacterBase
 
 signal block_built
 signal try_pickup_blocks()
+export var picked_block_name = "Block_Floor_Pipe_1"
 
 export var block_schemes: Array = []
 export var auto_pickup_blocks = true
+
 var picked_id: int = 0 
 var charges = 1
 var placement_position: Vector2 = Vector2(0,0)
 var build_mode = false
 
+func get_equipped_block_name():
+	return picked_block_name
 
 func _ready():
 	._ready()
@@ -28,16 +32,35 @@ func _process(delta):
 func is_direction_valid(aim_direction) -> bool:
 	match(aim_direction):
 		AimDirection.BELOW:
-			return !is_on_floor()
+			check_validity(below_aim_point)
 		AimDirection.ABOVE:
-			return !is_on_ceiling()
-		AimDirection.FRONT:
-			return !is_on_floor()
+			check_validity(above_aim_point)
+		AimDirection.RIGHT:
+			check_validity(right_aim_point)
+		AimDirection.LEFT:
+			check_validity(left_aim_point)
 	return true
 
-
+func check_validity(node):
+	var checker = node.get_node("BuilderValidityChecker")
+	if checker == null:
+		return true
+	var position = checker.position
+	var map = get_tree().get_nodes_in_group("Tilemap")
+	if map.size() == 0:
+		print("Builder.gd ERROR: cannot build without tilemap")
+	if map.size() > 1:
+		print("Buidler.gd found ", map.size() ," tilemaps")
+	var grid_pos = map[0].world_to_map(checker.position)
+	var block = get_equipped_block_name()
+	var validity = checker.determine_build_action_validity(block, grid_pos)
+	
 func on_player_just_pressed_ability(aim):
 	build_mode = !build_mode
+	if build_mode:
+		print("Builder TODO: show preview")
+	else:
+		print("Builder TODO: hide preview")
 	print("Build mode is %s, right now." % build_mode)
 
 

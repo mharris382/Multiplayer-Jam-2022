@@ -31,4 +31,10 @@ position = Vector2( 0, 110 )
 [node name="Above" type="Position2D" parent="ControlPoints"]
 position = Vector2( 0, -116 )
 
+[node name="Right" type="Position2D" parent="ControlPoints"]
+position = Vector2( 82, 1 )
+
+[node name="Left" type="Position2D" parent="ControlPoints"]
+position = Vector2( -87, 0 )
+
 [node name="JumpTimer" type="Timer" parent="."]

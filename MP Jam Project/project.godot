@@ -272,6 +272,9 @@ switch_roles={
 2d_physics/layer_3="Blocks"
 2d_physics/layer_4="StaticBlocks"
 2d_physics/layer_5="Doors"
+2d_physics/layer_6="Scanners"
+2d_physics/layer_7="Transporter"
+2d_physics/layer_8="Builder"
 
 [physics]
 
