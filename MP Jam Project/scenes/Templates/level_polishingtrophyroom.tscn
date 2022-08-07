@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/Templates/TileMap_Template_Dyn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Templates/Template_TileMap_Background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Templates/TileMap_Template_Solution.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/blocks/LevelBlocks.gd" type="Script" id=4]
 [ext_resource path="res://scenes/Templates/TileMap_Template_Spawn.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/Audio/Thief_On_Board_demo_2.mp3" type="AudioStream" id=6]
 [ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/players/builder/builder.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/sprites/enviornment/light green.png" type="Texture" id=9]
@@ -38,17 +37,19 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 6 )
 autoplay = true
 bus = "Menu Tracks"
 
 [node name="Transporter" parent="." instance=ExtResource( 7 )]
 position = Vector2( 722, 1767 )
 throw_force = 5.0
+test_block = null
 
 [node name="Builder" parent="." instance=ExtResource( 8 )]
 position = Vector2( 3010, 1370 )
+picked_block_name = "Block_Floor_Pipe_1"
 block_schemes = [ "Block_Floor_Gears" ]
+auto_pickup_blocks = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 1917, 1076 )

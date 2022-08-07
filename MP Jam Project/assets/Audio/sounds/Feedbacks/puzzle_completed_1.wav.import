@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/steam_engine_1.wav-aaf85cde91631b714dd2dfdc8a99bd5d.sample"
+path="res://.import/puzzle_completed_1.wav-e49d6e803a5c3ec295787010a8c9cfb3.sample"
 
 [deps]
 
-source_file="res://assets/Audio/sounds/Ambient/steam_engine_1.wav"
-dest_files=[ "res://.import/steam_engine_1.wav-aaf85cde91631b714dd2dfdc8a99bd5d.sample" ]
+source_file="res://assets/Audio/sounds/Feedbacks/puzzle_completed_1.wav"
+dest_files=[ "res://.import/puzzle_completed_1.wav-e49d6e803a5c3ec295787010a8c9cfb3.sample" ]
 
 [params]
 

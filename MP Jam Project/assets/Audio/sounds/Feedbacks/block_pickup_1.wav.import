@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/steam_engine_1.wav-aaf85cde91631b714dd2dfdc8a99bd5d.sample"
+path="res://.import/block_pickup_1.wav-5f15335c639fa96adb81130da6d73bb9.sample"
 
 [deps]
 
-source_file="res://assets/Audio/sounds/Ambient/steam_engine_1.wav"
-dest_files=[ "res://.import/steam_engine_1.wav-aaf85cde91631b714dd2dfdc8a99bd5d.sample" ]
+source_file="res://assets/Audio/sounds/Feedbacks/block_pickup_1.wav"
+dest_files=[ "res://.import/block_pickup_1.wav-5f15335c639fa96adb81130da6d73bb9.sample" ]
 
 [params]
 

@@ -36,3 +36,11 @@ func _on_Feedback_Ambient_Button_button_down():
 
 func _on_Feedback_Good_Button_button_down():
 	AudioManager.play_feedback(AudioEnums.AudioFeedbacks.PUZZLE_GOOD)
+
+
+func _on_Feedback_Pickup_Button_button_down():
+	AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_PICKUP)
+
+
+func _on_Feedback_Invalid_Button_button_down():
+	AudioManager.play_feedback(AudioEnums.AudioFeedbacks.BLOCK_INVALID)

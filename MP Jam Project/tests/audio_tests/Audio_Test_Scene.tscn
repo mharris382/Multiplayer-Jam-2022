@@ -6,9 +6,6 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 0.396
@@ -72,17 +69,38 @@ margin_right = 379.0
 margin_bottom = 92.0
 text = "Play Feedback Pickup"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Feedback Pickup Button"]
+margin_left = 382.0
+margin_top = 1.0
+margin_right = 821.0
+margin_bottom = 40.0
+text = "res://scenes/Audio/Feedbacks/Feedback_Block_Pickup.tscn"
+
 [node name="Feedback Build Button" type="Button" parent="VBoxContainer"]
 margin_top = 96.0
 margin_right = 379.0
 margin_bottom = 116.0
 text = "Play Feedback Build"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Feedback Build Button"]
+margin_left = 380.0
+margin_top = 3.0
+margin_right = 811.0
+margin_bottom = 40.0
+text = "res://scenes/Audio/Feedbacks/Feedback_Block_Build.tscn"
+
 [node name="Feedback Invalid Button" type="Button" parent="VBoxContainer"]
 margin_top = 120.0
 margin_right = 379.0
 margin_bottom = 140.0
 text = "Play Feedback Invalid"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Feedback Invalid Button"]
+margin_left = 379.0
+margin_top = 1.0
+margin_right = 782.0
+margin_bottom = 40.0
+text = "res://scenes/Audio/Feedbacks/Feedback_Block_Invalid.tscn"
 
 [node name="Feedback Ambient Button" type="Button" parent="VBoxContainer"]
 margin_top = 144.0
@@ -158,6 +176,8 @@ text = "Music"
 [connection signal="button_down" from="VBoxContainer/Feedback Completed Button" to="." method="_on_Feedback_Completed_Button_button_down"]
 [connection signal="button_down" from="VBoxContainer/Feedback Bad Button" to="." method="_on_Feedback_Bad_Button_button_down"]
 [connection signal="button_down" from="VBoxContainer/Feedback Good Button" to="." method="_on_Feedback_Good_Button_button_down"]
+[connection signal="button_down" from="VBoxContainer/Feedback Pickup Button" to="." method="_on_Feedback_Pickup_Button_button_down"]
 [connection signal="button_down" from="VBoxContainer/Feedback Build Button" to="." method="_on_Feedback_Build_Button_button_down"]
+[connection signal="button_down" from="VBoxContainer/Feedback Invalid Button" to="." method="_on_Feedback_Invalid_Button_button_down"]
 [connection signal="button_down" from="VBoxContainer/Feedback Ambient Button" to="." method="_on_Feedback_Ambient_Button_button_down"]
 [connection signal="button_down" from="VBoxContainer2/Music Lobby Button" to="." method="_on_Music_Lobby_Button_button_down"]
