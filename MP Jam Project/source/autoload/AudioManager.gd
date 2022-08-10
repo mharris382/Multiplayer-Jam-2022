@@ -32,7 +32,11 @@ func play_feedback(feedback):
 	stream.play()
 
 func change_ambient_track(ambient_track, transition_time):
-	print("TODO: implement AudioManager.change_ambient_track")
+	print("TODO: implement AudioManager.change_ambient_track transition time")
+	var instance = ambient_track.instance()
+	add_child(instance)
+	instance.playing = true
+	instance.play()
 	pass
 func get_feedbac(audio):
 	match audio:
