@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/animation/builder_spriteframes.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/animation/CharacterAnimator.gd" type="Script" id=2]
+[ext_resource path="res://source/avatars/Components/DynamicBlockPicker.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sprites/enviornment/light.png" type="Texture" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 32.0
+height = 80.0
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+light_mask = 2
+
+[node name="Collisions" type="CollisionShape2D" parent="."]
+visible = false
+self_modulate = Color( 0.160784, 1, 0, 1 )
+z_index = 26
+shape = SubResource( 1 )
+
+[node name="Block Pickup Area2D" parent="Collisions" instance=ExtResource( 3 )]
+self_modulate = Color( 1, 1, 1, 0.478431 )
+show_behind_parent = true
+
+[node name="Animation" type="AnimatedSprite" parent="."]
+light_mask = 2
+scale = Vector2( 0.369, 0.369 )
+frames = ExtResource( 1 )
+animation = "idle"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+light_mask = 0
+scale = Vector2( 2, 2 )
+z_index = 45
+texture = ExtResource( 4 )

@@ -266,6 +266,15 @@ switch_roles={
 
 [layer_names]
 
+2d_render/layer_1="default"
+2d_render/layer_2="avatars"
+2d_render/layer_3="interactables"
+2d_render/layer_4="blocks"
+2d_render/layer_5="walls"
+2d_render/layer_6="npcs"
+2d_render/layer_7="background interior"
+2d_render/layer_8="background exterior"
+2d_render/layer_9="ui"
 2d_physics/layer_1="Characters"
 2d_physics/layer_2="Traps"
 2d_physics/layer_3="Blocks"

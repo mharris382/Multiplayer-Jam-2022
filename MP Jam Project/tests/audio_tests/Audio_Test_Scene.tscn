@@ -114,6 +114,7 @@ anchor_bottom = 0.389
 margin_top = 328.0
 margin_right = -0.160034
 margin_bottom = 327.94
+rect_scale = Vector2( 1, 0.997981 )
 
 [node name="Music Lobby Button" type="Button" parent="VBoxContainer2"]
 margin_right = 379.0

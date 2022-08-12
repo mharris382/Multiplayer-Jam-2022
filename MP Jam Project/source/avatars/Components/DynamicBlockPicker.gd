@@ -2,7 +2,8 @@ extends Area2D
 
 signal block_picked_up(block_data)
 
-
+#responsibility: emits blocks node on enter and then destroys the block node 
+#intention: for use by a pickup system (can be reused for any block destroying area, such as a furnace or recycle bin)
 
 var enable_pickups = true
 

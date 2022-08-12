@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=1]
 [ext_resource path="res://source/levels/Puzzle.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://source/blocks/DynamicTileMap.gd" type="Script" id=4]
 [ext_resource path="res://source/players/transporter/transporter.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/players/builder/builder.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/avatars/Avatar_Builder.tscn" type="PackedScene" id=7]
 
 [node name="Puzzle" type="Node2D"]
 script = ExtResource( 2 )
@@ -38,6 +39,7 @@ tile_data = PoolIntArray( 720903, -1610612727, 0, 720908, 1610612745, 0, 720909,
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 1928, 1088 )
+current = true
 zoom = Vector2( 4, 4 )
 
 [node name="IndestructableTiles" type="TileMap" parent="."]
@@ -70,12 +72,12 @@ script = ExtResource( 4 )
 
 [node name="Transporter" parent="." instance=ExtResource( 5 )]
 position = Vector2( 566, 1666 )
-throw_force = 5.0
-test_block = null
 
 [node name="Builder" parent="." instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2979, 1645 )
-picked_block_name = "Block_Floor_Pipe_1"
 block_schemes = PoolStringArray( "Block_Red_Steel" )
 charges = 0
-auto_pickup_blocks = true
+
+[node name="Builder2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 2431, 1259 )
