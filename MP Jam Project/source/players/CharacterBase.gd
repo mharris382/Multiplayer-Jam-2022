@@ -67,26 +67,14 @@ func _process(delta):
 			emit_signal("character_changed_direction", direction)
 			last_direction = direction
 
+func _get_player_number():
+	return 1
 
 func assign_player(player):
-	player.connect("input_move", self, "on_player_move_input")
-	player.connect("input_ability_just_pressed", self, "on_player_just_pressed_ability")
-	player.connect("input_ability_pressed", self, "on_player_pressed_ability")
-	player.connect("input_ability_just_released", self,"on_player_released_ability")
-	player.connect("input_jump_just_pressed", self,"on_player_pressed_jump")
-	player.connect("input_jump_just_released", self,"on_player_released_jump")
-	player.connect("input_interact_just_pressed", self, "on_player_just_pressed_interact")
-	emit_signal("player_assigned_to_character", player)
+	Players.assign_avatar_to_player(self, _get_player_number())
 
 func unassign_player(player):
-	player.disconnect("input_move", self, "on_player_move_input")
-	player.disconnect("input_ability_just_pressed", self, "on_player_just_pressed_ability")
-	player.disconnect("input_ability_pressed", self, "on_player_pressed_ability")
-	player.disconnect("input_ability_just_released", self,"on_player_released_ability")
-	player.disconnect("input_jump_just_pressed", self,"on_player_pressed_jump")
-	player.disconnect("input_jump_just_released", self,"on_player_released_jump")
-	player.disconnect("input_interact_just_pressed", self, "on_player_just_pressed_interact")
-	emit_signal("player_assigned_to_character", null)
+	Players.assign_avatar_to_player(self, _get_player_number())
 
 
 #since the validity is dependent on the kind of action being performed this 

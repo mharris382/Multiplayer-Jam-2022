@@ -10,6 +10,7 @@ var builder
 var wait_for_players_ready_timer  : Timer
 
 func _ready():
+	return
 	var  tree = get_tree()
 	var characters = tree.get_nodes_in_group(character_group)
 	if !characters.size() >= 2:

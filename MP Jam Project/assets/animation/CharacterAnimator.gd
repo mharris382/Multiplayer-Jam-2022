@@ -94,5 +94,5 @@ func _on_character_state_changed(prev_state, next_state, move_input):
 
 
 func _on_character_changed_direction(direction):
-	flip_h = direction is Direction.LEFT
+	flip_h = direction == Direction.LEFT
 	pass

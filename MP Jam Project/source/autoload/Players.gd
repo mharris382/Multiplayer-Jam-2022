@@ -3,6 +3,8 @@ extends Node
 signal game_state_changed(prev_state, new_state)
 signal players_assigned(transporter_player, builder_player)
 
+signal avatar_was_assigned(player, avatar)
+signal avatar_was_unassigned(player, avatar)
 
 enum GameState {MAIN_MENU, CHARACTER_SELECT, IN_GAME}
 
@@ -26,8 +28,19 @@ func _TESTS():
 func _ready():
 	if Players.players.size() == 2:
 		queue_free()
-	Players.players.append(Player.new(1))
-	Players.players.append(Player.new(2))
+
+	var p1_arr = get_tree().get_nodes_in_group("Player1")
+	if p1_arr.size() > 0:
+		Players.players.append(p1_arr[0])
+	else:
+		Players.players.append(Player.new(1))
+		
+	var p2_arr = get_tree().get_nodes_in_group("Player2")
+	if p2_arr.size() > 0:
+		Players.players.append(p2_arr[0])
+	else:
+		Players.players.append(Player.new(2))
+	
 	for p in players:
 		add_child(p)
 	
@@ -37,13 +50,13 @@ func _ready():
 	#assert(parent_players != null)
 	#for p in players:
 	#	add_child_below_node(parent_players, p)
-	if DEVELEMENT_MODE_ON:
-		players[0].assignment = TRANSPORTER
-		players[1].assignment = BUILDER
-		game_state = GameState.IN_GAME
-		#TODO: load into a lobby scene
-	else:
-		game_state = GameState.MAIN_MENU
+#	if DEVELEMENT_MODE_ON:
+#		players[0].assignment = TRANSPORTER
+#		players[1].assignment = BUILDER
+#		game_state = GameState.IN_GAME
+#		#TODO: load into a lobby scene
+#	else:
+#		game_state = GameState.MAIN_MENU
 		#TODO: load into main menu
 	print("loaded Players.gd")
 
@@ -117,3 +130,31 @@ func _get_other_player(player):
 	return null
 
 
+func assign_avatar_to_player(avatar, player_number):
+	var player = players[player_number]
+	_assign_player(player, avatar)
+	
+	
+func _assign_player(player : Node, avatar : Node2D):
+	print("assigning player ", player, " to ", avatar)
+	player.connect("input_move", avatar, "on_player_move_input")
+	player.connect("input_ability_just_pressed", avatar, "on_player_just_pressed_ability")
+	player.connect("input_ability_pressed", avatar, "on_player_pressed_ability")
+	player.connect("input_ability_just_released", avatar,"on_player_released_ability")
+	player.connect("input_jump_just_pressed", avatar,"on_player_pressed_jump")
+	player.connect("input_jump_just_released", avatar,"on_player_released_jump")
+	player.connect("input_interact_just_pressed", avatar, "on_player_just_pressed_interact")
+	emit_signal("player_assigned_to_character", player)
+	emit_signal("avatar_was_assigned", player, avatar)
+
+func _unassign_player(player, avatar):
+	player.disconnect("input_move", avatar, "on_player_move_input")
+	player.disconnect("input_ability_just_pressed", avatar, "on_player_just_pressed_ability")
+	player.disconnect("input_ability_pressed", avatar, "on_player_pressed_ability")
+	player.disconnect("input_ability_just_released", avatar,"on_player_released_ability")
+	player.disconnect("input_jump_just_pressed", avatar,"on_player_pressed_jump")
+	player.disconnect("input_jump_just_released", avatar,"on_player_released_jump")
+	player.disconnect("input_interact_just_pressed", avatar, "on_player_just_pressed_interact")
+	
+	emit_signal("player_assigned_to_character", null)
+	emit_signal("avatar_was_unassigned", player, avatar)

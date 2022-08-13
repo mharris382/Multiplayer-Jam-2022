@@ -20,7 +20,8 @@ func _ready():
 	._ready()
 	assign_player(Players.players[1])
 
-
+func _get_player_number():
+	return 1
 func _process(delta):
 	._process(delta)
 	

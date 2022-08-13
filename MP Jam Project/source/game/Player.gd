@@ -27,6 +27,8 @@ var assignment = 0 setget assignment_set, assignment_get
 var has_had_input : bool
 var partner : int #partner role, 0=none, 1=tran, 2=build
 var ability_pressed = false
+
+
 func _init(player_num):
 	player_number = player_num
 	name = "player_%d" % player_num

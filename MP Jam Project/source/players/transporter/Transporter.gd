@@ -14,16 +14,10 @@ func _ready():
 	
 func _process(delta):
 	._process(delta)
-	
-func is_direction_valid(aim_direction) -> bool:
-	match(aim_direction):
-		AimDirection.BELOW:
-			return !is_on_floor()
-		AimDirection.ABOVE:
-			return !is_on_ceiling()
-		AimDirection.FRONT:
-			return !is_on_floor()
-	return true
+
+func _get_player_number():
+	return 0
+
 
 func on_player_just_pressed_ability(aim):
 	.on_player_just_pressed_ability(aim)
