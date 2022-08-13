@@ -12,6 +12,16 @@ height = 80.0
 [node name="KinematicBody2D" type="KinematicBody2D"]
 light_mask = 2
 
+[node name="StateMachine" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="StateMachine"]
+
+[node name="Move" type="Node" parent="StateMachine"]
+
+[node name="Jump" type="Node" parent="StateMachine"]
+
+[node name="Fall" type="Node" parent="StateMachine"]
+
 [node name="Collisions" type="CollisionShape2D" parent="."]
 visible = false
 self_modulate = Color( 0.160784, 1, 0, 1 )
