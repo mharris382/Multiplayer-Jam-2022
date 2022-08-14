@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://source/game/CameraController.gd" type="Script" id=1]
+[ext_resource path="res://assets/blocks/sprite/light red.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Levels/Lobby.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/ui/editor/icon-block.png" type="Texture" id=4]
 [ext_resource path="res://source/levels/Level.gd" type="Script" id=5]
 
 [node name="Main" type="Node2D"]
@@ -44,6 +46,11 @@ margin_bottom = 40.0
 
 [node name="Camera" type="Node" parent="."]
 script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "NOTE: the attached script CameraController.gd is forcing the child camera to current (level camera setups will not be used currently)
+
+  "
+}
 
 [node name="Camera2D" type="Camera2D" parent="Camera"]
 position = Vector2( 1896, 1664 )
@@ -52,5 +59,35 @@ zoom = Vector2( 1.8, 1.8 )
 limit_left = 0
 limit_top = 0
 limit_bottom = 2100
+
+[node name="Label" type="Label" parent="Camera"]
+margin_left = 1856.0
+margin_top = 1792.0
+margin_right = 1955.0
+margin_bottom = 1806.0
+text = "Enter Text Here"
+
+[node name="TestPoint2" type="Sprite" parent="Camera"]
+modulate = Color( 0.396078, 1, 0, 1 )
+scale = Vector2( 0.220246, 0.220246 )
+z_index = 834
+texture = ExtResource( 4 )
+
+[node name="Node2" type="Node" parent="Camera/TestPoint2"]
+
+[node name="TestPoint3" type="Sprite" parent="Camera"]
+modulate = Color( 1, 0.203922, 0.203922, 1 )
+scale = Vector2( 0.220246, 0.220246 )
+z_index = 834
+texture = ExtResource( 4 )
+
+[node name="Node3" type="Node" parent="Camera/TestPoint3"]
+
+[node name="TestPoint" type="Sprite" parent="Camera"]
+scale = Vector2( 0.220246, 0.220246 )
+z_index = 834
+texture = ExtResource( 2 )
+
+[node name="Node" type="Node" parent="Camera/TestPoint"]
 
 [node name="Players" type="Node" parent="."]
