@@ -7,7 +7,9 @@ var player_avatars = {}
 var avatars = [null, null]
 
 export var viewport_size = Vector2(958, 540)
-export var target_zoom = Vector2(1,1)
+
+export var prefer_zoom= Vector2(1,1)
+var target_zoom = Vector2(1,1)
 
 onready var camera = $Camera2D
 
@@ -52,9 +54,16 @@ func _test_4():
 	avatar_max_pos = Vector2(max(p1.x, p2.x),  max(p1.y, p2.y))
 	var avatar_dist = (avatar_max_pos - avatar_min_pos)
 	var y_dist = avatar_dist.y
+	
 	var size  =  get_viewport().size * camera.zoom
+	var t_size = get_viewport().size * prefer_zoom
+	
+	if t_size.y > y_dist:
+		print("able to zoom in")
+		
 	if size.y < y_dist:
-		print("Need to change y zoom")
+		print("need to zoom out")
+	
 	var x_dist = avatar_dist.x
 	if size.x < x_dist:
 		print("Need to change x zoom")
@@ -86,7 +95,7 @@ func _init():
 	
 func _ready():
 	camera.current = true
-	camera.zoom = target_zoom
+	target_zoom = camera.zoom
 	var viewport = get_viewport()
 
 func _process(delta):
