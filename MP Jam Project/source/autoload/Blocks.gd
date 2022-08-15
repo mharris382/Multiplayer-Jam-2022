@@ -1,10 +1,14 @@
 extends Node
 
+const MISSING_BLOCK_NAME = "Block_Base"
+const MISSING_BLOCK_RECT = Rect2(0, 0, 128, 128)
 
 onready var tile_set :TileSet= preload("res://assets/Blocks_Final/TileSet_Blocks.tres")
-onready var block_library = preload("res://assets/Blocks_Final/Blocks_Final.tres")
+onready var block_library:BlockLibrary = preload("res://assets/Blocks_Final/Blocks_Final.tres")
 onready var dynamic_block_null_object = preload("res://scenes/objects/DynamicBlock.tscn")
 onready var universal_dynamic_block = preload("res://scenes/dynamic_blocks/DynamicBlock_UniversalBlock.tscn")
+
+
 
 var remapped_suffixes = [
 	"_On", "_Off"
@@ -92,3 +96,20 @@ func instance_dynamic_block_at_location(block, location, parent_node):
 
 func instance_dynamic_block(block):
 	return instance_dynamic_block_at_location(block, Vector2.ZERO, self)
+
+static func block_get_texture_rect(block_name):
+	if not has_block(block_name):
+		return MISSING_BLOCK_RECT
+	var data = Blocks.get_block_data(block_name)
+	
+	var result = Blocks.block_library.get_block_tile_rect(block_name) as Rect2
+	if result.size.x == 0 or result.size.y == 0:
+		return MISSING_BLOCK_RECT
+	return result
+
+static func block_get_texture(block_name):
+	if not has_block(block_name):
+		assert(has_block(MISSING_BLOCK_NAME))
+		return Blocks.block_library.get_block_tile_texture(MISSING_BLOCK_NAME)
+	return Blocks.block_library.get_block_tile_texture(block_name)
+	
