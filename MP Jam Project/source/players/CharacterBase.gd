@@ -1,9 +1,15 @@
 class_name CharacterBase
 extends PlayerMovement
-
+#also emits null when character is unassigned
 signal player_assigned_to_character(player)
 signal character_changed_direction(direction) #LEFT = -1, #RIGHT = 1
 signal character_state_changed(prev_state, next_state, move_input)
+
+
+signal block_pickup_occured(picked_up_block_name)
+
+
+
 enum PlayerState{
 	IDLE=1,
 	RUNNING=2,
@@ -72,17 +78,21 @@ func _get_player_number():
 
 func assign_player(player):
 	Players.assign_avatar_to_player(self, _get_player_number())
+	emit_signal("player_assigned_to_character", player)
 
 func unassign_player(player):
 	Players.assign_avatar_to_player(self, _get_player_number())
+	emit_signal("player_assigned_to_character", null)
 
 
 #since the validity is dependent on the kind of action being performed this 
 #function must be implemented in the child classes
 func is_direction_valid(aim_direction) -> bool:
 	return false
+	
 func on_player_aim_input(aim_input : Vector2):
 	self.aim_input = aim_input
+	
 func on_player_move_input(move_input : float):
 	self.move_input = Vector2(move_input, 0)
 
