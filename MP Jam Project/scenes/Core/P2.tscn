@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/game/Player.tscn" type="PackedScene" id=1]
+
+[node name="P2" instance=ExtResource( 1 )]
+editor_player_number = 2

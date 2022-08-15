@@ -61,6 +61,7 @@ limit_top = 0
 limit_bottom = 2100
 
 [node name="Label" type="Label" parent="Camera"]
+visible = false
 margin_left = 1856.0
 margin_top = 1792.0
 margin_right = 1955.0
@@ -68,6 +69,7 @@ margin_bottom = 1806.0
 text = "Enter Text Here"
 
 [node name="TestPoint2" type="Sprite" parent="Camera"]
+visible = false
 modulate = Color( 0.396078, 1, 0, 1 )
 scale = Vector2( 0.220246, 0.220246 )
 z_index = 834
@@ -76,6 +78,7 @@ texture = ExtResource( 4 )
 [node name="Node2" type="Node" parent="Camera/TestPoint2"]
 
 [node name="TestPoint3" type="Sprite" parent="Camera"]
+visible = false
 modulate = Color( 1, 0.203922, 0.203922, 1 )
 scale = Vector2( 0.220246, 0.220246 )
 z_index = 834
@@ -84,6 +87,7 @@ texture = ExtResource( 4 )
 [node name="Node3" type="Node" parent="Camera/TestPoint3"]
 
 [node name="TestPoint" type="Sprite" parent="Camera"]
+visible = false
 scale = Vector2( 0.220246, 0.220246 )
 z_index = 834
 texture = ExtResource( 2 )
