@@ -49,6 +49,7 @@ position = Vector2( 2432, 1824 )
 puzzle = ExtResource( 5 )
 
 [node name="Music_Track_Lobby" parent="." instance=ExtResource( 6 )]
+max_distance = 2e+12
 
 [node name="Transporter" parent="." instance=ExtResource( 8 )]
 position = Vector2( 1606, 1852 )
@@ -62,31 +63,10 @@ current = true
 zoom = Vector2( 4, 4 )
 
 [node name="Listener2D" type="Listener2D" parent="Camera2D"]
+current = true
 
 [node name="Music_Track_Lobby2" parent="." instance=ExtResource( 6 )]
-
-[node name="Light Platform4" parent="." instance=ExtResource( 9 )]
-position = Vector2( 572, 1056 )
-
-[node name="Light2D" parent="Light Platform4/Sprite" index="0"]
-position = Vector2( 8, 1912 )
-scale = Vector2( 0.770139, 1.9321 )
-
-[node name="Light Platform5" parent="." instance=ExtResource( 9 )]
-position = Vector2( 3164, 1050 )
-
-[node name="Light2D" parent="Light Platform5/Sprite" index="0"]
-position = Vector2( 7.99902, 1496 )
-scale = Vector2( 0.684028, 1.47037 )
-
-[node name="Light Platform6" parent="." instance=ExtResource( 9 )]
-visible = false
-position = Vector2( 1905, 313 )
-collision_mask = 193
-
-[node name="Light2D" parent="Light Platform6/Sprite" index="0"]
-position = Vector2( 0, 2085.33 )
-scale = Vector2( 0.959722, 2.11852 )
+max_distance = 2e+10
 
 [node name="Small Wall Light" parent="." instance=ExtResource( 10 )]
 position = Vector2( 1905, 1526 )
@@ -98,6 +78,20 @@ scale = Vector2( 0.469218, 0.503666 )
 [node name="Small Wall Light3" parent="." instance=ExtResource( 10 )]
 position = Vector2( 2299, 1536 )
 
-[editable path="Light Platform4"]
-[editable path="Light Platform5"]
-[editable path="Light Platform6"]
+[node name="Light Platform" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1412, 1304 )
+
+[node name="Light Platform2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 2360, 1416 )
+
+[node name="Light Platform3" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1915, 975 )
+
+[node name="Light Platform5" parent="." instance=ExtResource( 9 )]
+position = Vector2( 2408, 344 )
+
+[node name="Light Platform6" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1448, 344 )
+
+[node name="Light Platform4" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1915, 360 )

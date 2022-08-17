@@ -15,6 +15,7 @@ script = ExtResource( 5 )
 lobby_reference = ExtResource( 3 )
 
 [node name="Lobby" parent="Game/LevelEnvironment" instance=ExtResource( 3 )]
+position = Vector2( 2, 2 )
 
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
@@ -51,6 +52,7 @@ __meta__ = {
 
   "
 }
+avatar_padding = Vector2( 150, 500 )
 
 [node name="Camera2D" type="Camera2D" parent="Camera"]
 position = Vector2( 1896, 1664 )
