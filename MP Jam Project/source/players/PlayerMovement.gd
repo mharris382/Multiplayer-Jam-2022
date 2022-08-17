@@ -1,21 +1,68 @@
 class_name PlayerMovement
 extends KinematicBody2D
 
+signal move_input_changed(new_move_input)
+signal look_input_changed(new_look_input)
+signal facing_right_changed(is_facing_right)
+signal jumping_changed(is_jumping)
+
 export var player_speed = 500 #200
 export var jump_force = -300 #-100
 export var gravity = 1200 #800
-export var player_id = "p1"
 export var push_force = 50
-export var max_jump_time = 1
 
 var velocity = Vector2.ZERO
-var is_jumping = false
-var move_input : Vector2
 var jump_input : bool
 var jump_just_pressed : bool
 var jump_pressed : bool
 
 var facing = "right"
+
+
+var look_input : Vector2 = Vector2.ZERO setget look_input_set, look_input_get
+var move_input : Vector2 = Vector2.ZERO setget move_input_set, move_input_get
+var is_facing_right : bool = false setget is_facing_right_set, is_facing_right_get
+var is_jumping = false setget is_jumping_set, is_jumping_get
+
+func can_jump():
+	return is_jumping or is_on_floor()
+
+func is_jumping_set(should_be_jumping):
+	if is_jumping != should_be_jumping:
+		if should_be_jumping and not can_jump(): 
+			return
+		
+		is_jumping = should_be_jumping
+		emit_signal("jumping_changed",  is_jumping)
+
+func is_facing_right_set(face_right):
+	if is_facing_right != face_right:
+		is_facing_right = face_right
+		emit_signal("facing_right_changed", is_facing_right)
+
+func move_input_set(move):
+	if move != move_input:
+		move_input = move
+		emit_signal("move_input_changed", move_input)
+#		if sign(move_input.x) != sign(move.x) and move.x != 0:
+#			is_facing_right_set(move.x > 0)
+
+func look_input_set(look):
+	if look != look_input:
+		look_input = look
+		emit_signal("look_input_changed", look_input)
+
+func look_input_get():
+	return look_input
+
+func is_jumping_get():
+	return is_jumping
+
+func is_facing_right_get():
+	return is_facing_right
+
+func move_input_get():
+	return move_input
 
 onready var jump_detection = $JumpDetection #this is also a timer? not sure what it is used for
 
@@ -24,8 +71,6 @@ func _physics_process(delta):
 	velocity.y += delta * gravity
 	velocity = move_and_slide(velocity, Vector2.UP, false, 4, PI/4, false)
 	apply_push_to_block()
-
-
 
 
 func flip():
@@ -82,7 +127,6 @@ func _change_anim():
 
 func on_jump_start():
 	pass
-
 
 func on_jump_stopped():
 	pass

@@ -137,6 +137,7 @@ func assign_avatar_to_player(avatar, player_number):
 	
 func _assign_player(player : Node, avatar : Node2D):
 	print("assigning player ", player, " to ", avatar)
+	player.avatar = avatar
 	player.connect("input_move", avatar, "on_player_move_input")
 	player.connect("input_ability_just_pressed", avatar, "on_player_just_pressed_ability")
 	player.connect("input_ability_pressed", avatar, "on_player_pressed_ability")
@@ -148,6 +149,7 @@ func _assign_player(player : Node, avatar : Node2D):
 	emit_signal("avatar_was_assigned", player, avatar)
 
 func _unassign_player(player, avatar):
+	player.avatar = null
 	player.disconnect("input_move", avatar, "on_player_move_input")
 	player.disconnect("input_ability_just_pressed", avatar, "on_player_just_pressed_ability")
 	player.disconnect("input_ability_pressed", avatar, "on_player_pressed_ability")
