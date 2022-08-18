@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/BlockData.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "BlockLauncher",
 "language": "GDScript",
 "path": "res://source/blocks/DynamicBlocks/BlockLauncher.gd"
@@ -34,7 +34,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/player/Character.gd"
 }, {
-"base": "Reference",
+"base": "RigidBody2D",
 "class": "DynamicBlock",
 "language": "GDScript",
 "path": "res://source/blocks/DynamicBlocks/DynamicBlock.gd"
@@ -76,7 +76,6 @@ _global_script_class_icons={
 
 config/name="Refactored Project"
 config/icon="res://icon.png"
-
 
 [autoload]
 
@@ -362,5 +361,4 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 2d/snapping/use_gpu_pixel_snap=true
-environment/default_environment="res://default_env.tres"
 environment/default_environment="res://default_env.tres"
