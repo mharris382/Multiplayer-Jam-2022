@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=20 format=2]
+
+[ext_resource path="res://source/blocks/BlockLibrary.gd" type="Script" id=1]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Conveyor.tres" type="Resource" id=2]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Pipe_and_Gear.tres" type="Resource" id=3]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Plate.tres" type="Resource" id=4]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Metal_Mesh.tres" type="Resource" id=5]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Colored_Plates.tres" type="Resource" id=6]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Floor_Gears.tres" type="Resource" id=7]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Floor_Pipe_1.tres" type="Resource" id=8]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Floor_Pipe_2.tres" type="Resource" id=9]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Base.tres" type="Resource" id=10]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Red_Steel.tres" type="Resource" id=11]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Plate_2.tres" type="Resource" id=12]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Jump.tres" type="Resource" id=13]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_1.tres" type="Resource" id=14]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_3.tres" type="Resource" id=15]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_4.tres" type="Resource" id=16]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_2.tres" type="Resource" id=17]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_5.tres" type="Resource" id=18]
+[ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Metal_Screws.tres" type="Resource" id=19]
+
+[resource]
+script = ExtResource( 1 )
+bugfixes2 = 1
+bugfixes = 1
+blocks = [ ExtResource( 13 ), ExtResource( 10 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 19 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 17 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 18 ) ]

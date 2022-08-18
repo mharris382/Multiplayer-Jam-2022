@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://source/ui/AimDirectionPreview.gd" type="Script" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.9 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.254601 ), 0.0, 0.0, 0, 0 ]
+
+[node name="AimPreview" type="Line2D"]
+points = PoolVector2Array( 43, -29, 268, -57, 270, -81, 303, -69, 281, -37, 269, -62 )
+width_curve = SubResource( 1 )
+default_color = Color( 0.862745, 1, 0.4, 1 )
+script = ExtResource( 1 )
