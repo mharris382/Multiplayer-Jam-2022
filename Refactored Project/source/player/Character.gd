@@ -6,25 +6,34 @@ signal character_state_changed(state, velocity)
 signal velocity_changed(velocity)
 
 
-enum States {IDLE, RUNNING, IN_AIR, JUMPING, FALLING }
+enum States {
+	IDLE, 
+	RUNNING, 
+	IN_AIR, 
+	JUMPING, 
+	FALLING 
+}
 
 const FLOOR_DETECT_DISTANCE = 20.0
 const TERMINAL_Y_VELOCITY = 10000
 
 export var speed = Vector2(150.0, 350.0)
-
+export var extra_jump_time = 0.4
 
 var _move_direction : Vector2 = Vector2.ZERO
 var _velocity : Vector2 = Vector2.ZERO
 var _facing_right : bool = true
 var _state = States.IDLE setget _state_set, _state_get
+var _jump_timed_out = true
 
 onready var platform_detector = $PlatformDetector
-
+onready var jump_timer = $"JumpTimer"
 
 func _ready():
 #	connect("aim_angle_changed", self, "_on_aim_angle_changed")
 	connect("move_changed", self, "_on_move_changed")
+	jump_timer.connect("timeout", self, "_on_jump_timer_timeout")
+	jump_timer.stop()
 
 func _physics_process(delta):
 	
@@ -32,9 +41,23 @@ func _physics_process(delta):
 	_velocity.y = min(_velocity.y, TERMINAL_Y_VELOCITY)
 	
 	var direction = _move_direction
-	direction.y = -1 if is_on_floor() and Input.is_action_just_pressed(JUMP % player_number) else 0
 	
-	var is_jump_interrupted = Input.is_action_just_released(JUMP % player_number) and _velocity.y < 0.0
+	if is_on_floor():
+		direction.y = -1 if Input.is_action_just_pressed(JUMP % player_number) else 0
+		if direction.y == -1:
+			_jump_timed_out = false
+			jump_timer.start(extra_jump_time)
+	else:
+		direction.y = -1 if not _jump_timed_out else 0
+		if not _jump_timed_out and not Input.is_action_just_released(JUMP % player_number):
+			direction.y = -1
+		else:
+			direction.y = 0
+			_jump_timed_out = true
+			jump_timer.stop()
+	
+	
+	var is_jump_interrupted = _jump_timed_out and _velocity.y < 0.0
 	_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
 	
 	var snap_vector = Vector2.ZERO
@@ -53,6 +76,9 @@ func _physics_process(delta):
 
 func _on_move_changed(move_input):
 	_move_direction.x = move_input.x
+
+func ended_jump() -> bool:
+	return true
 	
 func calculate_move_velocity(
 		linear_velocity,
@@ -67,7 +93,9 @@ func calculate_move_velocity(
 	if is_jump_interrupted:
 		# Decrease the Y velocity by multiplying it, but don't set it to 0
 		# as to not be too abrupt.
+		jump_timer.stop()
 		velocity.y *= 0.6
+		
 	return velocity
 
 func _set_facing_direction(facing_right):
@@ -78,8 +106,12 @@ func _set_facing_direction(facing_right):
 func _update_state(new_vel : Vector2):
 	
 	if not is_on_floor():
-		_state_set(States.IN_AIR)
-		emit_signal("character_state_changed", States.IN_AIR)
+		if new_vel.y < -0.1:
+			_state_set(States.JUMPING)
+		elif new_vel.y > 0.1:
+			_state_set(States.FALLING)
+		else:
+			_state_set(States.IN)
 		print("in air")
 	else:
 		if abs(new_vel.x) > 0.1:
@@ -97,3 +129,6 @@ func _state_set(state):
 		emit_signal("character_state_changed", _state)
 func _state_get():
 	return _state
+	
+func _on_jump_timer_timeout():
+	_jump_timed_out = true

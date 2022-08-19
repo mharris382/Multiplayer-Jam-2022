@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://source/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 
 [node name="Builder" groups=["Builder", "Character"] instance=ExtResource( 1 )]
 collision_layer = 129
 player_number = 2
 
 [node name="Animator" parent="." index="1"]
-frame = 24
+frame = 5

@@ -83,7 +83,7 @@ func _on_character_state_changed(next_state):
 			on_stop()
 		Character.States.RUNNING:
 			on_run_start()
-		Character.States.IN_AIR:
+		Character.States.IN_AIR, Character.States.JUMPING, Character.States.FALLING:
 			if last_velocity.y > 0:
 				on_jump_start()
 			else:

@@ -21,7 +21,7 @@ shape = SubResource( 1 )
 position = Vector2( -4.76837e-07, 1.19209e-07 )
 scale = Vector2( 0.3, 0.3 )
 animation = "idle"
-frame = 0
+frame = 18
 
 [node name="Label2" type="Label" parent="."]
 margin_left = -51.0
@@ -38,6 +38,8 @@ modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 0, 47 )
 z_index = 336
 cast_to = Vector2( 0, 25 )
+
+[node name="JumpTimer" type="Timer" parent="."]
 
 [connection signal="aim_angle_changed" from="." to="Player Input Tester" method="_on_aim_angle_changed"]
 [connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]

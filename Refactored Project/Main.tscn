@@ -25,3 +25,4 @@ position = Vector2( 1030, 288 )
 
 [node name="Builder" parent="." instance=ExtResource( 2 )]
 position = Vector2( 536, 298 )
+extra_jump_time = 0.2
