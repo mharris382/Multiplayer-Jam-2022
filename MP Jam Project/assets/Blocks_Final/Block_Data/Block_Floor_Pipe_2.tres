@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-destructable = true
+destructable = false
 tile_name = "Block_Floor_Pipe_2"
