@@ -1,0 +1,124 @@
+{ "skeleton": { "images": "C:/Users/Admin/Downloads/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "Paper", "bone": "root" },
+	{ "name": "4 Copy", "bone": "root", "attachment": "4 Copy" },
+	{ "name": "3 Copy", "bone": "root", "attachment": "3 Copy" },
+	{ "name": "2 Copy", "bone": "root", "attachment": "2 Copy" },
+	{ "name": "1 Copy", "bone": "root", "attachment": "1 Copy" },
+	{ "name": "4", "bone": "root", "attachment": "4" },
+	{ "name": "3", "bone": "root", "attachment": "3" },
+	{ "name": "2", "bone": "root", "attachment": "2" },
+	{ "name": "1", "bone": "root", "attachment": "1" },
+	{ "name": "C-R-Arm", "bone": "root", "attachment": "C-R-Arm" },
+	{ "name": "C-R-Arm-Glow", "bone": "root", "blend": "additive" },
+	{ "name": "C-L-Arm", "bone": "root", "attachment": "C-L-Arm" },
+	{ "name": "C-L-Arm-Glow", "bone": "root", "blend": "additive" },
+	{ "name": "C-R-Leg", "bone": "root", "attachment": "C-R-Leg" },
+	{ "name": "C-R-Foot", "bone": "root", "attachment": "C-R-Foot" },
+	{ "name": "C-L-Leg", "bone": "root", "attachment": "C-L-Leg" },
+	{ "name": "Folder 3", "bone": "root", "attachment": "Folder 3" },
+	{ "name": "Layer 28 Copy", "bone": "root", "blend": "additive" },
+	{ "name": "C-R-Shoulder", "bone": "root", "attachment": "C-R-Shoulder" },
+	{ "name": "C-R-Feathers", "bone": "root", "attachment": "C-R-Feathers" },
+	{ "name": "C-Torso", "bone": "root", "attachment": "C-Torso" },
+	{ "name": "C-L-Shoulder", "bone": "root", "attachment": "C-L-Shoulder" },
+	{ "name": "C-L-Feathers", "bone": "root", "attachment": "C-L-Feathers" },
+	{ "name": "C-Head", "bone": "root", "attachment": "C-Head" },
+	{ "name": "C-Head-Glow", "bone": "root", "blend": "additive" },
+	{ "name": "C-Moustache", "bone": "root", "attachment": "C-Moustache" },
+	{ "name": "C-Hat-Feather", "bone": "root", "attachment": "C-Hat-Feather" },
+	{ "name": "C-Hat", "bone": "root", "attachment": "C-Hat" }
+],
+"skins": {
+	"default": {
+		"Paper": {
+			"Paper": { "x": 1295, "y": -1575, "width": 2592, "height": 3152 }
+		},
+		"4 Copy": {
+			"4 Copy": { "x": 1865, "y": -2426.5, "width": 826, "height": 617 }
+		},
+		"3 Copy": {
+			"3 Copy": { "x": 1908, "y": -2271, "width": 1002, "height": 784 }
+		},
+		"2 Copy": {
+			"2 Copy": { "x": 1801, "y": -2083.5, "width": 792, "height": 713 }
+		},
+		"1 Copy": {
+			"1 Copy": { "x": 1869.5, "y": -1833.5, "width": 743, "height": 663 }
+		},
+		"4": {
+			"4": { "x": 686, "y": -2426.5, "width": 826, "height": 617 }
+		},
+		"3": {
+			"3": { "x": 643, "y": -2271, "width": 1002, "height": 784 }
+		},
+		"2": {
+			"2": { "x": 750, "y": -2083.5, "width": 792, "height": 713 }
+		},
+		"1": {
+			"1": { "x": 681.5, "y": -1833.5, "width": 743, "height": 663 }
+		},
+		"C-R-Arm": {
+			"C-R-Arm": { "x": 1747.5, "y": -1816, "width": 735, "height": 748 }
+		},
+		"C-R-Arm-Glow": {
+			"C-R-Arm-Glow": { "x": 1295, "y": -1575, "width": 2592, "height": 3152 }
+		},
+		"C-L-Arm": {
+			"C-L-Arm": { "x": 888.5, "y": -1801.5, "width": 781, "height": 725 }
+		},
+		"C-L-Arm-Glow": {
+			"C-L-Arm-Glow": { "x": 1295, "y": -1575, "width": 2592, "height": 3152 }
+		},
+		"C-R-Leg": {
+			"C-R-Leg": { "x": 1544.5, "y": -2262.5, "width": 315, "height": 605 }
+		},
+		"C-R-Foot": {
+			"C-R-Foot": { "x": 1738, "y": -2600, "width": 888, "height": 818 }
+		},
+		"C-L-Leg": {
+			"C-L-Leg": { "x": 1089, "y": -2269, "width": 438, "height": 634 }
+		},
+		"Folder 3": {
+			"Folder 3": { "x": 1146.5, "y": -2583.5, "width": 959, "height": 943 }
+		},
+		"Layer 28 Copy": {
+			"Layer 28 Copy": { "x": 1295, "y": -1575, "width": 2592, "height": 3152 }
+		},
+		"C-R-Shoulder": {
+			"C-R-Shoulder": { "x": 1855.5, "y": -1655, "width": 779, "height": 556 }
+		},
+		"C-R-Feathers": {
+			"C-R-Feathers": { "x": 2082, "y": -1507, "width": 540, "height": 428 }
+		},
+		"C-Torso": {
+			"C-Torso": { "x": 1317.5, "y": -1795, "width": 869, "height": 874 }
+		},
+		"C-L-Shoulder": {
+			"C-L-Shoulder": { "x": 716, "y": -1663.5, "width": 696, "height": 575 }
+		},
+		"C-L-Feathers": {
+			"C-L-Feathers": { "x": 499.5, "y": -1459, "width": 571, "height": 510 }
+		},
+		"C-Head": {
+			"C-Head": { "x": 1319, "y": -1195.5, "width": 1318, "height": 1147 }
+		},
+		"C-Head-Glow": {
+			"C-Head-Glow": { "x": 1295, "y": -1575, "width": 2592, "height": 3152 }
+		},
+		"C-Moustache": {
+			"C-Moustache": { "x": 1411, "y": -1670.5, "width": 892, "height": 213 }
+		},
+		"C-Hat-Feather": {
+			"C-Hat-Feather": { "x": 1512, "y": -497, "width": 662, "height": 702 }
+		},
+		"C-Hat": {
+			"C-Hat": { "x": 1333, "y": -947, "width": 1488, "height": 872 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}
