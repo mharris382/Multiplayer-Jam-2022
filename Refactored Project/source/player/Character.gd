@@ -19,7 +19,7 @@ const TERMINAL_Y_VELOCITY = 10000
 
 export var speed = Vector2(150.0, 350.0)
 export var extra_jump_time = 0.4
-
+export var jump_pow = .5
 var _move_direction : Vector2 = Vector2.ZERO
 var _velocity : Vector2 = Vector2.ZERO
 var _facing_right : bool = true
@@ -50,7 +50,8 @@ func _physics_process(delta):
 	else:
 		direction.y = -1 if not _jump_timed_out else 0
 		if not _jump_timed_out and not Input.is_action_just_released(JUMP % player_number):
-			direction.y = -1
+			var t = (jump_timer.time_left / extra_jump_time)
+			direction.y = -1 * pow(t, jump_pow)
 		else:
 			direction.y = 0
 			_jump_timed_out = true
@@ -111,7 +112,7 @@ func _update_state(new_vel : Vector2):
 		elif new_vel.y > 0.1:
 			_state_set(States.FALLING)
 		else:
-			_state_set(States.IN)
+			_state_set(States.IN_AIR)
 		print("in air")
 	else:
 		if abs(new_vel.x) > 0.1:
