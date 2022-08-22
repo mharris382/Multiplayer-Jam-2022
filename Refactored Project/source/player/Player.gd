@@ -2,6 +2,9 @@ class_name Player
 extends KinematicBody2D
 
 
+
+
+
 signal move_changed(move_direction)
 
 #difference between the two of these signals is that the latter signal will not fire if there is no aim input (i.e. direction = Vector.ZERO), whereas the other fires regardless
@@ -75,7 +78,6 @@ func _process_ability_aim():
 	emit_signal("aim_angle_changed", aim, _aim_angle)
 	_aim_angle = atan2(aim.y, aim.x)
 	
-	
 func _process_ability():
 	pass
 
@@ -88,3 +90,9 @@ func _aim_vector_set(aim_vector:Vector2):
 		return
 	_aim_angle = atan2(aim_vector.y, aim_vector.x)
 	emit_signal("aim_angle_changed", _aim_vector_get(), _aim_angle)
+
+#Even though I made consts for all the actions, it's likely the actions will need to be polled elsewhere so instead of injecting the player_number into all I opted to inject the player itself and expose this method
+func get_player_specific_input_action(action):
+	return "%s_p%d"%[action, player_number]
+
+

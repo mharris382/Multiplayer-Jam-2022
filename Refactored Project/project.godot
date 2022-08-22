@@ -58,6 +58,16 @@ _global_script_classes=[ {
 "class": "Puzzle",
 "language": "GDScript",
 "path": "res://source/levels/Puzzle.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://source/states/State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://source/states/StateMachine.gd"
 } ]
 _global_script_class_icons={
 "AudioEnums": "",
@@ -69,7 +79,9 @@ _global_script_class_icons={
 "Level": "",
 "PackedPuzzle": "",
 "Player": "",
-"Puzzle": ""
+"Puzzle": "",
+"State": "",
+"StateMachine": ""
 }
 
 [application]

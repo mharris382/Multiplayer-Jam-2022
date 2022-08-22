@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://source/player/Character.gd" type="Script" id=1]
+[ext_resource path="res://source/states/CharacterStateMachine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/states/StateMachine.gd" type="Script" id=3]
 [ext_resource path="res://assets/animation/builder_animator.tscn" type="PackedScene" id=5]
 [ext_resource path="res://tests/PlayerTest/Player Tester.tscn" type="PackedScene" id=6]
 
@@ -21,7 +23,7 @@ shape = SubResource( 1 )
 position = Vector2( -4.76837e-07, 1.19209e-07 )
 scale = Vector2( 0.3, 0.3 )
 animation = "idle"
-frame = 18
+frame = 16
 
 [node name="Label2" type="Label" parent="."]
 margin_left = -51.0
@@ -41,8 +43,14 @@ cast_to = Vector2( 0, 25 )
 
 [node name="JumpTimer" type="Timer" parent="."]
 
+[node name="CharacterStateMachine-Movement" parent="." instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
 [connection signal="aim_angle_changed" from="." to="Player Input Tester" method="_on_aim_angle_changed"]
+[connection signal="aim_angle_changed" from="." to="CharacterStateMachine-Movement" method="_on_Player_aim_angle_changed"]
+[connection signal="aim_input" from="." to="CharacterStateMachine-Movement" method="_on_Player_aim_input"]
 [connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]
 [connection signal="facing_direction_changed" from="." to="Animator" method="_on_character_changed_direction"]
 [connection signal="move_changed" from="." to="Player Input Tester" method="_on_move_changed"]
+[connection signal="move_changed" from="." to="CharacterStateMachine-Movement" method="_on_Player_move_changed"]
 [connection signal="velocity_changed" from="." to="Animator" method="_on_velocity_changed"]

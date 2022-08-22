@@ -32,7 +32,7 @@ remote_path = NodePath("../../Camera/Builder")
 script = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="Camera"]
-position = Vector2( -331, 267 )
+position = Vector2( -321, 168 )
 current = true
 zoom = Vector2( 1.5, 1.5 )
 
