@@ -133,16 +133,17 @@ func _update_state(new_vel : Vector2):
 			_state_set(States.FALLING)
 		else:
 			_state_set(States.IN_AIR)
-		print("in air")
+		#print("in air")
 	else:
+		
 		if abs(new_vel.x) > 0.1:
 			emit_signal("character_state_changed", States.RUNNING)
 #			emit_signal("character_state_changed", _state)
-			print("run")
+			#print("run")
 		else:
 			emit_signal("character_state_changed", States.IDLE)
 #			emit_signal("character_state_changed", _state)
-			print("Idle")
+			#print("Idle")
 
 func _state_set(state):
 	if _state != state:

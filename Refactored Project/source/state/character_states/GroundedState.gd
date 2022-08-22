@@ -1,6 +1,7 @@
 extends State
 
 func enter(_msg := {}) -> void:
+	print("Enter: ", name)
 	assert(is_owned_by_player())
 
 func physics_update(_delta: float):
@@ -21,3 +22,6 @@ func physics_update(_delta: float):
 	if not state_machine.character.is_on_floor():
 		state_machine.transition_to("Falling")
 		return
+
+
+	

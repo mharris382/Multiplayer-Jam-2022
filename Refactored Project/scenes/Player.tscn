@@ -25,7 +25,7 @@ shape = SubResource( 1 )
 position = Vector2( -4.76837e-07, 1.19209e-07 )
 scale = Vector2( 0.3, 0.3 )
 animation = "idle"
-frame = 1
+frame = 7
 
 [node name="Label2" type="Label" parent="."]
 margin_left = -51.0
@@ -52,6 +52,8 @@ script = ExtResource( 4 )
 
 [node name="Jumping" type="Node" parent="CharacterStateMachine"]
 script = ExtResource( 3 )
+extra_jump_time = 0.8
+jump_pow = 0.1
 
 [node name="JumpTimer" type="Timer" parent="CharacterStateMachine/Jumping"]
 
