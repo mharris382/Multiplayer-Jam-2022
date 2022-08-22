@@ -1,4 +1,3 @@
-class_name State
 extends Node
 
 # warning-ignore:unused_signal

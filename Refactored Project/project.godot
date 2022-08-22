@@ -62,12 +62,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
-"path": "res://source/states/State.gd"
+"path": "res://source/state/State.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://source/states/StateMachine.gd"
+"path": "res://source/state/StateMachine.gd"
 } ]
 _global_script_class_icons={
 "AudioEnums": "",

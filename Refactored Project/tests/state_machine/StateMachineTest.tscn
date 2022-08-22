@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://source/state/StateMachine.gd" type="Script" id=1]
+[ext_resource path="res://tests/state_machine/TestState.gd" type="Script" id=2]
+
+[node name="Main" type="Node2D"]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 1 )
+initial_state = NodePath("State1")
+
+[node name="State1" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )
+num = 2
+
+[node name="State2" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )
+num = 3
+
+[node name="State3" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )

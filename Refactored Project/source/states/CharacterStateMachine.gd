@@ -1,4 +1,4 @@
-extends StateMachine
+extends Node
 
 
 
