@@ -23,3 +23,5 @@ func enter(_msg := {}) -> void:
 func exit() -> void:
 	pass
 
+func is_owned_by_player():
+	return state_machine.character != null

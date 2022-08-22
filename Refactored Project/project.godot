@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/player/Character.gd"
 }, {
+"base": "StateMachine",
+"class": "CharacterStateMachine",
+"language": "GDScript",
+"path": "res://source/state/CharacterStateMachine.gd"
+}, {
 "base": "RigidBody2D",
 "class": "DynamicBlock",
 "language": "GDScript",
@@ -75,6 +80,7 @@ _global_script_class_icons={
 "BlockLauncher": "",
 "BlockLibrary": "",
 "Character": "",
+"CharacterStateMachine": "",
 "DynamicBlock": "",
 "Level": "",
 "PackedPuzzle": "",

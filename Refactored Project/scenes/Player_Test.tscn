@@ -1,18 +1,17 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://source/player/Character.gd" type="Script" id=1]
-[ext_resource path="res://source/state/StateMachine.gd" type="Script" id=2]
+[ext_resource path="res://source/state/CharacterStateMachine.gd" type="Script" id=2]
 [ext_resource path="res://source/state/character_states/JumpState.gd" type="Script" id=3]
 [ext_resource path="res://source/state/character_states/GroundedState.gd" type="Script" id=4]
 [ext_resource path="res://assets/animation/builder_animator.tscn" type="PackedScene" id=5]
-[ext_resource path="res://tests/PlayerTest/Player Tester.tscn" type="PackedScene" id=6]
-[ext_resource path="res://source/state/character_states/FallingState.gd" type="Script" id=7]
+[ext_resource path="res://source/state/character_states/FallingState.gd" type="Script" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 28.0
 height = 76.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="TEST Player" type="KinematicBody2D"]
 collision_mask = 14
 script = ExtResource( 1 )
 speed = Vector2( 500, 1000 )
@@ -25,17 +24,7 @@ shape = SubResource( 1 )
 position = Vector2( -4.76837e-07, 1.19209e-07 )
 scale = Vector2( 0.3, 0.3 )
 animation = "idle"
-frame = 1
-
-[node name="Label2" type="Label" parent="."]
-margin_left = -51.0
-margin_top = -202.0
-margin_right = -11.0
-margin_bottom = -188.0
-rect_scale = Vector2( 9.07487, 9.07487 )
-text = "1"
-
-[node name="Player Input Tester" parent="." instance=ExtResource( 6 )]
+frame = 3
 
 [node name="PlatformDetector" type="RayCast2D" parent="."]
 modulate = Color( 1, 0, 0, 1 )
@@ -45,7 +34,6 @@ cast_to = Vector2( 0, 25 )
 
 [node name="CharacterStateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
-initial_state = NodePath("Falling")
 
 [node name="Grounded" type="Node" parent="CharacterStateMachine"]
 script = ExtResource( 4 )
@@ -56,10 +44,8 @@ script = ExtResource( 3 )
 [node name="JumpTimer" type="Timer" parent="CharacterStateMachine/Jumping"]
 
 [node name="Falling" type="Node" parent="CharacterStateMachine"]
-script = ExtResource( 7 )
+script = ExtResource( 6 )
 
-[connection signal="aim_angle_changed" from="." to="Player Input Tester" method="_on_aim_angle_changed"]
 [connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]
 [connection signal="facing_direction_changed" from="." to="Animator" method="_on_character_changed_direction"]
-[connection signal="move_changed" from="." to="Player Input Tester" method="_on_move_changed"]
 [connection signal="velocity_changed" from="." to="Animator" method="_on_velocity_changed"]

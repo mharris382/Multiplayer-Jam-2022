@@ -20,6 +20,7 @@ const TERMINAL_Y_VELOCITY = 10000
 export var speed = Vector2(150.0, 350.0)
 export var extra_jump_time = 0.4
 export var jump_pow = .5
+
 var _move_direction : Vector2 = Vector2.ZERO
 var _velocity : Vector2 = Vector2.ZERO
 var _facing_right : bool = true
@@ -32,55 +33,74 @@ onready var jump_timer = $"JumpTimer"
 func _ready():
 #	connect("aim_angle_changed", self, "_on_aim_angle_changed")
 	connect("move_changed", self, "_on_move_changed")
-	jump_timer.connect("timeout", self, "_on_jump_timer_timeout")
-	jump_timer.stop()
+	connect("aim_changed", self, "_on_aim_changed")
+	#jump_timer.connect("timeout", self, "_on_jump_timer_timeout")
+	#jump_timer.stop()
+	
+func process_not_on_floor(direction):
+	direction.y = -1 if not _jump_timed_out else 0
+	if not _jump_timed_out and not Input.is_action_just_released(JUMP % player_number):
+		var t = (jump_timer.time_left / extra_jump_time)
+		direction.y = -1 * pow(t, jump_pow)
+	else:
+		direction.y = 0
+		_jump_timed_out = true
+		jump_timer.stop()
+	return direction
 
-func _physics_process(delta):
-	
-	_velocity.y += gravity * delta
-	_velocity.y = min(_velocity.y, TERMINAL_Y_VELOCITY)
-	
-	var direction = _move_direction
-	
-	if is_on_floor():
+func process_on_floor(direction):
 		direction.y = -1 if Input.is_action_just_pressed(JUMP % player_number) else 0
 		if direction.y == -1:
 			_jump_timed_out = false
 			jump_timer.start(extra_jump_time)
-	else:
-		direction.y = -1 if not _jump_timed_out else 0
-		if not _jump_timed_out and not Input.is_action_just_released(JUMP % player_number):
-			var t = (jump_timer.time_left / extra_jump_time)
-			direction.y = -1 * pow(t, jump_pow)
-		else:
-			direction.y = 0
-			_jump_timed_out = true
-			jump_timer.stop()
-	
-	
-	var is_jump_interrupted = _jump_timed_out and _velocity.y < 0.0
-	_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
-	
+		return direction
+
+func get_snap_vector(direction):
 	var snap_vector = Vector2.ZERO
 	if direction.y == 0.0:
 		snap_vector = Vector2.DOWN * FLOOR_DETECT_DISTANCE
-		
-	var is_on_platform = platform_detector.is_colliding()
-	_velocity = move_and_slide_with_snap(_velocity, snap_vector, Vector2.UP, not is_on_platform, 4, 0.9, false)
+	return snap_vector
+
+func is_on_platform() -> bool:
+	return  platform_detector.is_colliding()
 	
+onready var state_machine = $CharacterStateMachine
+func _physics_process(delta):
+	
+	
+	_velocity.y += gravity * delta
+	_velocity.y = min(_velocity.y, TERMINAL_Y_VELOCITY)
+	#else:
+	#	direction = process_not_on_floor(direction)
+	return
+	
+#	var direction = _move_direction
+#
+#
+#
+#
+#	var is_jump_interrupted = _jump_timed_out and _velocity.y < 0.0
+#	_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
+#
+#	var snap_vector = get_snap_vector(direction)
+#	var stop_on_slope = not is_on_platform()
+#
+#	_velocity = move_and_slide_with_snap(_velocity, snap_vector, Vector2.UP, stop_on_slope, 4, 0.9, false)
+#	emit_signal("velocity_changed", _velocity)
+#	_update_facing_direction(direction)
+#	_update_state(_velocity)
+
+func _update_facing_direction(direction):
 	if direction.x != 0:
 		var is_facing_right =direction.x > 0
 		_set_facing_direction(is_facing_right)
-	
-	emit_signal("velocity_changed", _velocity)
-	_update_state(_velocity)
 
 func _on_move_changed(move_input):
 	_move_direction.x = move_input.x
 
 func ended_jump() -> bool:
 	return true
-	
+
 func calculate_move_velocity(
 		linear_velocity,
 		direction,
@@ -94,7 +114,7 @@ func calculate_move_velocity(
 	if is_jump_interrupted:
 		# Decrease the Y velocity by multiplying it, but don't set it to 0
 		# as to not be too abrupt.
-		jump_timer.stop()
+		#jump_timer.stop()
 		velocity.y *= 0.6
 		
 	return velocity
@@ -130,6 +150,26 @@ func _state_set(state):
 		emit_signal("character_state_changed", _state)
 func _state_get():
 	return _state
-	
+
 func _on_jump_timer_timeout():
 	_jump_timed_out = true
+
+
+func input_get_move_direction():
+	return _move_direction
+	
+func _on_aim_changed(aim_direction):
+	pass
+	
+func _on_aim_angle_changed(aim_direction, aim_angle):
+	pass
+
+
+func apply_velocity(new_velocity : Vector2):
+	var direction = new_velocity.normalized()
+	var snap_vector = get_snap_vector(direction)
+	var stop_on_slope = not is_on_platform()
+	_velocity = move_and_slide_with_snap(new_velocity, snap_vector, Vector2.UP, stop_on_slope, 4, 0.9, false)
+	emit_signal("velocity_changed", _velocity)
+	_update_facing_direction(direction)
+	_update_state(_velocity)
