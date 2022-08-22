@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://source/states/CharacterStateMachine.gd" type="Script" id=1]
+[ext_resource path="res://source/states/States/JumpingState.gd" type="Script" id=2]
+[ext_resource path="res://source/states/States/NullState.gd" type="Script" id=3]
+[ext_resource path="res://source/states/States/RunningState.gd" type="Script" id=4]
+[ext_resource path="res://source/states/States/IdleState.gd" type="Script" id=5]
+[ext_resource path="res://source/states/States/FallingState.gd" type="Script" id=6]
+
+[node name="CharacterStateMachine-Movement" type="Node"]
+script = ExtResource( 1 )
+
+[node name="States" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="States"]
+script = ExtResource( 5 )
+
+[node name="Running" type="Node" parent="States"]
+script = ExtResource( 4 )
+
+[node name="Jumping" type="Node" parent="States"]
+script = ExtResource( 2 )
+
+[node name="Falling" type="Node" parent="States"]
+script = ExtResource( 6 )
+
+[node name="NullState" type="Node" parent="."]
+script = ExtResource( 3 )
