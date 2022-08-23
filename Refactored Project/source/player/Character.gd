@@ -21,11 +21,22 @@ export var speed = Vector2(150.0, 350.0)
 export var extra_jump_time = 0.4
 export var jump_pow = .5
 
+
 var _move_direction : Vector2 = Vector2.ZERO
 var _velocity : Vector2 = Vector2.ZERO
 var _facing_right : bool = true
 var _state = States.IDLE setget _state_set, _state_get
 var _jump_timed_out = true
+
+var desired_velocity : Vector2 = Vector2.ZERO setget desired_velocity_set, desired_velocity_get
+
+
+func desired_velocity_get():
+	return desired_velocity
+
+func desired_velocity_set(vel):
+	if desired_velocity != vel:
+		desired_velocity = vel
 
 onready var platform_detector = $PlatformDetector
 onready var jump_timer = $"JumpTimer"
@@ -98,9 +109,6 @@ func _update_facing_direction(direction):
 func _on_move_changed(move_input):
 	_move_direction.x = move_input.x
 
-func ended_jump() -> bool:
-	return true
-
 func calculate_move_velocity(
 		linear_velocity,
 		direction,
@@ -149,12 +157,9 @@ func _state_set(state):
 	if _state != state:
 		_state = state
 		emit_signal("character_state_changed", _state)
+
 func _state_get():
 	return _state
-
-func _on_jump_timer_timeout():
-	_jump_timed_out = true
-
 
 func input_get_move_direction():
 	return _move_direction

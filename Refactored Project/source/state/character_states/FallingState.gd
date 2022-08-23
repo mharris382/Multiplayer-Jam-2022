@@ -12,7 +12,7 @@ func physics_update(_delta: float):
 	var speed = state_machine.character.speed
 	var velocity : Vector2 = state_machine.character._velocity
 	
-	var direction = Vector2(move_input.x, 1)
+	var direction = Vector2(move_input.x, 0 if abs(velocity.y) < 0.2 else 1)
 	velocity = state_machine.character.calculate_move_velocity(velocity,direction,speed,true)
 	state_machine.character.apply_velocity(velocity)
 	
