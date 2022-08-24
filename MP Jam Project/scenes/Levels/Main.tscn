@@ -17,34 +17,6 @@ lobby_reference = ExtResource( 3 )
 [node name="Lobby" parent="Game/LevelEnvironment" instance=ExtResource( 3 )]
 position = Vector2( 2, 2 )
 
-[node name="UI" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="HUD" type="Control" parent="UI"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Transporter" type="Control" parent="UI/HUD"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Builder" type="Control" parent="UI/HUD"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Menu Screens" type="Control" parent="UI"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Main Menu" type="Control" parent="UI/Menu Screens"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Pause Menu" type="Control" parent="UI/Menu Screens"]
-margin_right = 40.0
-margin_bottom = 40.0
-
 [node name="Camera" type="Node" parent="."]
 script = ExtResource( 1 )
 __meta__ = {

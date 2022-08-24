@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=268 format=2]
+[gd_resource type="TileSet" load_steps=274 format=2]
 
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/auto-tiles.png" type="Texture" id=1]
 [ext_resource path="res://assets/Blocks_Final/single-blocks.png" type="Texture" id=2]
@@ -201,6 +201,30 @@ polygon = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=264]
 points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
+
+[sub_resource type="NavigationPolygon" id=265]
+vertices = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+
+[sub_resource type="NavigationPolygon" id=266]
+vertices = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+
+[sub_resource type="NavigationPolygon" id=267]
+vertices = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+
+[sub_resource type="NavigationPolygon" id=268]
+vertices = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+
+[sub_resource type="NavigationPolygon" id=269]
+vertices = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+
+[sub_resource type="NavigationPolygon" id=270]
+vertices = PoolVector2Array( 128, 0, 0, 0, 0, 128, 128, 128 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 
 [sub_resource type="OccluderPolygon2D" id=199]
 polygon = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
@@ -1001,7 +1025,7 @@ points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
 2/autotile/tile_size = Vector2( 128, 128 )
 2/autotile/spacing = 0
 2/autotile/occluder_map = [ Vector2( 0, 0 ), SubResource( 199 ), Vector2( 0, 1 ), SubResource( 200 ), Vector2( 0, 2 ), SubResource( 201 ), Vector2( 0, 4 ), SubResource( 202 ), Vector2( 1, 0 ), SubResource( 203 ), Vector2( 1, 1 ), SubResource( 204 ), Vector2( 1, 2 ), SubResource( 205 ), Vector2( 1, 4 ), SubResource( 206 ), Vector2( 2, 0 ), SubResource( 207 ), Vector2( 2, 1 ), SubResource( 208 ), Vector2( 2, 2 ), SubResource( 209 ), Vector2( 2, 4 ), SubResource( 210 ), Vector2( 4, 0 ), SubResource( 211 ), Vector2( 4, 1 ), SubResource( 212 ), Vector2( 4, 2 ), SubResource( 213 ), Vector2( 4, 4 ), SubResource( 214 ), Vector2( 6, 3 ), SubResource( 215 ), Vector2( 6, 4 ), SubResource( 216 ), Vector2( 7, 3 ), SubResource( 217 ), Vector2( 7, 4 ), SubResource( 218 ), Vector2( 9, 3 ), SubResource( 219 ), Vector2( 9, 4 ), SubResource( 220 ), Vector2( 10, 3 ), SubResource( 221 ), Vector2( 10, 4 ), SubResource( 222 ), Vector2( 12, 3 ), SubResource( 223 ), Vector2( 12, 4 ), SubResource( 224 ), Vector2( 13, 3 ), SubResource( 225 ), Vector2( 13, 4 ), SubResource( 226 ), Vector2( 15, 3 ), SubResource( 227 ), Vector2( 15, 4 ), SubResource( 228 ), Vector2( 16, 3 ), SubResource( 229 ), Vector2( 16, 4 ), SubResource( 230 ) ]
-2/autotile/navpoly_map = [  ]
+2/autotile/navpoly_map = [ Vector2( 0, 0 ), SubResource( 265 ), Vector2( 0, 1 ), SubResource( 266 ), Vector2( 1, 0 ), SubResource( 267 ), Vector2( 1, 1 ), SubResource( 268 ), Vector2( 2, 0 ), SubResource( 269 ), Vector2( 2, 1 ), SubResource( 270 ) ]
 2/autotile/priority_map = [  ]
 2/autotile/z_index_map = [  ]
 2/occluder_offset = Vector2( 0, 0 )

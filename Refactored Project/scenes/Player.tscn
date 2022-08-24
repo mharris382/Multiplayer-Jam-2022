@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://source/player/Character.gd" type="Script" id=1]
 [ext_resource path="res://source/state/StateMachine.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://assets/animation/builder_animator.tscn" type="PackedScene" id=5]
 [ext_resource path="res://tests/PlayerTest/Player Tester.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/state/character_states/FallingState.gd" type="Script" id=7]
+[ext_resource path="res://source/player/AimController.gd" type="Script" id=8]
+[ext_resource path="res://scenes/tools/TestTool.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 28.0
@@ -24,10 +26,12 @@ shape = SubResource( 1 )
 [node name="Animator" parent="." instance=ExtResource( 5 )]
 position = Vector2( -4.76837e-07, 1.19209e-07 )
 scale = Vector2( 0.3, 0.3 )
+z_index = 11
 animation = "idle"
-frame = 7
+frame = 12
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 margin_left = -51.0
 margin_top = -202.0
 margin_right = -11.0
@@ -60,8 +64,17 @@ jump_pow = 0.1
 [node name="Falling" type="Node" parent="CharacterStateMachine"]
 script = ExtResource( 7 )
 
+[node name="AimController" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="TestTool" parent="AimController" instance=ExtResource( 9 )]
+visible = false
+
 [connection signal="aim_angle_changed" from="." to="Player Input Tester" method="_on_aim_angle_changed"]
+[connection signal="aim_angle_changed" from="." to="AimController" method="_on_Player_aim_angle_changed"]
 [connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]
 [connection signal="facing_direction_changed" from="." to="Animator" method="_on_character_changed_direction"]
 [connection signal="move_changed" from="." to="Player Input Tester" method="_on_move_changed"]
 [connection signal="velocity_changed" from="." to="Animator" method="_on_velocity_changed"]
+[connection signal="aim_direction_changed" from="AimController" to="AimController/TestTool" method="_on_AimController_aim_direction_changed"]
+[connection signal="aiming_state_changed" from="AimController" to="AimController/TestTool" method="_on_AimController_aiming_state_changed"]

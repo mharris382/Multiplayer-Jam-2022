@@ -16,7 +16,11 @@ func physics_update(_delta: float):
 	
 	var player_num = state_machine.character.player_number
 	if Input.is_action_just_pressed("jump_p%d"%player_num):
-		state_machine.transition_to("Jumping")
+		if move_input.y > 0:
+			var pos =state_machine.character.position
+			state_machine.character.position = Vector2(pos.x, pos.y + 1)
+		else:
+			state_machine.transition_to("Jumping")
 		return
 
 	if not state_machine.character.is_on_floor():

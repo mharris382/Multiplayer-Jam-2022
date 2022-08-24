@@ -30,6 +30,7 @@ var player_number : int = 0
 var has_had_input : bool
 var avatar
 
+var last_aim
 
 func _init(player_num):
 	player_number = player_num
@@ -42,6 +43,9 @@ func _ready():
 
 
 func _process(delta):
+	if avatar == null:
+		print("No avatar assigned to player %d" % player_number)
+		return
 	process_move_input()
 	process_jump_inputs()
 	process_all_ability_inputs()
@@ -63,27 +67,25 @@ func process_jump_inputs():
 		emit_signal("input_jump_just_released")
 		avatar.is_jumping = false
 
-
 func process_interact():
 	if Input.is_action_just_pressed("interact_p%d"%player_number):
 		emit_signal("input_interact_just_pressed")
-
+		assert(avatar.has_method("try_interact"))
+		avatar.try_interact()
 
 func process_all_ability_inputs():
 	var aim = ability_process_aim_input()
 	avatar.aim_input = aim
-	if Input.is_action_just_pressed("ability_p%d"%player_number):
-		emit_signal("input_ability_just_pressed", aim)
-		
-	if Input.is_action_pressed("ability_p%d"%player_number):
-		emit_signal("input_ability_pressed", aim)
-
-	if Input.is_action_just_released("ability_p%d"%player_number):
-		emit_signal("input_ability_just_released", aim)
-
+	avatar.is_aiming = Input.is_action_pressed("ability_mode_p%d"%player_number) #ability mode
+	
 
 func ability_process_aim_input():
 	var aim = Vector2.ZERO
+	if use_mouse_for_aim:
+		
+		var mp = avatar.get_global_mouse_pos()
+		var aim_direction = mp - avatar.position
+	
 	aim  = Input.get_vector("aim_right_p%d" % player_number, "aim_left_p%d" % player_number, "aim_up_p%d" % player_number, "aim_down_p%d" % player_number)	
 	emit_signal("input_aim", aim, use_mouse_for_aim)
 	avatar.aim_input = aim

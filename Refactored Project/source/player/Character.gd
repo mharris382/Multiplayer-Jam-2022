@@ -107,7 +107,8 @@ func _update_facing_direction(direction):
 		_set_facing_direction(is_facing_right)
 
 func _on_move_changed(move_input):
-	_move_direction.x = move_input.x
+	_move_direction= move_input
+	
 
 func calculate_move_velocity(
 		linear_velocity,

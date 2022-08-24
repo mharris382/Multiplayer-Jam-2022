@@ -31,15 +31,6 @@ onready var above_aim_point = $"ControlPoints/Above"
 onready var right_aim_point = $"ControlPoints/Right"
 onready var left_aim_point = $"ControlPoints/Left"
 
-func _notification(what):
-	if what == NOTIFICATION_UNPARENTED:
-		print("CharacterBase.Unparented ", name)
-	elif what == NOTIFICATION_PARENTED:
-		print("CharacterBase.Parented ", name, "to ", get_parent().name)
-		var player = get_parent() as Player
-		if player == null:
-			return
-			
 
 func _ready(): 
 	._ready()
@@ -73,6 +64,7 @@ func _process(delta):
 			emit_signal("character_changed_direction", direction)
 			last_direction = direction
 
+
 func _get_player_number():
 	return 1
 
@@ -84,12 +76,9 @@ func unassign_player(player):
 	Players.assign_avatar_to_player(self, _get_player_number())
 	emit_signal("player_assigned_to_character", null)
 
+func try_interact():
+	pass
 
-#since the validity is dependent on the kind of action being performed this 
-#function must be implemented in the child classes
-func is_direction_valid(aim_direction) -> bool:
-	return false
-	
 func on_player_aim_input(aim_input : Vector2):
 	self.aim_input = aim_input
 	
@@ -99,6 +88,7 @@ func on_player_move_input(move_input : float):
 func on_player_pressed_jump():
 	self.jump_pressed = true
 	self.jump_just_pressed = true
+	
 	pass
 
 func on_player_released_jump():
@@ -125,18 +115,3 @@ func on_player_released_interact():
 	#print("CharacterBase.%s released interact" % name)
 	set_collision_layer_bit(5, false)
 
-
-# making this function until we make use of aim parameter from ability
-func get_aim_direction(value):
-	if value == "left" or value == "right":
-		return front_aim_point
-
-
-func get_aim_position(aim_direction):
-	match(aim_direction):
-		AimDirection.FRONT:
-			return front_aim_point.position
-		AimDirection.BELOW:
-			return below_aim_point.position
-		AimDirection.ABOVE:
-			return above_aim_point.position

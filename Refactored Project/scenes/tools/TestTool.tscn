@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://source/player/Tool.gd" type="Script" id=1]
+[ext_resource path="res://assets/blocks/test_base.png" type="Texture" id=2]
+
+[node name="TestTool" type="Node2D"]
+script = ExtResource( 1 )
+rotate_tool_while_aiming = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 92, 0 )
+scale = Vector2( 1.54531, 0.167215 )
+texture = ExtResource( 2 )

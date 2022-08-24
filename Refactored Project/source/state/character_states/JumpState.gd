@@ -28,7 +28,7 @@ func physics_update(_delta: float):
 	state_machine.character.apply_velocity(velocity)
 	
 	var player_num = state_machine.character.player_number
-	if Input.is_action_just_released("jump_p%d"%player_num):
+	if Input.is_action_just_released("jump_p%d"%player_num) or state_machine.character.is_on_ceiling():
 		_jump_timed_out = true
 		state_machine.transition_to("Falling")
 		return

@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://source/players/Actor.gd"
+}, {
 "base": "Reference",
 "class": "AudioEnums",
 "language": "GDScript",
@@ -59,11 +64,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/levels/Level.gd"
 }, {
-"base": "State",
-"class": "MotionState",
-"language": "GDScript",
-"path": "res://source/players/states/Character States/Motion/MotionState.gd"
-}, {
 "base": "Resource",
 "class": "PackedPuzzle",
 "language": "GDScript",
@@ -105,6 +105,7 @@ _global_script_classes=[ {
 "path": "res://source/players/transporter/Transporter.gd"
 } ]
 _global_script_class_icons={
+"Actor": "",
 "AudioEnums": "",
 "Avatar": "",
 "BlockData": "",
@@ -115,7 +116,6 @@ _global_script_class_icons={
 "CharacterBase": "",
 "DynamicBlock": "",
 "Level": "",
-"MotionState": "",
 "PackedPuzzle": "",
 "Player": "",
 "PlayerMovement": "",
@@ -307,11 +307,23 @@ ability_mode_p2={
 }
 next_block_p1={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":8,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+previous_block_p1={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":9,"pressed":false,"doubleclick":false,"script":null)
+ ]
 }
 next_block_p2={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+previous_block_p2={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
+ ]
 }
 tool_left_p1={
 "deadzone": 0.5,

@@ -383,7 +383,7 @@ move_down_p2={
 [physics]
 
 common/enable_pause_aware_picking=true
-2d/default_gravity=2700
+2d/default_gravity=27000
 
 [rendering]
 

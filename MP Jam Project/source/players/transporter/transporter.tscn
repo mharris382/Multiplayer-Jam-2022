@@ -28,7 +28,7 @@ material = SubResource( 25 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2( -1, 14 )
+position = Vector2( -1, 13.5 )
 
 [node name="Below" parent="ControlPoints" index="1"]
 position = Vector2( 0, 107 )
@@ -42,11 +42,10 @@ script = ExtResource( 5 )
 minimum_range = Vector2( -80, -80 )
 maximum_range = Vector2( 80, 80 )
 
-[node name="Animator" parent="." index="6" instance=ExtResource( 7 )]
+[node name="Animator" parent="." index="5" instance=ExtResource( 7 )]
 scale = Vector2( 0.369, 0.369 )
 frames = ExtResource( 8 )
 animation = "idle"
-frame = 7
 
 [connection signal="character_changed_direction" from="." to="Animator" method="_on_character_changed_direction"]
 [connection signal="character_state_changed" from="." to="Animator" method="_on_character_state_changed"]

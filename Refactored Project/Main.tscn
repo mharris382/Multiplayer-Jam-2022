@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/builder.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/transporter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/game/CameraController.gd" type="Script" id=4]
+[ext_resource path="res://assets/Blocks_Final/auto-tiles/light.png" type="Texture" id=5]
+[ext_resource path="res://assets/blocks/test_base.png" type="Texture" id=6]
+[ext_resource path="res://source/blocks/gas/SteamSource.cs" type="Script" id=7]
+[ext_resource path="res://source/blocks/gas/SteamTilemap.gd" type="Script" id=8]
+[ext_resource path="res://assets/Light Platform.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -41,9 +46,50 @@ position = Vector2( -625, 6 )
 
 [node name="Builder" type="Node2D" parent="Camera"]
 
-[node name="BackgroundWallMap" type="TileMap" parent="."]
-z_index = 328
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 1049, 1690 )
+scale = Vector2( -7.41747, -7.41747 )
+texture = ExtResource( 5 )
+energy = 0.94
+
+[node name="Light2D2" type="Light2D" parent="."]
+position = Vector2( 1237, 1857 )
+scale = Vector2( -7.41747, -7.41747 )
+texture = ExtResource( 5 )
+energy = 0.94
+
+[node name="TestBase" type="Sprite" parent="."]
+visible = false
+position = Vector2( 140, -1057 )
+rotation = 3.14159
+scale = Vector2( 34.6522, -28.1476 )
+z_index = -97
+texture = ExtResource( 6 )
+
+[node name="Light2D3" type="Light2D" parent="."]
+position = Vector2( -522, -747 )
+rotation = -3.10706
+scale = Vector2( -3.91974, 3.58153 )
+texture = ExtResource( 5 )
+texture_scale = 0.83
+color = Color( 0.286275, 0.898039, 0.0235294, 1 )
+energy = 7.39
+shadow_enabled = true
+
+[node name="Gas" type="Node" parent="."]
+
+[node name="SteamTilemap" type="TileMap" parent="Gas"]
+format = 1
+script = ExtResource( 8 )
+
+[node name="BlockTilemap" type="TileMap" parent="Gas"]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 128, 128 )
 format = 1
-tile_data = PoolIntArray( -327690, 536870947, 0, -327689, 536870947, 2, -262154, 536870947, 65536, -262153, 536870947, 65538, -196618, 536870947, 65536, -196617, 536870947, 65538, -131092, 35, 0, -131091, 35, 1, -131090, 35, 1, -131089, 35, 1, -131088, 35, 1, -131087, 35, 1, -131086, 35, 1, -131085, 35, 1, -131084, 35, 1, -131083, 35, 1, -131082, 35, 65540, -131081, 35, 65539, -131080, 35, 2, -65556, 35, 131072, -65555, 35, 131073, -65554, 35, 4, -65553, 35, 3, -65552, 35, 131073, -65551, 35, 131073, -65550, 35, 131073, -65549, 35, 131073, -65548, 35, 131073, -65547, 35, 131073, -65546, 35, 131073, -65545, 35, 131073, -65544, 35, 131074, -18, 35, 65536, -17, 35, 65538, 65518, 35, 65536, 65519, 35, 65538, 65522, 35, 0, 131054, 35, 65536, 131055, 35, 65538, 196590, 35, 65536, 196591, 35, 65538, 196596, 35, 0, 196597, 35, 1, 196598, 35, 2, 196601, 35, 0, 196602, 35, 1, 196603, 35, 1, 196604, 35, 2, 262126, 35, 65536, 262127, 35, 65539, 262128, 35, 1, 262129, 35, 1, 262130, 35, 1, 262131, 35, 1, 262132, 35, 65540, 262133, 35, 65537, 262134, 35, 65538, 262135, 35, 0, 262136, 35, 0, 262137, 35, 131072, 262138, 35, 131073, 262139, 35, 131073, 262140, 35, 131074, 327662, 35, 65536, 327663, 35, 65537, 327664, 35, 65537, 327665, 35, 65537, 327666, 35, 65537, 327667, 35, 65537, 327668, 35, 65537, 327669, 35, 3, 327670, 35, 131074, 393198, 35, 131072, 393199, 35, 4, 393200, 35, 65537, 393201, 35, 65537, 393202, 35, 65537, 393203, 35, 65537, 393204, 35, 65537, 393205, 35, 65538, 458735, 35, 65536, 458736, 35, 65537, 458737, 35, 65537, 458738, 35, 65537, 458739, 35, 65537, 458740, 35, 3, 458741, 35, 131074, 524271, 35, 131072, 524272, 35, 131073, 524273, 35, 131073, 524274, 35, 131073, 524275, 35, 131073, 524276, 35, 131074 )
+tile_data = PoolIntArray( 786418, 34, 0, 786419, 34, 1, 786420, 34, 1, 786421, 34, 1, 786422, 34, 1, 786423, 34, 1, 786424, 34, 7, 786425, 34, 196609, 786426, 34, 196609, 786427, 34, 196609, 786428, 34, 262148, 851954, 34, 262149, 851955, 34, 131073, 851956, 34, 131073, 851957, 34, 131073, 851958, 34, 131073, 851959, 34, 131073, 851960, 34, 131074, 851964, 34, 65539, 917490, 34, 65539, 917500, 34, 65539, 983026, 34, 65539, 983036, 34, 65539, 1048562, 34, 65539, 1048572, 34, 65539, 1114098, 34, 65539, 1114107, 34, 0, 1114108, 34, 131079, 1179634, 34, 65539, 1179643, 34, 65536, 1179644, 34, 65538, 1245170, 34, 393218, 1245171, 34, 196609, 1245172, 34, 196609, 1245173, 34, 196609, 1245174, 34, 196609, 1245175, 34, 196609, 1245176, 34, 196609, 1245177, 34, 196609, 1245178, 34, 196609, 1245179, 34, 65542, 1245180, 34, 131074 )
+
+[node name="Source" type="Node2D" parent="Gas"]
+script = ExtResource( 7 )
+
+[node name="Light Platform" parent="." instance=ExtResource( 9 )]
+position = Vector2( -1108, 51 )
