@@ -23,7 +23,10 @@ var source_tiles = {}
 #	Vector2(10, 10) : 2,
 #	Vector2(5, 5) : 1}
 
+var sources = []
 
+var visited = {}
+var unvisited = {}
 
 func _ready():
 	timer.one_shot = false
@@ -39,44 +42,62 @@ func _iterate_gas():
 		Vector2.ZERO: TileIDs.SOURCE
 	}
 	
+	
+	_iterate_blocks()
+	_iterate_sources()
+	
+#	for gas in steam_tilemap.get_used_cells():
+#		var steam =steam_tilemap.get_steamv(gas)
+#		if steam > 1:
+#			var neighbors = steam_tilemap.get_lower_neighbors(gas)
+#			var cnt = 0
+#			for neighbor in neighbors:
+#				if block_tilemap.get_cellv(neighbor) == -1:
+#					cnt+=1
+#			if cnt == 0:
+#				continue
+#			else:
+#				var amount = max(steam / cnt, 1)
+#				amount = min(amount, flow_capacity)
+#				for neighbor in neighbors:
+#					if block_tilemap.get_cellv(neighbor) == -1:
+#						steam_tilemap.modify_steam(neighbor, amount)
+#						steam_tilemap.modify_steam(gas, -amount)
+						
+	for cell in steam_tilemap.get_used_cells():
+		var steam = steam_tilemap.get_steamv(cell)
+		if steam > 0:
+			var neighbors = steam_tilemap.get_neighbors(cell, block_tilemap)
+			for neighbor in neighbors:
+				var neighbor_steam = steam_tilemap.get_steamv(neighbor)
+				if steam > neighbor_steam:
+					if neighbor_steam == 16:
+						continue
+					else:
+						steam_tilemap.modify_steam(neighbor, 1)
+						steam_tilemap.modify_steam(cell, -1)
+						steam = steam_tilemap.get_steamv(cell)
+
+func _iterate_blocks():
 	for block in block_tilemap.get_used_cells():
 		steam_tilemap.clear_steamv(block)
-	
+		
+
+func _iterate_sources():
 	for source in source_tiles.keys():
 		steam_tilemap.modify_steam(source, source_tiles[source])
-	
-	for gas in steam_tilemap.get_used_cells():
-		var steam =steam_tilemap.get_steamv(gas)
-		if steam > 1:
-			
-			var neighbors = steam_tilemap.get_lower_neighbors(gas)
-			var cnt = 0
-			for neighbor in neighbors:
-				if block_tilemap.get_cellv(neighbor) == -1:
-					cnt+=1
-			if cnt == 0:
-				continue
-			else:
-				var amount = max(steam / cnt, 1)
-				amount = min(amount, flow_capacity)
-				for neighbor in neighbors:
-					if block_tilemap.get_cellv(neighbor) == -1:
-						steam_tilemap.modify_steam(neighbor, amount)
-						steam_tilemap.modify_steam(gas, -amount)
-		
-	#var tile_pressures = {}
-	
-#	for i in range(16):
-#		if i == 0:
-#			continue
-#		else:
-#			var found =steam_tilemap.get_used_cells_by_id(i-1)
-#			#tile_pressures[i-1] = []
-#			if found.size() > 0:
-#				#tile_pressures[i-1].append(found)
-#				for tile in found:
-#					unvisited_tiles[tile] = i-1
 
+	for source in sources:
+		var src = source as GasSource
+		if src == null:
+			continue
+		var rate= src.flow_rate
+		var amount_released = src.release_gas_from_source()
+		var pos = steam_tilemap.world_to_map(src.position)
+		var overflow = steam_tilemap.modify_steam(pos, amount_released)
+		if overflow > 0: #this could be changed to push the overflow into adjacent cells
+			src.return_gas_to_source(overflow)
+		
 
 func _on_Button_button_down():
 	timer.start(1/iterations_per_sec)
@@ -94,8 +115,15 @@ func is_position_blocked(tile_position) -> bool:
 
 
 func _on_Source_SteamSourceChanged(world_position, output):
-	if steam_tilemap == null:
-		steam_tilemap = $"Steam TileMap"
-	var pos = steam_tilemap.world_to_map(world_position)
-	source_tiles[pos] = output
-	print("Steam Source changed at tile position ", pos)
+	return
+#	if steam_tilemap == null:
+#		steam_tilemap = $"Steam TileMap"
+#	source_tiles[steam_tilemap.world_to_map(world_position)]=output
+
+
+func _on_Source4_steam_source_changed(position, output):
+	_on_Source_SteamSourceChanged(position, output)
+
+
+func _on_Source_register_steam_source(source_node):
+	sources.append(source_node)

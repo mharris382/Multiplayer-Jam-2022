@@ -36,9 +36,22 @@ func set_steam(x, y, steam_value) -> bool:
 func set_steamv(grid_postiion : Vector2, steam_value : int) -> bool:
 	return set_steam(grid_postiion.x, grid_postiion.y, steam_value)
 
-func modify_steam(grid_postiion : Vector2, steam_amount : int) -> bool:
+#returns remainder of steam
+func modify_steam(grid_postiion : Vector2, steam_amount : int) -> int:
 	var current_steam =get_steam(grid_postiion.x, grid_postiion.y)
-	return set_steam(grid_postiion.x, grid_postiion.y, current_steam + steam_amount)
+	var overflow = (current_steam + steam_amount) / MAX_STEAM_VALUE
+	if not set_steam(grid_postiion.x, grid_postiion.y, current_steam + steam_amount):
+		return steam_amount #return entire amount if set returns false 
+	return overflow
+
+func get_neighbors(grid_position, block_tilemap):
+	var arr = []
+	for dir in DIRECTIONS_4:
+		var pos = grid_position+dir
+		if block_tilemap.get_cellv(pos) == -1:
+			arr.append(pos)
+	return arr
+
 
 func get_lower_neighbors(grid_position:Vector2):
 	var arr = []

@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/blocks/DynamicBlocks/DynamicBlock.gd"
 }, {
+"base": "Node2D",
+"class": "GasSource",
+"language": "GDScript",
+"path": "res://source/blocks/gas/GasSource.gd"
+}, {
 "base": "Node",
 "class": "Level",
 "language": "GDScript",
@@ -87,6 +92,7 @@ _global_script_class_icons={
 "Character": "",
 "CharacterStateMachine": "",
 "DynamicBlock": "",
+"GasSource": "",
 "Level": "",
 "PackedPuzzle": "",
 "Player": "",

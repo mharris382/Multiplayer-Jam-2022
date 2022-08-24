@@ -1,0 +1,190 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://source/blocks/gas/SteamController.gd" type="Script" id=2]
+[ext_resource path="res://source/blocks/gas/SteamTilemap.gd" type="Script" id=3]
+[ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=4]
+[ext_resource path="res://assets/Blocks_Final/gas_blocks/Tileset_Steam.tres" type="TileSet" id=5]
+[ext_resource path="res://source/blocks/gas/valve_icon.png" type="Texture" id=6]
+[ext_resource path="res://source/blocks/gas/GasSource.gd" type="Script" id=7]
+[ext_resource path="res://tests/Gas/DiffusionGraph.cs" type="Script" id=8]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GasController" type="Node2D" parent="."]
+script = ExtResource( 2 )
+iterations_per_sec = 4.0
+flow_capacity = 2
+
+[node name="Source4" type="Node2D" parent="GasController"]
+position = Vector2( 482, 1014 )
+script = ExtResource( 7 )
+is_source_unlimited = false
+source_capacity = 50
+maximum_flow_rate = 1
+start_open = false
+
+[node name="Sprite" type="Sprite" parent="GasController/Source4"]
+position = Vector2( -51, -72 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 121
+texture = ExtResource( 6 )
+
+[node name="Button2" type="Button" parent="GasController/Source4"]
+modulate = Color( 1, 1, 1, 0.803922 )
+margin_left = -121.0
+margin_top = -161.0
+margin_right = -14.0
+margin_bottom = -126.0
+rect_scale = Vector2( 1.35173, 1.35173 )
+
+[node name="Source5" type="Node2D" parent="GasController"]
+position = Vector2( 477, 1666 )
+script = ExtResource( 7 )
+is_source_unlimited = false
+source_capacity = 100
+maximum_flow_rate = 5
+start_open = false
+
+[node name="Sprite" type="Sprite" parent="GasController/Source5"]
+position = Vector2( -51, -72 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 121
+texture = ExtResource( 6 )
+
+[node name="Button2" type="Button" parent="GasController/Source5"]
+modulate = Color( 1, 1, 1, 0.803922 )
+margin_left = -121.0
+margin_top = -161.0
+margin_right = -14.0
+margin_bottom = -126.0
+rect_scale = Vector2( 1.35173, 1.35173 )
+
+[node name="Source6" type="Node2D" parent="GasController"]
+position = Vector2( 1106, 1661 )
+script = ExtResource( 7 )
+source_capacity = 20
+maximum_flow_rate = 15
+start_open = false
+
+[node name="Sprite" type="Sprite" parent="GasController/Source6"]
+position = Vector2( -51, -72 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 121
+texture = ExtResource( 6 )
+
+[node name="Button2" type="Button" parent="GasController/Source6"]
+modulate = Color( 1, 1, 1, 0.803922 )
+margin_left = -121.0
+margin_top = -161.0
+margin_right = -14.0
+margin_bottom = -126.0
+rect_scale = Vector2( 1.35173, 1.35173 )
+
+[node name="Source7" type="Node2D" parent="GasController"]
+position = Vector2( 1861, 1634 )
+script = ExtResource( 7 )
+is_source_unlimited = false
+maximum_flow_rate = 3
+
+[node name="Sprite" type="Sprite" parent="GasController/Source7"]
+position = Vector2( -51, -72 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 121
+texture = ExtResource( 6 )
+
+[node name="Button2" type="Button" parent="GasController/Source7"]
+modulate = Color( 1, 1, 1, 0.803922 )
+margin_left = -121.0
+margin_top = -161.0
+margin_right = -14.0
+margin_bottom = -126.0
+rect_scale = Vector2( 1.35173, 1.35173 )
+
+[node name="Steam TileMap" type="TileMap" parent="GasController"]
+z_index = 1000
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 128, 128 )
+format = 1
+script = ExtResource( 3 )
+
+[node name="Diffuse TileMap" type="TileMap" parent="GasController"]
+z_index = 1000
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 128, 128 )
+format = 1
+
+[node name="Block TileMap" type="TileMap" parent="GasController"]
+modulate = Color( 0, 0, 0, 1 )
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( -3, 34, 196608, -2, 34, 6, -1, 34, 1, -65536, 34, 1, -65535, 34, 1, -65534, 34, 1, -65533, 34, 1, -65532, 34, 1, -65531, 34, 1, -65530, 34, 1, -65529, 34, 1, -65528, 34, 1, -65527, 34, 1, -65526, 34, 1, -65525, 34, 1, -65524, 34, 1, -65523, 34, 1, -65522, 34, 1, -65521, 34, 1, -65520, 34, 1, -65519, 34, 1, -65518, 34, 1, -65517, 34, 1, -65516, 34, 1, -65515, 34, 1, -65514, 34, 1, -65513, 34, 1, -65512, 34, 2, 65534, 34, 65536, 65535, 34, 4, 0, 34, 131073, 1, 34, 131073, 2, 34, 131073, 3, 34, 131073, 4, 34, 131073, 5, 34, 131073, 6, 34, 131073, 7, 34, 131073, 8, 34, 131073, 9, 34, 131073, 10, 34, 131073, 11, 34, 131073, 12, 34, 131073, 13, 34, 131073, 14, 34, 131073, 15, 34, 131073, 16, 34, 131073, 17, 34, 131073, 18, 34, 131073, 19, 34, 131073, 20, 34, 131073, 21, 34, 131073, 22, 34, 131073, 23, 34, 131073, 24, 34, 131074, 131070, 34, 65536, 131071, 34, 65538, 196606, 34, 65536, 196607, 34, 65538, 262142, 34, 65536, 262143, 34, 65538, 327678, 34, 65536, 327679, 34, 65538, 393214, 34, 65536, 393215, 34, 65540, 327680, 34, 1, 327681, 34, 1, 327682, 34, 7, 327683, 34, 196609, 327684, 34, 196609, 327685, 34, 196609, 327686, 34, 6, 327687, 34, 2, 458750, 34, 65536, 458751, 34, 65537, 393216, 34, 65537, 393217, 34, 65537, 393218, 34, 65538, 393222, 34, 65536, 393223, 34, 65538, 524286, 34, 65536, 524287, 34, 196614, 458752, 34, 65537, 458753, 34, 196614, 458754, 34, 65538, 458758, 34, 65536, 458759, 34, 65538, 589822, 34, 65536, 589823, 34, 196614, 524288, 34, 196614, 524289, 34, 196614, 524290, 34, 65538, 524294, 34, 65536, 524295, 34, 65538, 655358, 34, 65536, 655359, 34, 65537, 589824, 34, 196614, 589825, 34, 65537, 589826, 34, 65540, 589827, 34, 1, 589828, 34, 1, 589829, 34, 1, 589830, 34, 65541, 589831, 34, 65540, 589832, 34, 1, 589833, 34, 1, 589834, 34, 1, 589835, 34, 1, 589836, 34, 1, 589837, 34, 1, 589838, 34, 1, 589839, 34, 1, 589840, 34, 1, 589841, 34, 1, 589842, 34, 1, 589843, 34, 1, 589844, 34, 2, 720894, 34, 65536, 720895, 34, 65537, 655360, 34, 65537, 655361, 34, 196614, 655362, 34, 4, 655363, 34, 131073, 655364, 34, 131073, 655365, 34, 131073, 655366, 34, 5, 655367, 34, 4, 655368, 34, 131073, 655369, 34, 131073, 655370, 34, 131073, 655371, 34, 5, 655372, 34, 65537, 655373, 34, 4, 655374, 34, 131073, 655375, 34, 131073, 655376, 34, 131073, 655377, 34, 5, 655378, 34, 65537, 655379, 34, 196614, 655380, 34, 65538, 786430, 34, 65536, 786431, 34, 65537, 720896, 34, 65537, 720897, 34, 65537, 720898, 34, 65538, 720902, 34, 65536, 720903, 34, 65538, 720907, 34, 65536, 720908, 34, 65537, 720909, 34, 65538, 720913, 34, 65536, 720914, 34, 196614, 720915, 34, 65537, 720916, 34, 65538, 851966, 34, 65536, 851967, 34, 196614, 786432, 34, 196614, 786433, 34, 65537, 786434, 34, 65538, 786438, 34, 65536, 786439, 34, 65538, 786443, 34, 65536, 786444, 34, 65537, 786445, 34, 65538, 786449, 34, 65536, 786450, 34, 65537, 786451, 34, 196614, 786452, 34, 65538, 917502, 34, 65536, 917503, 34, 65537, 851968, 34, 65537, 851969, 34, 65537, 851970, 34, 65538, 851974, 34, 65536, 851975, 34, 65538, 851979, 34, 65536, 851980, 34, 196614, 851981, 34, 65538, 851985, 34, 65536, 851986, 34, 196614, 851987, 34, 65537, 851988, 34, 65538, 983038, 34, 131072, 983039, 34, 131073, 917504, 34, 131073, 917505, 34, 131073, 917506, 34, 65543, 917507, 34, 196609, 917508, 34, 196609, 917509, 34, 196609, 917510, 34, 65542, 917511, 34, 65543, 917512, 34, 196609, 917513, 34, 196609, 917514, 34, 196609, 917515, 34, 65542, 917516, 34, 131073, 917517, 34, 65543, 917518, 34, 196609, 917519, 34, 196609, 917520, 34, 196609, 917521, 34, 65542, 917522, 34, 131073, 917523, 34, 131073, 917524, 34, 65543, 917525, 34, 196609, 917526, 34, 196609, 917527, 34, 196609, 917528, 34, 196609, 917529, 34, 196610 )
+
+[node name="Label" type="Label" parent="GasController/Block TileMap"]
+margin_left = 1742.0
+margin_top = 1881.0
+margin_right = 1853.0
+margin_bottom = 1929.0
+rect_scale = Vector2( 4.38233, 4.38233 )
+text = "Area = 9
+Source = +infinity
+diffuse = MAX"
+
+[node name="Label2" type="Label" parent="GasController/Block TileMap"]
+margin_left = 961.0
+margin_top = 1880.0
+margin_right = 1072.0
+margin_bottom = 1928.0
+rect_scale = Vector2( 4.38233, 4.38233 )
+text = "Area = 9
+Source = 9
+diffuse = 1
+remainder=0"
+
+[node name="Label3" type="Label" parent="GasController/Block TileMap"]
+margin_left = 349.0
+margin_top = 1880.0
+margin_right = 460.0
+margin_bottom = 1928.0
+rect_scale = Vector2( 4.38233, 4.38233 )
+text = "Area = 9
+Source = 18
+diffuse = 2
+remainder=0"
+
+[node name="Label4" type="Label" parent="GasController/Block TileMap"]
+margin_left = 327.0
+margin_top = 312.0
+margin_right = 438.0
+margin_bottom = 411.0
+rect_scale = Vector2( 4.38233, 4.38233 )
+text = "Area = 9
+Source = 12
+diffuse  = 1
+remainder=4
+diffuse (%) = 1.25
+"
+
+[node name="IterationTimer" type="Timer" parent="GasController"]
+autostart = true
+
+[node name="Diffusion Graph" type="Node" parent="GasController"]
+script = ExtResource( 8 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1723, 1050 )
+current = true
+zoom = Vector2( 4, 4 )
+
+[connection signal="register_steam_source" from="GasController/Source4" to="GasController" method="_on_Source_register_steam_source"]
+[connection signal="steam_source_changed" from="GasController/Source4" to="GasController" method="_on_Source4_steam_source_changed"]
+[connection signal="button_down" from="GasController/Source4/Button2" to="GasController/Source4" method="_on_Button_button_down"]
+[connection signal="register_steam_source" from="GasController/Source5" to="GasController" method="_on_Source_register_steam_source"]
+[connection signal="steam_source_changed" from="GasController/Source5" to="GasController" method="_on_Source4_steam_source_changed"]
+[connection signal="button_down" from="GasController/Source5/Button2" to="GasController/Source5" method="_on_Button_button_down"]
+[connection signal="register_steam_source" from="GasController/Source6" to="GasController" method="_on_Source_register_steam_source"]
+[connection signal="steam_source_changed" from="GasController/Source6" to="GasController" method="_on_Source4_steam_source_changed"]
+[connection signal="button_down" from="GasController/Source6/Button2" to="GasController/Source6" method="_on_Button_button_down"]
+[connection signal="register_steam_source" from="GasController/Source7" to="GasController" method="_on_Source_register_steam_source"]
+[connection signal="steam_source_changed" from="GasController/Source7" to="GasController" method="_on_Source4_steam_source_changed"]
+[connection signal="button_down" from="GasController/Source7/Button2" to="GasController/Source7" method="_on_Button_button_down"]
