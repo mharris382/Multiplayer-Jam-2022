@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/Blocks_Final/single-blocks.png" type="Texture" id=2]
 [ext_resource path="res://assets/Blocks_Final/single-blocks-2.png" type="Texture" id=3]
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/tiles.png" type="Texture" id=4]
-[ext_resource path="res://assets/Blocks_Final/auto-tiles/tiles_2x2.png" type="Texture" id=5]
+[ext_resource path="res://assets/Blocks_Final/auto-tiles/pipes_normals.png" type="Texture" id=5]
 
 [sub_resource type="OccluderPolygon2D" id=171]
 polygon = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
@@ -2586,6 +2586,7 @@ points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
 33/z_index = 0
 34/name = "AutoTile_Pipe_Template"
 34/texture = ExtResource( 4 )
+34/normal_map = ExtResource( 5 )
 34/tex_offset = Vector2( 0, 0 )
 34/modulate = Color( 1, 1, 1, 1 )
 34/region = Rect2( 0, 0, 1024, 896 )
