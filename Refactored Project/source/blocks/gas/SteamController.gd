@@ -74,8 +74,11 @@ func _iterate_gas():
 					if neighbor_steam == 16:
 						continue
 					else:
-						steam_tilemap.modify_steam(neighbor, 1)
-						steam_tilemap.modify_steam(cell, -1)
+						var flow_amount = steam_tilemap.get_steamv(cell) / 3
+						flow_amount = max(flow_amount, steam)
+						flow_amount = min(flow_amount, 16 - neighbor_steam)
+						steam_tilemap.modify_steam(neighbor, flow_amount)
+						steam_tilemap.modify_steam(cell, -flow_amount)
 						steam = steam_tilemap.get_steamv(cell)
 
 func _iterate_blocks():

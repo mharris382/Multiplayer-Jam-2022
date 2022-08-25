@@ -18,6 +18,7 @@ func get_steamv(position : Vector2) -> int:
 	return get_cell(position.x, position.y)
 
 
+
 func clear_steam(x, y) -> void:
 	set_steam(x, y, 0)
 	

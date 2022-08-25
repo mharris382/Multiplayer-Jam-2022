@@ -9,10 +9,18 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "CSharp Features.md",
+            "file": "CSharp Preprocessor Defines.md",
             "mode": "source",
             "source": false
           }
+        }
+      },
+      {
+        "id": "cdf1ad88cb603b2e",
+        "type": "leaf",
+        "state": {
+          "type": "empty",
+          "state": {}
         }
       },
       {
@@ -140,17 +148,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "9cee078ee2d6104a",
+  "active": "e6a7319dd2fa395c",
   "lastOpenFiles": [
     "CSharp Features.md",
-    "CSharp Signals.md",
     "[.md",
+    "CSharp Preprocessor Defines.md",
+    "CSharp Signals.md",
     "Math/Math.md",
     "GDScript/Exports/Exports.md",
     "GDScript/Exports/Exporting Properties.md",
     "GDScript/Exports/Advanced Exports.md",
     "GDScript/Basics/Flow Control/Match.md",
-    "GDScript/Basics/Casting.md",
-    "Style Guide/Style Guide - Naming Conventions.md"
+    "GDScript/Basics/Casting.md"
   ]
 }
