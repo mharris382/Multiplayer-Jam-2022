@@ -64,3 +64,11 @@ func _on_Button_button_down():
 	emit_signal("steam_source_changed", position, maximum_flow_rate)
 	emit_signal("register_steam_source", self)
 
+
+
+func _on_button_down2(extra_arg_0):
+	var change_flow = 1 if extra_arg_0 else -1
+	var cur_flow = flow_rate_get()
+	cur_flow+=change_flow
+	cur_flow = clamp(cur_flow, 0, maximum_flow_rate)
+	emit_signal("steam_source_changed", position, cur_flow)

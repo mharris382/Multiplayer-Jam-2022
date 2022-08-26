@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/builder.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/transporter.tscn" type="PackedScene" id=3]
-[ext_resource path="res://source/game/CameraController.gd" type="Script" id=4]
+[ext_resource path="res://scenes/CameraSetup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/light.png" type="Texture" id=5]
 [ext_resource path="res://assets/blocks/test_base.png" type="Texture" id=6]
 [ext_resource path="res://source/blocks/gas/SteamSource.cs" type="Script" id=7]
@@ -24,31 +24,21 @@ tile_data = PoolIntArray( -1310727, 34, 196608, -1310726, 34, 196609, -1310725, 
 [node name="Transporter" parent="." instance=ExtResource( 3 )]
 position = Vector2( -625, 6 )
 
-[node name="RemoteTransform Camera" type="RemoteTransform2D" parent="Transporter"]
+[node name="Transporter RemoteTransform Camera" type="RemoteTransform2D" parent="Transporter"]
+position = Vector2( 5, -109 )
 remote_path = NodePath("../../Camera/Transporter")
 
 [node name="Builder" parent="." instance=ExtResource( 2 )]
 extra_jump_time = 0.2
 
-[node name="RemoteTransform Camera" type="RemoteTransform2D" parent="Builder"]
+[node name="Builder RemoteTransform Camera" type="RemoteTransform2D" parent="Builder"]
+position = Vector2( 5, -96 )
 remote_path = NodePath("../../Camera/Builder")
-
-[node name="Camera" type="Node" parent="."]
-script = ExtResource( 4 )
-
-[node name="Camera2D" type="Camera2D" parent="Camera"]
-position = Vector2( -321, 168 )
-current = true
-zoom = Vector2( 1.5, 1.5 )
-
-[node name="Transporter" type="Node2D" parent="Camera"]
-position = Vector2( -625, 6 )
-
-[node name="Builder" type="Node2D" parent="Camera"]
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 1049, 1690 )
-scale = Vector2( -7.41747, -7.41747 )
+rotation = 3.14159
+scale = Vector2( 7.41747, 7.41747 )
 texture = ExtResource( 5 )
 energy = 0.94
 
@@ -93,3 +83,13 @@ script = ExtResource( 7 )
 
 [node name="Light Platform" parent="." instance=ExtResource( 9 )]
 position = Vector2( -1108, 51 )
+
+[node name="Camera" parent="." instance=ExtResource( 4 )]
+
+[node name="Transporter" parent="Camera" index="1"]
+position = Vector2( -620, -103 )
+
+[node name="Builder" parent="Camera" index="2"]
+position = Vector2( 5, -96 )
+
+[editable path="Camera"]
