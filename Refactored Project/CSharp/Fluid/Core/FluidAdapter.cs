@@ -4,9 +4,9 @@ namespace Game.Fluid.Core
 {
     public interface IFluidAdapter
     {
-        bool IsCellBlocked(Cell cell);
-        int GetGas(Cell cell);
-        void SetGas(Cell cell, int amount);
+        bool IsCellBlocked(Vector2Int vector2Int);
+        int GetGas(Vector2Int vector2Int);
+        void SetGas(Vector2Int vector2Int, int amount);
         
     }
     

@@ -11,10 +11,10 @@ namespace Game.Fluid.GodotAdapter
             GD.Print($"{this.GetType().Name} Ready");
         }
 
-        public Cell GetTilemapCell(TileMap tileMap)
+        public Vector2Int GetTilemapCell(TileMap tileMap)
         {
             var tileLocation = tileMap.WorldToMap(GlobalPosition);
-            return (Cell)tileLocation;
+            return (Vector2Int)tileLocation;
         }
     }
 }

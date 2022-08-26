@@ -14,8 +14,8 @@ namespace Game.Fluid.GodotAdapter
         private TileMap _gasTileMap;
         private Timer _timer;
 
-        private Dictionary<Cell, List<FluidSink>> _sinks = new Dictionary<Cell, List<FluidSink>>();
-        private Dictionary<Cell, List<FluidSource>> _sources = new Dictionary<Cell, List<FluidSource>>();
+        private Dictionary<Vector2Int, List<FluidSink>> _sinks = new Dictionary<Vector2Int, List<FluidSink>>();
+        private Dictionary<Vector2Int, List<FluidSource>> _sources = new Dictionary<Vector2Int, List<FluidSource>>();
 
         public void Setup(TileMap gasTileMap, TileMap blockTileMap, Timer timer)
         {
@@ -84,19 +84,19 @@ namespace Game.Fluid.GodotAdapter
             
         }
 
-        public bool IsCellBlocked(Cell cell)
+        public bool IsCellBlocked(Vector2Int vector2Int)
         {
-            return _blockTileMap.GetCell(cell.x, cell.y) != -1;
+            return _blockTileMap.GetCell(vector2Int.x, vector2Int.y) != -1;
         }
 
-        public int GetGas(Cell cell)
+        public int GetGas(Vector2Int vector2Int)
         {
-            return (int)_gasTileMap.Call("get_steam", cell.x, cell.y);
+            return (int)_gasTileMap.Call("get_steam", vector2Int.x, vector2Int.y);
         }
 
-        public void SetGas(Cell cell, int amount)
+        public void SetGas(Vector2Int vector2Int, int amount)
         {
-            _gasTileMap.Call("set_steam", cell.x, cell.y, amount);
+            _gasTileMap.Call("set_steam", vector2Int.x, vector2Int.y, amount);
         }
     }
 
