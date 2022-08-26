@@ -20,6 +20,7 @@ func _ready():
 	target_zoom = camera.zoom
 	avatars[0] = builder_transform
 	avatars[1] = transporter_transform
+	
 
 func _process(delta):
 	var current_camera_position = camera.position

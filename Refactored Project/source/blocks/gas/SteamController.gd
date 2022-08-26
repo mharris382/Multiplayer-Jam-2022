@@ -118,10 +118,10 @@ func is_position_blocked(tile_position) -> bool:
 
 
 func _on_Source_SteamSourceChanged(world_position, output):
-	return
-#	if steam_tilemap == null:
-#		steam_tilemap = $"Steam TileMap"
-#	source_tiles[steam_tilemap.world_to_map(world_position)]=output
+	
+	if steam_tilemap == null:
+		steam_tilemap = $"Steam TileMap"
+	source_tiles[steam_tilemap.world_to_map(world_position)]=output
 
 
 func _on_Source4_steam_source_changed(position, output):
