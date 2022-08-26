@@ -1,15 +1,37 @@
-namespace Fluid.Core.Tests;
+using Fluid.Core;
 
-public class Tests
+namespace Fluid.Core.Tests
 {
-    [SetUp]
-    public void Setup()
+    [TestFixture]
+    public class FluidTest_DirectionBitmap
     {
-    }
-
-    [Test]
-    public void Test1()
-    {
-        Assert.Pass();
+        [Test]
+        public void TestUpBitmap()
+        {
+            var code = (int)GridDirection.Up;
+            var correctCode = 1 << 3;
+            Assert.AreEqual(code, correctCode);
+        }
+        [Test]
+        public void TestDownBitmap()
+        {
+            var code = (int)GridDirection.Down;
+            var correctCode = 1 << 2;
+            Assert.AreEqual(code, correctCode);
+        }
+        [Test]
+        public void TestLeftBitmap()
+        {
+            var code = (int)GridDirection.Left;
+            var correctCode = 1 << 1;
+            Assert.AreEqual(code, correctCode);
+        }
+        [Test]
+        public void TestRightBitmap()
+        {
+            var code = (int)GridDirection.Right;
+            var correctCode = 1 << 0;
+            Assert.AreEqual(code, correctCode);
+        }
     }
 }
