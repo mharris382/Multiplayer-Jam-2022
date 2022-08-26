@@ -9,27 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "CSharp Preprocessor Defines.md",
-            "mode": "source",
-            "source": false
-          }
-        }
-      },
-      {
-        "id": "cdf1ad88cb603b2e",
-        "type": "leaf",
-        "state": {
-          "type": "empty",
-          "state": {}
-        }
-      },
-      {
-        "id": "9cee078ee2d6104a",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "CSharp Preprocessor Defines.md",
+            "file": "CSharp/CSharp Features.md",
             "mode": "source",
             "source": false
           }
@@ -97,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CSharp Preprocessor Defines.md",
+                "file": "CSharp/CSharp Features.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CSharp Preprocessor Defines.md",
+                "file": "CSharp/CSharp Features.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CSharp Preprocessor Defines.md"
+                "file": "CSharp/CSharp Features.md"
               }
             }
           }
@@ -150,15 +130,15 @@
   },
   "active": "e6a7319dd2fa395c",
   "lastOpenFiles": [
-    "CSharp Features.md",
+    "CSharp/CSharp Signals.md",
+    "CSharp/CSharp Preprocessor Defines.md",
+    "CSharp/CSharp Features.md",
+    "Nodes.md",
     "[.md",
-    "CSharp Preprocessor Defines.md",
-    "CSharp Signals.md",
     "Math/Math.md",
     "GDScript/Exports/Exports.md",
     "GDScript/Exports/Exporting Properties.md",
     "GDScript/Exports/Advanced Exports.md",
-    "GDScript/Basics/Flow Control/Match.md",
-    "GDScript/Basics/Casting.md"
+    "GDScript/Basics/Flow Control/Match.md"
   ]
 }
