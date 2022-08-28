@@ -64,5 +64,3 @@ func get_lower_neighbors(grid_position:Vector2):
 			arr.append(pos)
 	return arr
 
-
-
