@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 
 
+signal process_inputs(move_input_v2, aim_angle_f)
 
 
 signal move_changed(move_direction)
@@ -12,35 +13,27 @@ signal aim_input(aim_direction)
 signal aim_angle_changed(aim_direction, aim_angle)
 
 const JUMP = "jump_p%d"
-
 const INTERACT = "interact_p%d"
-
 const MOVE_LEFT = "move_left_p%d"
 const MOVE_RIGHT = "move_right_p%d"
 const MOVE_UP = "move_up_p%d"
 const MOVE_DOWN = "move_down_p%d"
-
 const USE = "ability_p%d"
 const AIM = "ability_mode_p%d"
-
 const AIM_LEFT = "aim_left_p%d"
 const AIM_RIGHT = "aim_right_p%d"
 const AIM_UP = "aim_up_p%d"
 const AIM_DOWN = "aim_down_p%d"
-
 const SELECT_NEXT_BLOCK = "next_block_p%d"
 const SELECT_PREV_BLOCK = "previous_block_p%d"
-
 const SELECT_NEXT_ABILITY = "tool_right_p%d"
 const SELECT_PREV_ABILITY = "tool_left_p%d"
-
-
-export var player_number = 1
 
 
 var _move_input: Vector2
 var _aim_angle : float
 
+export var player_number = 1
 
 
 onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
@@ -54,6 +47,7 @@ func _process(delta):
 	_process_ability_select()
 	_process_ability_aim()
 	_process_ability()
+	emit_signal("process_inputs", _move_input, _aim_angle)
 
 func _process_movement():
 	var move_input = Input.get_vector(MOVE_LEFT % player_number, MOVE_RIGHT % player_number, MOVE_UP % player_number, MOVE_DOWN % player_number)

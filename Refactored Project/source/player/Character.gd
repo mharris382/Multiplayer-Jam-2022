@@ -44,7 +44,6 @@ onready var jump_timer = $"JumpTimer"
 func _ready():
 #	connect("aim_angle_changed", self, "_on_aim_angle_changed")
 	connect("move_changed", self, "_on_move_changed")
-	connect("aim_changed", self, "_on_aim_changed")
 	#jump_timer.connect("timeout", self, "_on_jump_timer_timeout")
 	#jump_timer.stop()
 	
@@ -76,30 +75,12 @@ func is_on_platform() -> bool:
 	return  platform_detector.is_colliding()
 	
 onready var state_machine = $CharacterStateMachine
+
 func _physics_process(delta):
-	
-	
 	_velocity.y += gravity * delta
 	_velocity.y = min(_velocity.y, TERMINAL_Y_VELOCITY)
-	#else:
-	#	direction = process_not_on_floor(direction)
-	return
-	
-#	var direction = _move_direction
-#
-#
-#
-#
-#	var is_jump_interrupted = _jump_timed_out and _velocity.y < 0.0
-#	_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
-#
-#	var snap_vector = get_snap_vector(direction)
-#	var stop_on_slope = not is_on_platform()
-#
-#	_velocity = move_and_slide_with_snap(_velocity, snap_vector, Vector2.UP, stop_on_slope, 4, 0.9, false)
-#	emit_signal("velocity_changed", _velocity)
-#	_update_facing_direction(direction)
-#	_update_state(_velocity)
+
+
 
 func _update_facing_direction(direction):
 	if direction.x != 0:
@@ -142,17 +123,12 @@ func _update_state(new_vel : Vector2):
 			_state_set(States.FALLING)
 		else:
 			_state_set(States.IN_AIR)
-		#print("in air")
 	else:
 		
 		if abs(new_vel.x) > 0.1:
 			emit_signal("character_state_changed", States.RUNNING)
-#			emit_signal("character_state_changed", _state)
-			#print("run")
 		else:
 			emit_signal("character_state_changed", States.IDLE)
-#			emit_signal("character_state_changed", _state)
-			#print("Idle")
 
 func _state_set(state):
 	if _state != state:
