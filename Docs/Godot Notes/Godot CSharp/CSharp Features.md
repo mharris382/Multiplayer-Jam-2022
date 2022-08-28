@@ -1,3 +1,5 @@
+#csharp #scripting
+
 [Features](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_features.html)
 --
 Generic version of `$MySprite`

@@ -1,3 +1,5 @@
+#csharp #scripting #signals
+
 [CSharp Signals](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_features.html#c-signals)
 ==
 [Full Example](https://docs.godotengine.org/en/stable/getting_started/step_by_step/scripting_languages.html#doc-scripting)
@@ -11,8 +13,8 @@ delegate void MySignal();
 delegate void MySignalWithArguments(string foo, int bar);
 ```
 
-Connecting Signals
-==
+Connecting [[Signals]]
+--
 These signals can then be connected either in the editor or from code with `Connect`. If you want to connect a signal in the editor, you need to (re)build the project assemblies to see the new signal. This build can be manually triggered by clicking the “Build” button at the top right corner of the editor window.
 
 ```cs
@@ -33,8 +35,8 @@ public void SomeFunction()
 }
 ```
 
-Emitting Signals
-==
+Emitting [[Signals]]
+--
 Emitting signals is done with the `EmitSignal` method.
 ```cs
 public void SomeFunction()
@@ -45,7 +47,7 @@ public void SomeFunction()
 ```
 
 
-Binding additional parameters from CSharp
+Binding additional parameters from [[CSharp Language Support|CSharp]]
 --
 Signals support parameters and bound values of all the [built-in types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/built-in-types-table) and Classes derived from [Godot.Object](https://docs.godotengine.org/en/stable/classes/class_object.html#class-object).
 ```cs

@@ -9,27 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "CSharp Preprocessor Defines.md",
-            "mode": "source",
-            "source": false
-          }
-        }
-      },
-      {
-        "id": "cdf1ad88cb603b2e",
-        "type": "leaf",
-        "state": {
-          "type": "empty",
-          "state": {}
-        }
-      },
-      {
-        "id": "9cee078ee2d6104a",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "CSharp Preprocessor Defines.md",
+            "file": "Godot CSharp/CSharp Basis & More.md",
             "mode": "source",
             "source": false
           }
@@ -81,7 +61,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 372.5
+    "width": 371.49999809265137
   },
   "right": {
     "id": "0eb67192b2bfd2a3",
@@ -97,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CSharp Preprocessor Defines.md",
+                "file": "Godot CSharp/CSharp Basis & More.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CSharp Preprocessor Defines.md",
+                "file": "Godot CSharp/CSharp Basis & More.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CSharp Preprocessor Defines.md"
+                "file": "Godot CSharp/CSharp Basis & More.md"
               }
             }
           }
@@ -148,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "e6a7319dd2fa395c",
+  "active": "cceb9492bcd4124e",
   "lastOpenFiles": [
-    "CSharp Features.md",
-    "[.md",
-    "CSharp Preprocessor Defines.md",
-    "CSharp Signals.md",
-    "Math/Math.md",
-    "GDScript/Exports/Exports.md",
-    "GDScript/Exports/Exporting Properties.md",
-    "GDScript/Exports/Advanced Exports.md",
-    "GDScript/Basics/Flow Control/Match.md",
-    "GDScript/Basics/Casting.md"
+    "Godot CSharp/CSharp Export keyword.md",
+    "Godot CSharp/CSharp Features.md",
+    "Godot CSharp/CSharp Language Support.md",
+    "Godot CSharp/CSharp onready keyword.md",
+    "Godot CSharp/CSharp Preprocessor Defines.md",
+    "Godot CSharp/CSharp Signals.md",
+    "Godot CSharp/CSharp Singletons.md",
+    "Godot CSharp/CSharp Strings.md",
+    "Godot CSharp/CSharp Yield.md",
+    "Godot CSharp/CSharp Basis & More.md"
   ]
 }
