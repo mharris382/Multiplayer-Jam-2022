@@ -6,6 +6,17 @@ const MISSING_BLOCK_RECT = Rect2(0, 0, 128, 128)
 onready var block_library = preload("res://assets/Blocks_Final/Blocks_Final.tres")
 onready var universal_dynamic_block = preload("res://scenes/dynamic_blocks/DynamicBlock_UniversalBlock.tscn")
 
+var steam_tilemap
+var block_tilemap
+var steam_neighbor_total = {}
+var dirty_tiles = {}
+
+static func mark_dirty(cell, dirty):
+	if not dirty:
+		Blocks.dirty_tiles[cell] = true
+	else:
+		Blocks.dirty_tiles[cell] = false
+		
 func get_block_data(block):
 	if block == null:
 		return block

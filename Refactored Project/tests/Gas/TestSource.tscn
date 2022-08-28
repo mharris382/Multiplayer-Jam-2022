@@ -47,6 +47,7 @@ position = Vector2( 17, -132 )
 scale = Vector2( 0.198324, 0.198324 )
 start_on = true
 
+[connection signal="button_down" from="HBoxContainer/On Button" to="." method="_on_button_down2" binds= [ true ]]
 [connection signal="button_down" from="HBoxContainer/On Button" to="Sprite2" method="On_Button_Pressed"]
 [connection signal="focus_entered" from="HBoxContainer/On Button" to="." method="_on_button_down2" binds= [ true ]]
 [connection signal="button_down" from="HBoxContainer/Off Button" to="." method="_on_button_down2" binds= [ false ]]
