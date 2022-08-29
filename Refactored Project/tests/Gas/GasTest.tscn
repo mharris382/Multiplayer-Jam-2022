@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://source/blocks/gas/SteamSource.cs" type="Script" id=1]
 [ext_resource path="res://source/blocks/gas/SteamController.gd" type="Script" id=2]
@@ -6,8 +6,6 @@
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=4]
 [ext_resource path="res://assets/Blocks_Final/gas_blocks/Tileset_Steam.tres" type="TileSet" id=5]
 [ext_resource path="res://source/blocks/gas/valve_icon.png" type="Texture" id=6]
-[ext_resource path="res://scenes/builder.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/transporter.tscn" type="PackedScene" id=8]
 [ext_resource path="res://tests/Gas/TestSource.tscn" type="PackedScene" id=9]
 
 [node name="Node2D" type="Node2D"]
@@ -77,12 +75,6 @@ margin_top = 1205.0
 margin_right = 2164.0
 margin_bottom = 1240.0
 rect_scale = Vector2( 1.35173, 1.35173 )
-
-[node name="Builder" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1664, 934 )
-
-[node name="Transporter" parent="." instance=ExtResource( 8 )]
-position = Vector2( 235, 813 )
 
 [connection signal="SteamSourceChanged" from="GasController/Source" to="GasController" method="_on_Source_SteamSourceChanged"]
 [connection signal="SteamSourceChanged" from="GasController/Source2" to="GasController" method="_on_Source_SteamSourceChanged"]
