@@ -21,12 +21,6 @@ namespace Game.Gas
 			SetupGasSimulator(GetNode("Steam TileMap") as GasTilemap, GetNode<TileMap>("Block TileMap"));
 		}
 
-		public void _Process()
-		{
-			
-			
-			
-		}
 
 		public void ExecuteGasIteration()
 		{
@@ -35,6 +29,16 @@ namespace Game.Gas
 
 			GasSimulation.DoPreUpdate();
 			
+			UpdateAirFromGasSources();
+			UpdateAirFromGasSinks();
+			CalculateAirFlowGraph();
+			UpdateAirFromFlowGraph();
+			
+			GasSimulation.DoPostUpdate();
+		}
+
+		private void UpdateAirFromGasSources()
+		{
 			var suppliers = GasSimulation.Suppliers;
 			if (suppliers.Count > 0)
 			{
@@ -43,13 +47,31 @@ namespace Game.Gas
 				{
 					var supplier = kvp.Key;
 					var location = kvp.Value;
+					TryExtractFromSupply(supplier, location);
 				}
 			}
-			
-			
-			GasSimulation.DoPostUpdate();
 		}
 
+		private void UpdateAirFromGasSinks()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void CalculateAirFlowGraph()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void UpdateAirFromFlowGraph()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void TryExtractFromSupply(ISteamSupply supply, Vector2 location)
+		{
+			throw new NotImplementedException();
+		}
+		
 		private bool IsSimulatorValid()
 		{
 			if (_gasTilemap == null || _blockTilemap == null)
