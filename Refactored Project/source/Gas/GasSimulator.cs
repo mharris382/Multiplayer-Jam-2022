@@ -23,20 +23,30 @@ namespace Game.Gas
 
 		public void _Process()
 		{
-			if (!IsSimulatorValid())
-				return;
+			
 			
 			
 		}
 
 		public void ExecuteGasIteration()
 		{
+			if (!IsSimulatorValid())
+				return;
+
 			GasSimulation.DoPreUpdate();
+			
 			var suppliers = GasSimulation.Suppliers;
 			if (suppliers.Count > 0)
 			{
 				GD.Print($"Number of supplies = {suppliers.Count}");
+				foreach (var kvp in suppliers)
+				{
+					var supplier = kvp.Key;
+					var location = kvp.Value;
+				}
 			}
+			
+			
 			GasSimulation.DoPostUpdate();
 		}
 

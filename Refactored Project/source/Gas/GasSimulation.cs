@@ -8,7 +8,7 @@ namespace Game.Gas
         public static event System.Action PreGasIteration;
         public static event System.Action PostGasIteration;
 
-        public static List<ISteamSupply> Suppliers = new List<ISteamSupply>();
+        public static Dictionary<ISteamSupply, Vector2> Suppliers = new Dictionary<ISteamSupply, Vector2>();
         
         public static void RegisterLate(this ISteamLateUpdatable updatable)
         {
@@ -28,6 +28,7 @@ namespace Game.Gas
             PreGasIteration -= updatable.SteamUpdate;
         }
 
+        
         
 
         public static void DoPreUpdate()

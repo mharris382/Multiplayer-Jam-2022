@@ -2,7 +2,11 @@ using Godot;
 
 namespace Game.Gas
 {
-    public class SteamSupplierNode : Node2D
+    /// <summary>
+    /// godot node wrapper for steam supplier
+    /// <seealso cref="SteamSupplier"/>
+    /// </summary>
+    public class SteamSupplierNode : Node2D ,ISteamUpdatable
     {
         private int capacity = 16;
         private int flowRate = 3;
@@ -19,11 +23,21 @@ namespace Game.Gas
         
         public override void _Ready()
         {
+            this.RegisterUpdate();
+            
             _supplier = new SteamSupplier(capacity, capacity, flowRate);
             _supplier.RegisterUpdate();
             _supplier.RegisterLate();
-            GasSimulation.Suppliers.Add(_supplier);
+            
+            if(GasSimulation.Suppliers.ContainsKey(_supplier)==false)
+                GasSimulation.Suppliers.Add(_supplier, Vector2.Zero);
+            
+            GasSimulation.Suppliers[_supplier] = GlobalPosition;
         }
-        
+
+        public void SteamUpdate()
+        {
+            GasSimulation.Suppliers[_supplier] = GlobalPosition;
+        }
     }
 }
