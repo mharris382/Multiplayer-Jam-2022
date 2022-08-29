@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=399 format=2]
+[gd_resource type="TileSet" load_steps=401 format=2]
 
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/auto-tiles.png" type="Texture" id=1]
 [ext_resource path="res://assets/Blocks_Final/single-blocks.png" type="Texture" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/pipes_normals.png" type="Texture" id=5]
 [ext_resource path="res://assets/blocks/tiles_2x2.png" type="Texture" id=6]
 [ext_resource path="res://assets/blocks/tiles_2x2_V2.png" type="Texture" id=7]
-[ext_resource path="res://assets/blocks/template.png" type="Texture" id=8]
+[ext_resource path="res://assets/blocks/template2.png" type="Texture" id=8]
+[ext_resource path="res://assets/blocks/templat.png" type="Texture" id=9]
+[ext_resource path="res://assets/blocks/test_base.png" type="Texture" id=10]
 
 [sub_resource type="OccluderPolygon2D" id=171]
 polygon = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
@@ -2717,8 +2719,8 @@ points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
 34/modulate = Color( 1, 1, 1, 1 )
 34/region = Rect2( 0, 0, 1024, 896 )
 34/tile_mode = 1
-34/autotile/bitmask_mode = 1
-34/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 48, Vector2( 0, 4 ), 442, Vector2( 0, 5 ), 190, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 56, Vector2( 1, 4 ), 250, Vector2( 1, 5 ), 187, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 24, Vector2( 2, 4 ), 176, Vector2( 2, 5 ), 178, Vector2( 2, 6 ), 50, Vector2( 3, 0 ), 144, Vector2( 3, 1 ), 146, Vector2( 3, 2 ), 18, Vector2( 3, 3 ), 16, Vector2( 3, 4 ), 184, Vector2( 3, 5 ), 186, Vector2( 3, 6 ), 58, Vector2( 4, 0 ), 255, Vector2( 4, 1 ), 507, Vector2( 4, 4 ), 152, Vector2( 4, 5 ), 154, Vector2( 4, 6 ), 26, Vector2( 5, 0 ), 447, Vector2( 5, 1 ), 510, Vector2( 5, 2 ), 434, Vector2( 5, 3 ), 446, Vector2( 5, 4 ), 182, Vector2( 6, 0 ), 440, Vector2( 6, 1 ), 62, Vector2( 6, 2 ), 506, Vector2( 6, 3 ), 511, Vector2( 6, 4 ), 191, Vector2( 6, 5 ), 443, Vector2( 6, 6 ), 254, Vector2( 7, 0 ), 248, Vector2( 7, 1 ), 59, Vector2( 7, 2 ), 218, Vector2( 7, 3 ), 251, Vector2( 7, 4 ), 155, Vector2( 7, 5 ), 254, Vector2( 7, 6 ), 443 ]
+34/autotile/bitmask_mode = 2
+34/autotile/bitmask_flags = [ Vector2( 0, 3 ), 21299248, Vector2( 1, 3 ), 21299256, Vector2( 2, 3 ), 21299224, Vector2( 2, 4 ), 21299376, Vector2( 2, 5 ), 21299378, Vector2( 2, 6 ), 21299250, Vector2( 3, 0 ), 21299344, Vector2( 3, 1 ), 21299346, Vector2( 3, 2 ), 21299218, Vector2( 3, 3 ), 16, Vector2( 3, 4 ), 21299384, Vector2( 3, 5 ), 21299386, Vector2( 3, 6 ), 21299258, Vector2( 4, 4 ), 21299352, Vector2( 4, 5 ), 21299354, Vector2( 4, 6 ), 21299226 ]
 34/autotile/icon_coordinate = Vector2( 0, 0 )
 34/autotile/tile_size = Vector2( 128, 128 )
 34/autotile/spacing = 0
@@ -3322,7 +3324,7 @@ points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
 37/shapes = [  ]
 37/z_index = 0
 38/name = "template.png 38"
-38/texture = ExtResource( 8 )
+38/texture = ExtResource( 9 )
 38/tex_offset = Vector2( 0, 0 )
 38/modulate = Color( 1, 1, 1, 1 )
 38/region = Rect2( 0, 0, 1536, 512 )
@@ -3344,3 +3346,40 @@ points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
 38/shape_one_way_margin = 0.0
 38/shapes = [  ]
 38/z_index = 0
+39/name = "template2.png 39"
+39/texture = ExtResource( 8 )
+39/tex_offset = Vector2( 0, 0 )
+39/modulate = Color( 1, 1, 1, 1 )
+39/region = Rect2( 0, 0, 1536, 512 )
+39/tile_mode = 1
+39/autotile/bitmask_mode = 0
+39/autotile/bitmask_flags = [  ]
+39/autotile/icon_coordinate = Vector2( 0, 0 )
+39/autotile/tile_size = Vector2( 128, 128 )
+39/autotile/spacing = 0
+39/autotile/occluder_map = [  ]
+39/autotile/navpoly_map = [  ]
+39/autotile/priority_map = [  ]
+39/autotile/z_index_map = [  ]
+39/occluder_offset = Vector2( 0, 0 )
+39/navigation_offset = Vector2( 0, 0 )
+39/shape_offset = Vector2( 0, 0 )
+39/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+39/shape_one_way = false
+39/shape_one_way_margin = 0.0
+39/shapes = [  ]
+39/z_index = 0
+40/name = "dummy gas"
+40/texture = ExtResource( 10 )
+40/tex_offset = Vector2( 0, 0 )
+40/modulate = Color( 1, 1, 1, 1 )
+40/region = Rect2( 0, 0, 128, 128 )
+40/tile_mode = 0
+40/occluder_offset = Vector2( 0, 0 )
+40/navigation_offset = Vector2( 0, 0 )
+40/shape_offset = Vector2( 0, 0 )
+40/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+40/shape_one_way = false
+40/shape_one_way_margin = 0.0
+40/shapes = [  ]
+40/z_index = 0
