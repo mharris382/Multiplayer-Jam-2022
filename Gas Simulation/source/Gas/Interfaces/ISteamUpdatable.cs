@@ -1,4 +1,4 @@
-﻿namespace Game.Gas
+﻿namespace GasSimulation.Gas
 {
     /// <summary>
     /// interface used to register callbacks BEFORE each steam update

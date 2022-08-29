@@ -1,4 +1,4 @@
-﻿namespace Game.Gas
+﻿namespace GasSimulation.Gas
 {
     public interface ISteamSupply : ISteamUpdatable
     {
