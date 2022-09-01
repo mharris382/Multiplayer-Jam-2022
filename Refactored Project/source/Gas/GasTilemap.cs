@@ -54,13 +54,4 @@ namespace Game.Gas
         private static int TileIdToSteam(int tileIndex) => tileIndex + 1;
         private static int SteamToTileId(int steamValue) => steamValue - 1;
     }
-
-
-    public interface ISteamMap
-    {
-        int GetSteam(int tileX, int tileY);
-        int GetSteam(Vector2 tilePosition);
-
-        bool ModifySteam(Vector2 tilePosition, int amountToAdd, out int amountAdded);
-    }
 }
