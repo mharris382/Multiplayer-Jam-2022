@@ -1,3 +1,5 @@
+#godot #gdscript #scripting 
+
 ### Statements and control flow[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#statements-and-control-flow "Permalink to this headline")
 
 Statements are standard and can be assignments, function calls, control flow structures, etc (see below). `;` as a statement separator is entirely optional.

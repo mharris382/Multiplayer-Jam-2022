@@ -1,3 +1,4 @@
+#gdscript 
 #### [Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#class-dictionary)[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#dictionary "Permalink to this headline")
 
 Associative container which contains values referenced by unique keys.

@@ -1,3 +1,10 @@
+#gdscript #godot #scripting 
+
+see also: [[Exports]], [[Exporting Properties]]
+
+----
+
+
 # Advanced exports[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_exports.html#advanced-exports "Permalink to this headline")
 Not every type of export can be provided on the level of the language itself to avoid unnecessary design complexity. The following describes some more or less common exporting features which can be implemented with a low-level API.
 

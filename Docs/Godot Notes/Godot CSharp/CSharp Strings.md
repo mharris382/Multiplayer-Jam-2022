@@ -1,4 +1,4 @@
-#csharp #scripting
+#csharp #scripting #godot #string
 ## String[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_differences.html#string "Permalink to this headline")
 
 Use `System.String` (`string`). Most of Godot's String methods are provided by the `StringExtensions` class as extension methods.

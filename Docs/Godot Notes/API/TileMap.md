@@ -1,3 +1,6 @@
+#gdscript #api
+
+---
 # [TileMap](https://docs.godotengine.org/en/stable/classes/class_tilemap.html)
 
 **Inherits:** [[Node2D]] < [[CanvasItem]] < [[Node]] **<** [Object](https://docs.godotengine.org/en/stable/classes/class_object.html#class-object)

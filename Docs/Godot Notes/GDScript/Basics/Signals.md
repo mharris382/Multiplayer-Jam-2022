@@ -1,3 +1,8 @@
+#gdscript 
+
+-----
+
+
 https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html
 
 Signals are a tool to emit messages from an object that other objects can react to. To create custom signals for a class, use the `signal` keyword.

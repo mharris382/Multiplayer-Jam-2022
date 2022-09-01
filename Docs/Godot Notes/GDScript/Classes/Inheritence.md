@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 # Inheritance[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#inheritance "Permalink to this headline")
 
 A class (stored as a file) can inherit from:

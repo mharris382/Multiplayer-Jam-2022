@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 # Referencing functions[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#referencing-functions "Permalink to this headline")
 
 Contrary to Python, functions are _not_ first-class objects in GDScript. This means they cannot be stored in variables, passed as an argument to another function or be returned from other functions. This is for performance reasons.

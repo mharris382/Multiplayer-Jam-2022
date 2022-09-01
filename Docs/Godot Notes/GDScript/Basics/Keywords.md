@@ -1,3 +1,4 @@
+#gdscript 
 Seealso [[onready Keyword|onready]]
 
 Keyword | Description

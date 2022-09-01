@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 ### Tool mode[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#tool-mode "Permalink to this headline")
 
 By default, scripts don't run inside the editor and only the exported properties can be changed. In some cases, it is desired that they do run inside the editor (as long as they don't execute game code or manually avoid doing so). For this, the `tool` keyword exists and must be placed at the top of the file:

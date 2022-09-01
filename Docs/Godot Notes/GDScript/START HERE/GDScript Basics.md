@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 # GDScript basics[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#gdscript-basics "Permalink to this headline")
 
 ## Introduction[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#introduction "Permalink to this headline")

@@ -1,3 +1,4 @@
+#gdscript 
 #### [[Classes]] constructor[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#class-constructor "Permalink to this headline")
 
 The class constructor, called on class instantiation, is named `_init`. As mentioned earlier, the constructors of parent classes are called automatically when inheriting a class. So, there is usually no need to call `._init()` explicitly.

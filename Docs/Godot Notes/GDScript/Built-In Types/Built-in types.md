@@ -1,3 +1,5 @@
+#gdscript 
+
 ## Built-in types[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#built-in-types "Permalink to this headline")
 
 Built-in types are stack-allocated. They are passed as values. This means a copy is created on each assignment or when passing them as arguments to functions. The only exceptions are `[[Array]]`s and `Dictionaries`, which are passed by reference so they are shared. (Pooled arrays such as `PoolByteArray` are still passed as values.)

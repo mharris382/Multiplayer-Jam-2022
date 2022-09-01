@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 
 # Setters/getters[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#setters-getters "Permalink to this headline")
 

@@ -1,3 +1,4 @@
+#gdscript 
 # Classes[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#classes "Permalink to this headline")
 (see [[Class Constructor]], [[Classes as a Resource]], [[Inner Classes]])
 (seealso [[Exports]], [[Functions]], [[Data]])

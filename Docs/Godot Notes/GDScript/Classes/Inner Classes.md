@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 #### Inner classes[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#inner-classes "Permalink to this headline")
 
 A class file can contain inner classes. Inner classes are defined using the `class` keyword. They are instanced using the `ClassName.new()` function.

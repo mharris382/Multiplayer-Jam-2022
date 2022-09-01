@@ -1,3 +1,6 @@
+#gdscript #api
+
+---
 # Transform2D[¶](https://docs.godotengine.org/en/stable/classes/class_transform2d.html#transform2d "Permalink to this headline")
 
 ## Description[¶](https://docs.godotengine.org/en/stable/classes/class_transform2d.html#description "Permalink to this headline")

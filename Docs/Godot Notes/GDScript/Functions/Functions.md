@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 ### Functions[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#functions "Permalink to this headline")
 (see [[Classes]])
 Functions always belong to a [class](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#classes). The scope priority for variable look-up is: local → class member → global. The `self` variable is always available and is provided as an option for accessing class members, but is not always required (and should _not_ be sent as the function's first argument, unlike Python).

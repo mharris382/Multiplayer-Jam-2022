@@ -1,3 +1,4 @@
+#gdscript 
 # Enums[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#enums "Permalink to this headline")
 
 Enums are basically a shorthand for constants, and are pretty useful if you want to assign consecutive integers to some constant.

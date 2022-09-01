@@ -1,3 +1,7 @@
+#gdscript #exporting 
+
+---
+
 # GDScript exports[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_exports.html#gdscript-exports "Permalink to this headline")
 _*scripts are gdscript not python_
 ## Introduction to exports[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_exports.html#introduction-to-exports "Permalink to this headline")

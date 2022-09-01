@@ -1,3 +1,5 @@
+#gdscript 
+
 `Operator` | Description
 ---|---
 `x[index]` | Subscription (highest priority)

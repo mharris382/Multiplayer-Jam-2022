@@ -1,4 +1,6 @@
+#gdscript #properties #exporting 
 
+----
 # Properties[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_exports.html#properties "Permalink to this headline")
 (see [[Properties]])
 To understand how to better use the sections below, you should understand how to make properties with [[Advanced Exports]]

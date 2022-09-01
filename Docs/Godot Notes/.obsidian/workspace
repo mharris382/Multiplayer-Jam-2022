@@ -4,12 +4,26 @@
     "type": "split",
     "children": [
       {
-        "id": "e6a7319dd2fa395c",
+        "id": "4b985cb7e5c112fd",
         "type": "leaf",
+        "dimension": 64.51310861423221,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Godot CSharp/CSharp Basis & More.md",
+            "file": "Godot CSharp/CSharp Export keyword.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      },
+      {
+        "id": "e58965101e239794",
+        "type": "leaf",
+        "dimension": 35.48689138576779,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Godot CSharp/CSharp Yield.md",
             "mode": "source",
             "source": false
           }
@@ -40,7 +54,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#godot",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -77,7 +91,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Godot CSharp/CSharp Basis & More.md",
+                "file": "Godot CSharp/CSharp Export keyword.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +108,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Godot CSharp/CSharp Basis & More.md",
+                "file": "Godot CSharp/CSharp Export keyword.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,28 +131,29 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Godot CSharp/CSharp Basis & More.md"
+                "file": "Godot CSharp/CSharp Export keyword.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
     "width": 300,
     "collapsed": true
   },
-  "active": "cceb9492bcd4124e",
+  "active": "4b985cb7e5c112fd",
   "lastOpenFiles": [
-    "Godot CSharp/CSharp Export keyword.md",
-    "Godot CSharp/CSharp Features.md",
+    "Godot CSharp/CSharp Yield.md",
+    "GDScript/Exports/Advanced Exports.md",
     "Godot CSharp/CSharp Language Support.md",
-    "Godot CSharp/CSharp onready keyword.md",
     "Godot CSharp/CSharp Preprocessor Defines.md",
     "Godot CSharp/CSharp Signals.md",
-    "Godot CSharp/CSharp Singletons.md",
     "Godot CSharp/CSharp Strings.md",
-    "Godot CSharp/CSharp Yield.md",
-    "Godot CSharp/CSharp Basis & More.md"
+    "Godot CSharp/CSharp Singletons.md",
+    "Godot CSharp/CSharp Basis & More.md",
+    "GDScript/Coroutines/Coroutines and Signals.md",
+    "Nodes.md"
   ]
 }

@@ -1,4 +1,4 @@
-#csharp #scripting
+#csharp #scripting #godot #singleton
 ## Singletons[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_differences.html#singletons "Permalink to this headline")
 Singletons are available as static classes rather than using the singleton pattern. This is to make code less verbose than it would be with an `Instance` property.
 

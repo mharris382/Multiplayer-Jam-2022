@@ -1,4 +1,4 @@
-#csharp #scripting
+#csharp #scripting #godot
 
 C# is a high-level programming language developed by Microsoft. In Godot, it is implemented with the **Mono 6.x .NET framework, including full support for C# 8.0.** Mono is an open source implementation of Microsoft's .NET Framework based on the ECMA standards for C# and the Common Language Runtime. A good starting point for checking its capabilities is the [Compatibility](https://www.mono-project.com/docs/about-mono/compatibility/) page in the Mono documentation.
 

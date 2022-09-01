@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 # GDScript[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/index.html#gdscript "Permalink to this headline")
 
 - [[Keywords]]

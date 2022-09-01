@@ -1,3 +1,6 @@
+#godot
+
+---
 # Scene organization[¶](https://docs.godotengine.org/en/stable/tutorials/best_practices/scene_organization.html#scene-organization "Permalink to this headline")
 
 

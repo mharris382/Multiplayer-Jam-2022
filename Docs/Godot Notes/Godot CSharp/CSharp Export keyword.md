@@ -1,4 +1,4 @@
-#csharp #scripting
+#csharp #scripting #exporting #godot
 
 Use the `[Export]` attribute instead of the [[GDScript]] `export` keyword. This attribute can also be provided with optional [PropertyHint](https://docs.godotengine.org/en/stable/classes/class_%40globalscope.html#enum-globalscope-propertyhint) and `hintString` parameters. Default values can be set by assigning a value.
 

@@ -1,4 +1,7 @@
-# Coroutines & signals[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#coroutines-signals "Permalink to this headline")
+#gdscript #signals #coroutines 
+
+---
+# [[Coroutines]] & [[Signals]][¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#coroutines-signals "Permalink to this headline")
 The real strength of using `yield` is when combined with [[Signals]]. `yield` can accept two arguments, an object and a signal. When the signal is received, execution will recommence. Here are some examples:
 
 ```

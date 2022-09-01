@@ -1,3 +1,4 @@
+#gdscript 
 ## Data[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#data "Permalink to this headline")
 (see [[Exports]], [[Properties]], [[Built-in types]], [[Array]], [[Dictionary]])
 (seealso [[Cheatsheet]])

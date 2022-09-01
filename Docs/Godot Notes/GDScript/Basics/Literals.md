@@ -1,3 +1,4 @@
+#gdscript 
 Literal | Type
 ---|---
 `45` | Base 10 integer

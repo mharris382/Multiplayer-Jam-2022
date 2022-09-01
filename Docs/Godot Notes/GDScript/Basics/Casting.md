@@ -1,3 +1,4 @@
+#gdscript 
 #### Casting[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#casting "Permalink to this headline")
 
 Values assigned to typed variables must have a compatible type. If it's needed to coerce a value to be of a certain type, in particular for object types, you can use the casting operator `as`.

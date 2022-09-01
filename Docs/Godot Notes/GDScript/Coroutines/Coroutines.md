@@ -1,3 +1,6 @@
+#gdscript #coroutines 
+
+---
 # Coroutines with yield[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#coroutines-with-yield "Permalink to this headline")
 
 GDScript offers support for [coroutines](https://en.wikipedia.org/wiki/Coroutine) via the [yield](https://docs.godotengine.org/en/stable/classes/class_%40gdscript.html#class-gdscript-method-yield) built-in function. Calling `yield()` will immediately return from the current function, with the current frozen state of the same function as the return value. Calling `resume()` on this resulting object will continue execution and return whatever the function returns. Once resumed, the state object becomes invalid. 

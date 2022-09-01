@@ -1,3 +1,6 @@
+#gdscript 
+
+---
 ### Registering named classes[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#registering-named-classes "Permalink to this headline")
 
 You can give your class a name to register it as a new type in Godot's editor. For that, you use the `class_name` keyword. You can optionally add a comma followed by a path to an image, to use it as an icon. Your class will then appear with its new icon in the editor:
