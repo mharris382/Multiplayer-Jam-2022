@@ -2,8 +2,9 @@
 
 [ext_resource path="res://assets/ui/editor/icon-block.png" type="Texture" id=1]
 [ext_resource path="res://assets/blocks/test_base.png" type="Texture" id=2]
-[ext_resource path="res://tests/PlayerTest/PlayerTest.gd" type="Script" id=3]
+[ext_resource path="res://Testing/PlayerTest/PlayerTest.gd" type="Script" id=3]
 [ext_resource path="res://source/ui/AimDirectionPreview.tscn" type="PackedScene" id=4]
+
 
 [node name="Player Tester" type="Node2D"]
 script = ExtResource( 3 )

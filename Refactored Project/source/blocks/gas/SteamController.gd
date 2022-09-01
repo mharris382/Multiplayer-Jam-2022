@@ -123,6 +123,11 @@ func _iterate_sources():
 func _on_Button_button_down():
 	timer.start(1/iterations_per_sec)
 
+
+
+func is_position_blocked(tile_position) -> bool:
+	return block_tilemap.get_cellv(tile_position) != -1
+
 func register_gas_source(sourceNode ) -> bool:
 	var sourceNode2D = sourceNode as Node2D
 	if sourceNode2D == null:
@@ -130,11 +135,7 @@ func register_gas_source(sourceNode ) -> bool:
 	var tile_position = steam_tilemap.world_to_map(sourceNode2D.position)
 	assert(sourceNode2D.Output != -1)
 	return true
-
-func is_position_blocked(tile_position) -> bool:
-	return block_tilemap.get_cellv(tile_position) != -1
-
-
+	
 func _on_Source_SteamSourceChanged(world_position, output):
 	
 	if steam_tilemap == null:
