@@ -5,10 +5,11 @@
 [ext_resource path="res://source/state/character_states/JumpState.gd" type="Script" id=3]
 [ext_resource path="res://source/state/character_states/GroundedState.gd" type="Script" id=4]
 [ext_resource path="res://assets/animation/builder_animator.tscn" type="PackedScene" id=5]
-[ext_resource path="res://tests/PlayerTest/Player Tester.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Testing/PlayerTest/Player Tester.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/state/character_states/FallingState.gd" type="Script" id=7]
 [ext_resource path="res://source/player/AimController.gd" type="Script" id=8]
 [ext_resource path="res://scenes/tools/TestTool.tscn" type="PackedScene" id=9]
+
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 28.0
