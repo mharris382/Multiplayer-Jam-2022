@@ -5,7 +5,6 @@ signal facing_direction_changed(is_facing_right)
 signal character_state_changed(state, velocity)
 signal velocity_changed(velocity)
 
-
 enum States {
 	IDLE, 
 	RUNNING, 
@@ -17,10 +16,12 @@ enum States {
 const FLOOR_DETECT_DISTANCE = 20.0
 const TERMINAL_Y_VELOCITY = 10000
 
+
 export var speed = Vector2(150.0, 350.0)
 export var extra_jump_time = 0.4
 export var jump_pow = .5
 
+var desired_velocity : Vector2 = Vector2.ZERO setget desired_velocity_set, desired_velocity_get
 
 var _move_direction : Vector2 = Vector2.ZERO
 var _velocity : Vector2 = Vector2.ZERO
@@ -28,25 +29,21 @@ var _facing_right : bool = true
 var _state = States.IDLE setget _state_set, _state_get
 var _jump_timed_out = true
 
-var desired_velocity : Vector2 = Vector2.ZERO setget desired_velocity_set, desired_velocity_get
-
-
-func desired_velocity_get():
-	return desired_velocity
-
-func desired_velocity_set(vel):
-	if desired_velocity != vel:
-		desired_velocity = vel
-
 onready var platform_detector = $PlatformDetector
+onready var state_machine = $CharacterStateMachine
 onready var jump_timer = $"JumpTimer"
 
+
 func _ready():
-#	connect("aim_angle_changed", self, "_on_aim_angle_changed")
 	connect("move_changed", self, "_on_move_changed")
-	#jump_timer.connect("timeout", self, "_on_jump_timer_timeout")
-	#jump_timer.stop()
 	
+func _physics_process(delta):
+	_velocity.y += gravity * delta
+	_velocity.y = min(_velocity.y, TERMINAL_Y_VELOCITY)
+	
+func _process(delta):
+	._process(delta)
+
 func process_not_on_floor(direction):
 	direction.y = -1 if not _jump_timed_out else 0
 	if not _jump_timed_out and not Input.is_action_just_released(JUMP % player_number):
@@ -73,12 +70,6 @@ func get_snap_vector(direction):
 
 func is_on_platform() -> bool:
 	return  platform_detector.is_colliding()
-	
-onready var state_machine = $CharacterStateMachine
-
-func _physics_process(delta):
-	_velocity.y += gravity * delta
-	_velocity.y = min(_velocity.y, TERMINAL_Y_VELOCITY)
 
 
 
@@ -90,7 +81,6 @@ func _update_facing_direction(direction):
 func _on_move_changed(move_input):
 	_move_direction= move_input
 	
-
 func calculate_move_velocity(
 		linear_velocity,
 		direction,
@@ -115,7 +105,6 @@ func _set_facing_direction(facing_right):
 		emit_signal("facing_direction_changed", 1 if _facing_right else -1)
 
 func _update_state(new_vel : Vector2):
-	
 	if not is_on_floor():
 		if new_vel.y < -0.1:
 			_state_set(States.JUMPING)
@@ -138,6 +127,13 @@ func _state_set(state):
 func _state_get():
 	return _state
 
+func desired_velocity_get():
+	return desired_velocity
+
+func desired_velocity_set(vel):
+	if desired_velocity != vel:
+		desired_velocity = vel
+
 func input_get_move_direction():
 	return _move_direction
 	
@@ -146,7 +142,6 @@ func _on_aim_changed(aim_direction):
 	
 func _on_aim_angle_changed(aim_direction, aim_angle):
 	pass
-
 
 func apply_velocity(new_velocity : Vector2):
 	var direction = new_velocity.normalized()

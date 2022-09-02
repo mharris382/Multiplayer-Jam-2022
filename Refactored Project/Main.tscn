@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/builder.tscn" type="PackedScene" id=2]
@@ -9,8 +9,6 @@
 [ext_resource path="res://source/blocks/gas/SteamSource.cs" type="Script" id=7]
 [ext_resource path="res://source/blocks/gas/SteamTilemap.gd" type="Script" id=8]
 [ext_resource path="res://assets/Light Platform.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/ui/highlight_tile_white.png" type="Texture" id=10]
-[ext_resource path="res://GridSelectorUI.gd" type="Script" id=11]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -93,16 +91,5 @@ position = Vector2( -620, -103 )
 
 [node name="Builder" parent="Camera" index="2"]
 position = Vector2( 5, -96 )
-
-[node name="GridSelectorUI" type="Node2D" parent="."]
-visible = false
-modulate = Color( 0, 0.647059, 0.607843, 1 )
-script = ExtResource( 11 )
-tilemap_path = NodePath("../TileMap")
-
-[node name="Sprite" type="Sprite" parent="GridSelectorUI"]
-light_mask = 768
-position = Vector2( -64, -64 )
-texture = ExtResource( 10 )
 
 [editable path="Camera"]

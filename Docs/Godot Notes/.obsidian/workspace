@@ -6,24 +6,10 @@
       {
         "id": "4b985cb7e5c112fd",
         "type": "leaf",
-        "dimension": 64.51310861423221,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Godot CSharp/CSharp Export keyword.md",
-            "mode": "source",
-            "source": false
-          }
-        }
-      },
-      {
-        "id": "e58965101e239794",
-        "type": "leaf",
-        "dimension": 35.48689138576779,
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "Godot CSharp/CSharp Yield.md",
+            "file": "Style Guide/Style Guide - Code Order.md",
             "mode": "source",
             "source": false
           }
@@ -91,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Godot CSharp/CSharp Export keyword.md",
+                "file": "Style Guide/Style Guide - Code Order.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -108,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Godot CSharp/CSharp Export keyword.md",
+                "file": "Style Guide/Style Guide - Code Order.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -131,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Godot CSharp/CSharp Export keyword.md"
+                "file": "Style Guide/Style Guide - Code Order.md"
               }
             }
           }
@@ -145,15 +131,15 @@
   },
   "active": "4b985cb7e5c112fd",
   "lastOpenFiles": [
+    "Style Guide/GDScript Style Guide.md",
+    "Style Guide/Cheatsheet.md",
     "Godot CSharp/CSharp Yield.md",
+    "Godot CSharp/CSharp Export keyword.md",
     "GDScript/Exports/Advanced Exports.md",
     "Godot CSharp/CSharp Language Support.md",
     "Godot CSharp/CSharp Preprocessor Defines.md",
     "Godot CSharp/CSharp Signals.md",
     "Godot CSharp/CSharp Strings.md",
-    "Godot CSharp/CSharp Singletons.md",
-    "Godot CSharp/CSharp Basis & More.md",
-    "GDScript/Coroutines/Coroutines and Signals.md",
-    "Nodes.md"
+    "Godot CSharp/CSharp Singletons.md"
   ]
 }

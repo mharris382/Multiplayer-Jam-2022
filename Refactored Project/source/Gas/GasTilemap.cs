@@ -1,16 +1,19 @@
+using Game.Testing;
 using Godot;
+using Godot.Collections;
 
 namespace Game.Gas
 {
-    public class GasTilemap : TileMap, ISteamMap
+    public class GasTilemap : TileMap, ISteamMap, ITileMap
     {
         
         private const int MAX_STEAM_VALUE = 16;
 
-        // Called when the node enters the scene tree for the first time.
+        private GdTilemap _tilemap;
+        
         public override void _Ready()
         {
-            
+            _tilemap = new GdTilemap(this);
         }
 
         public bool ModifySteam(Vector2 tilePosition, int amountToAdd, out int amountAdded)
@@ -53,6 +56,36 @@ namespace Game.Gas
 
         private static int TileIdToSteam(int tileIndex) => tileIndex + 1;
         private static int SteamToTileId(int steamValue) => steamValue - 1;
+
+        public int GetCell(Vector2 location)
+        {
+            return _tilemap.GetCell(location);
+        }
+
+        public Vector2 MapToWorld(Vector2 gridSpaceLocation)
+        {
+            return _tilemap.MapToWorld(gridSpaceLocation);
+        }
+
+        public new Array<Vector2> GetUsedCellsById(int tileId)
+        {
+            return _tilemap.GetUsedCellsById(tileId);
+        }
+
+        public new Array<Vector2> GetUsedCells()
+        {
+            return _tilemap.GetUsedCells();
+        }
+
+        public void SetCell(int x, int y, int tile)
+        {
+            _tilemap.SetCell(x, y, tile);
+        }
+
+        public void SetCell(Vector2 location, int tile)
+        {
+            _tilemap.SetCell(location, tile);
+        }
     }
 
 
