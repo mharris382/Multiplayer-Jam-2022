@@ -16,7 +16,6 @@ func handle_input(_event: InputEvent):
 	
 
 func physics_update(_delta: float):
-	
 	var move_input = state_machine.character._move_direction
 	var speed = state_machine.character.speed
 	var velocity = state_machine.character._velocity

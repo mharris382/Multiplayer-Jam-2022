@@ -29,14 +29,17 @@ const SELECT_PREV_BLOCK = "previous_block_p%d"
 const SELECT_NEXT_ABILITY = "tool_right_p%d"
 const SELECT_PREV_ABILITY = "tool_left_p%d"
 
+export var player_number = 1
 
 var _move_input: Vector2
 var _aim_angle : float
 
-export var player_number = 1
-
-
 onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
+
+
+#Even though I made consts for all the actions, it's likely the actions will need to be polled elsewhere so instead of injecting the player_number into all I opted to inject the player itself and expose this method
+func get_player_specific_input_action(action):
+	return "%s_p%d"%[action, player_number]
 
 
 func _process(delta):
@@ -55,6 +58,7 @@ func _process_movement():
 	
 func _process_jump():
 	pass
+	
 func _process_interact():
 	pass
 
@@ -85,8 +89,6 @@ func _aim_vector_set(aim_vector:Vector2):
 	_aim_angle = atan2(aim_vector.y, aim_vector.x)
 	emit_signal("aim_angle_changed", _aim_vector_get(), _aim_angle)
 
-#Even though I made consts for all the actions, it's likely the actions will need to be polled elsewhere so instead of injecting the player_number into all I opted to inject the player itself and expose this method
-func get_player_specific_input_action(action):
-	return "%s_p%d"%[action, player_number]
+
 
 

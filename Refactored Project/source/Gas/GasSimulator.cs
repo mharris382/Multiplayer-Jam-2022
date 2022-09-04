@@ -4,6 +4,7 @@ using Godot;
 
 namespace Game.Gas
 {
+	[Obsolete("early prototype refactored to Game.Gas.SimulationCore")]
 	public class GasSimulator : Node2D
 	{
 		private GasTilemap _gasTilemap;
@@ -20,8 +21,7 @@ namespace Game.Gas
 		{
 			SetupGasSimulator(GetNode("Steam TileMap") as GasTilemap, GetNode<TileMap>("Block TileMap"));
 		}
-
-
+		
 		public void ExecuteGasIteration()
 		{
 			if (!IsSimulatorValid())
