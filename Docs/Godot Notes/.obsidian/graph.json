@@ -1,7 +1,7 @@
 {
   "collapse-filter": false,
-  "search": "path:\"Godot CSharp\"",
-  "showTags": true,
+  "search": "",
+  "showTags": false,
   "showAttachments": false,
   "hideUnresolved": false,
   "showOrphans": true,
@@ -46,6 +46,6 @@
   "repelStrength": 13.5955056179775,
   "linkStrength": 0.692616372391653,
   "linkDistance": 500,
-  "scale": 1.288418751629508,
+  "scale": 0.05932617187500009,
   "close": false
 }

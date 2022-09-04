@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://source/blocks/gas/valve_icon.png" type="Texture" id=1]
-[ext_resource path="res://source/blocks/gas/GasSource.gd" type="Script" id=2]
+[ext_resource path="res://source/autoloads/blocks/gas/valve_icon.png" type="Texture" id=1]
+[ext_resource path="res://source/autoloads/blocks/gas/GasSource.gd" type="Script" id=2]
 [ext_resource path="res://Testing/Gas/OnOffLight.tscn" type="PackedScene" id=3]
+
 
 
 [node name="Source" type="Node2D"]

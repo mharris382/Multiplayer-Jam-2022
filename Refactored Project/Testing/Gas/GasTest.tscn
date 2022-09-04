@@ -1,12 +1,13 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://source/blocks/gas/SteamSource.cs" type="Script" id=1]
-[ext_resource path="res://source/blocks/gas/SteamController.gd" type="Script" id=2]
-[ext_resource path="res://source/blocks/gas/SteamTilemap.gd" type="Script" id=3]
+[ext_resource path="res://source/autoloads/blocks/gas/SteamSource.cs" type="Script" id=1]
+[ext_resource path="res://source/autoloads/blocks/gas/SteamController.gd" type="Script" id=2]
+[ext_resource path="res://source/autoloads/blocks/gas/SteamTilemap.gd" type="Script" id=3]
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=4]
 [ext_resource path="res://assets/Blocks_Final/gas_blocks/Tileset_Steam.tres" type="TileSet" id=5]
-[ext_resource path="res://source/blocks/gas/valve_icon.png" type="Texture" id=6]
+[ext_resource path="res://source/autoloads/blocks/gas/valve_icon.png" type="Texture" id=6]
 [ext_resource path="res://Testing/Gas/TestSource.tscn" type="PackedScene" id=9]
+
 
 
 [node name="Node2D" type="Node2D"]

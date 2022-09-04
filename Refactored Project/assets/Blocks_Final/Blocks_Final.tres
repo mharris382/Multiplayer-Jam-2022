@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=20 format=2]
 
-[ext_resource path="res://source/blocks/BlockLibrary.gd" type="Script" id=1]
+[ext_resource path="res://source/autoloads/blocks/BlockLibrary.gd" type="Script" id=1]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Conveyor.tres" type="Resource" id=2]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Pipe_and_Gear.tres" type="Resource" id=3]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Plate.tres" type="Resource" id=4]
@@ -19,6 +19,7 @@
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_2.tres" type="Resource" id=17]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Furnace_5.tres" type="Resource" id=18]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Metal_Screws.tres" type="Resource" id=19]
+
 
 [resource]
 script = ExtResource( 1 )

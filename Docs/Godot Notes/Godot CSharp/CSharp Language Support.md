@@ -20,7 +20,7 @@ C# is a high-level programming language developed by Microsoft. In Godot, it is 
 	- [Current Gotchas and known issues](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_basics.html#current-gotchas-and-known-issues)
 	- [Using NuGet packages in Godot](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_basics.html#using-nuget-packages-in-godot)
 
-
+![[Pasted image 20220903183713.png]]
 
 PermaLinks
 --

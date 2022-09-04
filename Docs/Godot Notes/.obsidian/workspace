@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "4b985cb7e5c112fd",
+        "id": "e58965101e239794",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Style Guide/Style Guide - Code Order.md",
+            "file": "Godot CSharp/CSharp Language Support.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Style Guide/Style Guide - Code Order.md",
+                "file": "Godot CSharp/CSharp Language Support.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Style Guide/Style Guide - Code Order.md",
+                "file": "Godot CSharp/CSharp Language Support.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Style Guide/Style Guide - Code Order.md"
+                "file": "Godot CSharp/CSharp Language Support.md"
               }
             }
           }
@@ -129,15 +129,16 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "4b985cb7e5c112fd",
+  "active": "e58965101e239794",
   "lastOpenFiles": [
-    "Style Guide/GDScript Style Guide.md",
-    "Style Guide/Cheatsheet.md",
+    "Godot CSharp/CSharp Features.md",
+    "GDScript/START HERE/GDScript.md",
+    "Godot CSharp/CSharp Export keyword.md",
+    "Godot CSharp/CSharp Preprocessor Defines.md",
     "Godot CSharp/CSharp Yield.md",
     "Godot CSharp/CSharp Export keyword.md",
     "GDScript/Exports/Advanced Exports.md",
     "Godot CSharp/CSharp Language Support.md",
-    "Godot CSharp/CSharp Preprocessor Defines.md",
     "Godot CSharp/CSharp Signals.md",
     "Godot CSharp/CSharp Strings.md",
     "Godot CSharp/CSharp Singletons.md"

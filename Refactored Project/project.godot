@@ -17,17 +17,17 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "BlockData",
 "language": "GDScript",
-"path": "res://source/blocks/BlockData.gd"
+"path": "res://source/autoloads/blocks/BlockData.gd"
 }, {
-"base": "Node2D",
+"base": "Reference",
 "class": "BlockLauncher",
 "language": "GDScript",
-"path": "res://source/blocks/DynamicBlocks/BlockLauncher.gd"
+"path": "res://source/autoloads/blocks/DynamicBlocks/BlockLauncher.gd"
 }, {
 "base": "Resource",
 "class": "BlockLibrary",
 "language": "GDScript",
-"path": "res://source/blocks/BlockLibrary.gd"
+"path": "res://source/autoloads/blocks/BlockLibrary.gd"
 }, {
 "base": "Player",
 "class": "Character",
@@ -42,12 +42,12 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "DynamicBlock",
 "language": "GDScript",
-"path": "res://source/blocks/DynamicBlocks/DynamicBlock.gd"
+"path": "res://source/autoloads/blocks/DynamicBlocks/DynamicBlock.gd"
 }, {
 "base": "Node2D",
 "class": "GasSource",
 "language": "GDScript",
-"path": "res://source/blocks/gas/GasSource.gd"
+"path": "res://source/autoloads/blocks/gas/GasSource.gd"
 }, {
 "base": "Node",
 "class": "Level",
@@ -82,7 +82,7 @@ _global_script_classes=[ {
 "base": "TileMap",
 "class": "SteamTilemap",
 "language": "GDScript",
-"path": "res://source/blocks/gas/SteamTilemap.gd"
+"path": "res://source/autoloads/blocks/gas/SteamTilemap.gd"
 } ]
 _global_script_class_icons={
 "AudioEnums": "",

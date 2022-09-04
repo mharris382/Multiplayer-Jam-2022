@@ -1,6 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://source/blocks/BlockFunctions/jumper/BlockJumper.gd" type="Script" id=1]
+[ext_resource path="res://source/autoloads/blocks/BlockFunctions/jumper/BlockJumper.gd" type="Script" id=1]
+
 
 [sub_resource type="StreamTexture" id=9]
 flags = 4

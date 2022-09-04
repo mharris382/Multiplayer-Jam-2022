@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jumper_128.png-9d4cc5e95b395758da721977a30c8796.stex"
+path="res://.import/valve_icon.png-977801a1623c643cf6c4b51e4442aa12.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://source/blocks/BlockFunctions/jumper/jumper_128.png"
-dest_files=[ "res://.import/jumper_128.png-9d4cc5e95b395758da721977a30c8796.stex" ]
+source_file="res://source/autoloads/blocks/gas/valve_icon.png"
+dest_files=[ "res://.import/valve_icon.png-977801a1623c643cf6c4b51e4442aa12.stex" ]
 
 [params]
 

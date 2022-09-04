@@ -40,3 +40,4 @@ External Links
 -   [GDScript warning system](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/warning_system.html)
 -   [GDScript format strings](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_format_string.html)
 
+![[Riveted_Metal.png]]
