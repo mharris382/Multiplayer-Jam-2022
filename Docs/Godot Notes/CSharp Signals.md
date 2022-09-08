@@ -1,3 +1,4 @@
+#csharp #scripting #signals 
 [CSharp Signals](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_features.html#c-signals)
 ==
 [Full Example](https://docs.godotengine.org/en/stable/getting_started/step_by_step/scripting_languages.html#doc-scripting)

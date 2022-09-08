@@ -1,3 +1,4 @@
+#csharp #scripting 
 ## Preprocessor defines[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_features.html#preprocessor-defines "Permalink to this headline")
 
 Godot has a set of defines that allow you to change your C# code depending on the environment you are compiling to.
