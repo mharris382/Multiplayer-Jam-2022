@@ -60,8 +60,8 @@ func get_lower_neighbors(grid_position:Vector2):
 	for dir in DIRECTIONS_4:
 		var pos = grid_position+dir
 		var neighbor_amount = get_steamv(pos)
-		if neighbor_amount < amount:
-			arr.append(pos)
+#		if neighbor_amount < amount:
+		arr.append(pos)
 	return arr
 
 

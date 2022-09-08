@@ -46,40 +46,41 @@ func _iterate_gas():
 	_iterate_blocks()
 	_iterate_sources()
 	
-#	for gas in steam_tilemap.get_used_cells():
-#		var steam =steam_tilemap.get_steamv(gas)
-#		if steam > 1:
-#			var neighbors = steam_tilemap.get_lower_neighbors(gas)
-#			var cnt = 0
-#			for neighbor in neighbors:
-#				if block_tilemap.get_cellv(neighbor) == -1:
-#					cnt+=1
-#			if cnt == 0:
-#				continue
-#			else:
-#				var amount = max(steam / cnt, 1)
-#				amount = min(amount, flow_capacity)
-#				for neighbor in neighbors:
-#					if block_tilemap.get_cellv(neighbor) == -1:
-#						steam_tilemap.modify_steam(neighbor, amount)
-#						steam_tilemap.modify_steam(gas, -amount)
-						
-	for cell in steam_tilemap.get_used_cells():
-		var steam = steam_tilemap.get_steamv(cell)
-		if steam > 0:
-			var neighbors = steam_tilemap.get_neighbors(cell, block_tilemap)
+	for gas in steam_tilemap.get_used_cells():
+		var steam =steam_tilemap.get_steamv(gas)
+		if steam > 1:
+			var neighbors = steam_tilemap.get_lower_neighbors(gas)
+			neighbors.shuffle()
+			var cnt = 0
 			for neighbor in neighbors:
-				var neighbor_steam = steam_tilemap.get_steamv(neighbor)
-				if steam > neighbor_steam:
-					if neighbor_steam == 16:
-						continue
-					else:
-						var flow_amount = steam_tilemap.get_steamv(cell) / 3
-						flow_amount = max(flow_amount, steam)
-						flow_amount = min(flow_amount, 16 - neighbor_steam)
-						steam_tilemap.modify_steam(neighbor, flow_amount)
-						steam_tilemap.modify_steam(cell, -flow_amount)
-						steam = steam_tilemap.get_steamv(cell)
+				if block_tilemap.get_cellv(neighbor) == -1:
+					cnt+=1
+			if cnt == 0:
+				continue
+			else:
+				var amount = max(steam / cnt, 1)
+				amount = min(amount, flow_capacity)
+				for neighbor in neighbors:
+					if block_tilemap.get_cellv(neighbor) == -1 and steam_tilemap.get_steamv(neighbor) < steam:
+						steam_tilemap.modify_steam(neighbor, amount)
+						steam_tilemap.modify_steam(gas, -amount)
+						
+#	for cell in steam_tilemap.get_used_cells():
+#		var steam = steam_tilemap.get_steamv(cell)
+#		if steam > 0:
+#			var neighbors = steam_tilemap.get_neighbors(cell, block_tilemap)
+#			for neighbor in neighbors:
+#				var neighbor_steam = steam_tilemap.get_steamv(neighbor)
+#				if steam > neighbor_steam:
+#					if neighbor_steam == 16:
+#						continue
+#					else:
+#						var flow_amount = steam_tilemap.get_steamv(cell) / 3
+#						flow_amount = max(flow_amount, steam)
+#						flow_amount = min(flow_amount, 16 - neighbor_steam)
+#						steam_tilemap.modify_steam(neighbor, flow_amount)
+#						steam_tilemap.modify_steam(cell, -flow_amount)
+#						steam = steam_tilemap.get_steamv(cell)
 
 func _iterate_blocks():
 	for block in block_tilemap.get_used_cells():
@@ -88,7 +89,18 @@ func _iterate_blocks():
 
 func _iterate_sources():
 	for source in source_tiles.keys():
-		steam_tilemap.modify_steam(source, source_tiles[source])
+		var source_steam = steam_tilemap.get_steamv(source)
+		var amount = source_tiles[source]
+		if source_steam + amount < 16:
+			steam_tilemap.modify_steam(source, amount)
+		else:
+			var neighbors = steam_tilemap.get_lower_neighbors(source) as Array
+			if neighbors.size() == 0:
+				return
+			neighbors.shuffle()
+			var new_source = neighbors[0]
+			steam_tilemap.modify_steam(new_source, amount)
+		
 
 	for source in sources:
 		var src = source as GasSource
@@ -130,3 +142,9 @@ func _on_Source4_steam_source_changed(position, output):
 
 func _on_Source_register_steam_source(source_node):
 	sources.append(source_node)
+
+
+
+
+func _on_Clear_Button_pressed():
+	steam_tilemap.clear()

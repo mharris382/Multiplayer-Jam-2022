@@ -43,19 +43,13 @@ public class SteamSource : Node2D
 			BroadcastSourceStateChanged();
 		}
 	}
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
-
 	void BroadcastSourceStateChanged()
 	{
 		EmitSignal("SteamSourceChanged", Position, Enabled ? _sourceOutput : 0);
 	}
+	
 
-	void _on_button_down()
+	public void _on_button_down()
 	{
 		GD.Print("button callback triggered");
 		Enabled = !Enabled;

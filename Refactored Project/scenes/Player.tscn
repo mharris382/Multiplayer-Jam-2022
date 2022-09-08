@@ -12,7 +12,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 28.0
-height = 76.0
+height = 60.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 14
@@ -28,7 +28,7 @@ position = Vector2( -4.76837e-07, 1.19209e-07 )
 scale = Vector2( 0.3, 0.3 )
 z_index = 11
 animation = "idle"
-frame = 12
+frame = 17
 
 [node name="Label2" type="Label" parent="."]
 visible = false
