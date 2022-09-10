@@ -139,15 +139,15 @@
   },
   "active": "a58b3a0ebc3ed0b7",
   "lastOpenFiles": [
-    "Best Practices/Scene Organization.md",
+    "Style Guide/Style Guide - Blank lines.md",
     "GDScript/START HERE/GDScript.md",
+    "Best Practices/Scene Organization.md",
     "CSharp Features.md",
     "Best Practices/Godot Interfaces.md",
     "CSharp Signals.md",
     "CSharp Preprocessor Defines.md",
     "Godot to Unity API Converter/Need to Convert.md",
     "Godot to Unity API Converter/Unity Math API.md",
-    "Godot Plugins to Try.md",
-    "Godot CSharp/CSharp Language Support.md"
+    "Godot Plugins to Try.md"
   ]
 }
