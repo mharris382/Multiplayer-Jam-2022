@@ -1,0 +1,17 @@
+﻿using Godot;
+
+public static class Debug
+{
+    public static bool AssertNotNull<T>(T value)
+    {
+        if (value != null) return true;
+        GD.PrintErr($"{typeof(T).Name} must not be null");
+        return false;
+    }
+
+    public static void Log(params object[] message)
+    {
+        GD.Print(message);
+    }
+    
+}
