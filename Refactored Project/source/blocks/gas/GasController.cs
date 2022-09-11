@@ -8,9 +8,12 @@ using JetBrains.Annotations;
 
 public class GasController : Node
 {
+    [Export()]
+    public int flowCapacity = 2;
+    
     private GasTilemap _gasTilemap;
     private SolidBlockTilemap _blockTilemap;
-
+    
     private bool _valid = false;
 
 
@@ -53,6 +56,9 @@ public class GasController : Node
             return;
         }
         AddGas();
+        
+        
+        
         var unvisited = new List<Vector2>();
         var lastStateLookup = new Array<Vector2>[16];
         var sb = new StringBuilder();
@@ -62,9 +68,62 @@ public class GasController : Node
             unvisited.AddRange(lastStateLookup[i]);
             sb.AppendLine($"Found {lastStateLookup[i].Count} gas tiles with pressure = {i}");
         }
+        
+        
+        DiffuseGas(unvisited);
 
-        Debug.Log(sb.ToString());
+      //  Debug.Log(sb.ToString());
 
+    }
+
+    private void DiffuseGas(List<Vector2> unvisited)
+    {
+        foreach (Vector2 cell in unvisited)
+        {
+            var gas = _gasTilemap.GetSteam(cell);
+
+            StringBuilder sb2 = new StringBuilder();
+            if (gas > 1)
+            {
+                var neighbors = new Godot.Collections.Array<Vector2>(_gasTilemap.GetLowerNeighbors(cell));
+                neighbors.Shuffle();
+                var cnt = 0;
+                sb2.Append("Found Neighbors: ");
+                foreach (var neighbor in neighbors)
+                {
+                    if (!GasStuff.IsGasCellBlocked(neighbor))
+                    {
+                        sb2.Append(neighbor);
+                        cnt++;
+                    }
+                }
+
+                if (cnt == 0)
+                {
+                    continue;
+                }
+
+                sb2.AppendLine($"\t total neighbors = {cnt}");
+                var amount = Mathf.Max(gas / cnt, 1);
+                amount = Mathf.Min(amount, flowCapacity);
+                neighbors.Shuffle();
+                foreach (var neighbor in neighbors)
+                {
+                    var neighborGas = _gasTilemap.GetSteam(neighbor);
+                    if (!GasStuff.IsGasCellBlocked(neighbor) && neighborGas < gas)
+                    {
+                        //Debug.Log("Trying to transfer");
+                        _gasTilemap.TransferSteam(cell, neighbor, amount);
+                    }
+                    else
+                    {
+                        //Debug.Log("Blocked");
+                    }
+                }
+            }
+
+            //Debug.Log(sb2.ToString());
+        }
     }
 
     private void AddGas()
@@ -73,7 +132,7 @@ public class GasController : Node
         {
             if (_gasTilemap.ModifySteam(gasToAdd.Item1, gasToAdd.Item2, out var added))
             {
-                Debug.Log($"ADDED GAS TO SIM: {added}");
+                //Debug.Log($"ADDED GAS TO SIM: {added}");
             }
         }
     }

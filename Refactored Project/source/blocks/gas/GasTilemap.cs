@@ -40,6 +40,34 @@ public class GasTilemap : TileMap
         amountAdded = GetSteam(tilePosition) - current;
         return false;
     }
+
+    
+    
+    /// <summary>
+    /// tries to transfer the desired amount of steam from one cell to another cell WITH conservation of mass.
+    /// Returns true if ANY steam was transferred.
+    /// NOTE: the amount transfer will be less than or equal to the transferAmount
+    /// </summary>
+    /// <param name="fromPosition"></param>
+    /// <param name="toPosition"></param>
+    /// <param name="transferAmount">desired amount to transfer, actual amount may be less</param>
+    /// <returns>false only if no steam was moved</returns>
+    public bool TransferSteam(Vector2 fromPosition, Vector2 toPosition, int transferAmount)
+    {
+        var fromGas = GetSteam(fromPosition);
+        var toGas = GetSteam(toPosition);
+        var amountCanAdd = 16 - toGas;
+        var amountCanTake = fromGas;
+        var amountCanMove = Mathf.Min(amountCanAdd, amountCanTake);
+        var amount = Mathf.Min(transferAmount, amountCanMove);
+        if (amount > 0)
+        {
+            ModifySteam(fromPosition, -amount, out var added1);
+            ModifySteam(toPosition, amount, out var added2);
+        }
+
+        return amount > 0;
+    }
     
     private void SetSteam(int x, int y, int steamValue)
     {
@@ -66,6 +94,7 @@ public class GasTilemap : TileMap
         {
             var neighborGasAmount = GetSteam(neighbor);
             yield return neighbor;
+            Debug.Log($"Found Neighbor at {neighbor}");
         }
     }
 

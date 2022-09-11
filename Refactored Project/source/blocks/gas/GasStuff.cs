@@ -54,6 +54,14 @@ public static class GasStuff
         });
     }
 
+
+    public static bool IsGasCellBlocked(Vector2 gasCell)
+    {
+        var ws = GasTilemap.MapToWorld(gasCell);
+        var bs = BlockTilemap.WorldToMap(ws);
+        return BlockTilemap.GetCellv(bs) != -1;
+    }
+    
     public static IEnumerable<(Vector2, int)> GetGasFromSourcesToAddToSystem()
     {
         foreach (var steamSource in Sources)
