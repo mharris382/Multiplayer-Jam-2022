@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Game.blocks.gas;
 using Godot;
@@ -14,6 +15,7 @@ public static class GasStuff
         directionVectorLookup.Add(GridDirections.UP, Vector2.Up);
         directionVectorLookup.Add(GridDirections.DOWN, Vector2.Down);
         directionVectorLookup.Add(GridDirections.LEFT, Vector2.Left);
+        Sources = new List<SteamSource>();
     }
 
     public static GasTilemap GasTilemap { get; set; }
@@ -21,6 +23,7 @@ public static class GasStuff
     public static SolidBlockTilemap BlockTilemap { get; set; }
 
 
+    public static List<SteamSource> Sources { get; }
     
     public static bool HasTileMapAssignments => BlockTilemap != null && GasTilemap != null;
 
@@ -51,7 +54,16 @@ public static class GasStuff
         });
     }
 
-    
+    public static IEnumerable<(Vector2, int)> GetGasFromSourcesToAddToSystem()
+    {
+        foreach (var steamSource in Sources)
+        {
+            var pos = steamSource.Position;
+            var gasCoord = GasTilemap.WorldToMap(pos);
+            var amount = steamSource.Output;
+            yield return (gasCoord, amount);
+        }
+    }
 
     public static GridDirections GetPossibleBlockedDirections(Vector2Int gasGridPosition)
     {

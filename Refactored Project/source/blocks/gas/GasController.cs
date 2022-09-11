@@ -10,10 +10,10 @@ public class GasController : Node
 {
     private GasTilemap _gasTilemap;
     private SolidBlockTilemap _blockTilemap;
-    
+
     private bool _valid = false;
-    
-    
+
+
     /// <summary>
     /// resolves all dependencies prior to running the cellular automata algorithm
     /// </summary>
@@ -21,7 +21,7 @@ public class GasController : Node
     {
         await GetTilemaps();
     }
-    
+
     /// <summary>
     /// waits for a gas tilemap to be assigned to GasStuff
     /// <see cref="GasStuff"/>
@@ -41,7 +41,7 @@ public class GasController : Node
         _valid = true;
         Debug.Log("Successfully found Tilemaps");
     }
-    
+
     /// <summary>
     /// cellular automata algorithm
     /// </summary>
@@ -52,7 +52,7 @@ public class GasController : Node
             Debug.Log("Invalid Gas");
             return;
         }
-
+        AddGas();
         var unvisited = new List<Vector2>();
         var lastStateLookup = new Array<Vector2>[16];
         var sb = new StringBuilder();
@@ -62,11 +62,23 @@ public class GasController : Node
             unvisited.AddRange(lastStateLookup[i]);
             sb.AppendLine($"Found {lastStateLookup[i].Count} gas tiles with pressure = {i}");
         }
+
         Debug.Log(sb.ToString());
-        
+
     }
 
-    
-    //timer callback, setup in scene
+    private void AddGas()
+    {
+        foreach (var gasToAdd in GasStuff.GetGasFromSourcesToAddToSystem())
+        {
+            if (_gasTilemap.ModifySteam(gasToAdd.Item1, gasToAdd.Item2, out var added))
+            {
+                Debug.Log($"ADDED GAS TO SIM: {added}");
+            }
+        }
+    }
+
+
+//timer callback, setup in scene
     [UsedImplicitly] public void _iterate_sources() => IterateSources();
 }

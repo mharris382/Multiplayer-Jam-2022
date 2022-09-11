@@ -15,14 +15,11 @@
 
 [node name="GasController" type="Node2D" parent="."]
 script = ExtResource( 2 )
-pathToGasTilemap = NodePath("Steam TileMap")
-pathToBlockTilemap = NodePath("Block TileMap")
 
 [node name="Source2" type="Node2D" parent="GasController"]
 position = Vector2( 1004, 901 )
 script = ExtResource( 1 )
-_sourceOutput = 6
-_sourceStartsEnabled = false
+_sourceOutput = 2
 
 [node name="Source 2 Button2" parent="GasController/Source2" instance=ExtResource( 9 )]
 position = Vector2( -114, -52 )

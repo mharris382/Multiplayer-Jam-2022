@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot.Collections;
 
@@ -48,7 +49,25 @@ public class GasTilemap : TileMap
             SetCell(x, y, SteamToTileId(steamValue));
         }
     }
-   
+
+    public IEnumerable<Vector2> GetNeighbors(Vector2 pos)
+    {
+        yield return pos + Vector2.Up;
+        yield return pos + Vector2.Down;
+        yield return pos + Vector2.Left;
+        yield return pos + Vector2.Right;
+    }
+
+    public IEnumerable<Vector2> GetLowerNeighbors(Vector2 pos)
+    {
+        var gasAmount = GetSteam(pos);
+        foreach (var neighbor in GetNeighbors(pos))
+        {
+            var neighborGasAmount = GetSteam(neighbor);
+            yield return neighbor;
+        }
+    }
+
     private void SetSteam(Vector2 tilePosition, int steamValue) => SetSteam((int)tilePosition.x, (int)tilePosition.y, steamValue);
 
     public int GetSteam(int tileX, int tileY)
