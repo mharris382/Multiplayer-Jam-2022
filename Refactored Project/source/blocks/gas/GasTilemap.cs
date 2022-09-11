@@ -16,12 +16,12 @@ public class GasTilemap : TileMap
     [Export()]
     public NodePath pathToBlockTilemap = "./Block TileMap";
 
-
+    
   
     
     public override void _Ready()
     {
-        GasStuff.ActiveGasTilemap = this;
+        GasStuff.GasTilemap = this;
     }
 
     private static int TileIdToSteam(int tileIndex) => tileIndex + 1;

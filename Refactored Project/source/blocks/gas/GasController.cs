@@ -4,42 +4,50 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Godot.Collections;
+using JetBrains.Annotations;
 
 public class GasController : Node
 {
-    [Export()]
-    public NodePath pathToGasTilemap = "./Gas TileMap";
-    [Export()]
-    public NodePath pathToBlockTilemap = "./Block TileMap";
-
     private GasTilemap _gasTilemap;
-    private bool valid = false;
+    private SolidBlockTilemap _blockTilemap;
+    
+    private bool _valid = false;
     
     
-    
+    /// <summary>
+    /// resolves all dependencies prior to running the cellular automata algorithm
+    /// </summary>
     public override async void _Ready()
     {
-        await WaitForGasTilemapAssignment();
-        valid = !Debug.AssertNotNull(_gasTilemap);
+        await GetTilemaps();
     }
-
-    private async Task WaitForGasTilemapAssignment()
-    {
-        await Task.Run(() =>
-        {
-            int cnt = 0;
-            while (GasStuff.ActiveGasTilemap == null || cnt < 100)
-            {
-                cnt++;
-                Task.Delay(100).Wait();
-            }
-            _gasTilemap = GasStuff.ActiveGasTilemap;
-        });
-    } 
     
-    public void IterateSources()
+    /// <summary>
+    /// waits for a gas tilemap to be assigned to GasStuff
+    /// <see cref="GasStuff"/>
+    /// <seealso cref="SolidBlockTilemap"/>
+    /// <seealso cref="GasTilemap"/>
+    /// </summary>
+    private async Task GetTilemaps()
     {
-        if (!valid)
+        _valid = false;
+        Debug.Log("Getting Tilemaps");
+        await GasStuff.WaitForAssignments();
+        Debug.Log("Finished finding Tilemaps");
+        _blockTilemap = GasStuff.BlockTilemap;
+        _gasTilemap = GasStuff.GasTilemap;
+        if (!Debug.AssertNotNull(_blockTilemap)) return;
+        if (!Debug.AssertNotNull(_gasTilemap)) return;
+        _valid = true;
+        Debug.Log("Successfully found Tilemaps");
+    }
+    
+    /// <summary>
+    /// cellular automata algorithm
+    /// </summary>
+    private void IterateSources()
+    {
+        if (!_valid)
         {
             Debug.Log("Invalid Gas");
             return;
@@ -58,6 +66,7 @@ public class GasController : Node
         
     }
 
-
-    public void _iterate_sources() => IterateSources();
+    
+    //timer callback, setup in scene
+    [UsedImplicitly] public void _iterate_sources() => IterateSources();
 }

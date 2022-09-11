@@ -13,5 +13,9 @@ public static class Debug
     {
         GD.Print(message);
     }
-    
+
+    public static void LogWarning(string msg)
+    {
+        GD.PushWarning(msg);
+    }
 }

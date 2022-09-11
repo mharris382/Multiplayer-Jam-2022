@@ -10,7 +10,7 @@ onready var state = get_node(initial_state)
 
 func _ready() -> void:
 	yield(owner, "ready")
-	print("state machine ready")
+#	print("state machine ready")
 	for child in get_children():
 		child.state_machine = self
 	state.enter()
@@ -35,4 +35,4 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	state.exit()
 	state = get_node(target_state_name)
 	state.enter(msg)
-	print("Transitioned to: ", state.name)
+#	print("Transitioned to: ", state.name)
