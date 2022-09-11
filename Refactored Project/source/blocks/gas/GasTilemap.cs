@@ -37,7 +37,8 @@ public class GasTilemap : TileMap
             amountAdded = amountToAdd;
             return true;
         }
-        throw new System.NotImplementedException();
+        amountAdded = GetSteam(tilePosition) - current;
+        return false;
     }
     
     private void SetSteam(int x, int y, int steamValue)
