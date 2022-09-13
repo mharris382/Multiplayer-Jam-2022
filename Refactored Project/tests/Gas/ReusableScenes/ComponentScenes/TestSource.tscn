@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://source/blocks/gas/valve_icon.png" type="Texture" id=1]
-[ext_resource path="res://tests/Gas/TestSourceButton.gd" type="Script" id=2]
-[ext_resource path="res://tests/Gas/OnOffLight.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/Blocks/Gas/valve_icon.png" type="Texture" id=1]
+[ext_resource path="res://tests/Gas/ReusableScenes/ComponentScenes/TestSourceButton.gd" type="Script" id=2]
+[ext_resource path="res://tests/Gas/ReusableScenes/ComponentScenes/OnOffLight.tscn" type="PackedScene" id=3]
+
 
 [node name="Source" type="Node2D"]
 script = ExtResource( 2 )

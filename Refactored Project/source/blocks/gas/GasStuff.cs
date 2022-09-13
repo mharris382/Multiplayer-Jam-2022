@@ -24,10 +24,18 @@ public static class GasStuff
 
 
     public static List<SteamSource> Sources { get; }
-    
-    public static bool HasTileMapAssignments => BlockTilemap != null && GasTilemap != null;
 
 
+    private static bool HasTileMapAssignments => BlockTilemap != null && GasTilemap != null;
+
+
+    /// <summary>
+    /// async utility method that can be used to delay gas simulation functionality until we are sure that all
+    /// external dependencies have been assigned.  Additionally has a timeout in case where the dependencies
+    /// will never be assigned due to an error.     
+    /// </summary>
+    /// <param name="waitSeconds">how long should we wait for dependencies to be assigned</param>
+    /// <param name="onError">callback triggered if waitSeconds is reached and still have unassigned dependencies</param>
     public static async Task WaitForAssignments(float waitSeconds = 5, Action onError = null)
     {
         await Task.Run(() =>
@@ -53,8 +61,13 @@ public static class GasStuff
                 onError?.Invoke();
         });
     }
-
-
+    
+    
+    /// <summary>
+    /// function to lookup if a gas cell is blocked by a solid block 
+    /// </summary>
+    /// <param name="gasCell"></param>
+    /// <returns></returns>
     public static bool IsGasCellBlocked(Vector2 gasCell)
     {
         var ws = GasTilemap.MapToWorld(gasCell);
@@ -62,6 +75,13 @@ public static class GasStuff
         return BlockTilemap.GetCellv(bs) != -1;
     }
     
+    
+    
+    /// <summary>
+    /// iterator for all gas sources.
+    /// This method should allow gas sources to be moved around in the world dynamically.
+    /// </summary>
+    /// <returns></returns>
     public static IEnumerable<(Vector2, int)> GetGasFromSourcesToAddToSystem()
     {
         foreach (var steamSource in Sources)
@@ -72,6 +92,10 @@ public static class GasStuff
             yield return (gasCoord, amount);
         }
     }
+    
+    
+    
+    #region [Directions Code]
 
     public static GridDirections GetPossibleBlockedDirections(Vector2Int gasGridPosition)
     {
@@ -158,8 +182,9 @@ public static class GasStuff
         
     }
     
-    
 
+    #endregion
+    
     #region [Move to somewhere else]
 
     public static Vector2 ToGasSpace(this PositionVector positionVector)
@@ -230,4 +255,5 @@ public static class GasStuff
     public static PositionVector ToGasSpacePosition(this PositionVector positionVector) => new PositionVector(positionVector.ToGasSpace(), PositionVector.LocationSpace.GasSpace);
 
     #endregion
+    
 }

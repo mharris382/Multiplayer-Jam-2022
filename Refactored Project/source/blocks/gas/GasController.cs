@@ -11,6 +11,9 @@ public class GasController : Node
     [Export()]
     public int flowCapacity = 2;
     
+    [Export()]
+    NodePath gasTilemapPath = new NodePath();
+    
     private GasTilemap _gasTilemap;
     private SolidBlockTilemap _blockTilemap;
     
@@ -22,6 +25,11 @@ public class GasController : Node
     /// </summary>
     public override async void _Ready()
     {
+        
+        var gasTilemap = GetNodeOrNull<GasTilemap>(gasTilemapPath);
+        var tileMap = GetNodeOrNull<TileMap>(gasTilemapPath);
+        GD.Print(gasTilemap);
+        GD.Print(tileMap);
         await GetTilemaps();
     }
 
@@ -56,9 +64,11 @@ public class GasController : Node
             return;
         }
         AddGas();
-        
-        
-        
+        DiffuseGas();
+    }
+
+    private void DiffuseGas()
+    {
         var unvisited = new List<Vector2>();
         var lastStateLookup = new Array<Vector2>[16];
         var sb = new StringBuilder();
@@ -68,12 +78,8 @@ public class GasController : Node
             unvisited.AddRange(lastStateLookup[i]);
             sb.AppendLine($"Found {lastStateLookup[i].Count} gas tiles with pressure = {i}");
         }
-        
-        
+
         DiffuseGas(unvisited);
-
-      //  Debug.Log(sb.ToString());
-
     }
 
     private void DiffuseGas(List<Vector2> unvisited)

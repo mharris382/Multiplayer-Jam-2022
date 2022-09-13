@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://source/Blocks/Gas/valve_icon.png" type="Texture" id=1]
+[ext_resource path="res://source/Blocks/Gas/SteamSource.cs" type="Script" id=3]
+[ext_resource path="res://tests/Gas/ReusableScenes/ComponentScenes/TestSource.tscn" type="PackedScene" id=4]
+
+[node name="Source2" type="Node2D"]
+position = Vector2( 1004, 901 )
+script = ExtResource( 3 )
+_sourceOutput = 6
+
+[node name="Source 2 Button2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -114, -52 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( -119, -66 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+
+[connection signal="On_Button_Pressed" from="Source 2 Button2" to="." method="_on_button_down"]
