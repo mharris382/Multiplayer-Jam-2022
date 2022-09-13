@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jumper_128.png-9d4cc5e95b395758da721977a30c8796.stex"
+path="res://.import/jumper_128.png-66dc27e072247218d658f749d87c7375.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://source/blocks/BlockFunctions/jumper/jumper_128.png"
-dest_files=[ "res://.import/jumper_128.png-9d4cc5e95b395758da721977a30c8796.stex" ]
+source_file="res://source/Blocks/BlockFunctions/jumper/jumper_128.png"
+dest_files=[ "res://.import/jumper_128.png-66dc27e072247218d658f749d87c7375.stex" ]
 
 [params]
 

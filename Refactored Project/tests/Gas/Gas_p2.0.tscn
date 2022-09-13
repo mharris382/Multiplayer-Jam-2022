@@ -1,18 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://source/Blocks/Gas/SteamSource.cs" type="Script" id=1]
 [ext_resource path="res://source/Blocks/Gas/GasController.cs" type="Script" id=2]
 [ext_resource path="res://source/Blocks/Gas/GasTilemap.cs" type="Script" id=3]
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=4]
 [ext_resource path="res://assets/Blocks_Final/gas_blocks/Tileset_Steam_64x64.tres" type="TileSet" id=5]
-[ext_resource path="res://source/Blocks/Gas/valve_icon.png" type="Texture" id=6]
 [ext_resource path="res://scenes/builder.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/transporter.tscn" type="PackedScene" id=8]
-[ext_resource path="res://tests/Gas/ReusableScenes/ComponentScenes/TestSource.tscn" type="PackedScene" id=9]
 [ext_resource path="res://source/Blocks/Gas/SolidBlockTilemap.cs" type="Script" id=10]
 [ext_resource path="res://tests/Gas/ReusableScenes/GasSource.tscn" type="PackedScene" id=11]
 
-[node name="Gas_p1_1" type="Node2D"]
+[node name="Gas_p2_0" type="Node2D"]
 
 [node name="GasController" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -20,6 +17,7 @@ flowCapacity = 4
 gasTilemapPath = NodePath("Steam TileMap")
 
 [node name="Source2" parent="GasController" instance=ExtResource( 11 )]
+position = Vector2( 1840, 904 )
 
 [node name="Steam TileMap" type="TileMap" parent="GasController"]
 z_index = 1000
@@ -59,7 +57,7 @@ wait_time = 0.125
 autostart = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 911, 850 )
+position = Vector2( 1335, 918 )
 current = true
 zoom = Vector2( 3, 3 )
 
@@ -88,27 +86,14 @@ margin_bottom = 1240.0
 rect_scale = Vector2( 1.35173, 1.35173 )
 
 [node name="Builder" parent="." instance=ExtResource( 7 )]
+visible = false
 position = Vector2( 1664, 934 )
 
 [node name="Transporter" parent="." instance=ExtResource( 8 )]
 position = Vector2( 235, 813 )
 
-[node name="Source" type="Node2D" parent="Transporter"]
-position = Vector2( 111, -84 )
-script = ExtResource( 1 )
-_sourceOutput = 6
-_sourceStartsEnabled = false
-
-[node name="Sprite" type="Sprite" parent="Transporter/Source"]
-position = Vector2( -119, -66 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 6 )
-
-[node name="Source 1 Button" parent="Transporter/Source" instance=ExtResource( 9 )]
-position = Vector2( -127, -51 )
+[node name="Source3" parent="Transporter" instance=ExtResource( 11 )]
+position = Vector2( 1, -93 )
 
 [connection signal="timeout" from="GasController/IterationTimer" to="GasController" method="_iterate_sources"]
-[connection signal="button_down" from="Button" to="Transporter/Source" method="_on_button_down"]
 [connection signal="button_down" from="Clear Button" to="GasController" method="_on_Clear_Button_pressed"]
-[connection signal="SteamSourceChanged" from="Transporter/Source" to="GasController" method="_on_Source_SteamSourceChanged"]
-[connection signal="On_Button_Pressed" from="Transporter/Source/Source 1 Button" to="Transporter/Source" method="_on_button_down"]

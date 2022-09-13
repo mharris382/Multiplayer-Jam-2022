@@ -51,9 +51,24 @@ public class SteamSource : Node2D
 	}
 	
 
+	
+	
 	public void _on_button_down()
 	{
 		GD.Print("button callback triggered");
 		Enabled = !Enabled;
+	}
+
+	private void UnregisterSource()
+	{
+		GasStuff.Sources.Remove(this);
+	}
+
+	private void RegisterSource()
+	{
+		if (!GasStuff.Sources.Contains(this))
+		{
+			GasStuff.Sources.Add(this);
+		}
 	}
 }
