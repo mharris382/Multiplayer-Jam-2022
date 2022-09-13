@@ -52,7 +52,7 @@ public class GasTilemap : TileMap
     /// <param name="toPosition"></param>
     /// <param name="transferAmount">desired amount to transfer, actual amount may be less</param>
     /// <returns>false only if no steam was moved</returns>
-    public bool TransferSteam(Vector2 fromPosition, Vector2 toPosition, int transferAmount)
+    public bool TransferSteam(Vector2 fromPosition, Vector2 toPosition, ref int transferAmount)
     {
         var fromGas = GetSteam(fromPosition);
         var toGas = GetSteam(toPosition);
@@ -62,10 +62,10 @@ public class GasTilemap : TileMap
         var amount = Mathf.Min(transferAmount, amountCanMove);
         if (amount > 0)
         {
-            ModifySteam(fromPosition, -amount, out var added1);
-            ModifySteam(toPosition, amount, out var added2);
+           ModifySteam(fromPosition, -amount, out var added1);
+           ModifySteam(toPosition, amount, out var added2);
         }
-
+        transferAmount = amount;
         return amount > 0;
     }
     

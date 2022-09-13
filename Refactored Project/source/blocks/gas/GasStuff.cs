@@ -101,17 +101,20 @@ public static class GasStuff
         }
     }
 
+    public struct CellEdges
+    {
+       
+    }
+    
     /// <summary>
     /// iterates through the unblocked neighbors (4-way) in this order Up, Down, Left, Right
     /// </summary>
     /// <param name="cell">cell to check</param>
     /// <returns>null if this cell is blocked</returns>
-    public static IEnumerable<(Vector2, int)> GetUnblockedNeighbors(Vector2 cell)
+    public static IEnumerable<(Vector2 cell, int gasAmount)> GetUnblockedNeighbors(Vector2 cell)
     {
         if (IsGasCellBlocked(cell))
-        {
             yield break;
-        }
 
         //yield return GetNeighbors(cell).Where(t => !IsGasCellBlocked(t)).Select(t => (t, GasTilemap.GetSteam(t)));
         foreach (var neighbor in GetNeighbors(cell))

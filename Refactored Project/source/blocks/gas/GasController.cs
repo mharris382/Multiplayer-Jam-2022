@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot.Collections;
 using JetBrains.Annotations;
+using Dict = System.Collections.Generic.Dictionary<Godot.Vector2, System.Collections.Generic.Dictionary<Godot.Vector2, int>>;
+
 //#define SORTED
 //#define SHUFFLED
 // #define NONE
@@ -87,64 +89,71 @@ public class GasController : Node
 
         DiffuseGas(unvisited);
     }
-
+    
     private void DiffuseGas(List<Vector2> unvisited)
     {
+        bool TryGetValidNeighbors(Vector2 cell, out List<(Vector2 cell, int gasAmount)> neighbors)
+        {
+            neighbors = GasStuff.GetUnblockedNeighbors(cell).ToList();
+            var cnt = neighbors.Count;
+            if (cnt == 0)
+                return false;
+            neighbors.Sort((t1, t2) =>
+            {
+                var air1 = _gasTilemap.GetSteam(t1.cell);
+                var air2 = _gasTilemap.GetSteam(t2.cell);
+                if (air1 == air2) return 0;
+                return air1 > air2 ? 1 : -1;
+            });
+            return true;
+        }
+
+
+        Dict outflows = new Dict(); 
+
+        bool HasOutflow(Vector2 from, Vector2 to)
+        {
+            if (outflows.ContainsKey(from) == false)
+                return false;
+            if (outflows[from].ContainsKey(to) == false)
+                return false;
+            return true;
+        }
+            
+        void TransferAmountAndRecordOutflow(Vector2 from, Vector2 to, int amount)
+        {
+            if (outflows[from].ContainsKey(to))
+                return;
+            if (_gasTilemap.TransferSteam(from, to, ref amount)) 
+                outflows[from].Add(to, amount);
+        }
+        
         foreach (Vector2 cell in unvisited)
         {
-            var gas = _gasTilemap.GetSteam(cell);
+            outflows.Add(cell, new System.Collections.Generic.Dictionary<Vector2, int>());
+            
+            var gasAmount = _gasTilemap.GetSteam(cell);
+            if (gasAmount <= 1) continue;
+            
+            if (!TryGetValidNeighbors(cell, out var neighbors)) continue;
 
-            StringBuilder sb2 = new StringBuilder();
-            if (gas > 1)
+            const int flowLimit = 5;
+            int curOutflow = 0;
+
+            foreach (var neighbor in neighbors)
             {
-                var neighbors = new Godot.Collections.Array<Vector2>(_gasTilemap.GetLowerNeighbors(cell));
-                neighbors.Shuffle();
-                var cnt = 0;
-
-                foreach (var neighbor in neighbors)
-                {
-                    if (!GasStuff.IsGasCellBlocked(neighbor))
-                    {
-                        cnt++;
-                    }
-                }
-
-                if (cnt == 0)
-                    continue;
-
-                var amount = Mathf.Max(gas / cnt, 1);
-                amount = Mathf.Min(amount, flowCapacity);
+                if (curOutflow >= flowLimit)
+                    break;
                 
-                
-                #if true
-                neighbors.ToList().Sort((t1, t2) =>
+                var gasDiff = gasAmount - neighbor.gasAmount;
+                if (gasDiff > 1)
                 {
-                    var air1 = _gasTilemap.GetSteam(t1);
-                    var air2 = _gasTilemap.GetSteam(t2);
-                    if (air1 == air2)
-                        return 0;
-                    return air1 > air2 ? 1 : -1;
-                });
-                #elif true
-                neighbors.Shuffle();
-                #endif
-                
-                const int limit = 1;
-                int ncnt = 0;
-                foreach (var neighbor in neighbors)
-                {
-                    if (ncnt > limit)
-                        break;
-                    var neighborGas = _gasTilemap.GetSteam(neighbor);
-                    var diffGas = gas - neighborGas;
-                    if (!GasStuff.IsGasCellBlocked(neighbor) && neighborGas < gas)
-                    {
-                        _gasTilemap.TransferSteam(cell, neighbor, amount);
-                        ncnt++;
-                    }
+                    var transferAmount = gasDiff > 2 ? Mathf.CeilToInt(gasDiff / 2.0f) : 1;
+                    TransferAmountAndRecordOutflow(cell,neighbor.cell, transferAmount);
+                    if(HasOutflow(cell, neighbor.cell))
+                        curOutflow += outflows[cell][neighbor.cell];
                 }
             }
-
         }
     }
 
