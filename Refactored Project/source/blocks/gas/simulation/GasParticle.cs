@@ -24,4 +24,11 @@ namespace Game.blocks.gas
         
         
     }
+
+    public enum GridResolution
+    {
+        PX128 = 1,
+        PX64 = 2,
+        PX32 = 4
+    }
 }
