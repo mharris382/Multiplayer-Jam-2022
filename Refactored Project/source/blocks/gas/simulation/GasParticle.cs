@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 namespace Game.blocks.gas
 {
@@ -23,6 +24,35 @@ namespace Game.blocks.gas
         }
         
         
+    }
+
+    public struct GridCell
+    {
+        public GridCell(Vector2Int position, GridResolution resolution = GridResolution.PX128)
+        {
+            Position = position;
+            Resolution = resolution;
+        }
+
+        private Vector2Int Position { get; set; }
+        private GridResolution Resolution { get; }
+
+
+        
+        /// <summary>
+        /// translates a cell from one resolution to a different resolution.  NOTE: there will be a loss of information
+        /// when remapping a smaller resolution to a larger resolution (i.e. PX32 to PX128).  When translating the
+        /// other direction, the top left (i.e. smallest x,y) coordinate will be returned that overlaps the larger coord
+        /// </summary>
+        /// <param name="originalCell">the cell which will have it's position remapped to the target resolution </param>
+        /// <param name="targetResolution">the resolution that the output cell will have</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static GridCell RemapToGrid(GridCell originalCell, GridResolution targetResolution)
+        {
+
+            throw new NotImplementedException();
+        }
     }
 
     public enum GridResolution
