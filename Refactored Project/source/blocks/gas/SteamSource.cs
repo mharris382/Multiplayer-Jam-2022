@@ -39,8 +39,12 @@ public class SteamSource : Node2D
 	public override void _Ready()
 	{
 		_sourceEnabled = _sourceStartsEnabled;
-		if(GasStuff.Sources.Contains(this)==false)
-			GasStuff.Sources.Add(this);
+		if (_sourceEnabled)
+		{
+			RegisterSource();
+			Debug.Log($"Registered source {Name} (rate={_sourceOutput}");
+		}
+		
 		if (_sourceStartsEnabled){
 			BroadcastSourceStateChanged();
 		}

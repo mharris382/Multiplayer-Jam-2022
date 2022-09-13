@@ -18,4 +18,11 @@ public static class Debug
     {
         GD.PushWarning(msg);
     }
+
+    public static bool Assert(bool value, string msg)
+    {
+        if (value) return true;
+        GD.PrintErr(msg);
+        return false;
+    }
 }
