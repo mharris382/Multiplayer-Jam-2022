@@ -45,6 +45,7 @@ seealso: [[Rule Tile Automation Idea]]
 - [Jump Buffer](https://github.com/Drumstickz64/godot_jump_buffer)
 - [Surfacer: 2D-platformer AI and pathfinding](https://godotengine.org/asset-library/asset/968)
  [Platformer Controller 2D](https://github.com/Ev01/PlatformerController2D)
+ [PlatformerBody2D](https://godotengine.org/asset-library/asset/1084)
  
 ## Tilemap Tools
 #### Runtime
@@ -67,9 +68,13 @@ seealso: [[Rule Tile Automation Idea]]
 - [RNGTools](https://gitlab.com/jwestman/rngtools)
 - [GLoot](https://github.com/peter-kish/gloot)
 - [IO Method](https://godotengine.org/asset-library/asset/366)
-
-### Testing
+- [GUS Universal Serializer](https://godotengine.org/asset-library/asset/1244)
+### Math
+- [Linear Algebra](https://godotengine.org/asset-library/asset/695)
+- 
+### Unit Testing
 - [Gut - Godot Unit Testing](https://github.com/bitwes/Gut)
+- [GdUnit3](https://godotengine.org/asset-library/asset/867)
 ## Multiplayer
 - [MDFramework] (C#)
 
@@ -90,5 +95,7 @@ seealso: [[Rule Tile Automation Idea]]
 
 ## Designer Tools
 - [Arrow - Narrative Design tool](https://github.com/mhgolkar/Arrow)
-
+- [GameLevels Blueprint](https://godotengine.org/asset-library/asset/1402)
 ### [[Godot Plugins - Language Converters]]
+
+- [TODO Manager](https://godotengine.org/asset-library/asset/1327)
