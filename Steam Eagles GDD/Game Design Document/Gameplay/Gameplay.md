@@ -1,5 +1,5 @@
 %%
-#readme #gameplay
+ #gameplay
 seealso: [[Steam Eagles GDD]]
 %%
 # Gameplay

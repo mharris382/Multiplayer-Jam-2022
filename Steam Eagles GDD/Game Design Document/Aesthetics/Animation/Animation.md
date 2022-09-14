@@ -1,5 +1,5 @@
 %%
-#readme #aesthetics #animation
+ #aesthetics #animation
 seealso: [[Steam Eagles GDD]], [[Aesthetics]]
 %%
 # Overview

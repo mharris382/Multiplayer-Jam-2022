@@ -1,5 +1,5 @@
 %%
-#readme #tech #multiplayer
+ #tech #multiplayer
 seealso: [[Steam Eagles GDD]], [[Technology]]
 %%
 # Overview

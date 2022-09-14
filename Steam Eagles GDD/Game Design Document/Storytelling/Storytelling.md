@@ -1,5 +1,5 @@
 %%
-#readme #storytelling
+ #storytelling
 seealso: [[Steam Eagles GDD]]
 %%
 # Storytelling

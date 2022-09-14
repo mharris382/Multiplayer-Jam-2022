@@ -1,5 +1,5 @@
 %%
-#readme #aesthetics/sounds
+ #aesthetics/sounds
 seealso: [[Steam Eagles GDD]], [[Aesthetics]]
 %%
 # Overview

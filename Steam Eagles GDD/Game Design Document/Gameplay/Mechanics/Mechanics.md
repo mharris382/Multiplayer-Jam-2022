@@ -1,5 +1,5 @@
 %%
-#readme #gameplay #mechanics
+ #gameplay #mechanics
 seealso: [[Steam Eagles GDD]],  [[Gameplay]], [[Puzzles]], [[Progression]]
 %%
 # Puzzles

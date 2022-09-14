@@ -1,5 +1,5 @@
 %%
-#readme #gameplay #progression
+ #gameplay #progression
 seealso: [[Steam Eagles GDD]],  [[Gameplay]], [[Storytelling]], 
 %%
 # Overview

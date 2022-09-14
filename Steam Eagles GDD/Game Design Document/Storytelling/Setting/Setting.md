@@ -1,5 +1,5 @@
 %%
-#readme #storytelling #setting
+ #storytelling #setting
 seealso: [[Steam Eagles GDD]], [[Storytelling]]
 %%
 # Overview
