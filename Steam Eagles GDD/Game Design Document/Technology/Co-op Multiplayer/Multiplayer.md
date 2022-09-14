@@ -1,6 +1,6 @@
 %%
-#readme
-seealso: [[Steam Eagles GDD]]
+#readme #tech #multiplayer
+seealso: [[Steam Eagles GDD]], [[Technology]]
 %%
 # Overview
 *TODO*

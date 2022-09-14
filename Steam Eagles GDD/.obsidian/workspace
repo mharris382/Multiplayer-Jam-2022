@@ -7,8 +7,12 @@
         "id": "8a38d4d46d0f0208",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "Game Design Document/Aesthetics/Sounds/Sounds.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -36,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#readme",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Game Design Document/Aesthetics/Sounds/Sounds.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Game Design Document/Aesthetics/Sounds/Sounds.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -101,7 +107,7 @@
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
+                "useHierarchy": false
               }
             }
           },
@@ -110,26 +116,29 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Game Design Document/Aesthetics/Sounds/Sounds.md"
+              }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "active": "785427f5d27fc18d",
   "lastOpenFiles": [
-    "README - Steam Eagles GDD.md",
-    "Untitled.md",
-    "assets/templates/Development Iteration Min (Template) .md",
-    "assets/templates/Development Iteration (Template).md",
-    "assets/templates/Idea Note (Template).md",
-    "assets/templates/Minimal Note (Template).md",
+    "Steam Eagles GDD.md",
+    "Game Design Document/Aesthetics/Sounds/Sounds.md",
+    "Game Design Document/World Building/World Building.md",
+    "Game Design Document/Technology/Technology.md",
+    "Game Design Document/Gameplay/Puzzles/Puzzles.md",
     "assets/templates/Section README (Template).md",
-    "Game Design Document/Art.md",
-    "Game Design Document/Aesthetics/Sounds.md"
+    "Game Design Document/Aesthetics/Music/Music.md",
+    "Game Design Document/Storytelling/Lore/Lore.md",
+    "Game Design Document/Storytelling/Interactive Storytelling.md",
+    "Game Design Document/Gameplay/Level Design/Level Design.md"
   ]
 }

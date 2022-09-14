@@ -1,6 +1,6 @@
 %%
-#readme
-seealso: [[Steam Eagles GDD]]
+ #storytelling 
+seealso: [[Steam Eagles GDD]], [[Storytelling]]
 %%
 # Overview
 *TODO*
