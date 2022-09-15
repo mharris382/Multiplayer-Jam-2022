@@ -1,28 +1,32 @@
-﻿using Godot;
+﻿using System.Text;
+using Godot;
 
-public static class Debug
+namespace Game.core
 {
-    public static bool AssertNotNull<T>(T value)
+    public static class Debug
     {
-        if (value != null) return true;
-        GD.PrintErr($"{typeof(T).Name} must not be null");
-        return false;
-    }
+        public static bool AssertNotNull<T>(T value)
+        {
+            if (value != null) return true;
+            GD.PrintErr($"{typeof(T).Name} must not be null");
+            return false;
+        }
 
-    public static void Log(params object[] message)
-    {
-        GD.Print(message);
-    }
+        public static void Log(params object[] message)
+        {
+            GD.Print(message);
+        }
 
-    public static void LogWarning(string msg)
-    {
-        GD.PushWarning(msg);
-    }
+        public static void LogWarning(string msg)
+        {
+            GD.PushWarning(msg);
+        }
 
-    public static bool Assert(bool value, string msg)
-    {
-        if (value) return true;
-        GD.PrintErr(msg);
-        return false;
+        public static bool Assert(bool value, string msg)
+        {
+            if (value) return true;
+            GD.PrintErr(msg);
+            return false;
+        }
     }
 }
