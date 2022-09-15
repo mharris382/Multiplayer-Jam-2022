@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Game.blocks.gas;
+using Game.core;
 using Godot;
 
-public static class GasStuff
+public static partial class GasStuff
 {
     private static Dictionary<GridDirections, Vector2> directionVectorLookup;
     static GasStuff()
@@ -19,7 +20,7 @@ public static class GasStuff
     }
 
     
-    
+    public static int GasIteration { get; set; }
 
     public static GasTilemap GasTilemap { get; set; }
 
@@ -89,7 +90,7 @@ public static class GasStuff
     {
         foreach (var steamSource in Sources)
         {
-            var pos = steamSource.GlobalPosition;
+            var pos = steamSource.GetWorldSpacePosition();
             var gasCoord = GasTilemap.WorldToMap(pos);
             if (!IsGasCellBlocked(gasCoord))
             {
@@ -100,11 +101,7 @@ public static class GasStuff
             }
         }
     }
-
-    public struct CellEdges
-    {
-       
-    }
+    
     
     /// <summary>
     /// iterates through the unblocked neighbors (4-way) in this order Up, Down, Left, Right
@@ -125,128 +122,6 @@ public static class GasStuff
             }
         }
     }
-
-    public class AirspaceGraph
-    {
-        public readonly int graphID;
-        public Vector2 SourceNode
-        {
-            get;
-            set;
-        }
-
-        public class AirCell
-        {
-            internal Vector2 position { get; set; }
-            internal int air { get; set; }
-
-            public AirCell(Vector2 position, int air)
-            {
-                this.position = position;
-                this.air = air;
-            }
-        }
-
-        private int totalCellCount;
-        private int totalAirCount;
-        public Dictionary<Vector2, AirCell> cells = new Dictionary<Vector2, AirCell>();
-        public Dictionary<Vector2, List<Vector2>> undirectedEdges = new Dictionary<Vector2, List<Vector2>>();
-        
-        public AirspaceGraph(int graphId, Vector2 sourceNode, int sourceAir = 1)
-        {
-            graphID = graphId;
-            this.SourceNode = sourceNode;
-            totalAirCount = sourceAir = Mathf.Clamp(sourceAir, 0, 16);
-            totalCellCount = 1;
-            cells.Add(sourceNode, new AirCell(sourceNode, sourceAir));
-        }
-
-        public void SetAirspaceCell(Vector2 source, int currentGas)
-        {
-            if (!cells.ContainsKey(source))
-            {
-                cells.Add(source, new AirCell(source, currentGas));
-                totalCellCount++;
-                totalAirCount += currentGas;
-            }
-            else
-            {
-                totalAirCount -= cells[source].air;
-                totalAirCount += (cells[source].air = Godot.Mathf.Clamp(currentGas, 0, 16));
-            }
-        }
-
-        public override string ToString()
-        {
-            if (totalCellCount <= 0)
-            {
-                return "Airspace Graph Error: totalCellCount=0";
-            }
-            return $"Airspace Graph #{graphID}\t Source:{SourceNode}\n\tTotal Space: {totalCellCount}\n\tTotal Air: {totalAirCount}\n\tTarget Density = {totalAirCount/totalCellCount}\n";
-        }
-    }
-    
-    public const int BLOCKED_ID = -1;
-    public static List<AirspaceGraph> BuildGraphs()
-    {
-        List<AirspaceGraph> graphs = new List<AirspaceGraph>();
-        Dictionary<Vector2, int> trees = new Dictionary<Vector2, int>();
-        var sourceCells = Sources.Select(t => GasTilemap.WorldToMap(t.Position));
-
-        //if cell is already part of a airspace graph then keep checking
-        foreach (var cell in  GasTilemap.GetUsedCells().Union(sourceCells).Where(t => !trees.ContainsKey(t)))
-        {
-           
-            //if cell is not part of an airspace graph then we need to build a new airspace graph
-            AddAirspaceGraph(cell);
-            
-        }
-
-        void AddAirspaceGraph(Vector2 source)
-        {
-            if (Debug.Assert(trees.ContainsKey(source), $"Error trying to build tree on cell {source} twice!"))
-                return;
-            
-            if (Debug.Assert(!IsGasCellBlocked(source), $"Error {source} cell is blocked!"))
-                //TODO: need to remove any air in this cell.
-                return;
-            
-            int id = graphs.Count;
-            graphs.Add(new AirspaceGraph(id, source, GasTilemap.GetSteam(source)));
-            DFS(graphs[id], source);    
-            Debug.Log(graphs[id].ToString());
-        }
-        
-        void DFS(AirspaceGraph graph, Vector2 source)
-        {
-            if (trees.ContainsKey(source)) //if already traversed then do nothing
-                return;
-            
-            bool isBlocked = IsGasCellBlocked(source);
-            if (!isBlocked)
-            {
-                //mark cell as searched
-                trees.Add(source, graph.graphID);
-                
-                //update airspace cell from tilemap
-                graph.SetAirspaceCell(source,  GasTilemap.GetSteam(source));
-                
-                //iterate through unblocked? neighbors
-                foreach (var neighbor in GetNeighbors(source))
-                {
-                    DFS(graph, neighbor);
-                }
-            }
-            else
-            {
-                //mark cell as searched
-                trees.Add(source, BLOCKED_ID);
-            }
-           
-        }
-        return graphs;
-    }
-
 
     private static IEnumerable<Vector2> GetNeighbors(Vector2 pos)
     {
