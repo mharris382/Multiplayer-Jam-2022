@@ -9,7 +9,19 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Godot Plugins.md",
+            "file": "GDScript/Exports/Advanced Exports.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      },
+      {
+        "id": "3e0f7881cd1a4206",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "GDScript/Exports/Exports.md",
             "mode": "source",
             "source": false
           }
@@ -40,7 +52,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#godot",
+                "query": "export",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -57,12 +69,12 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 371.49999809265137,
-    "collapsed": true
+    "width": 371.49999809265137
   },
   "right": {
     "id": "0eb67192b2bfd2a3",
@@ -78,7 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Godot Plugins.md",
+                "file": "GDScript/Exports/Exports.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +107,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Godot Plugins.md",
+                "file": "GDScript/Exports/Exports.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +130,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Godot Plugins.md"
+                "file": "GDScript/Exports/Exports.md"
               }
             }
           }
@@ -130,17 +142,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "ac8569dc51104e29",
+  "active": "3e0f7881cd1a4206",
   "lastOpenFiles": [
-    "Godot Plugins - Language Converters.md",
+    "GDScript/Exports/Advanced Exports.md",
     "Godot Plugins.md",
+    "Godot Plugins - Language Converters.md",
     "TODOs.md",
     "Rule Tile Automation Idea.md",
     "Ink.md",
     "GDScript/START HERE/GDScript.md",
     "Style Guide/Style Guide - Blank lines.md",
     "Best Practices/Scene Organization.md",
-    "CSharp Features.md",
-    "Best Practices/Godot Interfaces.md"
+    "CSharp Features.md"
   ]
 }

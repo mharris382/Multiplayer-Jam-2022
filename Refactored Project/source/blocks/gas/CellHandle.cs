@@ -43,11 +43,5 @@ public struct CellHandle
         }
     }
 
-    public static void TransferGas(Vector2 from, Vector2 to, int amount)
-    {
-        var fromHandle = new CellHandle(from);
-        var toHandle = new CellHandle(to);
-        var fromOutflow = new CellFlow(-amount);
-        var toInflow = new CellFlow(amount);
-    }
+  
 }
