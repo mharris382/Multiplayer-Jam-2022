@@ -1,12 +1,5 @@
-extends Node2D
+extends Sprite
 
-signal On_Button_Pressed()
-signal Off_Button_Pressed()
-
-
-
-
-onready var gasLight = $"Gas Light"
 
 export var show_icons = false
 
@@ -17,11 +10,13 @@ onready var disabled_icon = load("res://assets/ui/editor/pause-icon.png")
 
 var rate = 0
 
+func _ready():
+	_update_icons()
+
 func _rate_changed(new_rate):
 	if new_rate != rate:
 		rate = sign(new_rate)
 		_update_icons()
-
 
 func _update_icons():
 	if show_icons:
@@ -35,12 +30,3 @@ func _update_icons():
 				icon_sprite.texture = sink_icon
 	else:
 		icon_sprite.visible = false
-
-func _on_On_Button_button_down():
-	gasLight.On_Button_Pressed()
-	emit_signal("On_Button_Pressed")
-
-func _on_Off_Button_button_down():
-	gasLight.Off_Button_Pressed()
-	emit_signal("Off_Button_Pressed")
-

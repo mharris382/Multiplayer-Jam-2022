@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/ui/editor/source-icon-rounded.png" type="Texture" id=1]
+
+[node name="SinkSourceBase" type="Node2D"]
+position = Vector2( 1004, 901 )
+
+[node name="Icon Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
