@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.core;
 using Godot.Collections;
 using JetBrains.Annotations;
 using Dict = System.Collections.Generic.Dictionary<Godot.Vector2, System.Collections.Generic.Dictionary<Godot.Vector2, int>>;
@@ -29,7 +30,7 @@ public class GasController : Node
     private SolidBlockTilemap _blockTilemap;
     
     private bool _valid = false;
-
+    private bool _refreshAirspaces = false;
 
     /// <summary>
     /// resolves all dependencies prior to running the cellular automata algorithm
@@ -40,11 +41,20 @@ public class GasController : Node
         // var tileMap = GetNodeOrNull<TileMap>(gasTilemapPath);
         // GD.Print(gasTilemap);
         // GD.Print(tileMap);
+        Logger.NewLogFile("TestLog");
+        
+        Logger.Log2("Getting Tilemaps");
         await GetTilemaps();
-        var graphs = GasStuff.BuildGraphs();
-        Debug.Log($"Found {graphs.Count} connected air spaces");
+        Logger.Log2("Got Tilemaps");
+        GasStuff.ReBuildGraphs();
+        Debug.Log($"Found {GasStuff.Graphs.Count} connected air spaces");
+        
     }
 
+    
+    
+    
+    
     /// <summary>
     /// waits for a gas tilemap to be assigned to GasStuff
     /// <see cref="GasStuff"/>
@@ -75,10 +85,16 @@ public class GasController : Node
             Debug.Log("Invalid Gas");
             return;
         }
+
+        if (_refreshAirspaces)
+        {
+            GasStuff.ReBuildGraphs();
+            Logger.Log2("Refreshed Airspace");
+        }
         AddGas();
         if(!freezeSimulation)
             DiffuseGas();
-        return;
+        GasStuff.GasIteration++;
     }
 
     private void DiffuseGas()
@@ -130,6 +146,8 @@ public class GasController : Node
         {
             if (outflows[from].ContainsKey(to))
                 return;
+            
+            CellHandle.TransferGas(from, to, amount);
             if (_gasTilemap.TransferSteam(from, to, ref amount)) 
                 outflows[from].Add(to, amount);
         }
@@ -170,10 +188,23 @@ public class GasController : Node
             if (_gasTilemap.ModifySteam(gasToAdd.Item1, gasToAdd.Item2, out var added))
             {
                 //Debug.Log($"ADDED GAS TO SIM: {added}");
+                Logger.Log2($"Added {added}");
             }
         }
     }
 
+    public override void _ExitTree()
+    {
+        Logger.Log2("Exit Tree");
+        Logger.FinishLogging();
+        base._ExitTree();
+    }
+
+    public override void _EnterTree()
+    {
+        Logger.Log2("Entering Tree");
+        base._EnterTree();
+    }
 
     public void _on_Clear_Button_pressed()
     {
