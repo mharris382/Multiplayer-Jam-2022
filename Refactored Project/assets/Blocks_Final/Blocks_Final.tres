@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=20 format=2]
 
-[ext_resource path="res://source/blocks/BlockLibrary.gd" type="Script" id=1]
+[ext_resource path="res://source/Blocks/BlockLibrary.gd" type="Script" id=1]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Conveyor.tres" type="Resource" id=2]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Pipe_and_Gear.tres" type="Resource" id=3]
 [ext_resource path="res://assets/Blocks_Final/Block_Data/Block_Plate.tres" type="Resource" id=4]

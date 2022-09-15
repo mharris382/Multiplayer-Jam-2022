@@ -6,10 +6,10 @@ seealso: [[Steam Eagles GDD]], [[Aesthetics]]
 *section summary*
 
 ## Contents
-- chapter 1:
-- chapter 2:
-- chapter 3:
 
 related document sections: [[Aesthetics]], [[Animation]], [[World Building]], [[Storytelling]]
 
 ---
+
+![[Captain_Painting_Extra-min.jpg]]
+

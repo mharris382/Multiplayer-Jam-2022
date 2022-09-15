@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "8a38d4d46d0f0208",
+        "id": "6ae9ba3331ea761f",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Game Design Document/Aesthetics/Sounds/Sounds.md",
+            "file": "Game Design Document/Aesthetics/Aesthetics.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Game Design Document/Aesthetics/Sounds/Sounds.md",
+                "file": "Game Design Document/Aesthetics/Aesthetics.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Game Design Document/Aesthetics/Sounds/Sounds.md",
+                "file": "Game Design Document/Aesthetics/Aesthetics.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Game Design Document/Aesthetics/Sounds/Sounds.md"
+                "file": "Game Design Document/Aesthetics/Aesthetics.md"
               }
             }
           }
@@ -130,15 +130,15 @@
   },
   "active": "785427f5d27fc18d",
   "lastOpenFiles": [
-    "Steam Eagles GDD.md",
-    "Game Design Document/Aesthetics/Sounds/Sounds.md",
-    "Game Design Document/World Building/World Building.md",
-    "Game Design Document/Technology/Technology.md",
-    "Game Design Document/Gameplay/Puzzles/Puzzles.md",
-    "assets/templates/Section README (Template).md",
+    "Game Design Document/Aesthetics/Animation/Animation.md",
+    "Game Design Document/Aesthetics/Art/Art.md",
     "Game Design Document/Aesthetics/Music/Music.md",
-    "Game Design Document/Storytelling/Lore/Lore.md",
-    "Game Design Document/Storytelling/Interactive Storytelling.md",
-    "Game Design Document/Gameplay/Level Design/Level Design.md"
+    "Game Design Document/Aesthetics/Sounds/Sounds.md",
+    "Game Design Document/Aesthetics/Aesthetics.md",
+    "Steam Eagles GDD.md",
+    "Pasted Image 20220915000036_715.jpg",
+    "Excalidraw/Drawing 2022-09-14 23.58.55.excalidraw.md",
+    "assets/media/images/Transporter_Final_2.jpg",
+    "Pasted Image 20220914235921_884.jpg"
   ]
 }

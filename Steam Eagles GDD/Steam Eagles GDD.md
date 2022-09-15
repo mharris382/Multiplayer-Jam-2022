@@ -2,6 +2,8 @@
 #readme
 %%
 # Steam Eagles
+
+![[Itch_thumbnail.jpg]]
 *section summary*
 
 ## Contents
@@ -10,5 +12,6 @@
 [[Aesthetics|Aesthetics]]
 [[World Building|World Building]]
 [[Technology|Technology]]
+
 
 

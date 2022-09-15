@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.blocks.gas;
 using Game.core;
 using Godot.Collections;
 using JetBrains.Annotations;
-using Dict = System.Collections.Generic.Dictionary<Godot.Vector2, System.Collections.Generic.Dictionary<Godot.Vector2, int>>;
+using UnblockedNeighborsList = System.Collections.Generic.List<(Godot.Vector2 cell, int gasAmount)>;
+using GasOutflowLookup = System.Collections.Generic.Dictionary<Godot.Vector2, int>;
+using GasOutflowRecord = System.Collections.Generic.Dictionary<Godot.Vector2, System.Collections.Generic.Dictionary<Godot.Vector2, int>>;
 
 //#define SORTED
 //#define SHUFFLED
@@ -88,8 +91,7 @@ public class GasController : Node
 
         if (_refreshAirspaces)
         {
-            GasStuff.ReBuildGraphs();
-            Logger.Log2("Refreshed Airspace");
+            // Logger.Log2("Refreshed Airspace");
         }
         AddGas();
         if(!freezeSimulation)
@@ -101,12 +103,12 @@ public class GasController : Node
     {
         var unvisited = new List<Vector2>();
         var lastStateLookup = new Array<Vector2>[16];
-        var sb = new StringBuilder();
+        // var sb = new StringBuilder();
         for (int i = 0; i < 16; i++)
         {
             lastStateLookup[i] = _gasTilemap.GetUsedCellsById(i);
             unvisited.AddRange(lastStateLookup[i]);
-            sb.AppendLine($"Found {lastStateLookup[i].Count} gas tiles with pressure = {i}");
+            // sb.AppendLine($"Found {lastStateLookup[i].Count} gas tiles with pressure = {i}");
         }
 
         DiffuseGas(unvisited);
@@ -114,7 +116,65 @@ public class GasController : Node
     
     private void DiffuseGas(List<Vector2> unvisited)
     {
-        bool TryGetValidNeighbors(Vector2 cell, out List<(Vector2 cell, int gasAmount)> neighbors)
+        GasOutflowRecord outflows = new GasOutflowRecord(); //record of gas outflow from each cell
+        UnblockedNeighborsList unblockedNeighbors; //variable to store list of unblocked neighbor cells
+        
+        foreach (Vector2 cell in unvisited)
+        {
+            const int flowLimit = 5;
+            
+            //query for gas amount of current cell
+            var gasAmount = _gasTilemap.GetSteam(cell);
+            
+            //keep track of amount of gas which has moved this turn
+            int curOutflow = 0;
+            
+            
+            //TODO: this dictionary could very easily be replaced with using a direction to index mapping 
+            //create outflow dictionary lookup 
+            outflows.Add(cell, new System.Collections.Generic.Dictionary<Vector2, int>());
+
+            //get a list of unblocked neighbors, if none are found continue
+            if (!TryGetValidNeighbors(cell, out var neighbors)) continue;
+            
+            //if has any empty neighbors transfer gas to one of the empty cells (doesn't matter which one)
+            CheckForEmptyNeighbors(cell, neighbors);
+            gasAmount = _gasTilemap.GetSteam(cell);
+            // if (gasAmount > 0 && GasSim.HasEmptyNeighbor(neighbors, out var emptyNeighbor))//only do this once per cell, not once per empty neighbor
+            // {
+            //     //transfer single gas to empty cell 
+            //     TransferAmountAndRecordOutflow(cell, emptyNeighbor, 1);
+            //     gasAmount = _gasTilemap.GetSteam(cell);
+            // }
+            
+            //only continue if has 1 or more gas
+            if (gasAmount <= 1) continue;
+
+            
+            
+            
+            
+            foreach (var neighbor in neighbors)
+            {
+                gasAmount = _gasTilemap.GetSteam(cell);
+                if (curOutflow >= flowLimit)
+                    break;
+                
+                var gasDiff = gasAmount - neighbor.gasAmount;
+                if (gasDiff > 1)
+                {
+                    
+                    var transferAmount = gasDiff > 2 ? Mathf.CeilToInt(gasDiff / 2.0f) : 1;
+                    TransferAmountAndRecordOutflow(cell,neighbor.cell, transferAmount);
+                    
+                    
+                    if(HasOutflow(cell, neighbor.cell))
+                        curOutflow += outflows[cell][neighbor.cell];
+                }
+            }
+        }
+        
+        bool TryGetValidNeighbors(Vector2 cell, out UnblockedNeighborsList neighbors)
         {
             neighbors = GasStuff.GetUnblockedNeighbors(cell).ToList();
             var cnt = neighbors.Count;
@@ -131,7 +191,6 @@ public class GasController : Node
         }
 
 
-        Dict outflows = new Dict(); 
 
         bool HasOutflow(Vector2 from, Vector2 to)
         {
@@ -141,46 +200,30 @@ public class GasController : Node
                 return false;
             return true;
         }
-            
+
+       
         void TransferAmountAndRecordOutflow(Vector2 from, Vector2 to, int amount)
         {
             if (outflows[from].ContainsKey(to))
                 return;
             
-            CellHandle.TransferGas(from, to, amount);
+            // CellHandle.TransferGas(from, to, amount);
             if (_gasTilemap.TransferSteam(from, to, ref amount)) 
                 outflows[from].Add(to, amount);
         }
-        
-        foreach (Vector2 cell in unvisited)
+
+
+        void CheckForEmptyNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)
         {
-            outflows.Add(cell, new System.Collections.Generic.Dictionary<Vector2, int>());
-            
-            var gasAmount = _gasTilemap.GetSteam(cell);
-            if (gasAmount <= 1) continue;
-            
-            if (!TryGetValidNeighbors(cell, out var neighbors)) continue;
-
-            const int flowLimit = 5;
-            int curOutflow = 0;
-
-            foreach (var neighbor in neighbors)
+            int emptyCount = GasSim.GetEmptyNeighbors(valueTuples, out var emptyNeighbors);
+            if (emptyCount > 0)
             {
-                if (curOutflow >= flowLimit)
-                    break;
-                
-                var gasDiff = gasAmount - neighbor.gasAmount;
-                if (gasDiff > 1)
-                {
-                    var transferAmount = gasDiff > 2 ? Mathf.CeilToInt(gasDiff / 2.0f) : 1;
-                    TransferAmountAndRecordOutflow(cell,neighbor.cell, transferAmount);
-                    if(HasOutflow(cell, neighbor.cell))
-                        curOutflow += outflows[cell][neighbor.cell];
-                }
+               TransferAmountAndRecordOutflow(cell, emptyNeighbors[rng.RandiRange(0, emptyCount-1)], 1);
             }
         }
-    }
 
+    }
+    RandomNumberGenerator  rng = new Godot.RandomNumberGenerator();
     private void AddGas()
     {
         foreach (var gasToAdd in GasStuff.GetGasFromSourcesToAddToSystem())
@@ -188,7 +231,7 @@ public class GasController : Node
             if (_gasTilemap.ModifySteam(gasToAdd.Item1, gasToAdd.Item2, out var added))
             {
                 //Debug.Log($"ADDED GAS TO SIM: {added}");
-                Logger.Log2($"Added {added}");
+                // Logger.Log2($"Added {added}");
             }
         }
     }

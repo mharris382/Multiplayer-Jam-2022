@@ -12,6 +12,6 @@ The script must operate in the [[Tool Mode]] so the above methods can work from
 ----
 
 
-(see [[Properties]])
+(see [[Properties]],  [[Exports]])
 
 ![[Exporting Properties]]
