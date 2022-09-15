@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://source/Blocks/Gas/valve_icon.png" type="Texture" id=1]
+[ext_resource path="res://tests/Gas/ReusableScenes/ComponentScenes/OnOffLight.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tests/Gas/ReusableScenes/SourceSinkIcon.gd" type="Script" id=3]
+
+[node name="Gas_Source_Sink" type="Node2D"]
+position = Vector2( 1004, 901 )
+
+[node name="SourceSinkIcon" type="Sprite" parent="."]
+position = Vector2( -119, -66 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="UI Display Light" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -274 )
