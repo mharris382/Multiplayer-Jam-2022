@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Game.core;
 using Godot.Collections;
 
 
@@ -41,7 +42,7 @@ public class GasTilemap : TileMap
         return false;
     }
 
-    
+  
     
     /// <summary>
     /// tries to transfer the desired amount of steam from one cell to another cell WITH conservation of mass.
@@ -69,7 +70,7 @@ public class GasTilemap : TileMap
         return amount > 0;
     }
     
-    private void SetSteam(int x, int y, int steamValue)
+    public void SetSteam(int x, int y, int steamValue)
     {
         steamValue = Mathf.Clamp(steamValue, 0, MAX_STEAM_VALUE);
         var current = GetSteam(x, y);
@@ -78,6 +79,9 @@ public class GasTilemap : TileMap
             SetCell(x, y, SteamToTileId(steamValue));
         }
     }
+
+
+    public void SetSteam(Vector2 tilePosition, int steamValue) => SetSteam((int)tilePosition.x, (int)tilePosition.y, steamValue);
 
     public IEnumerable<Vector2> GetNeighbors(Vector2 pos)
     {
@@ -97,8 +101,6 @@ public class GasTilemap : TileMap
             Debug.Log($"Found Neighbor at {neighbor}");
         }
     }
-
-    private void SetSteam(Vector2 tilePosition, int steamValue) => SetSteam((int)tilePosition.x, (int)tilePosition.y, steamValue);
 
     public int GetSteam(int tileX, int tileY)
     {
