@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Game.core;
 
 public class SteamSource : Node2D
 {
@@ -80,11 +81,4 @@ public class SteamSource : Node2D
 		return GlobalPosition;
 	}
 
-	private void RegisterSource()
-	{
-		if (!GasStuff.Sources.Contains(this))
-		{
-			GasStuff.Sources.Add(this);
-		}
-	}
 }
