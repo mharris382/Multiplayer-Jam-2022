@@ -54,7 +54,18 @@ public class SteamSource : Node2D
 		EmitSignal("SteamSourceChanged", Position, Enabled ? _sourceOutput : 0);
 	}
 	
+	private void UnregisterSource()
+	{
+		GasStuff.Sources.Remove(this);
+	}
 
+	private void RegisterSource()
+	{
+		if (!GasStuff.Sources.Contains(this))
+		{
+			GasStuff.Sources.Add(this);
+		}
+	}
 	
 	
 	public void _on_button_down()
@@ -63,9 +74,10 @@ public class SteamSource : Node2D
 		Enabled = !Enabled;
 	}
 
-	private void UnregisterSource()
+
+	public Vector2 GetWorldSpacePosition()
 	{
-		GasStuff.Sources.Remove(this);
+		return GlobalPosition;
 	}
 
 	private void RegisterSource()
