@@ -41,7 +41,27 @@ public class GasTilemap : TileMap
         amountAdded = GetSteam(tilePosition) - current;
         return false;
     }
-
+    
+    /// <summary>
+    /// removes the amount provided there is that much to remove, otherwise removes all the steam
+    /// TODO: make an AddSteam version of this method
+    /// </summary>
+    /// <param name="cell"></param>
+    /// <param name="amountToRemove"></param>
+    /// <returns>returns the amount of steam that was removed</returns>
+    public int RemoveSteam(Vector2 cell, int amountToRemove)
+    {
+        var amount = Mathf.Abs(amountToRemove); //accept negative input or positive
+        var prevSteam = GetSteam(cell);
+        
+        if (prevSteam > amount)
+        {
+            SetSteam(cell, prevSteam - amount);
+            return amount;
+        }
+        SetSteam(cell, 0);
+        return prevSteam;
+    }
   
     
     /// <summary>

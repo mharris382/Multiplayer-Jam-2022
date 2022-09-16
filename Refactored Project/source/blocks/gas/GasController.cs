@@ -43,24 +43,12 @@ public class GasController : Node
     /// </summary>
     public override async void _Ready()
     {
-        // var gasTilemap = GetNodeOrNull<GasTilemap>(gasTilemapPath);
-        // var tileMap = GetNodeOrNull<TileMap>(gasTilemapPath);
-        // GD.Print(gasTilemap);
-        // GD.Print(tileMap);
-        Logger.NewLogFile("TestLog");
-        
-        Logger.Log2("Getting Tilemaps");
         await GetTilemaps();
-        Logger.Log2("Got Tilemaps");
         GasStuff.ReBuildGraphs();
         Debug.Log($"Found {GasStuff.Graphs.Count} connected air spaces");
         
     }
 
-    
-    
-    
-    
     /// <summary>
     /// waits for a gas tilemap to be assigned to GasStuff
     /// <see cref="GasStuff"/>
@@ -91,15 +79,24 @@ public class GasController : Node
             Debug.Log("Invalid Gas");
             return;
         }
-
-        if (_refreshAirspaces)
-        {
-            // Logger.Log2("Refreshed Airspace");
-        }
+        
         AddGas();
+        RemoveGasFromSinks();
         if(!freezeSimulation)
             DiffuseGas();
         GasStuff.GasIteration++;
+    }
+
+    private void RemoveGasFromSinks()
+    {
+        foreach (var sink in GasStuff.GetSinks())
+        {
+            var amount = _gasTilemap.RemoveSteam(sink.Item1, sink.Item2);
+            if (amount > 0)
+            {
+                Debug.Log($"Removed {amount} from {sink.Item1}");
+            }
+        }
     }
 
     private void DiffuseGas()
@@ -271,18 +268,7 @@ public class GasController : Node
         }
     }
 
-    public override void _ExitTree()
-    {
-        Logger.Log2("Exit Tree");
-        Logger.FinishLogging();
-        base._ExitTree();
-    }
 
-    public override void _EnterTree()
-    {
-        Logger.Log2("Entering Tree");
-        base._EnterTree();
-    }
 
     public void _on_Clear_Button_pressed()
     {
