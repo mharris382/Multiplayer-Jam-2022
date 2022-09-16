@@ -84,7 +84,7 @@
 4/shapes = [  ]
 4/z_index = 0
 
-[node name="Gas_p14_0" type="Node2D"]
+[node name="Gas_p15_0" type="Node2D"]
 
 [node name="GasController" type="Node2D" parent="."]
 position = Vector2( 0, -2 )

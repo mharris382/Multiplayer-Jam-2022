@@ -82,7 +82,7 @@ tile_data = PoolIntArray( 786418, 34, 0, 786419, 34, 1, 786420, 34, 1, 786421, 3
 script = ExtResource( 7 )
 
 [node name="Light Platform" parent="." instance=ExtResource( 9 )]
-position = Vector2( -1108, 51 )
+position = Vector2( -1110, 51 )
 
 [node name="Camera" parent="." instance=ExtResource( 4 )]
 

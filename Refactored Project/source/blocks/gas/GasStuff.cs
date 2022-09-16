@@ -29,6 +29,35 @@ public static partial class GasStuff
 
     public static List<SteamSource> Sources { get; }
 
+    private static Dictionary<Vector2, int> sinks = new Dictionary<Vector2, int>();
+
+    public static void AddSink(Vector2 cell, int amount)
+    {
+        if (sinks.ContainsKey(cell))
+        {
+            sinks[cell] = Mathf.Clamp(amount, 0, 16);
+        }
+        else
+        {
+            sinks.Add(cell, amount);
+        }
+    }
+
+    public static void RemoveSink(Vector2 cell)
+    {
+        if (sinks.ContainsKey(cell))
+        {
+            sinks.Remove(cell);
+        }
+    }
+    public static IEnumerable<(Vector2, int)> GetSinks()
+    {
+        foreach (var sink in sinks)
+        {
+            if (IsGasCellBlocked(sink.Key) || sink.Value <= 0) continue;
+            yield return (sink.Key, sink.Value);
+        }
+    }
 
     private static bool HasTileMapAssignments => BlockTilemap != null && GasTilemap != null;
 
