@@ -8,6 +8,7 @@ using Game.blocks.gas;
 using Game.core;
 using Godot.Collections;
 using JetBrains.Annotations;
+using Array = Godot.Collections.Array;
 using UnblockedNeighborsList = System.Collections.Generic.List<(Godot.Vector2 cell, int gasAmount)>;
 using GasOutflowLookup = System.Collections.Generic.Dictionary<Godot.Vector2, int>;
 using GasOutflowRecord = System.Collections.Generic.Dictionary<Godot.Vector2, System.Collections.Generic.Dictionary<Godot.Vector2, int>>;
@@ -26,7 +27,9 @@ public class GasController : Node
 
     [Export()]
     public bool freezeSimulation = false;
-    
+
+    [Export()]
+    public bool skipOnInequalNeighbors = false;
     
     
     private GasTilemap _gasTilemap;
@@ -140,14 +143,14 @@ public class GasController : Node
             //if has any empty neighbors transfer gas to one of the empty cells (doesn't matter which one)
             CheckForEmptyNeighbors(cell, neighbors);
             gasAmount = _gasTilemap.GetSteam(cell);
-            // if (gasAmount > 0 && GasSim.HasEmptyNeighbor(neighbors, out var emptyNeighbor))//only do this once per cell, not once per empty neighbor
-            // {
-            //     //transfer single gas to empty cell 
-            //     TransferAmountAndRecordOutflow(cell, emptyNeighbor, 1);
-            //     gasAmount = _gasTilemap.GetSteam(cell);
-            // }
+      
             
             //only continue if has 1 or more gas
+            // if (CheckForInequalNeighbors(cell, neighbors))
+            // {
+            //     
+            // }
+            
             if (gasAmount <= 1) continue;
 
             
@@ -218,8 +221,40 @@ public class GasController : Node
             int emptyCount = GasSim.GetEmptyNeighbors(valueTuples, out var emptyNeighbors);
             if (emptyCount > 0)
             {
-               TransferAmountAndRecordOutflow(cell, emptyNeighbors[rng.RandiRange(0, emptyCount-1)], 1);
+                if (rng.RandiRange(1, 5) <= 2)
+                {
+                    TransferAmountAndRecordOutflow(cell, emptyNeighbors[rng.RandiRange(0, emptyCount - 1)], 1);
+                }
+                else
+                {
+                    TransferAmountAndRecordOutflow(cell, emptyNeighbors[0], 1);
+                }
             }
+        }
+
+        bool CheckForInequalNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)
+        {
+            var cellHandle = cell.GetCellHandle();
+            var average = (int)valueTuples.Average(t => t.gasAmount);
+            bool found = false;
+            foreach (var valueTuple in valueTuples.Where(t => t.gasAmount < cellHandle.GasAmount))
+            {
+                if (valueTuple.gasAmount < average )
+                {
+                    TransferAmountAndRecordOutflow(cell, valueTuple.cell, 1);
+                    found = true;
+                }
+            }
+            // if (cellHandle.GasAmount != average)
+            // {
+            //     average = (average + cellHandle.GasAmount) / 2;
+            // }
+            // else
+            // {
+            //     
+            // }
+            
+            return found;
         }
 
     }
