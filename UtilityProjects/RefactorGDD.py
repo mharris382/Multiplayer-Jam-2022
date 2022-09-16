@@ -12,6 +12,7 @@ def remove_tags_all(tag: str):
             path = os.path.join(root, file)
             remove_tag(path, "#readme")
 
+
 def remove_tag(file_path: str, tag: str):
     lines = []
     with open(file_path, "r+") as f:

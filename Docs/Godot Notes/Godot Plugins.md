@@ -1,11 +1,11 @@
 #godot #scripting #plugins
 
-seealso: [[Rule Tile Automation Idea]]
+seealso: [[Rule Tile Automation Idea]], [[Godot Unit Testing]]
 
 
 
 
-# Godot Libraries
+# Official Godot Asset Libraries
 - [Asset Library](https://godotengine.org/)
 	- [2D Tools Search](https://godotengine.org/asset-library/asset?category=1&godot_version=&sort=updated&filter=)
 	- [Any Search](https://godotengine.org/asset-library/asset?category=&godot_version=&sort=updated&filter=)
@@ -13,7 +13,16 @@ seealso: [[Rule Tile Automation Idea]]
 
 
 
-# 3rd-Party Integrations
+
+# Plugins List
+### Contents
+- 3rd-Party Integrations
+- UI Extensions
+- 2D Tools
+- Scripting Extensions
+- Documentation, Design, & Organization Tools
+
+## 3rd-Party Integrations
 - [Spine-Runtime](https://github.com/GodotExplorer/spine)
 - [Discord SDK](https://github.com/LennyPhoenix/GodotDiscordSDK)
 - [Steam SDK](https://godotengine.org/asset-library/asset/1045)
@@ -21,11 +30,11 @@ seealso: [[Rule Tile Automation Idea]]
 - [Ink-Godot Integration](https://github.com/ephread/inkgd) - [[Ink]]
 	- [C# Version of Ink](https://github.com/paulloz/godot-ink)
 
-# UI Extensions
+## UI Extensions
 - [GD-SimpleKnob](https://godotengine.org/asset-library/asset/1246)
 - [Dialogue Box](https://godotengine.org/asset-library/asset/576)
 
-# 2D Tools
+## 2D Tools
 ## Misc
 -  [SmartShape2D](https://github.com/SirRamEsq/SmartShape2D) - basically a godot version of [Unity's SpriteShape](https://docs.unity3d.com/Packages/com.unity.2d.spriteshape@3.0/manual/index.html) 
 - [WaterMap](https://godotengine.org/asset-library/asset/1323)
@@ -64,7 +73,7 @@ seealso: [[Rule Tile Automation Idea]]
 
 
 
-# Scripting Extensions
+## Scripting Extensions
 - [RNGTools](https://gitlab.com/jwestman/rngtools)
 - [GLoot](https://github.com/peter-kish/gloot)
 - [IO Method](https://godotengine.org/asset-library/asset/366)
@@ -73,6 +82,7 @@ seealso: [[Rule Tile Automation Idea]]
 - [Linear Algebra](https://godotengine.org/asset-library/asset/695)
 - 
 ### Unit Testing
+seealso: [[Godot Unit Testing]]
 - [Gut - Godot Unit Testing](https://github.com/bitwes/Gut)
 - [GdUnit3](https://godotengine.org/asset-library/asset/867)
 ## Multiplayer
@@ -87,7 +97,7 @@ seealso: [[Rule Tile Automation Idea]]
 - [Trail System](https://github.com/OBKF/Godot-Trail-System)
 - [GDScript Delaunay + Voronoi](https://godotengine.org/asset-library/asset/1160)
 ![[Pasted image 20220913235510.png]]
-# Documentation & Organization Tools
+## Documentation, Design, & Organization Tools
 - [Gif Exporter - in editor](https://github.com/jegor377/godot-gdgifexporter)
 - [Gif Recorder](https://github.com/you-win/godot-gif-getter)
 - [gdscript code snippet screenshots](https://github.com/fenix-hub/godot-engine.code-snapshot)

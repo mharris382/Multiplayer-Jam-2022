@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Game.blocks.gas;
 using Game.core;
 using Godot;
 
@@ -43,5 +46,65 @@ public struct CellHandle
         }
     }
 
-  
+    public IEnumerable<CellHandle> UnblockedNeighbors
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public IEnumerable<CellHandle> LowerNeighbors => _GetLowerNeighbors();
+
+
+    private IEnumerable<CellHandle> _GetBlockedNeighbors() => _GetNeighbors().Where(t => t.IsBlocked);
+
+    private IEnumerable<CellHandle> _GetUnblockedNeighbors() => _GetNeighbors().Where(t => !t.IsBlocked);
+
+    private IEnumerable<CellHandle> _GetNeighbors()
+    {
+        return GasStuff.GetUnblockedNeighbors(this.position).Select(t => t.cell.GetCellHandle());
+    }
+
+    private IEnumerable<CellHandle> _GetEmptyNeighbors() => _GetUnblockedNeighbors().Where(t => t.GasAmount == 0);
+    
+    private IEnumerable<CellHandle> _GetLowerNeighbors()
+    {
+        foreach (var unblockedNeighbor in UnblockedNeighbors)
+        {
+            if (unblockedNeighbor.GasAmount < this.GasAmount)
+            {
+                yield return unblockedNeighbor;
+            }
+        }
+    }
+    
+    private IEnumerable<CellHandle> _GetLowerNeighbors(int minimumDifference)
+    {
+        minimumDifference = Mathf.Clamp(minimumDifference, 0, 16);
+        foreach (var unblockedNeighbor in UnblockedNeighbors)
+        {
+            var diff = unblockedNeighbor.GasAmount - this.GasAmount;
+            if (GasAmount - unblockedNeighbor.GasAmount > diff)
+            {
+                yield return unblockedNeighbor;
+            }
+        }
+    }
+
+    private IEnumerable<CellHandle> _GetUnequalNeighbors()
+    {
+        foreach (var unblockedNeighbor in UnblockedNeighbors)
+        {
+            if (unblockedNeighbor.GasAmount != this.GasAmount)
+            {
+                yield return unblockedNeighbor;
+            }
+        }
+    }
+    // private IEnumerable<CellHandle> _GetUnblockedNeighbors()
+    // {
+    //     
+    // }
+    //public static int GetEmptyNeighbors()
 }

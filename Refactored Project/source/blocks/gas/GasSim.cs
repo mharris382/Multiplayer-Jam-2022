@@ -6,6 +6,7 @@ namespace Game.blocks.gas
 {
     public static class GasSim
     {
+        
         public static bool HasEmptyNeighbor(IEnumerable<(Vector2, int)> neighbors, out Vector2 emptyNeighbor)
         {
             var glist = new Godot.Collections.Array<(Vector2, int)>(neighbors);
@@ -37,6 +38,21 @@ namespace Game.blocks.gas
             }
 
             return cnt;
+        }
+
+
+        private static readonly System.Collections.Generic.Dictionary<Vector2, CellHandle> CellHandles =
+            new System.Collections.Generic.Dictionary<Vector2, CellHandle>();
+        
+
+        public static CellHandle GetCellHandle(this Vector2 cellPosition)
+        {
+            if (CellHandles.TryGetValue(cellPosition, out var value))
+            {
+                return value;
+            }
+            CellHandles.Add(cellPosition,  new CellHandle(cellPosition));
+            return CellHandles[cellPosition];
         }
     }
 }
