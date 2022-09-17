@@ -18,14 +18,11 @@ public static partial class GasStuff
         directionVectorLookup.Add(GridDirections.LEFT, Vector2.Left);
         Sources = new List<SteamSource>();
     }
-
-    
+   
     public static int GasIteration { get; set; }
-
     public static GasTilemap GasTilemap { get; set; }
 
     public static SolidBlockTilemap BlockTilemap { get; set; }
-
 
     public static List<SteamSource> Sources { get; }
 
@@ -50,6 +47,8 @@ public static partial class GasStuff
             sinks.Remove(cell);
         }
     }
+    
+    
     public static IEnumerable<(Vector2, int)> GetSinks()
     {
         foreach (var sink in sinks)

@@ -99,6 +99,9 @@ public class GasController : Node
         }
     }
 
+    /// <summary>
+    /// selects the order to traverse the graph <seealso cref="DiffuseGas()"/>
+    /// </summary>
     private void DiffuseGas()
     {
         var unvisited = new List<Vector2>();
@@ -111,11 +114,6 @@ public class GasController : Node
             // sb.AppendLine($"Found {lastStateLookup[i].Count} gas tiles with pressure = {i}");
         }
 
-        DiffuseGas(unvisited);
-    }
-    
-    private void DiffuseGas(List<Vector2> unvisited)
-    {
         GasOutflowRecord outflows = new GasOutflowRecord(); //record of gas outflow from each cell
         UnblockedNeighborsList unblockedNeighbors; //variable to store list of unblocked neighbor cells
         
@@ -123,31 +121,25 @@ public class GasController : Node
         {
             const int flowLimit = 5;
             
-            //query for gas amount of current cell
             var gasAmount = _gasTilemap.GetSteam(cell);
             
-            //keep track of amount of gas which has moved this turn
             int curOutflow = 0;
             
-            
-            //TODO: this dictionary could very easily be replaced with using a direction to index mapping 
-            //create outflow dictionary lookup 
             outflows.Add(cell, new System.Collections.Generic.Dictionary<Vector2, int>());
 
-            //get a list of unblocked neighbors, if none are found continue
-            if (!TryGetValidNeighbors(cell, out var neighbors)) continue;
+
+            UnblockedNeighborsList neighbors;
+            if (!TryGetValidNeighbors(cell, out neighbors)) continue;
             
-            //if has any empty neighbors transfer gas to one of the empty cells (doesn't matter which one)
-            CheckForEmptyNeighbors(cell, neighbors);
+            //if has any empty neighbors diffuse gas to one of the empty cells (doesn't matter which one)
+            if (CheckForEmptyNeighbors(cell, neighbors))
+            {
+            }
+            else if (CheckForLowerNeighbors(cell, neighbors))
+            {
+            }
+            
             gasAmount = _gasTilemap.GetSteam(cell);
-      
-            
-            //only continue if has 1 or more gas
-            // if (CheckForInequalNeighbors(cell, neighbors))
-            // {
-            //     
-            // }
-            
             if (gasAmount <= 1) continue;
 
             
@@ -189,9 +181,7 @@ public class GasController : Node
             });
             return true;
         }
-
-
-
+        
         bool HasOutflow(Vector2 from, Vector2 to)
         {
             if (outflows.ContainsKey(from) == false)
@@ -200,8 +190,7 @@ public class GasController : Node
                 return false;
             return true;
         }
-
-       
+        
         void TransferAmountAndRecordOutflow(Vector2 from, Vector2 to, int amount)
         {
             if (outflows[from].ContainsKey(to))
@@ -211,9 +200,8 @@ public class GasController : Node
             if (_gasTilemap.TransferSteam(from, to, ref amount)) 
                 outflows[from].Add(to, amount);
         }
-
-
-        void CheckForEmptyNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)
+        
+        bool CheckForEmptyNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)
         {
             int emptyCount = GasSim.GetEmptyNeighbors(valueTuples, out var emptyNeighbors);
             if (emptyCount > 0)
@@ -226,35 +214,33 @@ public class GasController : Node
                 {
                     TransferAmountAndRecordOutflow(cell, emptyNeighbors[0], 1);
                 }
+
+                return true;
             }
+            return false;
         }
 
-        bool CheckForInequalNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)
+        bool CheckForLowerNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)
         {
-            var cellHandle = cell.GetCellHandle();
-            var average = (int)valueTuples.Average(t => t.gasAmount);
-            bool found = false;
-            foreach (var valueTuple in valueTuples.Where(t => t.gasAmount < cellHandle.GasAmount))
+            int lowerCount = GasSim.GetLowerNeighbors(cell.GetCellHandle().GasAmount, valueTuples, out Array<Vector2> lowerNeighbors);
+            if (lowerCount > 0)
             {
-                if (valueTuple.gasAmount < average )
+                if (rng.RandiRange(1, 5) <= 2)
                 {
-                    TransferAmountAndRecordOutflow(cell, valueTuple.cell, 1);
-                    found = true;
+                    TransferAmountAndRecordOutflow(cell, lowerNeighbors[rng.RandiRange(0, lowerCount - 1)], 1);
                 }
-            }
-            // if (cellHandle.GasAmount != average)
-            // {
-            //     average = (average + cellHandle.GasAmount) / 2;
-            // }
-            // else
-            // {
-            //     
-            // }
-            
-            return found;
-        }
+                else
+                {
+                    TransferAmountAndRecordOutflow(cell, lowerNeighbors[0], 1);
+                }
 
+                return true;
+            }
+            return false;
+        }
     }
+    
+    
     RandomNumberGenerator  rng = new Godot.RandomNumberGenerator();
     private void AddGas()
     {
