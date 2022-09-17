@@ -54,5 +54,21 @@ namespace Game.blocks.gas
             CellHandles.Add(cellPosition,  new CellHandle(cellPosition));
             return CellHandles[cellPosition];
         }
+
+        public static int GetLowerNeighbors(int cellGasAmount, List<(Vector2 cell, int gasAmount)> neighbors, out Array<Vector2> lowerNeighbors)
+        {
+            lowerNeighbors = new Array<Vector2>();
+            int cnt = 0;
+            foreach (var valueTuple in neighbors)
+            {
+                if (valueTuple.Item2 < cellGasAmount)
+                {
+                    lowerNeighbors.Add(valueTuple.Item1);
+                    cnt++;
+                }
+            }
+
+            return cnt;
+        }
     }
 }
