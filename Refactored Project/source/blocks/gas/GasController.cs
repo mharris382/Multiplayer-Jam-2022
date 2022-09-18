@@ -29,14 +29,16 @@ public class GasController : Node
     public bool freezeSimulation = false;
 
     [Export()]
-    public bool skipOnInequalNeighbors = false;
+    public bool skipOnUnequalNeighbors = false;
     
     
     private GasTilemap _gasTilemap;
     private SolidBlockTilemap _blockTilemap;
-    
+
+    private readonly RandomNumberGenerator  _rng = new Godot.RandomNumberGenerator();
     private bool _valid = false;
-    private bool _refreshAirspaces = false;
+    
+
 
     /// <summary>
     /// resolves all dependencies prior to running the cellular automata algorithm
@@ -111,58 +113,27 @@ public class GasController : Node
         {
             lastStateLookup[i] = _gasTilemap.GetUsedCellsById(i);
             unvisited.AddRange(lastStateLookup[i]);
-            // sb.AppendLine($"Found {lastStateLookup[i].Count} gas tiles with pressure = {i}");
         }
 
-        GasOutflowRecord outflows = new GasOutflowRecord(); //record of gas outflow from each cell
-        UnblockedNeighborsList unblockedNeighbors; //variable to store list of unblocked neighbor cells
-        
+        GasOutflowRecord outflows = new GasOutflowRecord(); 
+        UnblockedNeighborsList unblockedNeighbors;
+
+        int curOutflow = 0;
         foreach (Vector2 cell in unvisited)
         {
             const int flowLimit = 5;
-            
-            var gasAmount = _gasTilemap.GetSteam(cell);
-            
-            int curOutflow = 0;
-            
+
             outflows.Add(cell, new System.Collections.Generic.Dictionary<Vector2, int>());
 
 
             UnblockedNeighborsList neighbors;
             if (!TryGetValidNeighbors(cell, out neighbors)) continue;
             
-            //if has any empty neighbors diffuse gas to one of the empty cells (doesn't matter which one)
-            if (CheckForEmptyNeighbors(cell, neighbors))
+            if (CheckForEmptyNeighbors(cell, neighbors)) { }
+            else if (CheckForLowerNeighbors(cell, neighbors)) { }
+            else
             {
-            }
-            else if (CheckForLowerNeighbors(cell, neighbors))
-            {
-            }
-            
-            gasAmount = _gasTilemap.GetSteam(cell);
-            if (gasAmount <= 1) continue;
-
-            
-            
-            
-            
-            foreach (var neighbor in neighbors)
-            {
-                gasAmount = _gasTilemap.GetSteam(cell);
-                if (curOutflow >= flowLimit)
-                    break;
-                
-                var gasDiff = gasAmount - neighbor.gasAmount;
-                if (gasDiff > 1)
-                {
-                    
-                    var transferAmount = gasDiff > 2 ? Mathf.CeilToInt(gasDiff / 2.0f) : 1;
-                    TransferAmountAndRecordOutflow(cell,neighbor.cell, transferAmount);
-                    
-                    
-                    if(HasOutflow(cell, neighbor.cell))
-                        curOutflow += outflows[cell][neighbor.cell];
-                }
+                curOutflow = FlowToNeighbors(cell, neighbors, flowLimit);
             }
         }
         
@@ -206,9 +177,9 @@ public class GasController : Node
             int emptyCount = GasSim.GetEmptyNeighbors(valueTuples, out var emptyNeighbors);
             if (emptyCount > 0)
             {
-                if (rng.RandiRange(1, 5) <= 2)
+                if (_rng.RandiRange(1, 5) <= 2)
                 {
-                    TransferAmountAndRecordOutflow(cell, emptyNeighbors[rng.RandiRange(0, emptyCount - 1)], 1);
+                    TransferAmountAndRecordOutflow(cell, emptyNeighbors[_rng.RandiRange(0, emptyCount - 1)], 1);
                 }
                 else
                 {
@@ -225,9 +196,9 @@ public class GasController : Node
             int lowerCount = GasSim.GetLowerNeighbors(cell.GetCellHandle().GasAmount, valueTuples, out Array<Vector2> lowerNeighbors);
             if (lowerCount > 0)
             {
-                if (rng.RandiRange(1, 5) <= 2)
+                if (_rng.RandiRange(1, 5) <= 2)
                 {
-                    TransferAmountAndRecordOutflow(cell, lowerNeighbors[rng.RandiRange(0, lowerCount - 1)], 1);
+                    TransferAmountAndRecordOutflow(cell, lowerNeighbors[_rng.RandiRange(0, lowerCount - 1)], 1);
                 }
                 else
                 {
@@ -238,10 +209,33 @@ public class GasController : Node
             }
             return false;
         }
+
+        int FlowToNeighbors(Vector2 cell, UnblockedNeighborsList neighbors, int flowLimit)
+        {
+            var gasAmount = _gasTilemap.GetSteam(cell);
+            if (gasAmount <= 1) return curOutflow;
+            foreach (var neighbor in neighbors)
+            {
+                gasAmount = _gasTilemap.GetSteam(cell);
+                if (curOutflow >= flowLimit)
+                    break;
+
+                var gasDiff = gasAmount - neighbor.gasAmount;
+                if (gasDiff > 1)
+                {
+                    var transferAmount = gasDiff > 2 ? Mathf.CeilToInt(gasDiff / 2.0f) : 1;
+                    TransferAmountAndRecordOutflow(cell, neighbor.cell, transferAmount);
+
+
+                    if (HasOutflow(cell, neighbor.cell))
+                        curOutflow += outflows[cell][neighbor.cell];
+                }
+            }
+
+            return curOutflow;
+        }
     }
-    
-    
-    RandomNumberGenerator  rng = new Godot.RandomNumberGenerator();
+
     private void AddGas()
     {
         foreach (var gasToAdd in GasStuff.GetGasFromSourcesToAddToSystem())
