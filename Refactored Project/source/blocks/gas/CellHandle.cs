@@ -46,15 +46,10 @@ public struct CellHandle
         }
     }
 
-    public IEnumerable<CellHandle> UnblockedNeighbors
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
+    public IEnumerable<CellHandle> UnblockedNeighbors => _GetUnblockedNeighbors();
 
     public IEnumerable<CellHandle> LowerNeighbors => _GetLowerNeighbors();
+    public bool IsFull => GasAmount >= 16;
 
 
     private IEnumerable<CellHandle> _GetBlockedNeighbors() => _GetNeighbors().Where(t => t.IsBlocked);
