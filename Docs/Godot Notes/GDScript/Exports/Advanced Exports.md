@@ -1,4 +1,7 @@
 # Advanced exports[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_exports.html#advanced-exports "Permalink to this headline")
+
+seealso: [[Exporting Properties]]
+
 Not every type of export can be provided on the level of the language itself to avoid unnecessary design complexity. The following describes some more or less common exporting features which can be implemented with a low-level API.
 
 Before reading further, you should get familiar with the way [[Properties]] are handled and how they can be customized with [_set()](https://docs.godotengine.org/en/stable/classes/class_object.html#class-object-method-get-property-list), [_get()](https://docs.godotengine.org/en/stable/classes/class_object.html#class-object-method-get-property-list), and [_get_property_list()](https://docs.godotengine.org/en/stable/classes/class_object.html#class-object-method-get-property-list) methods as described in [Accessing data or logic from an object](https://docs.godotengine.org/en/stable/tutorials/best_practices/godot_interfaces.html#doc-accessing-data-or-logic-from-object).
