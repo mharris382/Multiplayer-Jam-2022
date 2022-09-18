@@ -8,6 +8,18 @@ using Godot;
 
 public static partial class GasStuff
 {
+    public static void RemoveSource(ISteamSource source)
+    {
+        Sources.Remove(source);
+    }
+
+    public static void AddSource(ISteamSource source)
+    {
+        if (!Sources.Contains(source))
+        {
+            Sources.Add(source);
+        }
+    }
     private static Dictionary<GridDirections, Vector2> directionVectorLookup;
     static GasStuff()
     {
@@ -16,7 +28,7 @@ public static partial class GasStuff
         directionVectorLookup.Add(GridDirections.UP, Vector2.Up);
         directionVectorLookup.Add(GridDirections.DOWN, Vector2.Down);
         directionVectorLookup.Add(GridDirections.LEFT, Vector2.Left);
-        Sources = new List<SteamSource>();
+        Sources = new List<ISteamSource>();
     }
    
     public static int GasIteration { get; set; }
@@ -24,7 +36,7 @@ public static partial class GasStuff
 
     public static SolidBlockTilemap BlockTilemap { get; set; }
 
-    public static List<SteamSource> Sources { get; }
+    private static List<ISteamSource> Sources { get; }
 
     private static Dictionary<Vector2, int> sinks = new Dictionary<Vector2, int>();
 
@@ -118,13 +130,42 @@ public static partial class GasStuff
     {
         foreach (var steamSource in Sources)
         {
-            var pos = steamSource.GetWorldSpacePosition();
-            var gasCoord = GasTilemap.WorldToMap(pos);
+            var gasCoord = GasTilemap.WorldToMap(steamSource.GetWorldSpacePosition());
             if (!IsGasCellBlocked(gasCoord))
             {
                 var amount = steamSource.Output;
                 var current = GasTilemap.GetSteam(gasCoord);
-                amount = Mathf.Min(amount, 16 - current);
+                var space = 16 - current;
+                if (space > amount)//if we have any overflow
+                {
+                    //valid meaning the neighbor cell can still accept the overflow
+                    var validNeighbors = gasCoord.GetCellHandle()
+                        .UnblockedNeighbors
+                        .Where(t => !t.IsFull)
+                        .Select(t => t.Position)
+                        .ToList();
+                    
+                    
+                    if (validNeighbors.Count > 0)
+                    {
+                        validNeighbors.Sort(new DescendingOrderGasSorter());//overflow to lowest first
+                        
+                        var overflow = space - amount;
+                        Debug.Assert(overflow > 0, "At this point overflow must be > 0");
+                        
+                        //distributes the overflow into neighbors out of overflow or run out of valid neighbors  
+                        while (overflow > 0 && validNeighbors.Count > 0)
+                        {
+                            validNeighbors.RemoveAll(t => t.GetCellHandle().IsFull);
+                            foreach (var unblockedNeighbor in validNeighbors)
+                            {
+                                var amt = Mathf.CeilToInt(overflow / 2.0f);
+                                overflow-=amt;
+                                yield return (unblockedNeighbor, amount);
+                            }
+                        }
+                    }
+                }
                 yield return (gasCoord, amount);
             }
         }
@@ -319,5 +360,6 @@ public static partial class GasStuff
     public static PositionVector ToGasSpacePosition(this PositionVector positionVector) => new PositionVector(positionVector.ToGasSpace(), PositionVector.LocationSpace.GasSpace);
 
     #endregion
-    
+
+ 
 }

@@ -9,7 +9,19 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "CSharp/CSharp Exports.md",
+            "file": "GDScript/Exports/Exporting Properties.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      },
+      {
+        "id": "75fa115054fbfe08",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "GDScript/Exports/Exports.md",
             "mode": "source",
             "source": false
           }
@@ -40,7 +52,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "export",
+                "query": "tween",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -57,12 +69,12 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 371.49999809265137,
-    "collapsed": true
+    "width": 371.49999809265137
   },
   "right": {
     "id": "0eb67192b2bfd2a3",
@@ -78,7 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CSharp/CSharp Exports.md",
+                "file": "GDScript/Exports/Exports.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +107,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CSharp/CSharp Exports.md",
+                "file": "GDScript/Exports/Exports.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +130,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CSharp/CSharp Exports.md"
+                "file": "GDScript/Exports/Exports.md"
               }
             }
           }
@@ -130,8 +142,9 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "f153ec80e98c7ea3",
+  "active": "934d846ca4b2d945",
   "lastOpenFiles": [
+    "GDScript/Exports/Exporting Properties.md",
     "GDScript/Exports/Advanced Exports.md",
     "CSharp/CSharp Exports.md",
     "CSharp/Differences between CSharp and Gdscript.md",
@@ -140,7 +153,6 @@
     "CSharp/CSharp Preprocessor Defines.md",
     "Plugins/Godot Unit Testing.md",
     "Plugins/Godot Plugins.md",
-    "Plugins/Ink.md",
-    "Images/watermap_demo_1 1.gif"
+    "Plugins/Ink.md"
   ]
 }

@@ -1,20 +1,42 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using Game.core;
 
-public class SteamSource : Node2D
+public interface ISteamSource
 {
+	int Output { get; set; }
+	bool Enabled { get; set; }
+	Vector2 Position { get; set; }
+	void BroadcastSourceStateChanged();
+	Vector2 GetWorldSpacePosition();
+}
+
+public class SteamSource : Node2D, ISteamSource
+{
+	
 	[Signal]
 	delegate void SteamSourceChanged(Vector2 world_position, int output);
 	
+	[Export()] public int _steamPixelSize = 16;
 	[Export]
 	private int _sourceOutput = 3;
+
+	[Export()]
+	private Vector2 _sourceShape = new Vector2(3, 3);
+
+	[Export()]
+	private Vector2 _sourceOffset = new Vector2(1, 1);
 	
 	[Export]
 	private bool _sourceStartsEnabled = true;
 	private bool _sourceEnabled;
 
+	
+	private List<LocalSource> _localSources = new List<LocalSource>();
 
+	
+	
 	public int Output {
 		get => Enabled ? _sourceOutput : 0;
 		set {
@@ -40,6 +62,7 @@ public class SteamSource : Node2D
 	public override void _Ready()
 	{
 		_sourceEnabled = _sourceStartsEnabled;
+		InitLocalSources();
 		if (_sourceEnabled)
 		{
 			RegisterSource();
@@ -50,21 +73,37 @@ public class SteamSource : Node2D
 			BroadcastSourceStateChanged();
 		}
 	}
-	void BroadcastSourceStateChanged()
+
+	private void InitLocalSources()
+	{
+		for (int i = 0; i < _sourceShape.x; i++)
+		{
+			for (int j = 0; j < _sourceShape.y; j++)
+			{
+				var newLocalSource = new LocalSource(this, new Vector2(i, j));
+				_localSources.Add(newLocalSource);
+			}
+		}
+	}
+
+	public void BroadcastSourceStateChanged()
 	{
 		EmitSignal("SteamSourceChanged", Position, Enabled ? _sourceOutput : 0);
 	}
 	
 	private void UnregisterSource()
 	{
-		GasStuff.Sources.Remove(this);
+		foreach (var source in _localSources)
+		{
+			GasStuff.RemoveSource(source);
+		}
 	}
 
 	private void RegisterSource()
 	{
-		if (!GasStuff.Sources.Contains(this))
+		foreach (var source in _localSources)
 		{
-			GasStuff.Sources.Add(this);
+			GasStuff.AddSource(source);
 		}
 	}
 	
@@ -81,4 +120,43 @@ public class SteamSource : Node2D
 		return GlobalPosition;
 	}
 
+	private struct LocalSource : ISteamSource
+	{
+		private SteamSource _source;
+		private readonly Vector2 _offset;
+
+		private bool _enabled;
+		private int _output;
+		public int Output
+		{
+			get => _source.Output;
+			set => _output = value;
+		}
+
+		public bool Enabled
+		{
+			get => _source.Enabled && _enabled;
+			set => _enabled = value;
+		}
+
+		public Vector2 Position
+		{
+			get => _source.Position + (_offset ) + (_source._sourceOffset * _source._steamPixelSize);
+			set { }
+		}
+		public void BroadcastSourceStateChanged() { }
+
+		public Vector2 GetWorldSpacePosition()
+		{
+			return Position;
+		}
+
+		public LocalSource(SteamSource parent, Vector2 offset)
+		{
+			this._offset = offset* parent._steamPixelSize;
+			_source = parent;
+			_enabled = parent.Enabled;
+			_output = parent.Output;
+		}
+	}
 }

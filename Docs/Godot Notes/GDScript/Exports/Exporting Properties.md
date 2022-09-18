@@ -1,6 +1,6 @@
 
 # Properties[¶](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_exports.html#properties "Permalink to this headline")
-(see [[Properties]])
+(see [[Properties]]), [[Exports]]
 To understand how to better use the sections below, you should understand how to make properties with [[Advanced Exports]]
 ```
 func _get_property_list():
