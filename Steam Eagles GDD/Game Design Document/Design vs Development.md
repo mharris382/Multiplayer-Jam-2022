@@ -1,0 +1,8 @@
+%%
+# Design vs Development 
+%%
+ Bear in mind that this document will grow alongside the game's development.  Usually you need to design first, then develop; because otherwise what would you develop?  Well since games change so dramatically in the course of their development; spending time writing a formal game design document is a great way to run around in circles getting nowhere.  So instead I do the minimum amount of designing required to initiate a development sprint.  Each iteration in the sprint is fully documented.  As we get through more and more sprints, we will have more and more information about the game being made.  From there we can make assumptions and educated guesses about what the overall game will look like and use that design to guide future iteration cycles.
+
+The process I am using relies heavily on rapid iteration and continous experimentation.   Each iteration we try learn something that helps make the final product better in some way.  However, after each sprint we should have gotten closer to a final product.  Meaning we should have more knowledge about what the final product will look like.  That's where the Game Design Document (GDD for short) comes in.  
+
+The GDD defines everything we know will be part of the game; we should be able to read the GDD and know roughly what the next version of the game will look like; or how we intend for the disconnected peices produced during development will eventually converge into a single cohesive interactive experience virtual.
