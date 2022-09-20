@@ -76,7 +76,6 @@ namespace Game.Blocks.Solids
         {
             if (_solidBlockTilemap.BuildSolidBlock(cell))
             {
-                Debug.Log($"Building On Cell: {cell}");
                 this.GetTree().SetInputAsHandled();
             }
         }
@@ -85,7 +84,6 @@ namespace Game.Blocks.Solids
         {
             if (_solidBlockTilemap.RemoveSolidBlock(cell))
             {
-                Debug.Log($"Destroying On Cell: {cell}");
                 this.GetTree().SetInputAsHandled();
             }
         }
