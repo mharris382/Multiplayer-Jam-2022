@@ -87,7 +87,5 @@ namespace Game.Blocks.Solids
                 this.GetTree().SetInputAsHandled();
             }
         }
-
-        
     }
 }
