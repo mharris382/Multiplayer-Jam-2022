@@ -1,30 +1,32 @@
-using Godot;
-using System;
 using Game.core;
+using Godot;
 
-public class SinkTileMap : TileMap
+namespace Game.Blocks.Gas.Sinks
 {
-    [Export()]
-    public int sinkID = 2;
-
-    [Export()] public int sinkValue = 6;
-    
-    public override void _Ready()
+    public class SinkTileMap : TileMap
     {
-        Debug.AssertNotNull(TileSet);
-        Debug.Log($"Sink tiles are {TileSet.TileGetName(sinkID)}");
-        var cells = GetUsedCellsById(sinkID);
-        if(cells == null)
-            return;
-        var cnt = cells.Count;
-        Debug.Log($"Found {cnt} sink cells");
-        foreach (var cell in cells)
+        [Export()]
+        public int sinkID = 2;
+
+        [Export()] public int sinkValue = 6;
+    
+        public override void _Ready()
         {
-            var v = (Vector2)cell;
-            GasStuff.AddSink(v, sinkValue);
+            Debug.AssertNotNull(TileSet);
+            Debug.Log($"Sink tiles are {TileSet.TileGetName(sinkID)}");
+            var cells = GetUsedCellsById(sinkID);
+            if(cells == null)
+                return;
+            var cnt = cells.Count;
+            Debug.Log($"Found {cnt} sink cells");
+            foreach (var cell in cells)
+            {
+                var v = (Vector2)cell;
+                GasStuff.AddSink(v, sinkValue);
+            }
         }
+    
+    
+    
     }
-    
-    
-    
 }
