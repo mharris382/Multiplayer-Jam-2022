@@ -132,7 +132,14 @@ public class GasTilemap : TileMap
     {
         return GetSteam((int)tilePosition.x, (int)tilePosition.y);
     }
-    
+
+    public void ClearCells(IEnumerable<Vector2> cells)
+    {
+        foreach (var cell in cells)
+        {
+            SetCellv(cell, -1);
+        }
+    }
     
     public new Array<Vector2> GetUsedCells() => new Array<Vector2>(base.GetUsedCells());
     public new Array<Vector2> GetUsedCellsById(int tileId) => new Array<Vector2>(base.GetUsedCellsById(tileId));

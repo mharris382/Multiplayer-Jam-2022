@@ -13,15 +13,9 @@ namespace Game.Blocks.Gas.AirCurrents
         public override void _Ready()
         {
             Flow.RunTests();
-            Flow.UpdateFlows(this, true);
             base._Ready();
         }
-
-
-        static void RunTests()
-        {
-            
-        }
+        
     }
    
     internal static class Flow
@@ -81,57 +75,5 @@ namespace Game.Blocks.Gas.AirCurrents
 
          
          
-         public static void UpdateFlows(AirFlowTileMap flowTileMap, bool firstTime=false)
-         {
-             FlowStates[] flows = new[]
-             {
-                 FlowStates.OUT_R,
-                 FlowStates.OUT_U,
-                 FlowStates.OUT_L,
-                 FlowStates.OUT_D,
-                 FlowStates.IN_R,
-                 FlowStates.IN_U,
-                 FlowStates.IN_L,
-                 FlowStates.IN_D
-             };
-             Dictionary<FlowStates, int> tileLookup = new Dictionary<FlowStates, int>();
-             for (int i = 0; i < flows.Length; i++)
-             {
-                 tileLookup.Add(flows[i], i);
-                 var tileName = flowTileMap.TileSet.TileGetName(i);
-                 if(firstTime)
-                    Debug.Log($"{flows[i]} matches with tile {tileName}");
-             }
-
-             FlowStates[] inStates = new FlowStates[]
-             {
-                 FlowStates.IN_R,
-                 FlowStates.IN_U,
-                 FlowStates.IN_L,
-                 FlowStates.IN_D
-             };
-             
-             Dictionary<Vector2, List<Vector2>> _validNeighbors = new Dictionary<Vector2, List<Vector2>>();
-             foreach (var state in inStates)
-             {
-                 var inflowCell = flowTileMap.GetUsedCellsById(tileLookup[state]);
-                 foreach (var vec in inflowCell)
-                 {
-                     var cell = (Vector2)vec;
-                     _validNeighbors.Add(cell, new List<Vector2>());
-                 }
-             }
-
-             foreach (var kvp in _validNeighbors)
-             {
-                 var cell = kvp.Key;
-                 var actualNeighbors = cell.GetCellHandle().UnblockedNeighbors;
-                 //GasStuff.GetPossibleBlockedDirections()
-                 foreach (var neighbor in actualNeighbors)
-                 {
-                     kvp.Value.Add(neighbor.Position);
-                 }
-             }
-         }  
     }
 }

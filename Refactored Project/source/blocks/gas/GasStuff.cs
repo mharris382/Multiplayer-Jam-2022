@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Game.blocks.gas;
+using Game.Blocks.Gas;
 using Game.core;
 using Godot;
 
@@ -42,6 +43,7 @@ public static partial class GasStuff
 
     public static void AddSink(Vector2 cell, int amount)
     {
+        
         if (sinks.ContainsKey(cell))
         {
             sinks[cell] = Mathf.Clamp(amount, 0, 16);

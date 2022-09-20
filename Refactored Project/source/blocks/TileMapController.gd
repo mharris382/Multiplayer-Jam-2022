@@ -10,7 +10,7 @@ export var block_jump_id = 5 #we don't have a block data for jump yet
 
 var block_wrapper : PackedScene = preload("res://source/utils/BlockWrapper.tscn")
 var block_ghost =preload("res://source/blocks/BlockFunctions/ghost/BlockGhost.tscn")
-var FlyingText = preload("res://source/ui/flying_text/FlyingText.tscn")#? move this to UI system
+#var FlyingText = preload("res://source/ui/flying_text/FlyingText.tscn")#? move this to UI system
 
 #onready var tile_map :TileMap = $"Tilemap"
 onready var cells = $Cells
