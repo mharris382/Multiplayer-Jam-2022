@@ -1,0 +1,11 @@
+{
+  "templater-obsidian:assets/templates/Section README (Template).md": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "R"
+    }
+  ]
+}

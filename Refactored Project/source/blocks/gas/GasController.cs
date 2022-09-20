@@ -19,6 +19,11 @@ public class GasController : Node
     
     [Export()]
     NodePath gasTilemapPath = new NodePath();
+
+    [Export()]
+    public bool freezeSimulation = false;
+    
+    
     
     private GasTilemap _gasTilemap;
     private SolidBlockTilemap _blockTilemap;
@@ -71,7 +76,8 @@ public class GasController : Node
             return;
         }
         AddGas();
-        DiffuseGas();
+        if(!freezeSimulation)
+            DiffuseGas();
         return;
     }
 
