@@ -103,25 +103,9 @@ gasTilemapPath = NodePath("Steam TileMap")
 
 [node name="Sources" type="Node" parent="GasController"]
 
-[node name="Source2" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
-position = Vector2( 1680, 947 )
-_sourceOutput = 16
-_sourceShape = Vector2( 5, 5 )
-
-[node name="Sprite" parent="GasController/Sources/Source2/Source 2 Button2" index="0"]
-position = Vector2( 16, -32 )
-
-[node name="HBoxContainer" parent="GasController/Sources/Source2/Source 2 Button2" index="1"]
-visible = false
-
-[node name="Gas Light" parent="GasController/Sources/Source2/Source 2 Button2" index="2"]
-modulate = Color( 1, 0.670588, 0.670588, 1 )
-position = Vector2( 116, -60 )
-
 [node name="Source3" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
-position = Vector2( 1342, 1473 )
+position = Vector2( 1597, 1473 )
+_sourceOutput = 16
 
 [node name="Sprite" parent="GasController/Sources/Source3/Source 2 Button2" index="0"]
 position = Vector2( 16, -32 )
@@ -134,7 +118,6 @@ modulate = Color( 1, 0.670588, 0.670588, 1 )
 position = Vector2( 116, -60 )
 
 [node name="Source4" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
 position = Vector2( 1086, 1469 )
 
 [node name="Sprite" parent="GasController/Sources/Source4/Source 2 Button2" index="0"]
@@ -148,7 +131,6 @@ modulate = Color( 1, 0.670588, 0.670588, 1 )
 position = Vector2( 116, -60 )
 
 [node name="Source5" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
 position = Vector2( 834, 1469 )
 
 [node name="Sprite" parent="GasController/Sources/Source5/Source 2 Button2" index="0"]
@@ -162,7 +144,6 @@ modulate = Color( 1, 0.670588, 0.670588, 1 )
 position = Vector2( 116, -60 )
 
 [node name="Source6" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
 position = Vector2( 830, 1179 )
 
 [node name="Sprite" parent="GasController/Sources/Source6/Source 2 Button2" index="0"]
@@ -176,7 +157,6 @@ modulate = Color( 1, 0.670588, 0.670588, 1 )
 position = Vector2( 116, -60 )
 
 [node name="Source7" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
 position = Vector2( 2205, 1342 )
 
 [node name="Sprite" parent="GasController/Sources/Source7/Source 2 Button2" index="0"]
@@ -190,7 +170,6 @@ modulate = Color( 1, 0.670588, 0.670588, 1 )
 position = Vector2( 116, -60 )
 
 [node name="Source9" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
 position = Vector2( 2205, 1342 )
 
 [node name="Sprite" parent="GasController/Sources/Source9/Source 2 Button2" index="0"]
@@ -203,22 +182,7 @@ visible = false
 modulate = Color( 1, 0.670588, 0.670588, 1 )
 position = Vector2( 116, -60 )
 
-[node name="Source8" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
-position = Vector2( 803, 699 )
-
-[node name="Sprite" parent="GasController/Sources/Source8/Source 2 Button2" index="0"]
-position = Vector2( 16, -32 )
-
-[node name="HBoxContainer" parent="GasController/Sources/Source8/Source 2 Button2" index="1"]
-visible = false
-
-[node name="Gas Light" parent="GasController/Sources/Source8/Source 2 Button2" index="2"]
-modulate = Color( 1, 0.670588, 0.670588, 1 )
-position = Vector2( 116, -60 )
-
 [node name="Source10" parent="GasController/Sources" instance=ExtResource( 11 )]
-visible = false
 position = Vector2( 2344, 699 )
 
 [node name="Sprite" parent="GasController/Sources/Source10/Source 2 Button2" index="0"]
@@ -230,6 +194,13 @@ visible = false
 [node name="Gas Light" parent="GasController/Sources/Source10/Source 2 Button2" index="2"]
 modulate = Color( 1, 0.670588, 0.670588, 1 )
 position = Vector2( 113, -7 )
+
+[node name="Source11" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 2165, 679 )
+_sourceOutput = 16
+
+[node name="Source 2 Button2" parent="GasController/Sources/Source11" index="0"]
+visible = false
 
 [node name="Pipe Tilemap" type="TileMap" parent="GasController"]
 z_index = -35
@@ -335,7 +306,7 @@ texture = ExtResource( 15 )
 [node name="Core" type="Node" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="Core"]
-position = Vector2( 1279, 832 )
+position = Vector2( 1295, 839 )
 current = true
 zoom = Vector2( 1.41, 1.41 )
 
@@ -354,8 +325,6 @@ scale = Vector2( 0.239694, 0.239694 )
 [connection signal="button_down" from="Buttons/Clear Button" to="GasController" method="_on_Clear_Button_pressed"]
 [connection signal="button_down" from="Buttons/Start Button2" to="GasController/IterationTimer" method="_start_timer"]
 
-[editable path="GasController/Sources/Source2"]
-[editable path="GasController/Sources/Source2/Source 2 Button2"]
 [editable path="GasController/Sources/Source3"]
 [editable path="GasController/Sources/Source3/Source 2 Button2"]
 [editable path="GasController/Sources/Source4"]
@@ -368,7 +337,6 @@ scale = Vector2( 0.239694, 0.239694 )
 [editable path="GasController/Sources/Source7/Source 2 Button2"]
 [editable path="GasController/Sources/Source9"]
 [editable path="GasController/Sources/Source9/Source 2 Button2"]
-[editable path="GasController/Sources/Source8"]
-[editable path="GasController/Sources/Source8/Source 2 Button2"]
 [editable path="GasController/Sources/Source10"]
 [editable path="GasController/Sources/Source10/Source 2 Button2"]
+[editable path="GasController/Sources/Source11"]

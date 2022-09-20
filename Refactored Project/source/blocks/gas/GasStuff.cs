@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Game.blocks.gas;
 using Game.Blocks.Gas;
+using Game.Blocks.Gas.AirCurrents;
 using Game.core;
 using Godot;
 
@@ -36,7 +37,7 @@ public static partial class GasStuff
     public static GasTilemap GasTilemap { get; set; }
 
     public static SolidBlockTilemap BlockTilemap { get; set; }
-
+    public static AirFlowTilemap AirFlowTilemap { get; set; }
     private static List<ISteamSource> Sources { get; }
 
     private static Dictionary<Vector2, int> sinks = new Dictionary<Vector2, int>();
@@ -61,7 +62,6 @@ public static partial class GasStuff
             sinks.Remove(cell);
         }
     }
-    
     
     public static IEnumerable<(Vector2, int)> GetSinks()
     {

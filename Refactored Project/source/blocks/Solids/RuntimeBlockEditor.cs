@@ -1,4 +1,5 @@
 ﻿using Game.Blocks.Gas;
+using Game.Blocks.Gas.AirCurrents;
 using Game.core;
 using Godot;
 
@@ -52,7 +53,7 @@ namespace Game.Blocks.Solids
                         if (mbEvent.ButtonIndex == LEFT_MOUSE_BTN)
                         {
                             BuildBlockOnCell(cell);
-                            GasStuff.GasTilemap.ClearCells(_solidBlockTilemap.GetGasCellsInBlockCell(cell));
+                            GasStuff.GasTilemap.ClearCells(_solidBlockTilemap.GetGasCellsOnCell(cell));
                         }
                         else if (mbEvent.ButtonIndex == RIGHT_MOUSE_BTN)
                         {
