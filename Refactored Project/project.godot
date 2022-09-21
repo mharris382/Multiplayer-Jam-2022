@@ -60,6 +60,11 @@ _global_script_classes=[ {
 "path": "res://source/levels/PackedPuzzle.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "PlatformerController2D",
+"language": "GDScript",
+"path": "res://source/player/PlatformerCharacter/platformer_controller.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://source/player/Player.gd"
@@ -95,6 +100,7 @@ _global_script_class_icons={
 "GasSource": "",
 "Level": "",
 "PackedPuzzle": "",
+"PlatformerController2D": "",
 "Player": "",
 "Puzzle": "",
 "State": "",
@@ -116,6 +122,9 @@ Blocks="*res://source/autoloads/Blocks.gd"
 
 window/size/width=1920
 window/size/height=1090
+window/size/borderless=true
+window/size/fullscreen=true
+window/size/always_on_top=true
 window/stretch/mode="2d"
 
 [input]
