@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/DragNDrop Scenes/Players_and_camera.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/Audio/sounds/Ambient/steam_engine_1.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/blocks/test_base.png" type="Texture" id=6]
 [ext_resource path="res://source/Blocks/Gas/SteamSource.cs" type="Script" id=7]
 [ext_resource path="res://source/Blocks/Gas/SteamTilemap.gd" type="Script" id=8]
@@ -89,17 +88,27 @@ position = Vector2( -1, 8 )
 [node name="Players and Camera" parent="." instance=ExtResource( 2 )]
 position = Vector2( 487, 321 )
 
-[node name="Camera" parent="Players and Camera" index="2"]
-avatar_padding = Vector2( 256, 256 )
-prefer_zoom = Vector2( 1.2, 1.2 )
+[node name="Builder" parent="Players and Camera" index="0"]
+position = Vector2( -67, 132 )
+
+[node name="Camera Target" parent="Players and Camera/Builder" index="4"]
+position = Vector2( 0, -214 )
+
+[node name="Transporter" parent="Players and Camera" index="1"]
+position = Vector2( 182, 127 )
+
+[node name="Camera Target" parent="Players and Camera/Transporter" index="4"]
+position = Vector2( 0, -388 )
 
 [node name="Camera2D" parent="Players and Camera/Camera" index="0"]
-position = Vector2( 2, -125 )
-editor_draw_drag_margin = true
+position = Vector2( 544.5, 149.5 )
+zoom = Vector2( 1, 1 )
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Players and Camera/Camera/Camera2D" index="0"]
-stream = ExtResource( 3 )
-autoplay = true
+[node name="Transporter" parent="Players and Camera/Camera" index="1"]
+position = Vector2( 182, -261 )
+
+[node name="Builder" parent="Players and Camera/Camera" index="2"]
+position = Vector2( -67, -82 )
 
 [editable path="Players and Camera"]
 [editable path="Players and Camera/Camera"]

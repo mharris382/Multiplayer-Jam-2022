@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/valve_icon.png-c27542e155c269319fef9fbcdd59a2fd.stex"
+path="res://.import/valve_icon.png-3c355fede81eae58a78f688e66dffbe8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://source/Blocks/Gas/valve_icon.png"
-dest_files=[ "res://.import/valve_icon.png-c27542e155c269319fef9fbcdd59a2fd.stex" ]
+source_file="res://source/Blocks/gas/valve_icon.png"
+dest_files=[ "res://.import/valve_icon.png-3c355fede81eae58a78f688e66dffbe8.stex" ]
 
 [params]
 
