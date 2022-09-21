@@ -1,4 +1,3 @@
-class_name SteamTilemap
 extends TileMap
 
 const MAX_STEAM_VALUE = 16

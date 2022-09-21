@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/utils/AudioEnums.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "BlockData",
 "language": "GDScript",
 "path": "res://source/Blocks/BlockData.gd"
@@ -44,10 +44,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/Blocks/DynamicBlocks/DynamicBlock.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "GasSource",
 "language": "GDScript",
-"path": "res://source/Blocks/Gas/GasSource.gd"
+"path": "res://source/Blocks/gas/GasSource.gd"
 }, {
 "base": "Node",
 "class": "Level",
@@ -84,10 +84,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/state/StateMachine.gd"
 }, {
-"base": "Reference",
+"base": "TileMap",
 "class": "SteamTilemap",
 "language": "GDScript",
-"path": "res://source/Blocks/Gas/SteamTilemap.gd"
+"path": "res://source/Blocks/gas/SteamTilemap.gd"
 } ]
 _global_script_class_icons={
 "AudioEnums": "",
