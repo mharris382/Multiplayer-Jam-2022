@@ -8,4 +8,4 @@ collision_layer = 65
 
 [node name="Animator" parent="." index="1"]
 frames = ExtResource( 2 )
-frame = 26
+frame = 21
