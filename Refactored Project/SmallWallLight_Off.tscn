@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/Small Wall Light.tscn" type="PackedScene" id=1]
+
+[node name="Small Wall Light" instance=ExtResource( 1 )]
+light_on = false
+light_intensity = 0.0
+off_color = Color( 0.278431, 0.278431, 0.278431, 1 )
+
+[node name="Sprite" parent="." index="0"]
+self_modulate = Color( 0.278431, 0.278431, 0.278431, 1 )
+
+[node name="Light2D" parent="Sprite" index="0"]
+visible = false
+enabled = false
+energy = 0.0

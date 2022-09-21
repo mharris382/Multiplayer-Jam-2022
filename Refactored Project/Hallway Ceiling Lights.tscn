@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/Light Platform.tscn" type="PackedScene" id=1]
+
+[node name="Hallway Ceiling Lights" type="Node2D"]
+
+[node name="Light Platform16" parent="." instance=ExtResource( 1 )]
+position = Vector2( 549, 10 )
+
+[node name="Light Platform17" parent="." instance=ExtResource( 1 )]
+position = Vector2( 270, 10 )
+
+[node name="Light Platform18" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2, 10 )
+
+[node name="Light Platform19" parent="." instance=ExtResource( 1 )]
+position = Vector2( -266, 10 )
+
+[node name="Light Platform20" parent="." instance=ExtResource( 1 )]
+position = Vector2( -511, 10 )

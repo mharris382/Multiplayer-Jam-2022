@@ -30,7 +30,7 @@ position = Vector2( -4.76837e-07, 1.19209e-07 )
 scale = Vector2( 0.3, 0.3 )
 z_index = 55
 animation = "idle"
-frame = 10
+frame = 8
 
 [node name="Label2" type="Label" parent="."]
 visible = false
