@@ -27,9 +27,6 @@ public class GasController : Node
     NodePath gasTilemapPath = new NodePath();
 
     [Export()]
-    public bool freezeSimulation = false;
-
-    [Export()]
     public bool skipOnUnequalNeighbors = false;
     
     
@@ -85,7 +82,6 @@ public class GasController : Node
         
         AddGas();
         RemoveGasFromSinks();
-        if(!freezeSimulation)
             DiffuseGas();
         GasStuff.GasIteration++;
     }

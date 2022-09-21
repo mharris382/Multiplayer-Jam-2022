@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/transporter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/builder.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/CameraSetup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Blocks_Final/auto-tiles/light.png" type="Texture" id=4]
+
+[node name="Players and Camera" type="Node2D"]
+
+[node name="Builder" parent="." instance=ExtResource( 2 )]
+position = Vector2( -107, 0 )
+MaxJumpHeight = 159
+MinJumpHeight = 133
+JumpDuration = 0.352
+canHoldJump = false
+idleFriction = 25
+
+[node name="Builder RemoteTransform Camera" type="RemoteTransform2D" parent="Builder"]
+position = Vector2( -7, -127 )
+remote_path = NodePath("../../Camera/Builder")
+update_rotation = false
+update_scale = false
+
+[node name="Light2D2" type="Light2D" parent="Builder"]
+position = Vector2( 3.99998, 0 )
+rotation = 3.14159
+scale = Vector2( 7.41747, 7.41747 )
+texture = ExtResource( 4 )
+texture_scale = 0.5
+energy = 0.5
+shadow_enabled = true
+shadow_color = Color( 0.505882, 1, 1, 1 )
+
+[node name="Transporter" parent="." instance=ExtResource( 1 )]
+position = Vector2( 119, 0 )
+MaxJumpHeight = 159
+MinJumpHeight = 133
+JumpDuration = 0.352
+canHoldJump = false
+idleFriction = 25
+
+[node name="Transporter RemoteTransform Camera" type="RemoteTransform2D" parent="Transporter"]
+position = Vector2( 1, -133 )
+remote_path = NodePath("../../Camera/Transporter")
+update_rotation = false
+update_scale = false
+
+[node name="Light2D" type="Light2D" parent="Transporter"]
+position = Vector2( -6, 3 )
+rotation = 3.14159
+scale = Vector2( 7.41747, 7.41747 )
+texture = ExtResource( 4 )
+texture_scale = 0.5
+energy = 0.5
+shadow_enabled = true
+shadow_color = Color( 1, 1, 0.352941, 1 )
+
+[node name="Camera" parent="." instance=ExtResource( 3 )]
+
+[node name="Camera2D" parent="Camera" index="0"]
+position = Vector2( 307, 52 )
+offset_v = 0.13
+
+[node name="Transporter" parent="Camera" index="1"]
+position = Vector2( 120, -133 )
+
+[node name="Builder" parent="Camera" index="2"]
+position = Vector2( -114, -127 )
+
+[editable path="Camera"]
