@@ -121,10 +121,7 @@ Blocks="*res://source/autoloads/Blocks.gd"
 [display]
 
 window/size/width=1920
-window/size/height=1090
-window/size/borderless=true
-window/size/fullscreen=true
-window/size/always_on_top=true
+window/size/height=1080
 window/stretch/mode="2d"
 
 [input]

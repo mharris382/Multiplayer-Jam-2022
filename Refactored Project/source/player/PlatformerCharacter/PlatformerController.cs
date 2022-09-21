@@ -6,106 +6,81 @@ public class PlatformerController : KinematicBody2D
     public int accelerationTime = 10;
 
     
-    [Export] public bool canHoldJump = true;
+    
+    
+    
+  
+    
+    [Export] public string inputJump = "jump";
+    [Export] public string inputLeft = "move_left";
+    [Export] public string inputRight = "move_right";
+    [Export] public string inputDown = "move_down";
+    
+    
 
-    /// <summary>
-    ///  You can still jump this many seconds after falling off a ledge
-    /// </summary>
+    /// <summary>  You can still jump this many seconds after falling off a ledge </summary>
     [Export] public float coyoteTime = 0.1f;
+    /// <summary>   The height of your jump in the air </summary>
+    [Export] public int doubleJumpHeight = 100; 
 
+    [Export] public bool canHoldJump = true;
+    
+    /// <summary> Only neccessary when canHoldJump is off
+    /// Pressing jump this many seconds before hitting the ground will still make you jump </summary>
+    [Export]public float jumpBuffer = 0.1f;
+       
+    
+    
+    /// <summary>  Multiplies the gravity by this while falling </summary>
+    [Export] public float fallingGravityMultiplier = 1.5f;
+    
+    [Export]public int movingFriction = 5;
+    [Export]public int idleFriction = 25;
+    
+    
+    [Export] public int maxSpeed = 128;
+    /// <summary> Set to 2 for double jump </summary>
+    [Export()]public int maxJumpAmount = 1;
+    
+    
+    
+    public int maxAcceleration = 4000;
+    public float jumpDuration = 0.3f; 
+    /// <summary> The max jump height in Pixels (holding jump) </summary>
+    public int maxJumpHeight = 150; 
+    /// <summary> The minimum jump Height (tapping jump) </summary>
+    public int minJumpHeight = 128; 
+    [Export(PropertyHint.Range, "1,2")] public int playerNumber = 1;
+
+    
     public Timer coyoteTimer = new Timer();
 
 
-    // These will be calcualted automatically
+    public float doubleJumpVelocity;
     public float defaultGravity;
 
-    /// <summary>
-    ///   The height of your jump in the air
-    /// </summary>
-    [Export] public int doubleJumpHeight = 100; // {set{SetDoubleJumpHeight(value);}}
-
-    public float doubleJumpVelocity;
-
-    /// <summary>
-    ///  Multiplies the gravity by this while falling
-    /// </summary>
-    [Export] public float fallingGravityMultiplier = 1.5f;
-    
+   
     public int friction
     {
-        get => MoveInput.x != 0 || !IsGrounded ? movingFriction : idleFriction;
+        get => MoveInput.x != 0 ? movingFriction : idleFriction;
     }
-    [Export]public int movingFriction = 0;
-    [Export]public int idleFriction = 25;
+   
     public bool holdingJump;
 
-    /// <summary>
-    /// the name of the jump Action  (in the Input Map) disregarding the "_p1" or "_p2"
-    /// </summary>
-    [Export] public string inputJump = "jump";
-     /// <summary>
-    /// the name of the move left Action (in the Input Map) disregarding the "_p1" or "_p2"
-    /// </summary>
-    [Export] public string inputLeft = "move_left";
+    
 
-     /// <summary>
-     /// the name of the move right Action (in the Input Map) disregarding the "_p1" or "_p2"
-     /// </summary>
-    [Export] public string inputRight = "move_right";
-
-     /// <summary>
-     /// the name of the move down Action (in the Input Map) disregarding the "_p1" or "_p2"
-     /// </summary>
-     [Export] public string inputDown = "move_down";
-
-     /// <summary>
-    /// Only neccessary when canHoldJump is off
-    /// Pressing jump this many seconds before hitting the ground will still make you jump
-    /// </summary>
-    [Export] 
-     public float jumpBuffer = 0.1f;
-     [Export] 
-     public int maxSpeed = 128;
+     
     public Timer jumpBufferTimer = new Timer();
 
     /// <summary>
     /// How long it takes to get to the peak of the jump in seconds
     /// </summary>
     //[Export(PropertyHint.ExpRange, "0.01,1,0.01")]
-    [Export()]
-    public float jumpDuration = 0.3f; // {set{SetJumpDuration(value);}}
-
-
+    
     public int jumpsLeft;
     public float jumpVelocity;
 
-    [Export()]
-    //[Export(PropertyHint.ExpRange, "100,4000,0.01,or_greater")] 
-    public int maxAcceleration = 4000;
-
-    /// <summary>
-    /// Set to 2 for double jump
-    /// </summary>
-    // [Export(PropertyHint.Range, "1, 2")]
-    [Export()]
-    public int maxJumpAmount = 1;
     
-    
-    /// <summary>
-    /// The max jump height in Pixels (holding jump)
-    /// </summary>
-    [Export()]//PropertyHint.Range, "128,2048,64")] 
-    public int maxJumpHeight = 150; 
-
-
-    /// <summary>
-    /// The minimum jump Height (tapping jump)
-    /// </summary>
-    [Export(PropertyHint.Range, "1,128")] 
-    public int minJumpHeight = 128; 
-
-    [Export(PropertyHint.Range, "1,2")] 
-    public int playerNumber = 1;
     
     
     
@@ -136,11 +111,6 @@ public class PlatformerController : KinematicBody2D
         get => input;
         private set => input = value;
     }
-    
-    public PlatformerController() : base()
-    {
-        _Init();
-    }
 
     public int MaxAcceleration
     {
@@ -151,7 +121,7 @@ public class PlatformerController : KinematicBody2D
     /// <summary>
     /// Set to 2 for double jump
     /// </summary>
-    public int MaxJumpAmount
+    [Export()]public int MaxJumpAmount
     {
         get => maxJumpAmount;
         set => maxJumpAmount = value;
@@ -160,16 +130,17 @@ public class PlatformerController : KinematicBody2D
     /// <summary>
     /// The max jump height in Pixels (holding jump)
     /// </summary>
-    public int MaxJumpHeight
+    [Export()]public int MaxJumpHeight
     {
         get => maxJumpHeight;
         set => SetMaxJumpHeight(value);
     }
 
+    
     /// <summary>
     /// The min jump height in Pixels (holding jump)
     /// </summary>
-    public int MinJumpHeight
+    [Export()] public int MinJumpHeight
     {
         get => minJumpHeight;
         set => SetMinJumpHeight(value);
@@ -178,10 +149,15 @@ public class PlatformerController : KinematicBody2D
     /// <summary>
     /// How long it takes to get to the peak of the jump in seconds
     /// </summary>
-    public float JumpDuration
+    [Export()]public float JumpDuration
     {
         get => jumpDuration;
         set => SetJumpDuration(value);
+    }
+
+    public PlatformerController() : base()
+    {
+        _Init();
     }
 
     public int DoubleJumpHeight
@@ -230,11 +206,19 @@ public class PlatformerController : KinematicBody2D
         if (Input.IsActionPressed(InputLeft))
         {
             input.x = -1;
+            if (vel.x > 0 && IsGrounded)
+            {
+                vel.x = 0;
+            }
             acc.x = -maxAcceleration;
         }
         else if (Input.IsActionPressed(InputRight)) 
         {
             input.x = 1;
+            if (vel.x < 0 && IsGrounded)
+            {
+                vel.x = 0;
+            }
             acc.x = maxAcceleration;
         }
         else //no horizontal move input
