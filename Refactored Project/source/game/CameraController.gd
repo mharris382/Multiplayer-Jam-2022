@@ -38,8 +38,8 @@ func _process(delta):
 	var target_zoom = _get_target_zoom()
 	camera.position = target_location
 	var speed = delta * reset_speed
-	camera.zoom = Vector2(lerp(camera.zoom.x, target_zoom.x, speed), lerp(camera.zoom.y, target_zoom.x, speed*2))
-	camera.zoom = Vector2(lerp(target_zoom.x, prefer_zoom.x, speed), lerp(target_zoom.y, prefer_zoom.y, speed))
+	camera.zoom =  Vector2(lerp(camera.zoom.x, target_zoom.x, speed), lerp(camera.zoom.y, target_zoom.x, speed*2))
+	#camera.zoom = Vector2(lerp(target_zoom.x, prefer_zoom.x, speed), lerp(target_zoom.y, prefer_zoom.y, speed))
 	
 
 #-----------------------------------------------
