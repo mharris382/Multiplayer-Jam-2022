@@ -62,7 +62,7 @@ limit_zoom = Vector2( 12, 12 )
 [node name="Camera2D" parent="Camera" index="0"]
 position = Vector2( 121.5, 50.5 )
 current = true
-zoom = Vector2( 1.00069, 1.00065 )
+zoom = Vector2( 1, 1 )
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 offset_v = -0.41

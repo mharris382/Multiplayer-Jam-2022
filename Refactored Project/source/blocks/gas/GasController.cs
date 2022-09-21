@@ -20,6 +20,7 @@ using GasOutflowRecord = System.Collections.Generic.Dictionary<Godot.Vector2, Sy
 
 public class GasController : Node
 {
+    public bool autoStart = true;
     [Export()]
     public int flowCapacity = 2;
     
@@ -44,9 +45,10 @@ public class GasController : Node
     public override async void _Ready()
     {
         await GetTilemaps();
-        GasStuff.ReBuildGraphs();
-        Debug.Log($"Found {GasStuff.Graphs.Count} connected air spaces");
-        
+        if (autoStart)
+        {
+            
+        }
     }
 
     /// <summary>

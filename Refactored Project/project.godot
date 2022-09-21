@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/Blocks/DynamicBlocks/BlockLauncher.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "BlockLibrary",
 "language": "GDScript",
 "path": "res://source/Blocks/BlockLibrary.gd"
@@ -83,11 +83,6 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://source/state/StateMachine.gd"
-}, {
-"base": "TileMap",
-"class": "SteamTilemap",
-"language": "GDScript",
-"path": "res://source/Blocks/gas/SteamTilemap.gd"
 } ]
 _global_script_class_icons={
 "AudioEnums": "",
@@ -104,8 +99,7 @@ _global_script_class_icons={
 "Player": "",
 "Puzzle": "",
 "State": "",
-"StateMachine": "",
-"SteamTilemap": ""
+"StateMachine": ""
 }
 
 [application]

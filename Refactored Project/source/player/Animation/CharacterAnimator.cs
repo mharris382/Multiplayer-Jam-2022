@@ -40,7 +40,7 @@ namespace Game.player.Animation
         }
         public void UpdateAnimState(Vector2 moveInput, Vector2 velocity, bool isGrounded)
         {
-            Debug.Log($"moveInput={moveInput}, velocity={velocity}, isGrounded={isGrounded}");
+           // Debug.Log($"moveInput={moveInput}, velocity={velocity}, isGrounded={isGrounded}");
             SetFacingDirection(moveInput.x);
             
             if (isGrounded)
