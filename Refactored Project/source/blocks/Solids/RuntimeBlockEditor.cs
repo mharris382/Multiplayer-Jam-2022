@@ -20,6 +20,9 @@ namespace Game.Blocks.Solids
         private const int LEFT_MOUSE_BTN = 1;
         
         private bool _ready = false;
+
+        [Export()]
+        private Vector2 cursorOffset = new Vector2(256, 256);
         
         private Vector2 min, max;
 
@@ -47,7 +50,7 @@ namespace Game.Blocks.Solids
             {
                 if (mbEvent.Pressed)
                 {
-                    var cell = _solidBlockTilemap.WorldToMap(GetGlobalMousePosition());
+                    var cell = _solidBlockTilemap.WorldToMap(GetGlobalMousePosition())+cursorOffset;
                     if (_solidBlockTilemap.IsCellEditable(cell))
                     {
                         if (mbEvent.ButtonIndex == LEFT_MOUSE_BTN)
