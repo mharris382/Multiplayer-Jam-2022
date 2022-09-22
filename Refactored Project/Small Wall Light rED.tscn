@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/Wall_Light_Gradient_wall_light_mask.png" type="Texture" id=1]
+[ext_resource path="res://assets/Orange Light Small (no glow).png" type="Texture" id=2]
+[ext_resource path="res://assets/WallLight.gd" type="Script" id=3]
+
+[node name="Small Wall Light20" type="Node2D"]
+position = Vector2( 95, 35 )
+script = ExtResource( 3 )
+light_intensity = 0.701
+light_color = Color( 1, 0.0470588, 0.0470588, 1 )
+on_color = Color( 0.901961, 0.623529, 0.623529, 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.632275, 0.437094, 0.437094, 1 )
+light_mask = 513
+scale = Vector2( 0.375, 0.375 )
+z_index = 50
+texture = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="Sprite"]
+scale = Vector2( 0.544271, 0.544271 )
+texture = ExtResource( 1 )
+texture_scale = 1.69
+color = Color( 1, 0.0470588, 0.0470588, 1 )
+energy = 0.701
+shadow_gradient_length = 668.1

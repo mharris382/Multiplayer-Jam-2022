@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/valve_icon.png-c27542e155c269319fef9fbcdd59a2fd.stex"
+path="res://.import/Wall_Light_Gradient_wall_light_mask.png-7eafd332642f5a14a5145b8109a29622.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://source/Blocks/Gas/valve_icon.png"
-dest_files=[ "res://.import/valve_icon.png-c27542e155c269319fef9fbcdd59a2fd.stex" ]
+source_file="res://assets/Wall_Light_Gradient_wall_light_mask.png"
+dest_files=[ "res://.import/Wall_Light_Gradient_wall_light_mask.png-7eafd332642f5a14a5145b8109a29622.stex" ]
 
 [params]
 
