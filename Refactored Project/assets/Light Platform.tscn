@@ -22,6 +22,7 @@ light_mask = 0
 position = Vector2( 0, 1024 )
 texture = ExtResource( 2 )
 color = Color( 1, 0.933333, 0.666667, 1 )
+energy = 0.75
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -5, 23 )
