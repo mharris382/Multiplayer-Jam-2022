@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/sKY/clouds_mg_3.png" type="Texture" id=1]
+[ext_resource path="res://assets/sKY/clouds_mg_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/sKY/sky.png" type="Texture" id=3]
+[ext_resource path="res://assets/sKY/clouds_mg_1_lightened.png" type="Texture" id=4]
+[ext_resource path="res://assets/sKY/clouds_bg.png" type="Texture" id=5]
+[ext_resource path="res://assets/sKY/sky.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sKY/ParallaxSetup.gd" type="Script" id=8]
+[ext_resource path="res://assets/sKY/Parallax.gd" type="Script" id=9]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+follow_viewport_enable = true
+scroll_ignore_camera_zoom = true
+script = ExtResource( 9 )
+
+[node name="sky-bg" parent="." instance=ExtResource( 6 )]
+z_index = -1005
+motion_mirroring = Vector2( 3072, 1728 )
+
+[node name="4" type="Sprite" parent="sky-bg"]
+scale = Vector2( 2, 2 )
+z_index = 3045
+z_as_relative = false
+texture = ExtResource( 3 )
+centered = false
+
+[node name="sky" parent="." instance=ExtResource( 6 )]
+z_index = -104
+motion_mirroring = Vector2( 3072, 1728 )
+
+[node name="5" type="Sprite" parent="sky"]
+scale = Vector2( 2, 2 )
+z_index = 3045
+z_as_relative = false
+texture = ExtResource( 5 )
+centered = false
+
+[node name="sky-cloud-bg" parent="." instance=ExtResource( 6 )]
+z_index = -103
+motion_mirroring = Vector2( 3072, 1728 )
+
+[node name="clouds_mg_4" type="Sprite" parent="sky-cloud-bg"]
+scale = Vector2( 2, 2 )
+z_index = 4096
+texture = ExtResource( 1 )
+centered = false
+
+[node name="sky-cloud-mg" parent="." instance=ExtResource( 6 )]
+z_index = -102
+motion_mirroring = Vector2( 3072, 1728 )
+
+[node name="clouds_mg_3" type="Sprite" parent="sky-cloud-mg"]
+scale = Vector2( 2, 2 )
+z_index = 4096
+texture = ExtResource( 1 )
+centered = false
+
+[node name="sky-cloud-mg2" parent="." instance=ExtResource( 6 )]
+z_index = -1001
+motion_mirroring = Vector2( 3072, 1728 )
+
+[node name="clouds_mg_2" type="Sprite" parent="sky-cloud-mg2"]
+scale = Vector2( 2, 2 )
+z_index = 4096
+texture = ExtResource( 2 )
+centered = false
+
+[node name="sky-cloud-fg" parent="." instance=ExtResource( 6 )]
+scale = Vector2( 1, 0.992236 )
+z_index = -1000
+motion_offset = Vector2( 0, -1000 )
+motion_mirroring = Vector2( 3072, 1728 )
+script = ExtResource( 8 )
+
+[node name="clouds_mg_1" type="Sprite" parent="sky-cloud-fg"]
+scale = Vector2( 2, 2 )
+z_index = 4096
+texture = ExtResource( 4 )
+centered = false

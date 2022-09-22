@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using Game.blocks.gas;
 using Game.core;
 
 public interface ISteamSource
@@ -8,10 +9,20 @@ public interface ISteamSource
 	int Output { get; set; }
 	bool Enabled { get; set; }
 	Vector2 Position { get; set; }
+	Vector2 size { get; }
 	void BroadcastSourceStateChanged();
 	Vector2 GetWorldSpacePosition();
 }
 
+public interface ISteamSink
+{
+	int Demand { get; set; }
+	Vector2 size { get; }
+	Vector2 Position { get; set; }
+	Vector2 pullSize { get; }
+	Vector2 GetWorldSpacePosition();
+	GridDirections GetPullDirections();
+}
 public class SteamSource : Node2D, ISteamSource
 {
 	
@@ -86,6 +97,8 @@ public class SteamSource : Node2D, ISteamSource
 		}
 	}
 
+	public Vector2 size { get; } = new Vector2(1, 1);
+
 	public void BroadcastSourceStateChanged()
 	{
 		EmitSignal("SteamSourceChanged", Position, Enabled ? _sourceOutput : 0);
@@ -144,6 +157,8 @@ public class SteamSource : Node2D, ISteamSource
 			get => _source.Position + (_offset ) + (_source._sourceOffset * _source._steamPixelSize);
 			set { }
 		}
+
+		public Vector2 size { get; }
 		public void BroadcastSourceStateChanged() { }
 
 		public Vector2 GetWorldSpacePosition()
@@ -153,6 +168,7 @@ public class SteamSource : Node2D, ISteamSource
 
 		public LocalSource(SteamSource parent, Vector2 offset)
 		{
+			size = Vector2.One;
 			this._offset = offset* parent._steamPixelSize;
 			_source = parent;
 			_enabled = parent.Enabled;

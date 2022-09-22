@@ -3214,3 +3214,17 @@ points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 40/z_index = 1
+41/name = "Blank_Glass_Tile"
+41/texture = ExtResource( 6 )
+41/tex_offset = Vector2( 0, 0 )
+41/modulate = Color( 1, 1, 1, 0.247059 )
+41/region = Rect2( 192, 192, 128, 128 )
+41/tile_mode = 0
+41/occluder_offset = Vector2( 0, 0 )
+41/navigation_offset = Vector2( 0, 0 )
+41/shape_offset = Vector2( 0, 0 )
+41/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+41/shape_one_way = false
+41/shape_one_way_margin = 0.0
+41/shapes = [  ]
+41/z_index = 0

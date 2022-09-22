@@ -1,0 +1,433 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://tests/Gas/IterationTimer.gd" type="Script" id=1]
+[ext_resource path="res://source/Blocks/Gas/GasController.cs" type="Script" id=2]
+[ext_resource path="res://source/Blocks/Gas/GasTilemap.cs" type="Script" id=3]
+[ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=4]
+[ext_resource path="res://assets/Blocks_Final/gas_blocks/Tileset_Steam_64x64.tres" type="TileSet" id=5]
+[ext_resource path="res://assets/blocks/Blank_White_Tile.png" type="Texture" id=6]
+[ext_resource path="res://scenes/builder.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/transporter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://source/Blocks/Gas/Sinks/SinkTileMap.cs" type="Script" id=9]
+[ext_resource path="res://source/Blocks/Gas/SolidBlockTilemap.cs" type="Script" id=10]
+[ext_resource path="res://tests/Gas/ReusableScenes/GasSource.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/ui/editor/source-icon-rounded.png" type="Texture" id=12]
+[ext_resource path="res://tests/Gas/BlinkUI.gd" type="Script" id=13]
+[ext_resource path="res://assets/ui/editor/sink-icon-rounded.png" type="Texture" id=14]
+[ext_resource path="res://assets/ui/editor/plain-circle.png" type="Texture" id=15]
+[ext_resource path="res://assets/ui/editor/power-button.png" type="Texture" id=16]
+[ext_resource path="res://assets/blocks/flow/Flow_Tiles_32px.tres" type="TileSet" id=17]
+[ext_resource path="res://source/Blocks/Gas/AirCurrents/AirFlowTileMap.cs" type="Script" id=18]
+
+[sub_resource type="TileSet" id=1]
+0/name = "Sink_Blue"
+0/texture = ExtResource( 6 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 0, 0.8, 1, 0.141176 )
+0/region = Rect2( 0, 0, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "Sink_Red"
+1/texture = ExtResource( 6 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 0, 0, 0.352941 )
+1/region = Rect2( 96, 0, 32, 32 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "Sink_Orange"
+2/texture = ExtResource( 6 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 0.572549, 0, 0.231373 )
+2/region = Rect2( 32, 64, 32, 32 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "Sink_Yellow"
+3/texture = ExtResource( 6 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 0.901961, 0, 0.176471 )
+3/region = Rect2( 224, 192, 32, 32 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+4/name = "Sink_Green"
+4/texture = ExtResource( 6 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 0, 0.67451, 0.145098, 0.184314 )
+4/region = Rect2( 96, 224, 32, 32 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+
+[node name="Gas_p16_0" type="Node2D"]
+
+[node name="GasController" type="Node2D" parent="."]
+position = Vector2( 0, -2 )
+script = ExtResource( 2 )
+flowCapacity = 4
+gasTilemapPath = NodePath("Steam TileMap")
+
+[node name="Sources" type="Node" parent="GasController"]
+
+[node name="Source2" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 1680, 947 )
+_sourceOutput = 16
+_sourceShape = Vector2( 5, 5 )
+
+[node name="Sprite" parent="GasController/Sources/Source2/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source2/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source2/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 116, -60 )
+
+[node name="Source3" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 1342, 1473 )
+
+[node name="Sprite" parent="GasController/Sources/Source3/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source3/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source3/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 116, -60 )
+
+[node name="Source4" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 1086, 1469 )
+
+[node name="Sprite" parent="GasController/Sources/Source4/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source4/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source4/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 116, -60 )
+
+[node name="Source5" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 834, 1469 )
+
+[node name="Sprite" parent="GasController/Sources/Source5/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source5/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source5/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 116, -60 )
+
+[node name="Source6" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 830, 1179 )
+
+[node name="Sprite" parent="GasController/Sources/Source6/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source6/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source6/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 116, -60 )
+
+[node name="Source7" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 2205, 1342 )
+
+[node name="Sprite" parent="GasController/Sources/Source7/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source7/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source7/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 116, -60 )
+
+[node name="Source9" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 2205, 1342 )
+
+[node name="Sprite" parent="GasController/Sources/Source9/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source9/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source9/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 116, -60 )
+
+[node name="Source8" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 803, 699 )
+
+[node name="Sprite" parent="GasController/Sources/Source8/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source8/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source8/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 116, -60 )
+
+[node name="Source10" parent="GasController/Sources" instance=ExtResource( 11 )]
+position = Vector2( 2344, 699 )
+
+[node name="Sprite" parent="GasController/Sources/Source10/Source 2 Button2" index="0"]
+position = Vector2( 16, -32 )
+
+[node name="HBoxContainer" parent="GasController/Sources/Source10/Source 2 Button2" index="1"]
+visible = false
+
+[node name="Gas Light" parent="GasController/Sources/Source10/Source 2 Button2" index="2"]
+modulate = Color( 1, 0.670588, 0.670588, 1 )
+position = Vector2( 113, -7 )
+
+[node name="Steam TileMap" type="TileMap" parent="GasController"]
+z_index = 1000
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 32, 32 )
+format = 1
+script = ExtResource( 3 )
+pathToBlockTilemap = NodePath("../Block TileMap")
+
+[node name="BG Tilemap" type="TileMap" parent="GasController"]
+z_index = -38
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 128, 128 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -3, 38, 0, -2, 38, 0, -1, 38, 0, -65536, 38, 0, -65535, 38, 0, -65534, 38, 0, -65533, 38, 0, -65532, 38, 0, -65531, 38, 0, -65530, 38, 0, -65529, 38, 0, -65528, 38, 0, -65527, 38, 0, -65526, 38, 0, -65525, 38, 0, -65524, 38, 0, -65523, 38, 0, -65522, 38, 0, -65521, 38, 0, -65520, 38, 0, -65519, 38, 0, -65518, 38, 0, -65517, 38, 0, -65516, 38, 0, -65515, 38, 0, -65514, 38, 0, -65513, 38, 0, -65512, 38, 0, -65511, 38, 0, 65534, 38, 0, 65535, 38, 0, 0, 38, 0, 1, 38, 0, 2, 38, 0, 3, 38, 0, 4, 38, 0, 5, 38, 0, 6, 38, 0, 7, 38, 0, 8, 38, 0, 9, 38, 0, 10, 38, 0, 11, 38, 0, 12, 38, 0, 13, 38, 0, 14, 38, 0, 15, 38, 0, 16, 38, 0, 17, 38, 0, 18, 38, 0, 19, 38, 0, 20, 38, 0, 21, 38, 0, 25, 38, 0, 131070, 38, 0, 131071, 38, 0, 65536, 39, 0, 65537, 39, 0, 65538, 38, 0, 65539, 38, 0, 65540, 38, 0, 65541, 39, 0, 65542, 39, 0, 65543, 38, 0, 65544, 39, 0, 65545, 38, 0, 65546, 38, 0, 65547, 38, 0, 65548, 38, 0, 65549, 38, 0, 65550, 38, 0, 65551, 38, 0, 65552, 38, 0, 65553, 38, 0, 65554, 38, 0, 65555, 38, 0, 65556, 38, 0, 65557, 38, 0, 65561, 38, 0, 196606, 38, 0, 196607, 38, 0, 131072, 39, 0, 131073, 38, 0, 131074, 38, 0, 131075, 38, 0, 131076, 38, 0, 131077, 38, 0, 131078, 39, 0, 131079, 39, 0, 131080, 39, 0, 131081, 39, 0, 131082, 38, 0, 131083, 38, 0, 131084, 38, 0, 131085, 38, 0, 131086, 38, 0, 131087, 38, 0, 131088, 38, 0, 131089, 38, 0, 131090, 38, 0, 131091, 38, 0, 131092, 38, 0, 131093, 38, 0, 131097, 38, 0, 262142, 38, 0, 262143, 38, 0, 196608, 38, 0, 196609, 38, 0, 196610, 38, 0, 196611, 38, 0, 196612, 38, 0, 196613, 38, 0, 196614, 38, 0, 196615, 39, 0, 196616, 39, 0, 196617, 39, 0, 196618, 39, 0, 196619, 38, 0, 196620, 38, 0, 196621, 38, 0, 196622, 38, 0, 196623, 38, 0, 196624, 38, 0, 196625, 38, 0, 196626, 38, 0, 196627, 38, 0, 196628, 38, 0, 196629, 38, 0, 196633, 38, 0, 327678, 38, 0, 327679, 38, 0, 262144, 38, 0, 262145, 38, 0, 262146, 38, 0, 262147, 38, 0, 262148, 38, 0, 262149, 38, 0, 262150, 38, 0, 262151, 38, 0, 262152, 39, 0, 262153, 39, 0, 262154, 38, 0, 262155, 38, 0, 262156, 38, 0, 262157, 38, 0, 262158, 38, 0, 262159, 38, 0, 262160, 38, 0, 262161, 38, 0, 262162, 38, 0, 262163, 38, 0, 262164, 38, 0, 262165, 38, 0, 262169, 38, 0, 393214, 38, 0, 393215, 38, 0, 327680, 38, 0, 327681, 38, 0, 327682, 38, 0, 327683, 38, 0, 327684, 38, 0, 327685, 38, 0, 327686, 38, 0, 327687, 38, 0, 327688, 39, 0, 327689, 38, 0, 327690, 38, 0, 327691, 38, 0, 327692, 38, 0, 327693, 38, 0, 327694, 38, 0, 327695, 38, 0, 327696, 38, 0, 327697, 38, 0, 327698, 38, 0, 327699, 38, 0, 327700, 38, 0, 327701, 38, 0, 327705, 38, 0, 458750, 38, 0, 458751, 38, 0, 393216, 38, 0, 393217, 38, 0, 393218, 38, 0, 393219, 38, 0, 393220, 38, 0, 393221, 38, 0, 393222, 38, 0, 393223, 38, 0, 393224, 38, 0, 393225, 38, 0, 393226, 38, 0, 393227, 38, 0, 393228, 38, 0, 393229, 38, 0, 393230, 38, 0, 393231, 38, 0, 393232, 38, 0, 393233, 38, 0, 393234, 38, 0, 393235, 38, 0, 393236, 38, 0, 393237, 38, 0, 393241, 38, 0, 524286, 38, 0, 524287, 38, 0, 458752, 38, 0, 458753, 38, 0, 458754, 38, 0, 458755, 38, 0, 458756, 38, 0, 458757, 38, 0, 458758, 38, 0, 458759, 38, 0, 458760, 38, 0, 458761, 38, 0, 458762, 38, 0, 458763, 38, 0, 458764, 38, 0, 458765, 38, 0, 458766, 38, 0, 458767, 38, 0, 458768, 38, 0, 458769, 38, 0, 458770, 38, 0, 458771, 38, 0, 458772, 38, 0, 458773, 38, 0, 458777, 38, 0, 589822, 38, 0, 589823, 38, 0, 524288, 38, 0, 524289, 38, 0, 524290, 38, 0, 524291, 38, 0, 524292, 38, 0, 524293, 38, 0, 524294, 38, 0, 524295, 38, 0, 524296, 38, 0, 524297, 38, 0, 524298, 38, 0, 524299, 38, 0, 524300, 38, 0, 524301, 38, 0, 524302, 38, 0, 524303, 39, 0, 524304, 38, 0, 524305, 38, 0, 524306, 38, 0, 524307, 38, 0, 524308, 38, 0, 524309, 38, 0, 524313, 38, 0, 655358, 38, 0, 655359, 38, 0, 589824, 38, 0, 589825, 38, 0, 589826, 38, 0, 589827, 38, 0, 589828, 38, 0, 589829, 38, 0, 589830, 38, 0, 589831, 39, 0, 589832, 38, 0, 589833, 38, 0, 589834, 38, 0, 589835, 38, 0, 589836, 38, 0, 589837, 38, 0, 589838, 39, 0, 589839, 39, 0, 589840, 38, 0, 589841, 38, 0, 589842, 38, 0, 589843, 38, 0, 589844, 38, 0, 589845, 38, 0, 589849, 38, 0, 720894, 38, 0, 720895, 38, 0, 655360, 38, 0, 655361, 38, 0, 655362, 38, 0, 655363, 38, 0, 655364, 38, 0, 655365, 38, 0, 655366, 38, 0, 655367, 38, 0, 655368, 38, 0, 655369, 38, 0, 655372, 38, 0, 655373, 38, 0, 655374, 38, 0, 655375, 39, 0, 655376, 39, 0, 655377, 38, 0, 655378, 38, 0, 655379, 38, 0, 655380, 38, 0, 655381, 38, 0, 655385, 38, 0, 786430, 38, 0, 786431, 38, 0, 720896, 38, 0, 720897, 38, 0, 720898, 38, 0, 720899, 38, 0, 720900, 38, 0, 720901, 38, 0, 720902, 38, 0, 720903, 38, 0, 720904, 38, 0, 720905, 38, 0, 720906, 38, 0, 720907, 38, 0, 720908, 38, 0, 720909, 38, 0, 720910, 39, 0, 720911, 38, 0, 720912, 38, 0, 720913, 38, 0, 720914, 38, 0, 720915, 38, 0, 720916, 38, 0, 720917, 38, 0, 720918, 38, 0, 720921, 38, 0, 851966, 38, 0, 851967, 38, 0, 786432, 38, 0, 786433, 38, 0, 786434, 38, 0, 786435, 38, 0, 786436, 38, 0, 786437, 38, 0, 786438, 38, 0, 786439, 38, 0, 786440, 38, 0, 786441, 38, 0, 786442, 38, 0, 786443, 38, 0, 786444, 38, 0, 786445, 38, 0, 786446, 38, 0, 786447, 38, 0, 786448, 38, 0, 786449, 38, 0, 786450, 38, 0, 786451, 38, 0, 786452, 38, 0, 786453, 38, 0, 786454, 38, 0, 786455, 38, 0, 786456, 38, 0, 786457, 38, 0, 917502, 38, 0, 917503, 38, 0, 851993, 38, 0, 983038, 38, 0, 983039, 38, 0, 917504, 38, 0, 917505, 38, 0, 917506, 38, 0, 917507, 38, 0, 917508, 38, 0, 917509, 38, 0, 917510, 38, 0, 917511, 38, 0, 917512, 38, 0, 917513, 38, 0, 917514, 38, 0, 917515, 38, 0, 917516, 38, 0, 917517, 38, 0, 917518, 38, 0, 917519, 38, 0, 917520, 38, 0, 917521, 38, 0, 917522, 38, 0, 917523, 38, 0, 917524, 38, 0, 917525, 38, 0, 917526, 38, 0, 917527, 38, 0, 917528, 38, 0, 917529, 38, 0 )
+
+[node name="Pipe Tilemap" type="TileMap" parent="GasController"]
+z_index = -35
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( -65534, 34, 3, 2, 34, 65539, 6, 34, 3, 65538, 34, 65539, 65542, 34, 393218, 65543, 34, 196609, 65544, 34, 196609, 65545, 34, 196609, 65546, 34, 196609, 65547, 34, 196609, 65548, 34, 196609, 65549, 34, 196609, 65550, 34, 262148, 196606, 34, 262146, 196607, 34, 196609, 131072, 34, 196609, 131073, 34, 196609, 131074, 34, 327684, 131086, 34, 65539, 262141, 34, 196608, 262142, 34, 393220, 196610, 34, 65539, 196622, 34, 65539, 262146, 34, 65539, 262158, 34, 65539, 262160, 34, 3, 262164, 34, 196611, 327682, 34, 393218, 327683, 34, 262147, 327684, 34, 196609, 327685, 34, 196609, 327686, 34, 196610, 327694, 34, 327682, 327695, 34, 196609, 327696, 34, 262144, 327697, 34, 7, 327698, 34, 196610, 393219, 34, 65539, 393230, 34, 65539, 393232, 34, 131072, 393233, 34, 262151, 458755, 34, 65539, 458766, 34, 65539, 458769, 34, 393218, 458770, 34, 196609, 458771, 34, 196609, 458772, 34, 262147, 458773, 34, 196610, 524291, 34, 393218, 524292, 34, 196609, 524293, 34, 196609, 524294, 34, 262147, 524295, 34, 196609, 524296, 34, 196609, 524297, 34, 196609, 524298, 34, 196609, 524299, 34, 196609, 524300, 34, 196609, 524301, 34, 196609, 524302, 34, 327684, 524308, 34, 131075, 589830, 34, 131075, 589838, 34, 65539, 655373, 34, 196608, 655374, 34, 393219, 655375, 34, 196609, 655376, 34, 262147, 655377, 34, 196610, 655379, 34, 262146, 655380, 34, 196609, 655381, 34, 196610, 720902, 34, 196611, 720904, 34, 196611, 720906, 34, 196611, 720908, 34, 196611, 720912, 34, 65539, 720915, 34, 65539, 786448, 34, 393218, 786449, 34, 196609, 786450, 34, 196609, 786451, 34, 393219, 786452, 34, 196610 )
+
+[node name="Block TileMap" type="TileMap" parent="GasController"]
+modulate = Color( 0.623529, 0.592157, 0.384314, 1 )
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( -3, 36, 0, -2, 36, 0, -1, 36, 0, -65536, 36, 0, -65535, 36, 0, -65534, 36, 0, -65533, 36, 0, -65532, 36, 0, -65531, 36, 0, -65530, 36, 0, -65529, 36, 0, -65528, 36, 0, -65527, 36, 0, -65526, 36, 0, -65525, 36, 0, -65524, 36, 0, -65523, 36, 0, -65522, 36, 0, -65521, 36, 0, -65520, 36, 0, -65519, 36, 0, -65518, 36, 0, -65517, 36, 0, -65516, 36, 0, -65515, 36, 0, -65514, 36, 0, -65513, 36, 0, -65512, 36, 0, 65534, 36, 0, 65535, 36, 0, 0, 36, 0, 1, 36, 0, 2, 36, 0, 3, 36, 0, 4, 36, 0, 5, 36, 0, 6, 36, 0, 7, 36, 0, 8, 36, 0, 9, 36, 0, 10, 36, 0, 11, 36, 0, 12, 36, 0, 13, 36, 0, 14, 36, 0, 15, 36, 0, 16, 36, 0, 17, 36, 0, 18, 36, 0, 19, 36, 0, 20, 36, 0, 21, 36, 0, 22, 36, 0, 23, 36, 0, 24, 36, 0, 25, 36, 0, 131070, 36, 0, 131071, 36, 0, 65543, 36, 0, 65552, 36, 0, 65553, 36, 0, 65554, 36, 0, 65555, 36, 0, 65556, 36, 0, 65557, 36, 0, 65558, 36, 0, 65559, 36, 0, 65560, 36, 0, 65561, 36, 0, 196606, 36, 0, 196607, 36, 0, 131088, 36, 0, 131089, 36, 0, 131092, 36, 0, 131093, 36, 0, 131094, 36, 0, 131095, 36, 0, 131096, 36, 0, 131097, 36, 0, 262142, 36, 0, 262143, 36, 0, 196624, 36, 0, 196625, 36, 0, 196628, 36, 0, 196629, 36, 0, 196630, 36, 0, 196631, 36, 0, 196632, 36, 0, 196633, 36, 0, 327676, 34, 3, 327678, 36, 0, 327679, 36, 0, 262151, 36, 0, 262160, 36, 0, 262161, 36, 0, 262164, 36, 0, 262165, 36, 0, 262166, 36, 0, 262167, 36, 0, 262168, 36, 0, 262169, 36, 0, 393212, 34, 131075, 393214, 36, 0, 393215, 36, 0, 327687, 36, 0, 327696, 36, 0, 327697, 36, 0, 327700, 36, 0, 327701, 36, 0, 327702, 36, 0, 327703, 36, 0, 327704, 36, 0, 327705, 36, 0, 458750, 36, 0, 458751, 36, 0, 393223, 36, 0, 393232, 36, 0, 393233, 36, 0, 393236, 36, 0, 393237, 36, 0, 393238, 36, 0, 393239, 36, 0, 393240, 36, 0, 393241, 36, 0, 524286, 36, 0, 524287, 36, 0, 458752, 36, 0, 458753, 36, 0, 458754, 36, 0, 458755, 36, 0, 458756, 36, 0, 458757, 36, 0, 458758, 36, 0, 458759, 36, 0, 458768, 36, 0, 458769, 36, 0, 458772, 36, 0, 458773, 36, 0, 458774, 36, 0, 458775, 36, 0, 458776, 36, 0, 458777, 36, 0, 589822, 36, 0, 589823, 36, 0, 524288, 36, 0, 524289, 36, 0, 524290, 36, 0, 524291, 36, 0, 524295, 36, 0, 524304, 36, 0, 524308, 36, 0, 524309, 36, 0, 524310, 36, 0, 524311, 36, 0, 524312, 36, 0, 524313, 36, 0, 655358, 36, 0, 655359, 36, 0, 589824, 36, 0, 589840, 36, 0, 589844, 36, 0, 589845, 36, 0, 589846, 36, 0, 589847, 36, 0, 589848, 36, 0, 589849, 36, 0, 720894, 36, 0, 720895, 36, 0, 655360, 36, 0, 655365, 36, 0, 655366, 36, 0, 655367, 36, 0, 655368, 36, 0, 655369, 36, 0, 655370, 36, 0, 655371, 36, 0, 655372, 36, 0, 655373, 36, 0, 655374, 36, 0, 655381, 36, 0, 655382, 36, 0, 655383, 36, 0, 655384, 36, 0, 655385, 36, 0, 786430, 36, 0, 786431, 36, 0, 720917, 36, 0, 720918, 36, 0, 720919, 36, 0, 720920, 36, 0, 720921, 36, 0, 851966, 36, 0, 851967, 36, 0, 786432, 36, 0, 786433, 36, 0, 786434, 36, 0, 786435, 36, 0, 786436, 36, 0, 786437, 36, 0, 786438, 36, 0, 786439, 36, 0, 786440, 36, 0, 786441, 36, 0, 786442, 36, 0, 786443, 36, 0, 786444, 36, 0, 786445, 36, 0, 786446, 36, 0, 786447, 36, 0, 786448, 36, 0, 786449, 36, 0, 786450, 36, 0, 786451, 36, 0, 786452, 36, 0, 786453, 36, 0, 786454, 36, 0, 786455, 36, 0, 786456, 36, 0, 786457, 36, 0, 917502, 36, 0, 917503, 36, 0, 851968, 36, 0, 851969, 36, 0, 851970, 36, 0, 851971, 36, 0, 851972, 36, 0, 851973, 36, 0, 851974, 36, 0, 851975, 36, 0, 851976, 36, 0, 851977, 36, 0, 851978, 36, 0, 851979, 36, 0, 851980, 36, 0, 851981, 36, 0, 851982, 36, 0, 851983, 36, 0, 851984, 36, 0, 851985, 36, 0, 851986, 36, 0, 851987, 36, 0, 851988, 36, 0, 851989, 36, 0, 851990, 36, 0, 851991, 36, 0, 851992, 36, 0, 851993, 36, 0, 983038, 36, 0, 983039, 36, 0, 917504, 36, 0, 917505, 36, 0, 917506, 36, 0, 917507, 36, 0, 917508, 36, 0, 917509, 36, 0, 917510, 36, 0, 917511, 36, 0, 917512, 36, 0, 917513, 36, 0, 917514, 36, 0, 917515, 36, 0, 917516, 36, 0, 917517, 36, 0, 917518, 36, 0, 917519, 36, 0, 917520, 36, 0, 917521, 36, 0, 917522, 36, 0, 917523, 36, 0, 917524, 36, 0, 917525, 36, 0, 917526, 36, 0, 917527, 36, 0, 917528, 36, 0, 917529, 36, 0 )
+script = ExtResource( 10 )
+
+[node name="IterationTimer" type="Timer" parent="GasController"]
+wait_time = 0.063
+script = ExtResource( 1 )
+iterations_per_sec = 16
+
+[node name="Sink TileMap" type="TileMap" parent="GasController"]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 1704008, 2, 0, 1704009, 2, 0, 1704010, 2, 0, 1704011, 2, 0, 1704012, 2, 0, 1704013, 2, 0, 1704014, 2, 0, 1704015, 2, 0, 1769543, 2, 0, 1769544, 2, 0, 1769547, 2, 0, 1769548, 2, 0, 1769549, 2, 0, 1835079, 2, 0, 1835082, 2, 0, 1900614, 2, 0, 1900617, 2, 0, 1900618, 2, 0, 1966150, 2, 0, 1966153, 2, 0, 1966154, 2, 0, 2031686, 2, 0, 2031690, 2, 0, 2031691, 2, 0, 2031692, 2, 0, 2097222, 2, 0, 2097228, 2, 0, 2162758, 2, 0, 2228294, 2, 0, 2228296, 2, 0, 2228297, 2, 0, 2228298, 2, 0, 2228299, 2, 0, 2228300, 2, 0, 2293831, 2, 0, 2293832, 2, 0, 2687044, 2, 0, 2752578, 2, 0, 2752579, 2, 0, 2752580, 2, 0, 2818112, 2, 0, 2818113, 2, 0, 2818114, 2, 0, 2818115, 2, 0, 2883649, 2, 0, 2883650, 2, 0, 4587580, 2, 0, 4653114, 2, 0, 4653115, 2, 0, 4653117, 2, 0, 4718649, 2, 0, 4718653, 2, 0, 4718655, 2, 0, 4718656, 2, 0, 4784185, 2, 0, 4784189, 2, 0, 4784190, 2, 0, 4784192, 2, 0, 4849721, 2, 0, 4849723, 2, 0, 4849724, 2, 0, 4849725, 2, 0, 4849728, 2, 0, 4915257, 2, 0, 4915258, 2, 0, 4915259, 2, 0, 4915260, 2, 0, 4915261, 2, 0, 4915263, 2, 0, 4980792, 2, 0, 4980793, 2, 0, 4980794, 2, 0, 4980795, 2, 0, 4980796, 2, 0, 4980797, 2, 0, 4980798, 2, 0, 4980799, 2, 0, 4980858, 2, 0, 4980859, 2, 0, 4980860, 2, 0, 4980861, 2, 0, 4980862, 2, 0, 4980863, 2, 0, 4980864, 2, 0, 5046328, 2, 0, 5046330, 2, 0, 5046333, 2, 0, 5046334, 2, 0, 5046394, 2, 0, 5046397, 2, 0, 5046398, 2, 0, 5046399, 2, 0, 5111863, 2, 0, 5111865, 2, 0, 5111866, 2, 0, 5111867, 2, 0, 5111868, 2, 0, 5111870, 2, 0, 5177399, 2, 0, 5177400, 2, 0, 5177402, 2, 0, 5177404, 2, 0, 5177405, 2, 0, 5177466, 2, 0, 5177469, 2, 0, 5242938, 2, 0, 5242939, 2, 0, 5242999, 2, 0, 5243001, 2, 0, 5308534, 2, 0, 5308539, 2, 0, 5308541, 2, 0, 5374069, 2, 0, 5374071, 2, 0, 5374072, 2, 0, 5374074, 2, 0, 5374076, 2, 0, 5439604, 2, 0, 5439607, 2, 0, 5439608, 2, 0, 5439610, 2, 0, 5439612, 2, 0, 5505140, 2, 0, 5505142, 2, 0, 5505143, 2, 0, 5505144, 2, 0, 5570676, 2, 0 )
+script = ExtResource( 9 )
+sinkValue = 1
+
+[node name="Flow TileMap" type="TileMap" parent="GasController"]
+tile_set = ExtResource( 17 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 458797, 3, 0, 524333, 3, 0, 589855, 0, 0, 589856, 0, 0, 589857, 0, 0, 589858, 0, 0, 589859, 0, 0, 589860, 0, 0, 589861, 0, 0, 589862, 0, 0, 589863, 0, 0, 589864, 0, 0, 589865, 0, 0, 589866, 0, 0, 589867, 0, 0, 589868, 3, 0, 589869, 3, 0, 655391, 1, 0, 655403, 3, 0, 655404, 3, 0, 655405, 3, 0, 720927, 1, 0, 720940, 3, 0, 720941, 3, 0, 786443, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 0, 786447, 0, 0, 786448, 0, 0, 786449, 0, 0, 786450, 0, 0, 786451, 0, 0, 786452, 0, 0, 786453, 0, 0, 786454, 0, 0, 786455, 0, 0, 786456, 0, 0, 786457, 0, 0, 786458, 0, 0, 786463, 1, 0, 786476, 3, 0, 786477, 3, 0, 851979, 1, 0, 851980, 1, 0, 851981, 1, 0, 851982, 1, 0, 851983, 1, 0, 851984, 1, 0, 851985, 1, 0, 851986, 1, 0, 851987, 0, 0, 851988, 0, 0, 851989, 0, 0, 851990, 0, 0, 851991, 0, 0, 851992, 0, 0, 851993, 0, 0, 851999, 1, 0, 852012, 3, 0, 852013, 3, 0, 917512, 1, 0, 917513, 1, 0, 917514, 1, 0, 917515, 1, 0, 917516, 1, 0, 917517, 1, 0, 917518, 1, 0, 917519, 1, 0, 917520, 1, 0, 917521, 1, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917530, 0, 0, 917535, 1, 0, 917548, 3, 0, 917549, 3, 0, 983046, 1, 0, 983047, 1, 0, 983048, 1, 0, 983049, 1, 0, 983050, 1, 0, 983051, 1, 0, 983052, 1, 0, 983053, 1, 0, 983054, 1, 0, 983055, 1, 0, 983056, 1, 0, 983071, 1, 0, 983084, 3, 0, 983085, 3, 0, 1048580, 1, 0, 1048581, 1, 0, 1048582, 1, 0, 1048583, 1, 0, 1048591, 1, 0, 1048620, 3, 0, 1048621, 3, 0, 1114112, 3, 0, 1114113, 3, 0, 1114114, 3, 0, 1114115, 3, 0, 1114116, 3, 0, 1114117, 1, 0, 1114118, 1, 0, 1114156, 3, 0, 1114157, 3, 0, 1179648, 3, 0, 1179649, 3, 0, 1179650, 3, 0, 1179651, 3, 0, 1179652, 3, 0, 1179653, 3, 0, 1179654, 1, 0, 1179692, 3, 0, 1179693, 3, 0, 1179720, 0, 0, 1179721, 0, 0, 1179722, 0, 0, 1179723, 0, 0, 1179724, 3, 0, 1245184, 3, 0, 1245185, 3, 0, 1245186, 3, 0, 1245187, 3, 0, 1245188, 3, 0, 1245189, 3, 0, 1245190, 3, 0, 1245228, 3, 0, 1245229, 3, 0, 1245260, 3, 0, 1310720, 3, 0, 1310721, 3, 0, 1310722, 3, 0, 1310723, 3, 0, 1310724, 3, 0, 1310725, 3, 0, 1310726, 3, 0, 1310764, 3, 0, 1310765, 3, 0, 1310796, 3, 0, 1376256, 3, 0, 1376257, 3, 0, 1376258, 3, 0, 1376259, 3, 0, 1376260, 3, 0, 1376261, 3, 0, 1376262, 3, 0, 1376300, 3, 0, 1376301, 3, 0, 1376305, 0, 0, 1376332, 3, 0, 1441792, 3, 0, 1441793, 3, 0, 1441794, 3, 0, 1441795, 3, 0, 1441796, 3, 0, 1441797, 3, 0, 1441798, 3, 0, 1441836, 3, 0, 1441837, 3, 0, 1441840, 0, 0, 1441841, 0, 0, 1441868, 3, 0, 1507328, 3, 0, 1507329, 3, 0, 1507330, 3, 0, 1507331, 3, 0, 1507332, 3, 0, 1507333, 3, 0, 1507334, 3, 0, 1507335, 3, 0, 1507372, 3, 0, 1507373, 3, 0, 1507375, 0, 0, 1507376, 0, 0, 1507377, 0, 0, 1507404, 3, 0, 1572864, 3, 0, 1572865, 3, 0, 1572866, 3, 0, 1572867, 3, 0, 1572868, 3, 0, 1572869, 3, 0, 1572870, 3, 0, 1572871, 3, 0, 1572908, 3, 0, 1572909, 0, 0, 1572910, 0, 0, 1572911, 0, 0, 1572912, 0, 0, 1572940, 3, 0, 1638400, 3, 0, 1638401, 3, 0, 1638402, 3, 0, 1638403, 3, 0, 1638404, 3, 0, 1638405, 3, 0, 1638432, 0, 0, 1638433, 0, 0, 1638434, 0, 0, 1638435, 0, 0, 1638436, 0, 0, 1638437, 0, 0, 1638438, 0, 0, 1638444, 0, 0, 1638445, 0, 0, 1638446, 0, 0, 1638447, 0, 0, 1638476, 3, 0, 1703936, 3, 0, 1703937, 3, 0, 1703938, 3, 0, 1703939, 3, 0, 1703940, 3, 0, 1703941, 3, 0, 1703942, 3, 0, 1703968, 0, 0, 1703969, 0, 0, 1703970, 0, 0, 1703971, 0, 0, 1703972, 0, 0, 1703973, 0, 0, 1703974, 0, 0, 1703975, 0, 0, 1703981, 0, 0, 1703982, 0, 0, 1703983, 0, 0, 1704012, 3, 0, 1769472, 3, 0, 1769473, 3, 0, 1769474, 3, 0, 1769475, 3, 0, 1769476, 3, 0, 1769477, 3, 0, 1769478, 3, 0, 1769509, 3, 0, 1769510, 3, 0, 1769515, 0, 0, 1769516, 0, 0, 1769517, 0, 0, 1769518, 0, 0, 1769548, 3, 0, 1835046, 3, 0, 1835047, 3, 0, 1835048, 0, 0, 1835049, 0, 0, 1835050, 0, 0, 1835051, 0, 0, 1835052, 0, 0, 1835053, 0, 0, 1835084, 3, 0, 1900582, 3, 0, 1900583, 3, 0, 1900584, 0, 0, 1900585, 0, 0, 1900586, 0, 0, 1900587, 0, 0, 1900588, 0, 0, 1900620, 3, 0, 1966119, 3, 0, 1966120, 0, 0, 1966121, 0, 0, 1966122, 0, 0, 1966123, 0, 0, 1966124, 0, 0, 1966156, 3, 0, 2031655, 3, 0, 2031656, 3, 0, 2031657, 0, 0, 2031658, 0, 0, 2031692, 3, 0, 2097228, 3, 0, 2162764, 3, 0, 2228300, 3, 0, 2293836, 3, 0, 2359372, 3, 0, 2424868, 0, 0, 2424869, 0, 0, 2424870, 0, 0, 2424871, 0, 0, 2424872, 0, 0, 2424873, 0, 0, 2424874, 0, 0, 2424875, 0, 0, 2424876, 0, 0, 2424877, 0, 0, 2424878, 0, 0, 2424879, 0, 0, 2424880, 0, 0, 2424881, 0, 0, 2424882, 0, 0, 2424883, 0, 0, 2424884, 0, 0, 2424885, 0, 0, 2424908, 3, 0, 2490404, 0, 0, 2490405, 0, 0, 2490406, 0, 0, 2490407, 0, 0, 2490408, 0, 0, 2490409, 0, 0, 2490410, 0, 0, 2490411, 0, 0, 2490412, 0, 0, 2490413, 0, 0, 2490414, 0, 0, 2490415, 0, 0, 2490416, 0, 0, 2490417, 0, 0, 2490418, 0, 0, 2490419, 0, 0, 2490420, 0, 0, 2490421, 0, 0, 2490444, 3, 0, 2555940, 0, 0, 2555941, 0, 0, 2555942, 0, 0, 2555943, 0, 0, 2555944, 0, 0, 2555945, 0, 0, 2555946, 0, 0, 2555947, 0, 0, 2555948, 0, 0, 2555949, 0, 0, 2555950, 0, 0, 2555951, 0, 0, 2555952, 0, 0, 2555953, 0, 0, 2555954, 0, 0, 2555955, 0, 0, 2555956, 0, 0, 2555957, 0, 0, 2883610, 0, 0, 2883611, 0, 0, 2883612, 0, 0, 2883613, 0, 0, 2883614, 0, 0, 2883615, 0, 0, 2883616, 0, 0, 2883617, 0, 0, 2883618, 0, 0, 2883619, 0, 0, 2883620, 0, 0, 2883621, 0, 0, 2883622, 0, 0, 2883623, 0, 0, 2883624, 0, 0, 2883625, 0, 0, 2883626, 0, 0, 2883627, 0, 0, 2883628, 0, 0, 2883629, 0, 0, 2883630, 0, 0, 2883631, 0, 0, 2883632, 0, 0, 2883633, 0, 0, 2883634, 0, 0, 2883635, 0, 0, 2883636, 0, 0, 2883637, 0, 0, 2883638, 0, 0 )
+script = ExtResource( 18 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1349, 886 )
+current = true
+zoom = Vector2( 1.41, 1.41 )
+
+[node name="Button" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0.4 )
+margin_left = 705.0
+margin_top = 1747.0
+margin_right = 815.0
+margin_bottom = 1787.0
+rect_scale = Vector2( 1.35173, 1.35173 )
+
+[node name="Clear Button" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0.4 )
+margin_left = 32.0
+margin_top = 981.0
+margin_right = 146.0
+margin_bottom = 1068.0
+rect_scale = Vector2( 1.35173, 1.35173 )
+
+[node name="Start Button2" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0.4 )
+margin_left = 237.0
+margin_top = 983.0
+margin_right = 351.0
+margin_bottom = 1070.0
+rect_scale = Vector2( 1.35173, 1.35173 )
+
+[node name="Button2" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0.803922 )
+margin_left = 896.0
+margin_top = 1755.0
+margin_right = 1003.0
+margin_bottom = 1790.0
+rect_scale = Vector2( 1.35173, 1.35173 )
+
+[node name="Builder" parent="." instance=ExtResource( 7 )]
+position = Vector2( 303, 580 )
+
+[node name="Transporter" parent="." instance=ExtResource( 8 )]
+position = Vector2( 235, 813 )
+
+[node name="Source3" parent="Transporter" instance=ExtResource( 11 )]
+position = Vector2( 76, 1 )
+rotation = 0.0052481
+scale = Vector2( 0.239694, 0.239694 )
+
+[node name="Info" type="Node" parent="."]
+
+[node name="BlinkUI" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.596078 )
+script = ExtResource( 13 )
+
+[node name="Icons" type="Node2D" parent="BlinkUI"]
+
+[node name="Source-icon-rounded" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 832, 1471 )
+scale = Vector2( 0.221077, 0.221077 )
+texture = ExtResource( 12 )
+
+[node name="Source-icon-rounded2" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 1085, 1469 )
+scale = Vector2( 0.221077, 0.221077 )
+texture = ExtResource( 12 )
+
+[node name="Source-icon-rounded3" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 1346, 1473 )
+scale = Vector2( 0.221077, 0.221077 )
+texture = ExtResource( 12 )
+
+[node name="Source-icon-rounded4" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 1596, 1470 )
+scale = Vector2( 0.221077, 0.221077 )
+texture = ExtResource( 12 )
+
+[node name="Source-icon-rounded5" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 2205, 1344 )
+scale = Vector2( 0.221077, 0.221077 )
+texture = ExtResource( 12 )
+
+[node name="Source-icon-rounded6" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 2342, 704 )
+scale = Vector2( 0.221077, 0.221077 )
+texture = ExtResource( 12 )
+
+[node name="Source-icon-rounded7" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 804, 701 )
+scale = Vector2( 0.221077, 0.221077 )
+texture = ExtResource( 12 )
+
+[node name="Sink-icon-rounded" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 1193, 496 )
+scale = Vector2( 0.200754, 0.200754 )
+texture = ExtResource( 14 )
+
+[node name="Sink-icon-rounded2" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 1072, 708 )
+scale = Vector2( 0.200754, 0.200754 )
+texture = ExtResource( 14 )
+
+[node name="Sink-icon-rounded3" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 971, 1196 )
+scale = Vector2( 0.200754, 0.200754 )
+texture = ExtResource( 14 )
+
+[node name="Sink-icon-rounded4" type="Sprite" parent="BlinkUI/Icons"]
+position = Vector2( 2000, 1303 )
+scale = Vector2( 0.200754, 0.200754 )
+texture = ExtResource( 14 )
+
+[node name="Blink Tween" type="Tween" parent="BlinkUI"]
+
+[node name="Blink Delay Timer" type="Timer" parent="BlinkUI"]
+
+[node name="Show Icons Button" type="Button" parent="BlinkUI"]
+margin_left = 423.0
+margin_top = 978.0
+margin_right = 435.0
+margin_bottom = 998.0
+rect_scale = Vector2( 4.61902, 2.96966 )
+
+[node name="Power-button" type="Sprite" parent="."]
+position = Vector2( 449, 1007 )
+scale = Vector2( 0.152478, 0.152478 )
+texture = ExtResource( 16 )
+
+[node name="Plain-circle" type="Sprite" parent="Power-button"]
+modulate = Color( 0.435547, 0.412029, 0.267981, 1 )
+show_behind_parent = true
+position = Vector2( 0, -0.000488281 )
+scale = Vector2( 1.49063, 1.49063 )
+texture = ExtResource( 15 )
+
+[connection signal="timeout" from="GasController/IterationTimer" to="GasController" method="_iterate_sources"]
+[connection signal="button_down" from="Clear Button" to="GasController" method="_on_Clear_Button_pressed"]
+[connection signal="button_down" from="Start Button2" to="GasController/IterationTimer" method="_start_timer"]
+[connection signal="tween_all_completed" from="BlinkUI/Blink Tween" to="BlinkUI" method="_on_Blink_Tween_tween_all_completed"]
+[connection signal="timeout" from="BlinkUI/Blink Delay Timer" to="BlinkUI" method="_on_Blink_Delay_Timer_timeout"]
+[connection signal="button_down" from="BlinkUI/Show Icons Button" to="BlinkUI" method="_on_Show_Icons_Button_button_down"]
+
+[editable path="GasController/Sources/Source2"]
+[editable path="GasController/Sources/Source2/Source 2 Button2"]
+[editable path="GasController/Sources/Source3"]
+[editable path="GasController/Sources/Source3/Source 2 Button2"]
+[editable path="GasController/Sources/Source4"]
+[editable path="GasController/Sources/Source4/Source 2 Button2"]
+[editable path="GasController/Sources/Source5"]
+[editable path="GasController/Sources/Source5/Source 2 Button2"]
+[editable path="GasController/Sources/Source6"]
+[editable path="GasController/Sources/Source6/Source 2 Button2"]
+[editable path="GasController/Sources/Source7"]
+[editable path="GasController/Sources/Source7/Source 2 Button2"]
+[editable path="GasController/Sources/Source9"]
+[editable path="GasController/Sources/Source9/Source 2 Button2"]
+[editable path="GasController/Sources/Source8"]
+[editable path="GasController/Sources/Source8/Source 2 Button2"]
+[editable path="GasController/Sources/Source10"]
+[editable path="GasController/Sources/Source10/Source 2 Button2"]

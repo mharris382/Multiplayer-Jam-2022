@@ -8,7 +8,7 @@
 [node name="Players and Camera" type="Node2D"]
 
 [node name="Builder" parent="." instance=ExtResource( 2 )]
-position = Vector2( -107, 0 )
+position = Vector2( 502, 408 )
 MaxJumpHeight = 159
 MinJumpHeight = 133
 JumpDuration = 0.352
@@ -16,7 +16,7 @@ canHoldJump = false
 idleFriction = 25
 
 [node name="Camera Target" type="RemoteTransform2D" parent="Builder"]
-position = Vector2( 0, -214 )
+position = Vector2( 0, 7 )
 remote_path = NodePath("../../Camera/Builder")
 update_rotation = false
 update_scale = false
@@ -32,7 +32,7 @@ shadow_enabled = true
 shadow_color = Color( 0.505882, 1, 1, 1 )
 
 [node name="Transporter" parent="." instance=ExtResource( 1 )]
-position = Vector2( 324, -52 )
+position = Vector2( 980, 416 )
 MaxJumpHeight = 159
 MinJumpHeight = 133
 JumpDuration = 0.352
@@ -40,7 +40,7 @@ canHoldJump = false
 idleFriction = 25
 
 [node name="Camera Target" type="RemoteTransform2D" parent="Transporter"]
-position = Vector2( 0, -388 )
+position = Vector2( 11, -3.05176e-05 )
 remote_path = NodePath("../../Camera/Transporter")
 update_rotation = false
 update_scale = false
@@ -56,11 +56,12 @@ shadow_enabled = true
 shadow_color = Color( 1, 1, 0.352941, 1 )
 
 [node name="Camera" parent="." instance=ExtResource( 3 )]
-avatar_padding = Vector2( 50, 512 )
+avatar_padding = Vector2( 342, 256 )
 limit_zoom = Vector2( 12, 12 )
+lower_offset = Vector2( 0, -214.089 )
 
 [node name="Camera2D" parent="Camera" index="0"]
-position = Vector2( 108.5, -327 )
+position = Vector2( 746.5, 415.5 )
 current = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
@@ -68,9 +69,9 @@ offset_v = -0.41
 editor_draw_drag_margin = true
 
 [node name="Transporter" parent="Camera" index="1"]
-position = Vector2( 324, -440 )
+position = Vector2( 991, 416 )
 
 [node name="Builder" parent="Camera" index="2"]
-position = Vector2( -107, -214 )
+position = Vector2( 502, 415 )
 
 [editable path="Camera"]
