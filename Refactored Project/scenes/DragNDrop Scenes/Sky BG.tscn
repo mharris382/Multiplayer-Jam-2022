@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/sKY/clouds_mg_3.png" type="Texture" id=1]
+[ext_resource path="res://assets/sKY/clouds_mg_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/sKY/sky.png" type="Texture" id=3]
+[ext_resource path="res://assets/sKY/clouds_mg_1_lightened.png" type="Texture" id=4]
+[ext_resource path="res://assets/sKY/clouds_bg.png" type="Texture" id=5]
+
+[node name="Sky BG" type="ParallaxLayer"]
+motion_mirroring = Vector2( 384, 216 )
+
+[node name="4" type="Sprite" parent="."]
+position = Vector2( 363.368, 194.207 )
+scale = Vector2( 5.97588, 5.97588 )
+z_index = 3045
+z_as_relative = false
+texture = ExtResource( 3 )
+centered = false
+
+[node name="3" type="Sprite" parent="."]
+position = Vector2( 339.369, 178.207 )
+scale = Vector2( 5.35377, 5.35377 )
+z_index = 4096
+texture = ExtResource( 5 )
+centered = false
+
+[node name="2" type="Sprite" parent="."]
+position = Vector2( 347.369, -61.7926 )
+scale = Vector2( 5.35377, 5.35377 )
+z_index = 4096
+texture = ExtResource( 1 )
+centered = false
+
+[node name="1" type="Sprite" parent="."]
+position = Vector2( 323.369, 34.2074 )
+scale = Vector2( 5.35377, 5.35377 )
+z_index = 4096
+texture = ExtResource( 2 )
+centered = false
+
+[node name="0" type="Sprite" parent="."]
+position = Vector2( 283.369, 34.2074 )
+scale = Vector2( 5.35377, 5.35377 )
+z_index = 4096
+texture = ExtResource( 4 )
+centered = false

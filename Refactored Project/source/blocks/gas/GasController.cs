@@ -84,18 +84,41 @@ public class GasController : Node
         
         AddGas();
         RemoveGasFromSinks();
-            DiffuseGas();
+        DiffuseGas();
+        PullTowardsSinks();
         GasStuff.GasIteration++;
     }
 
     private void RemoveGasFromSinks()
     {
+        
         foreach (var sink in GasStuff.GetSinks())
         {
             var amount = _gasTilemap.RemoveSteam(sink.Item1, sink.Item2);
             if (amount > 0)
             {
                 Debug.Log($"Removed {amount} from {sink.Item1}");
+            }
+        }
+    }
+
+    
+    private void PullTowardsSinks()
+    {
+        foreach (var pullingCell in GasStuff.GetPullingCells())
+        {
+            var neighbors = pullingCell.cell.GetCellHandle().UnblockedNeighbors.Where(t => t.GasAmount > 0).ToList();
+            foreach (var neighbor in neighbors)
+            {
+                if (neighbor.GasAmount <= 1)
+                {
+                    GasStuff.GasTilemap.MoveSteam(pullingCell.cell, neighbor.Position, 1);
+                }
+                else 
+                {
+                    var amt = neighbor.GasAmount / 2;
+                    GasStuff.GasTilemap.MoveSteam(pullingCell.cell, neighbor.Position, amt);
+                }
             }
         }
     }
@@ -164,11 +187,20 @@ public class GasController : Node
         void TransferAmountAndRecordOutflow(Vector2 from, Vector2 to, int amount)
         {
             if (outflows[from].ContainsKey(to))
-                return;
-            
-            // CellHandle.TransferGas(from, to, amount);
-            if (_gasTilemap.TransferSteam(from, to, ref amount)) 
-                outflows[from].Add(to, amount);
+            {
+                var remCap = flowCapacity - outflows[from][to];
+                if (remCap > 0)
+                {
+                    amount = Mathf.Min(remCap, amount);
+                    var curFlow = outflows[from][to];
+                    curFlow += _gasTilemap.MoveSteam(from, to, amount);
+                    outflows[from][to] = curFlow;
+                }
+            }
+            else
+            {
+                outflows[from].Add(to, _gasTilemap.MoveSteam(from, to, amount));
+            }
         }
         
         bool CheckForEmptyNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)

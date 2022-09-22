@@ -1,0 +1,4 @@
+[gd_scene format=2]
+
+[node name="sky" type="ParallaxLayer"]
+motion_mirroring = Vector2( 1536, 864 )

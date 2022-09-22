@@ -16,6 +16,10 @@ onready var camera = $Camera2D
 onready var builder_transform = $"Builder"
 onready var transporter_transform = $"Transporter"
 
+export var dif_min = Vector2(2048, 2048)
+export var dif_max = Vector2(2048, 12048)
+export var squish = 25
+
 #func _init():
 #	Players.connect("avatar_was_assigned", self, "_on_avatar_assigned_to_player")
 #	Players.connect("avatar_was_unassigned", self, "_on_avatar_unassigned_to_player")
@@ -25,6 +29,8 @@ func _ready():
 	target_zoom = camera.zoom
 	_get_avatars()
 	
+var current_desired_zoom = 1
+
 
 func _process(delta):
 	if camera == null:
@@ -33,13 +39,14 @@ func _process(delta):
 	var current_camera_position = camera.position
 	camera.current = true
 	
-	_set_offsets()
+	var req = _get_required_size()
 	var target_location = _get_target_location()
 	var target_zoom = _get_target_zoom()
+	target_zoom.x = clamp(target_zoom.x, prefer_zoom.x,limit_zoom.x)
 	camera.position = target_location
 	var speed = delta * reset_speed
-	var zm = lerp(camera.zoom.x, target_zoom.x, speed)
-	camera.zoom =  Vector2(zm, zm)
+	current_desired_zoom = lerp(camera.zoom.x, target_zoom.x, speed)
+	camera.zoom =  Vector2(current_desired_zoom, current_desired_zoom)
 	#camera.zoom = Vector2(lerp(target_zoom.x, prefer_zoom.x, speed), lerp(target_zoom.y, prefer_zoom.y, speed))
 	
 
@@ -81,25 +88,39 @@ func _get_target_location():
 func _set_offsets():
 	var p1 = _get_avatar_actual_position(0) as Vector2
 	var p2 = _get_avatar_actual_position(1) as Vector2
-	if p1.y > p2.y:
+	var diff =abs(p1.y - p2.y)
+	var t = 0.0
+	t = inverse_lerp(100, 1000, diff)
+	if(diff < 100):
 		var lower = avatars[0] as Node2D
 		var upper = avatars[1] as Node2D
-		lower.position = lower_offset
-		upper.position = upper_offset
+		lower.position = Vector2.ZERO
+		upper.position = Vector2.ZERO
+	elif p1.y > p2.y:
+		
+		var lower = avatars[0] as Node2D
+		var upper = avatars[1] as Node2D
+		lower.position = lerp(Vector2.ZERO, lower_offset, t)
+		upper.position = lerp(Vector2.ZERO, upper_offset, t)
 	else:
 		var lower = avatars[1] as Node2D
 		var upper = avatars[0] as Node2D
-		lower.position = lower_offset
-		upper.position = upper_offset
+		lower.position = lerp(Vector2.ZERO, lower_offset, t)
+		upper.position = lerp(Vector2.ZERO, upper_offset, t)
+		
+func _get_prefered_size():
+	var p1 = _get_avatar_position(0) as Vector2
+	var p2 = _get_avatar_position(1) as Vector2
 	
-
 func _get_required_size():#to ensure all player avatars are visible
 	var p1 = _get_avatar_position(0) as Vector2
 	var p2 = _get_avatar_position(1) as Vector2
 	
 	var avatar_min_pos = Vector2(min(p1.x, p2.x),  min(p1.y, p2.y))
 	var avatar_max_pos = Vector2(max(p1.x, p2.x),  max(p1.y, p2.y))
-	var dif = avatar_max_pos - avatar_min_pos
+	
+	var dif = p1 - p2
+	dif = Vector2(abs(dif.x), abs(dif.y))
 	if dif.x > dif.y:
 		dif = Vector2(dif.x, dif.x)
 	else:
@@ -108,11 +129,14 @@ func _get_required_size():#to ensure all player avatars are visible
 	return dif
 
 var size2 = Vector2(1080, 1080)
+
+	
+
 func _get_target_zoom():
 	assert(limit_zoom.x >= prefer_zoom.x)
 	assert(limit_zoom.y >= prefer_zoom.y)
 	
-	var viewport_size = size2# get_viewport().size
+	var viewport_size = get_viewport().size
 	
 	var p1 = _get_avatar_position(0) as Vector2
 	var p2 = _get_avatar_position(1) as Vector2
@@ -122,9 +146,13 @@ func _get_target_zoom():
 	
 	
 	var required_size = _get_required_size() #required size to ensure all player avatars are visible
-	if required_size.x < target_zoom.x or required_size.y < target_zoom.y:
-		print("required size = ", required_size, " target zoom = ", target_zoom)
+	
 	var current_size  = viewport_size * camera.zoom #current size of viewport in worldspace (after considering zoom)
+	
+	var zm = required_size / viewport_size
+	var zmx = max(zm.x, zm.y)
+	return Vector2(zmx, zmx)
+	
 	var prefer_size = viewport_size * prefer_zoom #prefered size is the most zoomed in allowed
 	var limit_size = viewport_size *  limit_zoom #limit size is the most zoomed out allowed
 	
@@ -134,8 +162,10 @@ func _get_target_zoom():
 	target_size.y = clamp(target_size.y, prefer_size.y, limit_size.y )
 	
 	var target_zoom = target_size/viewport_size
-	var zoom_max = min(target_zoom.x, target_zoom.y)
+	var zoom_max = max(target_zoom.x, target_zoom.y)
 	return Vector2(zoom_max, zoom_max)
+
+
 func _get_avatars():
 	if avatars.size() != 2 or (avatars[0] == null or avatars[1] == null):
 		avatars.clear()

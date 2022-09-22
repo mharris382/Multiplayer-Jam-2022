@@ -19,7 +19,12 @@ namespace Game.Blocks.Gas
         private Vector2 _min, _max;
         [Export()]
         private string blockTileName = "";
-
+        [Export()]
+        private bool manualBounds = true;
+        [Export()]
+        private Vector2 Max = new Vector2(25,25);
+        [Export()]
+        private Vector2 Min = new Vector2(-1, -1);
         private int _defaultBlockID = 0;
         
         public override void _Ready()
@@ -27,16 +32,25 @@ namespace Game.Blocks.Gas
             GasStuff.BlockTilemap = this;
             
             var usedCells = GasStuff.BlockTilemap.GetUsedCells();
-            _min = new Vector2(float.MaxValue, float.MaxValue);
-            _max = new Vector2(float.MinValue, float.MinValue);
-            foreach (var usedCell in usedCells)
+            if (manualBounds)
             {
-                var v = (Vector2)usedCell;
-                if (v.x > _max.x) _max.x = v.x;
-                else if (v.x < _min.x) _min.x = v.x;
-                if (v.y < _min.y) _min.y = v.y;
-                else if (v.y > _max.y) _max.y = v.y;
+                _max = Max;
+                _min = Min;
             }
+            else
+            {
+                _min = new Vector2(float.MaxValue, float.MaxValue);
+                _max = new Vector2(float.MinValue, float.MinValue);
+                foreach (var usedCell in usedCells)
+                {
+                    var v = (Vector2)usedCell;
+                    if (v.x > _max.x) _max.x = v.x;
+                    else if (v.x < _min.x) _min.x = v.x;
+                    if (v.y < _min.y) _min.y = v.y;
+                    else if (v.y > _max.y) _max.y = v.y;
+                }
+            }
+            
 
             if ((_defaultBlockID = TileSet.FindTileByName(blockTileName)) == -1)
             {

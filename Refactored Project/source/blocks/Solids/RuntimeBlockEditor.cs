@@ -21,8 +21,10 @@ namespace Game.Blocks.Solids
         
         private bool _ready = false;
 
-        [Export()]
-        private Vector2 cursorOffset = new Vector2(256, 256);
+        [Signal]
+        delegate void OnBlockBuilt(Vector2 cell);
+        [Signal]
+        delegate void OnBlockRemoved(Vector2 cell);
         
         private Vector2 min, max;
 
@@ -50,7 +52,7 @@ namespace Game.Blocks.Solids
             {
                 if (mbEvent.Pressed)
                 {
-                    var cell = _solidBlockTilemap.WorldToMap(GetGlobalMousePosition())+cursorOffset;
+                    var cell = _solidBlockTilemap.WorldToMap(GetGlobalMousePosition());
                     if (_solidBlockTilemap.IsCellEditable(cell))
                     {
                         if (mbEvent.ButtonIndex == LEFT_MOUSE_BTN)
@@ -79,6 +81,7 @@ namespace Game.Blocks.Solids
         {
             if (_solidBlockTilemap.BuildSolidBlock(cell))
             {
+                EmitSignal(nameof(OnBlockBuilt));
                 this.GetTree().SetInputAsHandled();
             }
         }
@@ -87,6 +90,7 @@ namespace Game.Blocks.Solids
         {
             if (_solidBlockTilemap.RemoveSolidBlock(cell))
             {
+                EmitSignal(nameof(OnBlockRemoved));
                 this.GetTree().SetInputAsHandled();
             }
         }

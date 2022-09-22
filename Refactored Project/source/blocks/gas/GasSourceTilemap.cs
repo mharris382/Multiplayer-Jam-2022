@@ -55,6 +55,7 @@ public class GasSourceTilemap : TileMap
         {
             this.cell = cell;
             this.tilemap = tilemap;
+            this.size = Vector2.One;
         }
 
         private Vector2 cell;
@@ -76,6 +77,9 @@ public class GasSourceTilemap : TileMap
             get => cell;
             set { }
         }
+
+        public Vector2 size { get; }
+
         public void BroadcastSourceStateChanged()
         {
             Debug.Log("Still calling this?BroadcastSourceStateChanged");

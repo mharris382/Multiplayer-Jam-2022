@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Game.blocks.gas;
 using Game.core;
 using Godot.Collections;
 
@@ -89,7 +90,17 @@ public class GasTilemap : TileMap
         transferAmount = amount;
         return amount > 0;
     }
-    
+
+    public int MoveSteam(Vector2 from, Vector2 to, int amt)
+    {
+        var fmAmount = from.GetGasAmount();
+        var toAmount = to.GetGasAmount();
+        var toSpace = 16 - toAmount;
+        var toSupply = fmAmount;
+        amt = Mathf.Clamp(amt, toSpace, toSupply);
+        TransferSteam(from, to, ref amt);
+        return amt;
+    }
     public void SetSteam(int x, int y, int steamValue)
     {
         steamValue = Mathf.Clamp(steamValue, 0, MAX_STEAM_VALUE);

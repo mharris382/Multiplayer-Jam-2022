@@ -154,8 +154,8 @@ shadow_enabled = false
 prefer_zoom = Vector2( 2, 2 )
 
 [node name="Camera2D" parent="Players and Camera/Camera" index="0"]
-position = Vector2( 252.5, 337.5 )
-zoom = Vector2( 2, 2 )
+position = Vector2( 258, 642 )
+zoom = Vector2( 0.574276, 0.574276 )
 limit_left = -747
 limit_top = -2576
 limit_right = 4523
@@ -165,10 +165,10 @@ drag_margin_v_enabled = false
 editor_draw_limits = true
 
 [node name="Transporter" parent="Players and Camera/Camera" index="1"]
-position = Vector2( 182, -261 )
+position = Vector2( 193, 127 )
 
 [node name="Builder" parent="Players and Camera/Camera" index="2"]
-position = Vector2( -67, -82 )
+position = Vector2( -67, 139 )
 
 [node name="Lights" type="Node2D" parent="."]
 modulate = Color( 0.737255, 0.737255, 0.737255, 1 )
@@ -211,7 +211,6 @@ position = Vector2( 4204, -2418 )
 
 [node name="Runtime Map Editor" type="Node2D" parent="."]
 script = ExtResource( 11 )
-cursorOffset = Vector2( 2, -1 )
 
 [node name="Wall Lights" type="Node2D" parent="."]
 

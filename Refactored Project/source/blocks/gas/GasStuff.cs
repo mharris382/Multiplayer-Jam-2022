@@ -23,6 +23,9 @@ public static partial class GasStuff
         }
     }
     private static Dictionary<GridDirections, Vector2> directionVectorLookup;
+    
+    
+
     static GasStuff()
     {
         directionVectorLookup = new Dictionary<GridDirections, Vector2>();
@@ -31,6 +34,7 @@ public static partial class GasStuff
         directionVectorLookup.Add(GridDirections.DOWN, Vector2.Down);
         directionVectorLookup.Add(GridDirections.LEFT, Vector2.Left);
         Sources = new List<ISteamSource>();
+        Sinks = new List<ISteamSink>();
     }
    
     public static int GasIteration { get; set; }
@@ -39,9 +43,21 @@ public static partial class GasStuff
     public static SolidBlockTilemap BlockTilemap { get; set; }
     public static AirFlowTilemap AirFlowTilemap { get; set; }
     private static List<ISteamSource> Sources { get; }
-
+    private static List<ISteamSink> Sinks { get; }
+    
     private static Dictionary<Vector2, int> sinks = new Dictionary<Vector2, int>();
 
+    public static void RemoveSink(ISteamSink sink)
+    {
+        Sinks.Remove(sink);
+    }
+    public static void AddSink(ISteamSink sink)
+    {
+        if (!Sinks.Contains(sink))
+        {
+            Sinks.Add(sink);
+        }
+    }
     public static void AddSink(Vector2 cell, int amount)
     {
         
@@ -62,9 +78,117 @@ public static partial class GasStuff
             sinks.Remove(cell);
         }
     }
-    
+
+    public static IEnumerable<(Vector2 cell, GridDirections pullDirections, int pullAmount)> GetPullingCells()
+    {
+        foreach (var steamSink in Sinks)
+        {
+            var pos =  GasStuff.GasTilemap.WorldToMap(steamSink.GetWorldSpacePosition());
+            if (!IsGasCellBlocked(pos))
+            {
+               
+                if (steamSink.pullSize.x > 1 || steamSink.pullSize.y > 1)
+                {
+                    var size = steamSink.pullSize;
+                    var p = pos - (size / 2);
+                    var dirs = steamSink.GetPullDirections();
+                    
+                    for (int i = 0; i <size.x; i++)
+                    {
+                        var x0 = size.x - i;
+                        
+                        var x1 = size.x + i;
+                    
+                        for (int j = 0; j > size.y; j++)
+                        {
+                            var y1 = size.y - i;
+                            var y0 = size.y + i;
+                            
+                            var right = new Vector2(x0, 0);
+                            var rDir = RemoveTrailingDirections(right, dirs);
+                            if (IsGasCellBlocked(right) == false)
+                            {
+                                yield return (p + right, rDir, steamSink.Demand);
+                            }
+                            var left = new Vector2(x1, 0);
+                            var lDir = RemoveTrailingDirections(left, dirs);
+                            if (IsGasCellBlocked(left) == false)
+                            {
+                                yield return (p + left, lDir, steamSink.Demand);
+                            }
+                            var up = new Vector2(0, y1);
+                            var uDir = RemoveTrailingDirections(up, dirs);
+                            if (IsGasCellBlocked(up) == false)
+                            {
+                                yield return (p + up, uDir, steamSink.Demand);
+                            }
+                            var down = new Vector2(0, y0);
+                            var dDir = RemoveTrailingDirections(down, dirs);
+                            if (IsGasCellBlocked(down) == false)
+                            {
+                                yield return (p + down, dDir, steamSink.Demand);
+                            }
+                           
+                            
+                            // var rup = new Vector2(right.x, up.y);
+                            // var rdown = new Vector2(right.x, down.y);
+                            // var lup = new Vector2(left.x, up.y);
+                            // var ldown = new Vector2(left.x, down.y);
+                            //
+                            // var cell = p + new Vector2(i, j);
+                            // if (!IsGasCellBlocked(cell))
+                            // {
+                            //     yield return (cell, steamSink.GetPullDirections(), steamSink.Demand);
+                            // }
+                        }
+                    }
+                }
+                else
+                {
+                    yield return (pos, steamSink.GetPullDirections(), steamSink.Demand);
+                }
+            }
+        }
+    }
     public static IEnumerable<(Vector2, int)> GetSinks()
     {
+        foreach (var steamSink in Sinks)
+        {
+            var pos =  GasStuff.GasTilemap.WorldToMap(steamSink.GetWorldSpacePosition());
+            if (steamSink.size.x > 1 || steamSink.size.y > 1)
+            {
+                var size = steamSink.size;
+                var p = pos - (size / 2);
+                
+                for (int i = 0; i <size.x; i++)
+                {
+                    var x0 = size.x - i;
+                    var x1 = size.x + i;
+                    
+                    for (int j = 0; j < size.y; j++)
+                    {
+                        var y1 = size.y - i;
+                        var y2 = size.y + i;
+                        
+                        var cell = p + new Vector2(i, j);
+                        if (!IsGasCellBlocked(cell))
+                        {
+                            yield return (cell, steamSink.Demand);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (!IsGasCellBlocked(pos))
+                {
+                    yield return (pos, steamSink.Demand);
+                }
+                //yield return (pos, steamSink.GetPullDirections(), steamSink.Demand);
+            }
+         
+          
+        }
         foreach (var sink in sinks)
         {
             if (IsGasCellBlocked(sink.Key) || sink.Value <= 0) continue;
@@ -132,44 +256,66 @@ public static partial class GasStuff
     {
         foreach (var steamSource in Sources)
         {
-            var gasCoord = GasTilemap.WorldToMap(steamSource.GetWorldSpacePosition());
-            if (!IsGasCellBlocked(gasCoord))
+            var pos1 = GasTilemap.WorldToMap(steamSource.GetWorldSpacePosition());
+            if (steamSource.size.x > 1 || steamSource.size.y > 1)
             {
-                var amount = steamSource.Output;
-                var current = GasTilemap.GetSteam(gasCoord);
-                var space = 16 - current;
-                if (space > amount)//if we have any overflow
+                var p = pos1 - (steamSource.size / 2);
+                    
+                for (int i = 0; i < steamSource.size.x; i++)
                 {
-                    //valid meaning the neighbor cell can still accept the overflow
-                    var validNeighbors = gasCoord.GetCellHandle()
-                        .UnblockedNeighbors
-                        .Where(t => !t.IsFull)
-                        .Select(t => t.Position)
-                        .ToList();
-                    
-                    
-                    if (validNeighbors.Count > 0)
+                    for (int j = 0; j < steamSource.size.y; j++)
                     {
-                        validNeighbors.Sort(new DescendingOrderGasSorter());//overflow to lowest first
-                        
-                        var overflow = space - amount;
-                        Debug.Assert(overflow > 0, "At this point overflow must be > 0");
-                        
-                        //distributes the overflow into neighbors out of overflow or run out of valid neighbors  
-                        while (overflow > 0 && validNeighbors.Count > 0)
+                        var cell = p + new Vector2(i, j);
+                        if (IsGasCellBlocked(cell) == false)
                         {
-                            validNeighbors.RemoveAll(t => t.GetCellHandle().IsFull);
-                            foreach (var unblockedNeighbor in validNeighbors)
-                            {
-                                var amt = Mathf.CeilToInt(overflow / 2.0f);
-                                overflow-=amt;
-                                yield return (unblockedNeighbor, amount);
-                            }
+                            yield return (cell, steamSource.Output);
                         }
                     }
                 }
-                yield return (gasCoord, amount);
             }
+            else
+            {
+                var pos = pos1;
+                if (!IsGasCellBlocked(pos))
+                {
+                    var amount = steamSource.Output;
+                    var current = GasTilemap.GetSteam(pos);
+                    var space = 16 - current;
+                    if (space > amount)//if we have any overflow
+                    {
+                        // //valid meaning the neighbor cell can still accept the overflow
+                        // var validNeighbors = pos.GetCellHandle()
+                        //     .UnblockedNeighbors
+                        //     .Where(t => !t.IsFull)
+                        //     .Select(t => t.Position)
+                        //     .ToList();
+                        //
+                        //
+                        // if (validNeighbors.Count > 0)
+                        // {
+                        //     validNeighbors.Sort(new DescendingOrderGasSorter());//overflow to lowest first
+                        //     
+                        //     var overflow = space - amount;
+                        //     Debug.Assert(overflow > 0, "At this point overflow must be > 0");
+                        //     
+                        //     //distributes the overflow into neighbors out of overflow or run out of valid neighbors  
+                        //     while (overflow > 0 && validNeighbors.Count > 0)
+                        //     {
+                        //         validNeighbors.RemoveAll(t => t.GetCellHandle().IsFull);
+                        //         foreach (var unblockedNeighbor in validNeighbors)
+                        //         {
+                        //             var amt = Mathf.CeilToInt(overflow / 2.0f);
+                        //             overflow-=amt;
+                        //             yield return (unblockedNeighbor, amount);
+                        //         }
+                        //     }
+                        // }
+                    }
+                    yield return (pos, amount);
+                }
+            }
+            
+            
         }
     }
     
@@ -263,6 +409,54 @@ public static partial class GasStuff
             yield return Vector2.Down;
     }
 
+    private static GridDirections RemoveBlockedDirections(Vector2 cell, GridDirections directions)
+    {
+        if (IsDirectionBlocked(Vector2.Right))
+        {
+            directions &= ~(GridDirections.RIGHT);
+        }
+
+        if (IsDirectionBlocked(Vector2.Left))
+        {
+            directions &= ~(GridDirections.LEFT);
+        }
+
+        if (IsDirectionBlocked(Vector2.Up))
+        {
+            directions &= ~(GridDirections.UP);
+        }
+        if (IsDirectionBlocked(Vector2.Down))
+        {
+            directions &= ~(GridDirections.DOWN);
+        }
+        
+        bool IsDirectionBlocked(Vector2 dir) => IsGasCellBlocked(cell + dir);
+        return directions;
+    }
+
+    private static GridDirections RemoveTrailingDirections(Vector2 offset, GridDirections directions)
+    {
+        if (offset == Vector2.Zero) return directions;
+        if (offset.x > 0)
+        {
+            directions &= ~(GridDirections.LEFT);
+        }
+        else if (offset.x < 0)
+        {
+            directions &= ~(GridDirections.RIGHT);
+        }
+
+        if (offset.y > 0)
+        {
+            directions &= ~(GridDirections.UP);
+        }
+        else if(offset.y < 0)
+        {
+            directions &= ~(GridDirections.DOWN);
+        }
+        return directions;
+    }
+
     /// <summary>
     /// returns the number of discrete directions (currently does not include diagnals) encoded in this int (enum).
     /// </summary>
@@ -281,6 +475,8 @@ public static partial class GasStuff
     private static bool HasRight(this GridDirections directions) => (directions & GridDirections.RIGHT) != 0;
     private static bool HasUp(this GridDirections directions) => (directions & GridDirections.UP) != 0;
     private static bool HasDown(this GridDirections directions) => (directions & GridDirections.DOWN) != 0;
+    
+    
     
     private static IEnumerable<Vector2> GetNeighborsFromDirections(Vector2 pos, GridDirections directions)
     {
