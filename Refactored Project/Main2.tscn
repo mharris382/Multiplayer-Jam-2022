@@ -73,6 +73,9 @@ position = Vector2( -1110, 51 )
 
 [node name="Camera" parent="." instance=ExtResource( 4 )]
 
+[node name="Camera2D" parent="Camera" index="0"]
+current = true
+
 [node name="Transporter" parent="Camera" index="1"]
 position = Vector2( -855, 292 )
 
@@ -82,20 +85,14 @@ position = Vector2( -574, 261 )
 [node name="Transporter" parent="." instance=ExtResource( 3 )]
 position = Vector2( -855, 292 )
 script = ExtResource( 10 )
-canHoldJump = false
 doubleJumpHeight = 512
-maxJumpHeight = 512
-minJumpHeight = 64
+canHoldJump = false
 
 [node name="Builder" parent="." instance=ExtResource( 2 )]
 position = Vector2( -574, 261 )
 script = ExtResource( 10 )
-canHoldJump = false
 doubleJumpHeight = 512
-friction = 20
-jumpDuration = 1.0
-maxJumpHeight = 512
-minJumpHeight = 64
+canHoldJump = false
 
 [node name="Builder RemoteTransform Camera" type="RemoteTransform2D" parent="Builder"]
 remote_path = NodePath("../../Camera/Builder")

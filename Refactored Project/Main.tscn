@@ -155,7 +155,7 @@ prefer_zoom = Vector2( 2, 2 )
 
 [node name="Camera2D" parent="Players and Camera/Camera" index="0"]
 position = Vector2( 258, 642 )
-zoom = Vector2( 0.574276, 0.574276 )
+zoom = Vector2( 2, 2 )
 limit_left = -747
 limit_top = -2576
 limit_right = 4523

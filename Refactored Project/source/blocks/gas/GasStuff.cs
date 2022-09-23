@@ -60,7 +60,6 @@ public static partial class GasStuff
     }
     public static void AddSink(Vector2 cell, int amount)
     {
-        
         if (sinks.ContainsKey(cell))
         {
             sinks[cell] = Mathf.Clamp(amount, 0, 16);
@@ -330,7 +329,6 @@ public static partial class GasStuff
         if (IsGasCellBlocked(cell))
             yield break;
 
-        //yield return GetNeighbors(cell).Where(t => !IsGasCellBlocked(t)).Select(t => (t, GasTilemap.GetSteam(t)));
         foreach (var neighbor in GetNeighbors(cell))
         {
             if (!IsGasCellBlocked(neighbor))
@@ -456,21 +454,21 @@ public static partial class GasStuff
         }
         return directions;
     }
-
+    
     /// <summary>
     /// returns the number of discrete directions (currently does not include diagnals) encoded in this int (enum).
     /// </summary>
     /// <param name="directions">encoded set of directions</param>
     /// <returns></returns>
-    private static int CountDirections(GridDirections directions)
+    private static int Count(GridDirections directions)
     {
-        int cnt = 0;
-        if (directions.HasDown()) cnt++;
-        if (directions.HasUp()) cnt++;
-        if (directions.HasLeft()) cnt++;
-        if (directions.HasRight()) cnt++;
-        return cnt;
+        return (((int)directions & (int)GridDirections.LEFT) >> 1)+
+               (((int)directions & (int)GridDirections.RIGHT) >> 0)+
+               (((int)directions & (int)GridDirections.UP) >> 2)+
+               (((int)directions & (int)GridDirections.DOWN) >> 3);
     }
+    
+    
     private static bool HasLeft(this GridDirections directions) => (directions & GridDirections.LEFT) != 0;
     private static bool HasRight(this GridDirections directions) => (directions & GridDirections.RIGHT) != 0;
     private static bool HasUp(this GridDirections directions) => (directions & GridDirections.UP) != 0;
