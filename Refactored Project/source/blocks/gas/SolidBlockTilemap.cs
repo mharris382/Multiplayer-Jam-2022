@@ -60,6 +60,11 @@ namespace Game.Blocks.Gas
             Debug.Log($"Min = {_min}, Max = {_max}");
         }
 
+        public override void _Process(float delta)
+        {
+            if (GasStuff.BlockTilemap == null) GasStuff.BlockTilemap = this;
+            base._Process(delta);
+        }
 
         /// <summary>
         /// returns true if the cell contains a solid block or not
