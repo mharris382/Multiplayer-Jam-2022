@@ -11,17 +11,16 @@ using Godot.Collections;
 public class GasTilemap : TileMap
 {
     private const int MAX_STEAM_VALUE = 16;
-    
-    
-    [Export(hint:PropertyHint.ExpRange, hintString:"1,32,2")]
+
+
+    [Export(hint: PropertyHint.ExpRange, hintString: "1,32,2")]
     public int steamTilesPerBlockTile = 4;
 
-    [Export()]
-    public NodePath pathToBlockTilemap = "./Block TileMap";
+    [Export()] public NodePath pathToBlockTilemap = "./Block TileMap";
 
-    
-  
-    
+
+
+
     public override void _Ready()
     {
         GasStuff.GasTilemap = this;
@@ -29,20 +28,21 @@ public class GasTilemap : TileMap
 
     private static int TileIdToSteam(int tileIndex) => tileIndex + 1;
     private static int SteamToTileId(int steamValue) => steamValue - 1;
-    
+
     public bool ModifySteam(Vector2 tilePosition, int amountToAdd, out int amountAdded)
     {
         var current = GetSteam(tilePosition);
         if (current + amountToAdd <= MAX_STEAM_VALUE)
         {
-            SetSteam(tilePosition, current+amountToAdd);
+            SetSteam(tilePosition, current + amountToAdd);
             amountAdded = amountToAdd;
             return true;
         }
+
         amountAdded = GetSteam(tilePosition) - current;
         return false;
     }
-    
+
     /// <summary>
     /// removes the amount provided there is that much to remove, otherwise removes all the steam
     /// TODO: make an AddSteam version of this method
@@ -54,17 +54,18 @@ public class GasTilemap : TileMap
     {
         var amount = Mathf.Abs(amountToRemove); //accept negative input or positive
         var prevSteam = GetSteam(cell);
-        
+
         if (prevSteam > amount)
         {
             SetSteam(cell, prevSteam - amount);
             return amount;
         }
+
         SetSteam(cell, 0);
         return prevSteam;
     }
-  
-    
+
+
     /// <summary>
     /// tries to transfer the desired amount of steam from one cell to another cell WITH conservation of mass.
     /// Returns true if ANY steam was transferred.
@@ -84,9 +85,10 @@ public class GasTilemap : TileMap
         var amount = Mathf.Min(transferAmount, amountCanMove);
         if (amount > 0)
         {
-           ModifySteam(fromPosition, -amount, out var added1);
-           ModifySteam(toPosition, amount, out var added2);
+            ModifySteam(fromPosition, -amount, out var added1);
+            ModifySteam(toPosition, amount, out var added2);
         }
+
         transferAmount = amount;
         return amount > 0;
     }
@@ -101,6 +103,7 @@ public class GasTilemap : TileMap
         TransferSteam(from, to, ref amt);
         return amt;
     }
+
     public void SetSteam(int x, int y, int steamValue)
     {
         steamValue = Mathf.Clamp(steamValue, 0, MAX_STEAM_VALUE);
@@ -112,7 +115,8 @@ public class GasTilemap : TileMap
     }
 
 
-    public void SetSteam(Vector2 tilePosition, int steamValue) => SetSteam((int)tilePosition.x, (int)tilePosition.y, steamValue);
+    public void SetSteam(Vector2 tilePosition, int steamValue) =>
+        SetSteam((int)tilePosition.x, (int)tilePosition.y, steamValue);
 
     public IEnumerable<Vector2> GetNeighbors(Vector2 pos)
     {
@@ -151,7 +155,17 @@ public class GasTilemap : TileMap
             SetCellv(cell, -1);
         }
     }
-    
-    public new Array<Vector2> GetUsedCells() => new Array<Vector2>(base.GetUsedCells());
+
+    public IEnumerable<(int gas, IEnumerable<Vector2> cells)> GetGasCellsLowerThan(int gasAmount, bool ascendingOrder = false)
+    {
+        gasAmount = Mathf.Clamp(gasAmount, 0, 16);
+        for (int i = 0; i < gasAmount; i++)
+        {
+            var id = ascendingOrder ? i : (gasAmount - 1) - i;
+            yield return (i + 1, GetUsedCellsById(i));
+        }
+    }
+
+public new Array<Vector2> GetUsedCells() => new Array<Vector2>(base.GetUsedCells());
     public new Array<Vector2> GetUsedCellsById(int tileId) => new Array<Vector2>(base.GetUsedCellsById(tileId));
 }

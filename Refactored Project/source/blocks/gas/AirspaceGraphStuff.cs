@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.blocks.gas;
 using Game.core;
 using Godot;
 
@@ -88,35 +89,35 @@ public static partial class GasStuff
     }
 
     static void AddAirspaceGraph(Vector2 source)
-   {
-       if (HasAirspaceBeenFound(source)) return;
+    {
+        if (HasAirspaceBeenFound(source)) return;
         if (Debug.Assert(trees.ContainsKey(source), $"Error trying to build tree on cell {source} twice!"))
             return;
-            
+
         if (Debug.Assert(!IsGasCellBlocked(source), $"Error {source} cell is blocked!"))
             //TODO: need to remove any air in this cell.
             return;
-            
+
         int id = graphs.Count;
         graphs.Add(new AirspaceGraph(id, source, GasTilemap.GetSteam(source)));
-        DFS(graphs[id], source);    
+        DFS(graphs[id], source);
         Debug.Log(graphs[id].ToString());
     }
-    
-   static void DFS(AirspaceGraph graph, Vector2 source)
+
+    static void DFS(AirspaceGraph graph, Vector2 source)
     {
         if (trees.ContainsKey(source)) //if already traversed then do nothing
             return;
-            
+
         bool isBlocked = IsGasCellBlocked(source);
         if (!isBlocked)
         {
             //mark cell as searched
             trees.Add(source, graph.graphID);
-                
+
             //update airspace cell from tilemap
-            graph.SetAirspaceCell(source,  GasTilemap.GetSteam(source));
-                
+            graph.SetAirspaceCell(source, GasTilemap.GetSteam(source));
+
             //iterate through unblocked? neighbors
             foreach (var neighbor in GetNeighbors(source))
             {
@@ -128,7 +129,7 @@ public static partial class GasStuff
             //mark cell as searched
             trees.Add(source, BLOCKED_ID);
         }
-           
+
     }
     //--------------------------------------------------------------------------
 
@@ -136,14 +137,14 @@ public static partial class GasStuff
     {
         public readonly int graphID;
         public Vector2 SourceNode { get; set; }
-        
-    
+
+
         private int totalCellCount;
         private int totalAirCount;
-        
+
         public Dictionary<Vector2, AirCell> cells = new Dictionary<Vector2, AirCell>();
         public Dictionary<Vector2, List<Vector2>> undirectedEdges = new Dictionary<Vector2, List<Vector2>>();
-        
+
         public AirspaceGraph(int graphId, Vector2 sourceNode, int sourceAir = 1)
         {
             Debug.Log($"Created Airspace Graph {graphID} from {sourceNode} with amount = {sourceAir}");
@@ -176,7 +177,9 @@ public static partial class GasStuff
             {
                 return "Airspace Graph Error: totalCellCount=0";
             }
-            return $"Airspace Graph #{graphID}\t Source:{SourceNode}\n\tTotal Space: {totalCellCount}\n\tTotal Air: {totalAirCount}\n\tTarget Density = {totalAirCount/totalCellCount}\n";
+
+            return
+                $"Airspace Graph #{graphID}\t Source:{SourceNode}\n\tTotal Space: {totalCellCount}\n\tTotal Air: {totalAirCount}\n\tTarget Density = {totalAirCount / totalCellCount}\n";
         }
 
         public void Dispose()
@@ -186,9 +189,10 @@ public static partial class GasStuff
             {
                 GasStuff.trees.Remove(airCell.Key);
             }
+
             GasStuff.graphs.Remove(this);
         }
-        
+
         public class AirCell
         {
             internal Vector2 position { get; set; }
@@ -202,4 +206,82 @@ public static partial class GasStuff
         }
 
     }
-} 
+
+    public static IEnumerable<(Vector2, int)> GetAllAirspaceConnectedToCell(Vector2 cell)
+    {
+
+        if (IsGasCellBlocked(cell))
+        {
+            yield break;
+        }
+    }
+
+    public static Graph<CellInfo> GetAirspaceGraphFromCell(Vector2 cell)
+    {
+        if (IsGasCellBlocked(cell))
+        {
+            return null;
+        }
+
+        Vector2[] directions = new Vector2[]
+        {
+            Vector2.Up,
+            Vector2.Left,
+            Vector2.Right,
+            Vector2.Down
+        };
+
+        
+
+        var graph = new Graph<CellInfo>(GraphType.UNDIRECTED_UNWEIGHTED);
+        graph.AddVertex(cell);
+        BuildGraphFrom(cell);
+
+      
+        void BuildGraphFrom(Vector2 nextCell)
+        {
+            if (graph.ContainsVertex(nextCell))
+            {
+                return;
+            }
+
+            if (IsGasCellBlocked(nextCell))
+            {
+                return;
+            }
+            
+            graph.AddVertex(nextCell);
+            foreach (var dir in directions)
+            {
+                BuildGraphFrom(nextCell + dir);
+            }
+
+            foreach (var dir in directions)
+            {
+                if (!graph.HasEdge(nextCell, nextCell + dir))
+                {
+                    graph.AddEdge(nextCell, nextCell+dir);
+                }
+            }
+        }
+        
+        return graph;
+    }
+    
+
+    public static IEnumerable<(Vector2, int)> GetAllGasCells()
+    {
+        foreach (var cell in GasTilemap.GetUsedCells())
+        {
+            yield return (cell, cell.GetGasAmount());
+        }
+        // for (int i = 0; i < 16; i++)
+        // {
+        //     GasTilemap.GetUsedCellsById(15 - i);
+        // }
+        // throw new NotImplementedException();
+    }
+    
+    
+    
+}

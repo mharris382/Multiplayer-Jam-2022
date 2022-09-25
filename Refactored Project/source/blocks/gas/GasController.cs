@@ -36,19 +36,19 @@ public class GasController : Node
 
     private readonly RandomNumberGenerator  _rng = new Godot.RandomNumberGenerator();
     private bool _valid = false;
+    private Task _currentTask;
+
+
     
-
-
     /// <summary>
     /// resolves all dependencies prior to running the cellular automata algorithm
     /// </summary>
     public override async void _Ready()
     {
         await GetTilemaps();
-        if (autoStart)
-        {
-            
-        }
+        //Graph<CellInfo> cells = GasStuff.GetAirspaceGraphFromCell(Vector2.One * 5);
+        //if(cells != null)
+        //    Debug.Log(cells.ToString());
     }
 
     /// <summary>
@@ -81,7 +81,10 @@ public class GasController : Node
             Debug.Log("Invalid Gas");
             return;
         }
-        
+
+        var gasIOs = GasStuff.GetSinks().Select(t => (t.Item1, -t.Item2)).Concat(GasStuff.GetSources());
+        var graph = new Graph<Vector2>(GraphType.UNDIRECTED_UNWEIGHTED);
+        IEnumerable<(Vector2, int)> gasCells = GasStuff.GetAllGasCells();
         AddGas();
         RemoveGasFromSinks();
         DiffuseGas();
@@ -123,6 +126,8 @@ public class GasController : Node
         }
     }
 
+
+    
     /// <summary>
     /// selects the order to traverse the graph <seealso cref="DiffuseGas()"/>
     /// </summary>
@@ -286,5 +291,146 @@ public class GasController : Node
         _gasTilemap.Clear();
     }
 //timer callback, setup in scene
-    [UsedImplicitly] public void _iterate_sources() => IterateSources();
+    [UsedImplicitly]
+    public async void _iterate_sources()
+    {
+        if (_currentTask != null)
+        {
+            if (!_currentTask.IsCompleted)
+            {
+                await _currentTask;
+            }
+        }
+        _currentTask = Task.Run(IterateSources);
+    }
+
+#region [Playing with code]
+
+#if PLAY_WITH_CODE
+        private PriorityQueue<Vector2> priorityQueue;
+    private Graph<Vector2> airspaceGraph;
+    private Graph<Vector2> airDensityGraph;
+    
+    private HashSet<Vector2>[] gasCells;
+    private System.Collections.Generic.Dictionary<Vector2, int> dict;
+    private void GasTest()
+    {
+        const int CAP = 1000000;
+        
+        priorityQueue = new PriorityQueue<Vector2>(CAP);
+        
+        airspaceGraph = new Graph<Vector2>(GraphType.UNDIRECTED_UNWEIGHTED);
+        
+        gasCells = new HashSet<Vector2>[16];
+        dict = new System.Collections.Generic.Dictionary<Vector2, int>();
+        HashSet<Vector2> usedCells = new HashSet<Vector2>();
+        foreach (var cell in GasStuff.GasTilemap.GetUsedCells())
+        {
+            usedCells.Add(cell);
+        }
+        //empty unblocked cells that have one or more neighbor that is a non-empty gas cell
+        HashSet<Vector2>[] airspaceEdgeCells = new HashSet<Vector2>[16];
+        for (int i = 0; i < 16; i++)
+        {
+
+            gasCells[i] = new HashSet<Vector2>();
+            var airspaceEdges = new HashSet<Vector2>();
+            airspaceEdgeCells[i] = airspaceEdges;
+           
+            
+            foreach (var cell in  GasStuff.GasTilemap.GetUsedCellsById(i))
+            {
+                bool IsNeighborUnblockedAndEmpty(Vector2 offset)
+                {
+                    var neighbor = cell + offset;
+                    if (GasStuff.IsGasCellBlocked(neighbor) || usedCells.Contains(neighbor))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+
+                void CheckEdge(Vector2 offset)
+                {
+                    
+                   bool result = !airspaceEdges.Contains(cell + Vector2.Right) &&
+                        IsNeighborUnblockedAndEmpty(Vector2.Right);
+                   if (result) airspaceEdges.Add(offset + cell);
+                }
+               
+                CheckEdge(Vector2.Right);
+                CheckEdge(Vector2.Left);
+                CheckEdge(Vector2.Up);
+                CheckEdge(Vector2.Down);
+                
+                gasCells[i].Add(cell);
+                dict.Add(cell, i+1);
+                priorityQueue.Enqueue(cell, i+1);
+            }
+            
+            foreach (var cell in gasCells[i])
+            {
+                priorityQueue.Enqueue(cell, i);
+            }
+        }
+        
+        
+        airDensityGraph = new Graph<Vector2>(GraphType.DIRECTED_WEIGHTED);
+    }
+    
+    
+
+
+    struct CellInfo
+    {
+        private Vector2 position;
+        private Vector2 Up => position + Vector2.Up;
+        private Vector2 Down => position + Vector2.Down;
+        private Vector2 Right => position + Vector2.Right;
+        private Vector2 Left => position + Vector2.Left;
+        
+        private Neighbors _neighbors;
+        
+        
+        public CellInfo(Vector2 position)
+        {
+            _neighbors = 0;
+            this.position = position;
+            _neighbors += (GasStuff.IsGasCellBlocked(Right) ? (int)Neighbors.HAS_RIGHT : 0) +
+                          (GasStuff.IsGasCellBlocked(Up) ? (int)Neighbors.HAS_UP : 0) +
+                          (GasStuff.IsGasCellBlocked(Down) ? (int)Neighbors.HAS_DOWN : 0) +
+                          (GasStuff.IsGasCellBlocked(Left) ? (int)Neighbors.HAS_LEFT : 0);
+            int neighborEncoding = (int)_neighbors;
+            
+            int GetNeighborCount()
+            {
+           // int r = ((int)_neighbors & (int)Neighbors.HAS_RIGHT) >> RIGHT_BITSHIFT
+           // int l = ((int)_neighbors & (int)Neighbors.HAS_LEFT) >> LEFT_BITSHIFT
+           // int u = ((int)_neighbors & (int)Neighbors.HAS_UP) >> UP_BITSHIFT
+           // int d = ((int)_neighbors & (int)Neighbors.HAS_DOWN) >> DOWN_BITSHIFT
+           return
+               (neighborEncoding & (int)Neighbors.HAS_RIGHT) >> RIGHT_BITSHIFT +
+               (neighborEncoding & (int)Neighbors.HAS_LEFT) >> LEFT_BITSHIFT +
+               (neighborEncoding & (int)Neighbors.HAS_UP) >> UP_BITSHIFT +
+               (neighborEncoding & (int)Neighbors.HAS_DOWN) >> DOWN_BITSHIFT;
+        }
+        }
+
+
+        
+
+        const int LEFT_BITSHIFT = 1;
+        const int RIGHT_BITSHIFT = 2;
+        const int UP_BITSHIFT = 3;
+        const int DOWN_BITSHIFT = 4;
+        enum Neighbors
+        {
+            HAS_LEFT = 1 << LEFT_BITSHIFT,
+            HAS_RIGHT = 1 << RIGHT_BITSHIFT,
+            HAS_UP = 1 << UP_BITSHIFT,
+            HAS_DOWN = 1 << DOWN_BITSHIFT
+        }
+    }
+#endif
+#endregion 
 }
