@@ -4,14 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "29834af8cdde7ca4",
+        "id": "7315bf97c6b364e3",
         "type": "leaf",
         "state": {
-          "type": "markdown",
+          "type": "excalidraw",
           "state": {
-            "file": "Dependency Stack/Block Build Tool.md",
-            "mode": "source",
-            "source": false
+            "file": "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md"
           }
         }
       }
@@ -77,7 +75,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Dependency Stack/Block Build Tool.md",
+                "file": "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +92,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Dependency Stack/Block Build Tool.md",
+                "file": "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +115,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Dependency Stack/Block Build Tool.md"
+                "file": "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md"
               }
             }
           }
@@ -129,17 +127,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "29834af8cdde7ca4",
+  "active": "7315bf97c6b364e3",
   "lastOpenFiles": [
-    "Dependency Stack/Block Disconnect Tool.md",
-    "Dependency Stack/Block Build Tool.md",
-    "Dependency Stack/Tools.md",
-    "Dependency Stack/Static Block Enviornment.md",
-    "Dependency Stack/Equipped Tool.md",
-    "Dependency Stack/Gadgets.md",
-    "Dependency Stack/Gadget Input.md",
-    "Dependency Stack/Equipped Gadget.md",
-    "Dependency Stack/Equipment.md",
-    "Dependency Stack/Equipment Selection.md"
+    "Brain Dump.md",
+    "GDD - Credits.md",
+    "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
+    "Game Design Document/Storytelling/Chapter 1 - The Departure.md",
+    "Game Design Document/Storytelling/Storytelling.md",
+    "Game Design Document/Storytelling/Writing Tips/How to Write Good Dialogue.md",
+    "assets/Excalidraw/Drawing 2022-09-22 18.41.58.excalidraw.md",
+    "Game Design Document/GDD - Steam Eagles.md",
+    "assets/media/images/unknown2.png",
+    "assets/media/images/Torchlight.png"
   ]
 }
