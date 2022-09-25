@@ -10,18 +10,7 @@ using Godot;
 
 public static partial class GasStuff
 {
-    public static void RemoveSource(ISteamSource source)
-    {
-        Sources.Remove(source);
-    }
-
-    public static void AddSource(ISteamSource source)
-    {
-        if (!Sources.Contains(source))
-        {
-            Sources.Add(source);
-        }
-    }
+ 
     private static Dictionary<GridDirections, Vector2> directionVectorLookup;
     
     
@@ -45,8 +34,22 @@ public static partial class GasStuff
     private static List<ISteamSource> Sources { get; }
     private static List<ISteamSink> Sinks { get; }
     
+    
     private static Dictionary<Vector2, int> sinks = new Dictionary<Vector2, int>();
+    private static Dictionary<Vector2, int> _staticSources = new Dictionary<Vector2, int>();
+    
+    public static void RemoveSource(ISteamSource source)
+    {
+        Sources.Remove(source);
+    }
 
+    public static void AddSource(ISteamSource source)
+    {
+        if (!Sources.Contains(source))
+        {
+            Sources.Add(source);
+        }
+    }
     public static void RemoveSink(ISteamSink sink)
     {
         Sinks.Remove(sink);
@@ -77,7 +80,33 @@ public static partial class GasStuff
             sinks.Remove(cell);
         }
     }
+    
+    public static void AddFixedSource(Vector2 cell, int amount)
+    {
+        if (_staticSources.ContainsKey(cell))
+        {
+            if (amount == 0)
+            {
+                _staticSources.Remove(cell);
+            }
+            else
+            {
+                _staticSources[cell] = Mathf.Clamp(amount, 0, 16);
+            }
+        }
+        else
+        {
+            _staticSources.Add(cell, amount);
+        }
+    }
 
+    public static void RemoveFixedSource(Vector2 cell)
+    {
+        if (_staticSources.ContainsKey(cell))
+        {
+            _staticSources.Remove(cell);
+        }
+    }
     public static IEnumerable<(Vector2 cell, GridDirections pullDirections, int pullAmount)> GetPullingCells()
     {
         foreach (var steamSink in Sinks)
@@ -149,6 +178,48 @@ public static partial class GasStuff
             }
         }
     }
+    
+    
+    public static IEnumerable<(Vector2, int)> GetSources()
+    {
+        foreach (var source in GasStuff.Sources)
+        {
+            var pos =  GasStuff.GasTilemap.WorldToMap(source.GetWorldSpacePosition());
+            if (source.size.x > 1 || source.size.y > 1)
+            {
+                var size = source.size;
+                var cellOffset = pos - (size / 2);
+                for (int i = 0; i < size.x; i++)
+                {
+                    for (int j = 0; j < size.y; j++)
+                    {
+                        var cell = cellOffset + new Vector2(i, j);
+                        if (!IsGasCellBlocked(cell))
+                        {
+                            yield return (cell, source.Output);
+                        }
+                        
+                    }
+                }
+            }
+            else
+            {
+                if (!IsGasCellBlocked(pos))
+                {
+                    yield return (pos, source.Output);
+                }
+            }
+
+            foreach (var staticSource in _staticSources)
+            {
+                if (!IsGasCellBlocked(staticSource.Key))
+                {
+                    yield return (staticSource.Key, staticSource.Value);
+                }                
+            }
+        }
+    }
+    
     public static IEnumerable<(Vector2, int)> GetSinks()
     {
         foreach (var steamSink in Sinks)
@@ -341,9 +412,18 @@ public static partial class GasStuff
     private static IEnumerable<Vector2> GetNeighbors(Vector2 pos)
     {
         yield return pos + Vector2.Up;
+        var cell = pos;
+        if ((int)cell.x % 2 == 0 ^ (int)cell.y % 2 == 0)
+        {
+            yield return cell + Vector2.Right;
+            yield return cell + Vector2.Left;
+        }
+        else
+        {
+            yield return cell + Vector2.Left;
+            yield return cell + Vector2.Right;
+        }
         yield return pos + Vector2.Down;
-        yield return pos + Vector2.Left;
-        yield return pos + Vector2.Right;
     }
 
     #region [Directions Code]
