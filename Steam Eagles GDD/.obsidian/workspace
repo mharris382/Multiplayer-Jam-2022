@@ -7,9 +7,11 @@
         "id": "7315bf97c6b364e3",
         "type": "leaf",
         "state": {
-          "type": "excalidraw",
+          "type": "markdown",
           "state": {
-            "file": "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md"
+            "file": "assets/media/Concept Art.md",
+            "mode": "source",
+            "source": false
           }
         }
       }
@@ -75,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
+                "file": "assets/media/Concept Art.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -92,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
+                "file": "assets/media/Concept Art.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -115,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md"
+                "file": "assets/media/Concept Art.md"
               }
             }
           }
@@ -129,15 +131,15 @@
   },
   "active": "7315bf97c6b364e3",
   "lastOpenFiles": [
+    "assets/media/Concept_sketches.jpg",
+    "assets/media/reference art/airship a.png",
+    "assets/media/Concept Art.md",
+    "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
     "Brain Dump.md",
     "GDD - Credits.md",
-    "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
     "Game Design Document/Storytelling/Chapter 1 - The Departure.md",
     "Game Design Document/Storytelling/Storytelling.md",
     "Game Design Document/Storytelling/Writing Tips/How to Write Good Dialogue.md",
-    "assets/Excalidraw/Drawing 2022-09-22 18.41.58.excalidraw.md",
-    "Game Design Document/GDD - Steam Eagles.md",
-    "assets/media/images/unknown2.png",
-    "assets/media/images/Torchlight.png"
+    "assets/Excalidraw/Drawing 2022-09-22 18.41.58.excalidraw.md"
   ]
 }
