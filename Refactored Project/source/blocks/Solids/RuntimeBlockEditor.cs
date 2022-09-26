@@ -263,6 +263,7 @@ namespace Game.Blocks.Solids
             public void RedoCommand()
             {
                 GasStuff.BlockTilemap.BuildSolidBlock(blockCell);
+                GasStuff.GasTilemap.ClearCells(GasStuff.BlockTilemap.GetGasCellsOnCell(blockCell));
             }
         }
 

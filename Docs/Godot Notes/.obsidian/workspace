@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "CSharp/CSharp Features.md",
+            "file": "CSharp/CSharp Signals.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CSharp/CSharp Features.md",
+                "file": "CSharp/CSharp Signals.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CSharp/CSharp Features.md",
+                "file": "CSharp/CSharp Signals.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CSharp/CSharp Features.md"
+                "file": "CSharp/CSharp Signals.md"
               }
             }
           },
@@ -139,11 +139,11 @@
   },
   "active": "860b5bdf3d8d0484",
   "lastOpenFiles": [
-    "CSharp/Differences between CSharp and Gdscript.md",
     "CSharp/CSharp Exports.md",
+    "CSharp/CSharp Features.md",
+    "CSharp/Differences between CSharp and Gdscript.md",
     "CSharp/CSharp Signals.md",
     "CSharp/CSharp Preprocessor Defines.md",
-    "CSharp/CSharp Features.md",
     "Cross-Language Scripting.md",
     "Cross-Language Scripting - Instantiating Nodes.md",
     "Cross-Langauge Scripting - Fields.md",
