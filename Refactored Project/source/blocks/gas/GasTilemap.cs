@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Game.blocks.gas;
 using Game.core;
 using Godot.Collections;
-
+using CellDictionary = System.Collections.Generic.Dictionary< Godot.Vector2, int>;
 
 
 public class GasTilemap : TileMap
@@ -19,28 +19,53 @@ public class GasTilemap : TileMap
     [Export()] public NodePath pathToBlockTilemap = "./Block TileMap";
 
 
-
+    
+    
+    private CellDictionary _cellValues = new CellDictionary();
+    private CellDictionary _modifiedCellValues = new CellDictionary();
+    private bool _isModifying = false;
+    
 
     public override void _Ready()
     {
         GasStuff.GasTilemap = this;
+        
+    }
+
+    
+    
+    private void ApplyModifiedCells()
+    {
+        foreach (var kvp in _modifiedCellValues)
+        {
+            var cell = kvp.Key;
+            var gasAmount = kvp.Value;
+            _cellValues.AddOrReplace(cell, gasAmount);
+            SetCellv(cell, SteamToTileId(gasAmount));
+        }
+        _modifiedCellValues.Clear();
+        _isModifying = false;
     }
 
     private static int TileIdToSteam(int tileIndex) => tileIndex + 1;
     private static int SteamToTileId(int steamValue) => steamValue - 1;
 
-    public bool ModifySteam(Vector2 tilePosition, int amountToAdd, out int amountAdded)
+    public int AddGasFromSource(Vector2 item1, int item2)
+    {
+        return ModifySteam(item1, item2);
+    }
+    public int ModifySteam(Vector2 tilePosition, int amountToAdd)
     {
         var current = GetSteam(tilePosition);
         if (current + amountToAdd <= MAX_STEAM_VALUE)
         {
             SetSteam(tilePosition, current + amountToAdd);
-            amountAdded = amountToAdd;
-            return true;
+            return amountToAdd;
         }
-
-        amountAdded = GetSteam(tilePosition) - current;
-        return false;
+        
+        var amountAdded = MAX_STEAM_VALUE - current;
+        SetSteam(tilePosition, MAX_STEAM_VALUE);
+        return amountAdded;
     }
 
     /// <summary>
@@ -85,8 +110,8 @@ public class GasTilemap : TileMap
         var amount = Mathf.Min(transferAmount, amountCanMove);
         if (amount > 0)
         {
-            ModifySteam(fromPosition, -amount, out var added1);
-            ModifySteam(toPosition, amount, out var added2);
+           var a1 = ModifySteam(fromPosition, -amount);
+            ModifySteam(toPosition, amount);
         }
 
         transferAmount = amount;
@@ -168,4 +193,6 @@ public class GasTilemap : TileMap
 
 public new Array<Vector2> GetUsedCells() => new Array<Vector2>(base.GetUsedCells());
     public new Array<Vector2> GetUsedCellsById(int tileId) => new Array<Vector2>(base.GetUsedCellsById(tileId));
+
+  
 }

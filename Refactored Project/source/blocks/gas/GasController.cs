@@ -46,9 +46,6 @@ public class GasController : Node
     public override async void _Ready()
     {
         await GetTilemaps();
-        //Graph<CellInfo> cells = GasStuff.GetAirspaceGraphFromCell(Vector2.One * 5);
-        //if(cells != null)
-        //    Debug.Log(cells.ToString());
     }
 
     /// <summary>
@@ -276,10 +273,8 @@ public class GasController : Node
     {
         foreach (var gasToAdd in GasStuff.GetGasFromSourcesToAddToSystem())
         {
-            if (_gasTilemap.ModifySteam(gasToAdd.Item1, gasToAdd.Item2, out var added))
+            if (_gasTilemap.AddGasFromSource(gasToAdd.Item1, gasToAdd.Item2) > 0)
             {
-                //Debug.Log($"ADDED GAS TO SIM: {added}");
-                // Logger.Log2($"Added {added}");
             }
         }
     }
@@ -294,14 +289,16 @@ public class GasController : Node
     [UsedImplicitly]
     public async void _iterate_sources()
     {
-        if (_currentTask != null)
-        {
-            if (!_currentTask.IsCompleted)
-            {
-                await _currentTask;
-            }
-        }
-        _currentTask = Task.Run(IterateSources);
+        IterateSources();
+        // if (_currentTask != null)
+        // {
+        //     if (!_currentTask.IsCompleted)
+        //     {
+        //        // Debug.Log("Awaiting iteration!");
+        //         await _currentTask;
+        //     }
+        // }
+        // _currentTask = Task.Run(IterateSources);
     }
 
 #region [Playing with code]

@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Collections.Generic;
+using Godot;
 
 namespace Game.core
 {
@@ -8,6 +9,19 @@ namespace Game.core
         {
             return new Vector2(Mathf.Clamp(vector2.x, minX, maxX),
                 Mathf.Clamp(vector2.y, minY, maxY));
+        }
+
+
+        public static void AddOrReplace<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        {
+            if (dictionary.ContainsKey(key))
+            {
+                dictionary[key] = value;
+            }
+            else
+            {
+                dictionary.Add(key, value);
+            }
         }
     }
 }

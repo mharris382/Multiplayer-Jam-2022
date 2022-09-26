@@ -194,7 +194,7 @@ namespace Game.Blocks.Solids
                 for (int j = 0; j < gasSize.y; j++)
                 {
                     var offset = new Vector2(i, j);
-                    GasStuff.GasTilemap.ModifySteam(cell + offset, gasAmount, out var added);
+                    GasStuff.GasTilemap.ModifySteam(cell + offset, gasAmount);
                 }
             }
         }
