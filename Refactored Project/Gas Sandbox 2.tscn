@@ -56,11 +56,11 @@ blockTileName = "Blank0_White_Tile"
 [node name="Steam TileMap" type="TileMap" parent="GasController"]
 z_index = 1000
 tile_set = ExtResource( 6 )
-cell_size = Vector2( 8, 8 )
+cell_size = Vector2( 16, 16 )
 centered_textures = true
 format = 1
 script = ExtResource( 3 )
-steamTilesPerBlockTile = 16
+steamTilesPerBlockTile = 8
 pathToBlockTilemap = NodePath("../Block TileMap")
 
 [node name="BG Tilemap" type="TileMap" parent="GasController"]

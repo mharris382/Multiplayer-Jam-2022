@@ -19,15 +19,36 @@ namespace Game.Blocks.Solids
     /// </summary>
     public class RuntimeBlockEditor : Node2D
     {
+
+        [Signal]
+        delegate void OnGasHoverChanged(Vector2 gasCell);
+
+        [Signal]
+        delegate void OnBlockHoverChanged(Vector2 blockCell);
         private const int RIGHT_MOUSE_BTN = 2;
         private const int LEFT_MOUSE_BTN = 1;
-
+        private const int MIDDLE_MOUSE_BTN = 3;
         private bool _ready = false;
 
+        [Export()]
+        public Vector2 gasSize = Vector2.One;
 
-
+        [Export()]
+        public int gasAmount = 3;
+        
+        
         private Vector2 min, max;
 
+        private bool _dragging;
+
+        private Vector2 _lastGasCell;
+        private Vector2 _lastBlockCell;
+
+        private const int GAS = 0;
+        private const int BLOCK = 1;
+
+        private Vector2[] _startDragCell = new Vector2[2];
+        private Vector2[] _dragCells = new Vector2[2];
 
         public override async void _Ready()
         {
@@ -38,6 +59,29 @@ namespace Game.Blocks.Solids
                 _ready = true;
         }
 
+        public override void _Process(float delta)
+        {
+            base._Process(delta);
+            var mp = GetGlobalMousePosition();
+            //if (_dragging)
+            //{
+                var gasCell = GasStuff.GasTilemap.WorldToMap(mp);
+                if (gasCell != _dragCells[GAS])
+                {
+                    EmitSignal("OnGasHoverChanged", GasStuff.GasTilemap.MapToWorld(gasCell));
+                    _dragCells[GAS] = gasCell;
+                }
+
+                var blockOffset = GasStuff.BlockTilemap.CellSize / 2;
+                var blockCell = GasStuff.BlockTilemap.WorldToMap(mp);
+                if (blockCell != _dragCells[BLOCK])
+                {
+                        EmitSignal("OnBlockHoverChanged", GasStuff.BlockTilemap.MapToWorld(blockCell)+blockOffset);
+                        _dragCells[BLOCK] = blockCell;
+                }
+            //}
+        }
+
         public override async void _Input(InputEvent @event)
         {
             if (!_ready || GasStuff.BlockTilemap == null)
@@ -46,11 +90,26 @@ namespace Game.Blocks.Solids
                 return;
             }
 
-
             if (@event is InputEventMouseButton mbEvent)
             {
-                
-                
+                if (mbEvent.Pressed)
+                {
+                    HandleMouseButtonEvent(mbEvent);
+                    _dragging = true;
+                }
+                else
+                {
+                    _dragging = false;
+                }
+            }
+
+            base._Input(@event);
+
+            #region [Playing with code version]
+
+#if BRUSH
+            if (@event is InputEventMouseButton mbEvent)
+            {
                 if (mbEvent.Pressed)
                 {
                     if (_inProgressCommand != null && _inProgressCommand.Status == TaskStatus.Running)
@@ -63,7 +122,7 @@ namespace Game.Blocks.Solids
                         await _inProgressCommand;
                         if (_inProgressCommand.Status == TaskStatus.RanToCompletion)
                         {
-                            RecordCommand(_inProgressCommand.Result);
+                            
                         }
                     }
                 }
@@ -71,83 +130,43 @@ namespace Game.Blocks.Solids
                 {
                     Brush.MouseReleased();
                 }
-                // if (mbEvent.Pressed)
-                // {
-                //     var cell = GasStuff.BlockTilemap.WorldToMap(GetGlobalMousePosition());
-                //     if (GasStuff.BlockTilemap.IsCellEditable(cell))
-                //     {
-                //         if (mbEvent.ButtonIndex == LEFT_MOUSE_BTN)
-                //         {
-                //             BuildBlockOnCell(cell);
-                //             try
-                //             {
-                //                 GasStuff.GasTilemap.ClearCells(GasStuff.BlockTilemap.GetGasCellsOnCell(cell));
-                //             }
-                //             catch (Exception e)
-                //             {
-                //                 Debug.Log($"Exception: {e}");
-                //
-                //             }
-                //         }
-                //         else if (mbEvent.ButtonIndex == RIGHT_MOUSE_BTN)
-                //         {
-                //             RemoveBlockOnCell(cell);
-                //         }
-                //     }
-                //     else
-                //     {
-                //         Debug.Log($"Cursor is on cell: {cell} which is outside rect ");
-                //     }
-                // }
-
             }
+#endif
 
-            base._Input(@event);
+            #endregion
         }
 
-        private void RecordCommand(IBrushCommand result)
+        private void HandleMouseButtonEvent(InputEventMouseButton mbEvent)
         {
-            _undoStack.Push(result);
-        }
-
-        private IBrush Brush
-        {
-            get => _brush == null ?  (_brush = new BlockBrush()) : _brush;
-        }
-        private IBrush _brush;
-        private Task<IBrushCommand> _inProgressCommand;
-        private Stack<IBrushCommand> _undoStack = new Stack<IBrushCommand>();
-        private Stack<IBrushCommand> _redoStack = new Stack<IBrushCommand>();
-
-        public void Undo()
-        {
-            if (_undoStack.Count > 0)
+            var cell = GasStuff.BlockTilemap.WorldToMap(GetGlobalMousePosition());
+            if (GasStuff.BlockTilemap.IsCellEditable(cell))
             {
-                var command = _undoStack.Pop();
-                command.UndoCommand();
-                _redoStack.Push(command);
+                if (mbEvent.ButtonIndex == LEFT_MOUSE_BTN)
+                {
+                    BuildBlockOnCell(cell);
+                    try
+                    {
+                        GasStuff.GasTilemap.ClearCells(GasStuff.BlockTilemap.GetGasCellsOnCell(cell));
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Log($"Exception: {e}");
+                    }
+                }
+                else if (mbEvent.ButtonIndex == RIGHT_MOUSE_BTN)
+                {
+                    RemoveBlockOnCell(cell);
+                }
+                else if (mbEvent.ButtonIndex == MIDDLE_MOUSE_BTN)
+                {
+                    AddGasToCell(cell);
+                }
+                else
+                {
+                    Debug.Log($"Cursor is on cell: {cell} which is outside rect ");
+                }
             }
         }
-
-        public void Redo()
-        {
-            if (_redoStack.Count > 0)
-            {
-                var command = _redoStack.Pop();
-                command.UndoCommand();
-                _undoStack.Push(command);
-            }
-        }
-
-        private async void OnMouse(Vector2 vector2)
-        {
-            if (_brush == null)
-            {
-                _brush = new BlockBrush();
-                
-            }
-        }
-        
 
         private void BuildBlockOnCell(Vector2 cell)
         {
@@ -166,6 +185,47 @@ namespace Game.Blocks.Solids
                 this.GetTree().SetInputAsHandled();
             }
         }
+
+
+        private void AddGasToCell(Vector2 cell)
+        {
+            for (int i = 0; i < gasSize.x; i++)
+            {
+                for (int j = 0; j < gasSize.y; j++)
+                {
+                    var offset = new Vector2(i, j);
+                    GasStuff.GasTilemap.ModifySteam(cell + offset, gasAmount, out var added);
+                }
+            }
+        }
+        
+        
+    }
+}
+
+#region [Playing with code version]
+
+#if BRUSH
+
+        private IBrush Brush
+        {
+            get => _brush == null ? (_brush = new BlockBrush()) : _brush;
+        }
+
+        private IBrush _brush;
+        private Task<IBrushCommand> _inProgressCommand;
+
+
+        private async void OnMouse(Vector2 vector2)
+        {
+            if (_brush == null)
+            {
+                _brush = new BlockBrush();
+            }
+        }
+
+
+        
     }
 
 
@@ -175,9 +235,8 @@ namespace Game.Blocks.Solids
         void MouseReleased();
     }
 
-  
 
-public interface IBrushCommand
+    public interface IBrushCommand
     {
         void UndoCommand();
         void RedoCommand();
@@ -187,14 +246,15 @@ public interface IBrushCommand
     {
         [Signal]
         delegate void OnBlockBuilt(Vector2 cell);
+
         [Signal]
         delegate void OnBlockRemoved(Vector2 cell);
-        
+
         private struct BuildBlockCommand : IBrushCommand
         {
             public Vector2 blockCell;
-            
-            
+
+
             public void UndoCommand()
             {
                 GasStuff.BlockTilemap.RemoveSolidBlock(blockCell);
@@ -205,7 +265,7 @@ public interface IBrushCommand
                 GasStuff.BlockTilemap.BuildSolidBlock(blockCell);
             }
         }
-        
+
         private void BuildBlockOnCell(Vector2 cell)
         {
             if (GasStuff.BlockTilemap == null) return;
@@ -238,15 +298,10 @@ public interface IBrushCommand
         }
 
 
-      
         public void MouseReleased()
         {
-            
         }
     }
-
-    
-    
-    
-    
 }
+#endif
+  #endregion
