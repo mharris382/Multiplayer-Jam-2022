@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://tests/Gas/IterationTimer.gd" type="Script" id=1]
 [ext_resource path="res://source/Blocks/Gas/GasController.cs" type="Script" id=2]
@@ -6,13 +6,11 @@
 [ext_resource path="res://assets/Blocks_Final/auto-tiles/Block_Base_autotile.tres" type="TileSet" id=4]
 [ext_resource path="res://assets/Blocks_Final/gas_blocks/Tileset_Steam_16x16 (backup).tres" type="TileSet" id=5]
 [ext_resource path="res://assets/Blocks_Final/gas_blocks/Tileset_Steam_32x32.tres" type="TileSet" id=6]
-[ext_resource path="res://assets/Blocks_Final/gas_blocks/tiles_4_32px.png" type="Texture" id=7]
+[ext_resource path="res://Cell Hover Display.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/sKY/clouds_mg_3.png" type="Texture" id=8]
 [ext_resource path="res://source/Blocks/Gas/Sinks/SinkTileMap.cs" type="Script" id=9]
 [ext_resource path="res://source/Blocks/Gas/SolidBlockTilemap.cs" type="Script" id=10]
 [ext_resource path="res://assets/sKY/clouds_mg_2.png" type="Texture" id=11]
-[ext_resource path="res://assets/Blocks_Final/gas_blocks/tiles_4_128px.png" type="Texture" id=12]
-[ext_resource path="res://tests/Gas/HoverGas.gd" type="Script" id=13]
 [ext_resource path="res://assets/ui/editor/plain-circle.png" type="Texture" id=15]
 [ext_resource path="res://assets/ui/editor/power-button.png" type="Texture" id=16]
 [ext_resource path="res://source/Blocks/Gas/GasSourceTilemap.cs" type="Script" id=19]
@@ -25,16 +23,6 @@
 [ext_resource path="res://assets/sKY/ParallaxSetup.gd" type="Script" id=26]
 [ext_resource path="res://assets/Audio/sounds/Feedbacks/block_pickup_1.wav" type="AudioStream" id=27]
 [ext_resource path="res://assets/Audio/sounds/Feedbacks/block_placement_1.wav" type="AudioStream" id=28]
-
-[sub_resource type="AtlasTexture" id=1]
-flags = 4
-atlas = ExtResource( 7 )
-region = Rect2( 512, 512, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 12 )
-region = Rect2( 512, 512, 128, 128 )
 
 [node name="Gas_p16_0" type="Node2D"]
 
@@ -299,18 +287,7 @@ stream = ExtResource( 28 )
 stream = ExtResource( 27 )
 volume_db = 10.632
 
-[node name="Cell Hover Display" type="Node2D" parent="."]
-script = ExtResource( 13 )
-
-[node name="Hover_Gas" type="Sprite" parent="Cell Hover Display"]
-modulate = Color( 1, 0, 0, 0.403922 )
-position = Vector2( 403, 586 )
-texture = SubResource( 1 )
-
-[node name="Hover_Block" type="Sprite" parent="Cell Hover Display"]
-modulate = Color( 0, 1, 0.0862745, 0.352941 )
-position = Vector2( 859, 474 )
-texture = SubResource( 2 )
+[node name="Cell Hover Display" parent="." instance=ExtResource( 7 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 1913, 1146 )
@@ -320,5 +297,3 @@ zoom = Vector2( 2, 2 )
 [connection signal="timeout" from="GasController/IterationTimer" to="GasController" method="_iterate_sources"]
 [connection signal="button_down" from="Clear Button" to="GasController" method="_on_Clear_Button_pressed"]
 [connection signal="button_down" from="Start Button2" to="GasController/IterationTimer" method="_start_timer"]
-[connection signal="OnBlockHoverChanged" from="Block Editor" to="Cell Hover Display" method="_on_Block_Editor_OnBlockHoverChanged"]
-[connection signal="OnGasHoverChanged" from="Block Editor" to="Cell Hover Display" method="_on_Block_Editor_OnGasHoverChanged"]

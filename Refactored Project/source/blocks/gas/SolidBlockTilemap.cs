@@ -26,6 +26,15 @@ namespace Game.Blocks.Gas
         [Export()]
         private Vector2 Min = new Vector2(-1, -1);
         private int _defaultBlockID = 0;
+
+        
+
+        public delegate void OnBlockRemoved(Vector2 cell);
+        public delegate void OnBlockBuilt(Vector2 cell, int gasRemoved);
+
+        public event OnBlockRemoved onBlockRemoved;
+        public event OnBlockBuilt onBlockBuilt;
+
         
         public override void _Ready()
         {
@@ -60,6 +69,13 @@ namespace Game.Blocks.Gas
             Debug.Log($"Min = {_min}, Max = {_max}");
         }
 
+
+        public Vector2 GetHoveringCell()
+        {
+            var lp = GetLocalMousePosition();
+            return WorldToMap(lp);
+        }
+        
         public override void _Process(float delta)
         {
             if (GasStuff.BlockTilemap == null) GasStuff.BlockTilemap = this;
@@ -87,7 +103,7 @@ namespace Game.Blocks.Gas
         {
             if (!IsCellEditable(cell)) return false;
             if (IsCellSolid(cell)) return false;
-            
+            GasStuff.GasTilemap.ClearCells(GetGasCellsInBlockCell(cell));
             SetCellv(cell, _defaultBlockID);
             return true;
         }
@@ -156,5 +172,6 @@ namespace Game.Blocks.Gas
                 }
             }
         }
+        
     }
 }

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/Blocks_Final/gas_blocks/tiles_4_32px.png" type="Texture" id=1]
+[ext_resource path="res://assets/Blocks_Final/gas_blocks/tiles_4_128px.png" type="Texture" id=2]
+[ext_resource path="res://tests/Gas/HoverGas.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 512, 512, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 512, 512, 128, 128 )
+
+[node name="Cell Hover Display" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Hover_Gas" type="Sprite" parent="."]
+modulate = Color( 1, 0, 0, 0.403922 )
+position = Vector2( 403, 586 )
+texture = SubResource( 1 )
+
+[node name="Hover_Block" type="Sprite" parent="."]
+modulate = Color( 0, 1, 0.0862745, 0.352941 )
+texture = SubResource( 2 )

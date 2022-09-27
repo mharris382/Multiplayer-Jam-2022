@@ -173,12 +173,22 @@ public class GasTilemap : TileMap
         return GetSteam((int)tilePosition.x, (int)tilePosition.y);
     }
 
-    public void ClearCells(IEnumerable<Vector2> cells)
+    /// <summary>
+    /// clears gas from given gas cells.  returns the amount of gas removed from the simulation.
+    /// assumes all gas cells are valid
+    /// </summary>
+    /// <param name="cells"></param>
+    /// <returns></returns>
+    public int ClearCells(IEnumerable<Vector2> cells)
     {
+        int cnt = 0;
         foreach (var cell in cells)
         {
+            cnt += GetSteam(cell);
             SetCellv(cell, -1);
         }
+
+        return cnt;
     }
 
     public IEnumerable<(int gas, IEnumerable<Vector2> cells)> GetGasCellsLowerThan(int gasAmount, bool ascendingOrder = false)

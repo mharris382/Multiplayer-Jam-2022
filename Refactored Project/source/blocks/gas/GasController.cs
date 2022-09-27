@@ -257,6 +257,10 @@ public class GasController : Node
                 if (gasDiff > 1)
                 {
                     var transferAmount = gasDiff > 2 ? Mathf.CeilToInt(gasDiff / 2.0f) : 1;
+                    var toCell = neighbor.cell;
+                    var fromCell = cell;
+                    var direction = toCell - fromCell;
+                    //GasSim.TransferGas(fromCell, toCell, transferAmount);
                     TransferAmountAndRecordOutflow(cell, neighbor.cell, transferAmount);
 
 

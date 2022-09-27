@@ -96,6 +96,7 @@ tile_data = PoolIntArray( 2555968, 3, 0, 2555969, 3, 0, 2555970, 3, 0, 2555971, 
 script = ExtResource( 19 )
 
 [node name="Button" type="Button" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.4 )
 margin_left = 705.0
 margin_top = 766.0
@@ -104,6 +105,7 @@ margin_bottom = 806.0
 rect_scale = Vector2( 1.35173, 1.35173 )
 
 [node name="Clear Button" type="Button" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.4 )
 margin_left = 32.0
 margin_right = 146.0
@@ -111,6 +113,7 @@ margin_bottom = 87.0
 rect_scale = Vector2( 1.35173, 1.35173 )
 
 [node name="Start Button2" type="Button" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.4 )
 margin_left = 237.0
 margin_top = 2.0
@@ -119,6 +122,7 @@ margin_bottom = 89.0
 rect_scale = Vector2( 1.35173, 1.35173 )
 
 [node name="Button2" type="Button" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.803922 )
 margin_left = 896.0
 margin_top = 774.0
@@ -228,9 +232,11 @@ suckRate = 6
 suckSize = Vector2( 25, 25 )
 
 [node name="Camera" parent="Players and Camera" index="2"]
+prefer_zoom = Vector2( 1.6, 1.6 )
 limit_zoom = Vector2( 3, 3 )
 
 [node name="Camera2D" parent="Players and Camera/Camera" index="0"]
+zoom = Vector2( 1.6, 1.6 )
 limit_left = -130
 limit_top = -126
 limit_right = 3292
@@ -239,9 +245,6 @@ editor_draw_limits = true
 __meta__ = {
 "_edit_pinned_properties_": [ "limit_top", "limit_right", "limit_left", "limit_bottom" ]
 }
-
-[node name="Transporter" parent="Players and Camera/Camera" index="1"]
-position = Vector2( 991, 416 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 follow_viewport_enable = true
@@ -370,13 +373,17 @@ script = ExtResource( 24 )
 
 [node name="Audio" type="Node2D" parent="Block Editor"]
 script = ExtResource( 25 )
+build_volume_range = Vector2( -5, 0 )
 
 [node name="Build AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Block Editor/Audio"]
 stream = ExtResource( 28 )
+volume_db = -20.199
+bus = "SFX"
 
 [node name="Disconnect AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Block Editor/Audio"]
 stream = ExtResource( 27 )
 volume_db = 10.632
+bus = "SFX"
 
 [connection signal="timeout" from="GasController/IterationTimer" to="GasController" method="_iterate_sources"]
 [connection signal="button_down" from="Clear Button" to="GasController" method="_on_Clear_Button_pressed"]

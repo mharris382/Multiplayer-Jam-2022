@@ -25,6 +25,16 @@ namespace Game.Blocks.Solids
 
         [Signal]
         delegate void OnBlockHoverChanged(Vector2 blockCell);
+
+        [Signal]
+        delegate void OnBlockBuilt(Vector2 blockCelll);
+
+        [Signal]
+        delegate void OnBlockRemoved(Vector2 blockCell);
+        
+        private const string ON_BLOCK_BUILT_SIGNAL = "OnBlockBuilt";
+        private const string ON_BLOCK_REMOVE_SIGNAL = "OnBlockRemoved";
+        
         private const int RIGHT_MOUSE_BTN = 2;
         private const int LEFT_MOUSE_BTN = 1;
         private const int MIDDLE_MOUSE_BTN = 3;
@@ -73,7 +83,7 @@ namespace Game.Blocks.Solids
                 }
 
                 var blockOffset = GasStuff.BlockTilemap.CellSize / 2;
-                var blockCell = GasStuff.BlockTilemap.WorldToMap(mp);
+                var blockCell =  GasStuff.BlockTilemap.GetHoveringCell();
                 if (blockCell != _dragCells[BLOCK])
                 {
                         EmitSignal("OnBlockHoverChanged", GasStuff.BlockTilemap.MapToWorld(blockCell)+blockOffset);
@@ -139,19 +149,13 @@ namespace Game.Blocks.Solids
         private void HandleMouseButtonEvent(InputEventMouseButton mbEvent)
         {
             var cell = GasStuff.BlockTilemap.WorldToMap(GetGlobalMousePosition());
-            if (GasStuff.BlockTilemap.IsCellEditable(cell))
+            var hoveringCell = GasStuff.BlockTilemap.GetHoveringCell();
+            if (GasStuff.BlockTilemap.IsCellEditable(hoveringCell))
             {
                 if (mbEvent.ButtonIndex == LEFT_MOUSE_BTN)
                 {
-                    BuildBlockOnCell(cell);
-                    try
-                    {
-                        GasStuff.GasTilemap.ClearCells(GasStuff.BlockTilemap.GetGasCellsOnCell(cell));
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.Log($"Exception: {e}");
-                    }
+                    BuildBlockOnCell(hoveringCell);
+                    
                 }
                 else if (mbEvent.ButtonIndex == RIGHT_MOUSE_BTN)
                 {
@@ -173,6 +177,7 @@ namespace Game.Blocks.Solids
             if (GasStuff.BlockTilemap == null) return;
             if (GasStuff.BlockTilemap.BuildSolidBlock(cell))
             {
+                OnBlockCreation(cell);
                 this.GetTree().SetInputAsHandled();
             }
         }
@@ -182,8 +187,27 @@ namespace Game.Blocks.Solids
             if (GasStuff.BlockTilemap == null) return;
             if (GasStuff.BlockTilemap.RemoveSolidBlock(cell))
             {
+                OnBlockRemoval(cell);
                 this.GetTree().SetInputAsHandled();
             }
+        }
+
+        private void OnBlockCreation(Vector2 cell)
+        {
+            try
+            {
+                GasStuff.GasTilemap.ClearCells(GasStuff.BlockTilemap.GetGasCellsOnCell(cell));
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Exception: {e}");
+            }
+            EmitSignal(ON_BLOCK_BUILT_SIGNAL, cell);
+        }
+
+        private void OnBlockRemoval(Vector2 cell)
+        {
+            EmitSignal(ON_BLOCK_REMOVE_SIGNAL, cell);
         }
 
 

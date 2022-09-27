@@ -27,7 +27,7 @@ rotation = 3.14159
 scale = Vector2( 7.41747, 7.41747 )
 texture = ExtResource( 4 )
 texture_scale = 0.25
-energy = 0.5
+energy = 0.12
 shadow_enabled = true
 shadow_color = Color( 0.505882, 1, 1, 1 )
 
@@ -51,7 +51,7 @@ rotation = 3.14159
 scale = Vector2( 7.41747, 7.41747 )
 texture = ExtResource( 4 )
 texture_scale = 0.25
-energy = 0.5
+energy = 0.12
 shadow_enabled = true
 shadow_color = Color( 1, 1, 0.352941, 1 )
 
@@ -62,7 +62,6 @@ lower_offset = Vector2( 0, -214.089 )
 
 [node name="Camera2D" parent="Camera" index="0"]
 position = Vector2( 746.5, 415.5 )
-current = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 offset_v = -0.41
@@ -73,5 +72,10 @@ position = Vector2( 991, 416 )
 
 [node name="Builder" parent="Camera" index="2"]
 position = Vector2( 502, 415 )
+
+[node name="AudioStreamPlayer2D" parent="Camera" index="3"]
+volume_db = -12.557
+
+[node name="Tween" type="Tween" parent="Camera/AudioStreamPlayer2D" index="0"]
 
 [editable path="Camera"]

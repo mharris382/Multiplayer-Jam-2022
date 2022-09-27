@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "7315bf97c6b364e3",
+        "id": "f709a1b4e360c2af",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "assets/media/Concept Art.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -61,7 +57,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 364.49999809265137
+    "width": 620.4999980926514
   },
   "right": {
     "id": "8a38a164ca04acdb",
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "assets/media/Concept Art.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +89,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "assets/media/Concept Art.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -116,9 +110,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "assets/media/Concept Art.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -129,17 +121,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "7315bf97c6b364e3",
+  "active": "f709a1b4e360c2af",
   "lastOpenFiles": [
+    "assets/media/reference art/Pasted image 20220925203753.png",
+    "assets/media/Concept Art.md",
     "assets/media/Concept_sketches.jpg",
     "assets/media/reference art/airship a.png",
-    "assets/media/Concept Art.md",
     "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
     "Brain Dump.md",
     "GDD - Credits.md",
     "Game Design Document/Storytelling/Chapter 1 - The Departure.md",
     "Game Design Document/Storytelling/Storytelling.md",
-    "Game Design Document/Storytelling/Writing Tips/How to Write Good Dialogue.md",
-    "assets/Excalidraw/Drawing 2022-09-22 18.41.58.excalidraw.md"
+    "Game Design Document/Storytelling/Writing Tips/How to Write Good Dialogue.md"
   ]
 }
