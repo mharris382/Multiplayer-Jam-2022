@@ -6,4 +6,10 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="source\Blocks\Gas\GameSpace" />
+    <Folder Include="source\Blocks\Gas\Interfaces" />
+    <Folder Include="source\Blocks\Gas\simulation" />
+    <Folder Include="source\Blocks\Gas\Sinks" />
+  </ItemGroup>
 </Project>

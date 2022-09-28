@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Game.core;
 using Godot;
 
-namespace Game.Blocks.Gas
+namespace Game.Blocks.Gas.Tilemaps
 {
     /// <summary>
     /// tilemap containing the solid blocks that block air and can be walked on.  This is the tilemap that the players
@@ -18,58 +18,67 @@ namespace Game.Blocks.Gas
     {
         private Vector2 _min, _max;
         [Export()]
-        private string blockTileName = "";
+        private string _blockTileName = "";
         [Export()]
-        private bool manualBounds = true;
+        private bool _manualBounds = true;
         [Export()]
-        private Vector2 Max = new Vector2(25,25);
+        private Vector2 _boundsMax = new Vector2(25,25);
         [Export()]
-        private Vector2 Min = new Vector2(-1, -1);
-        private int _defaultBlockID = 0;
+        private Vector2 _boundsMin = new Vector2(-1, -1);
+        
+        [Export()]
+        private int _defaultBlockId = 0;
 
         
 
         public delegate void OnBlockRemoved(Vector2 cell);
         public delegate void OnBlockBuilt(Vector2 cell, int gasRemoved);
 
-        public event OnBlockRemoved onBlockRemoved;
-        public event OnBlockBuilt onBlockBuilt;
 
-        
         public override void _Ready()
         {
             GasStuff.BlockTilemap = this;
             
-            var usedCells = GasStuff.BlockTilemap.GetUsedCells();
-            if (manualBounds)
+            
+            if (_manualBounds)
             {
-                _max = Max;
-                _min = Min;
+                _max = _boundsMax;
+                _min = _boundsMin;
             }
             else
             {
-                _min = new Vector2(float.MaxValue, float.MaxValue);
-                _max = new Vector2(float.MinValue, float.MinValue);
-                foreach (var usedCell in usedCells)
-                {
-                    var v = (Vector2)usedCell;
-                    if (v.x > _max.x) _max.x = v.x;
-                    else if (v.x < _min.x) _min.x = v.x;
-                    if (v.y < _min.y) _min.y = v.y;
-                    else if (v.y > _max.y) _max.y = v.y;
-                }
+                ComputeAutomaticBounds();
             }
             
 
-            if ((_defaultBlockID = TileSet.FindTileByName(blockTileName)) == -1)
+            if ((_defaultBlockId = TileSet.FindTileByName(_blockTileName)) == -1)
             {
-                _defaultBlockID = 1;
-                Debug.LogWarning($"No block named {blockTileName} found in {TileSet.ResourceName}");
+                _defaultBlockId = 1;
+                Debug.LogWarning($"No block named {_blockTileName} found in {TileSet.ResourceName}");
             }
             Debug.Log($"Min = {_min}, Max = {_max}");
         }
 
+        private void ComputeAutomaticBounds()
+        {
+            var usedCells = GetUsedCells();
+            _min = new Vector2(float.MaxValue, float.MaxValue);
+            _max = new Vector2(float.MinValue, float.MinValue);
+            foreach (var usedCell in usedCells)
+            {
+                var v = (Vector2)usedCell;
+                if (v.x > _max.x) _max.x = v.x;
+                else if (v.x < _min.x) _min.x = v.x;
+                if (v.y < _min.y) _min.y = v.y;
+                else if (v.y > _max.y) _max.y = v.y;
+            }
+        }
 
+
+        /// <summary>
+        /// gets the cell that the cursor is hovering over
+        /// </summary>
+        /// <returns></returns>
         public Vector2 GetHoveringCell()
         {
             var lp = GetLocalMousePosition();
@@ -104,7 +113,7 @@ namespace Game.Blocks.Gas
             if (!IsCellEditable(cell)) return false;
             if (IsCellSolid(cell)) return false;
             GasStuff.GasTilemap.ClearCells(GetGasCellsInBlockCell(cell));
-            SetCellv(cell, _defaultBlockID);
+            SetCellv(cell, _defaultBlockId);
             return true;
         }
 

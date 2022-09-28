@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Game.blocks.gas;
 using Game.Blocks.Gas;
+using Game.Blocks.Gas.Tilemaps;
 using Game.core;
 using Godot.Collections;
 using JetBrains.Annotations;

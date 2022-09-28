@@ -13,3 +13,8 @@ by the end of this sprint, we should have:
 2. Gas Simulation implemented in Unity
 3. Suite of Unit Tests for the critical parts of the sim
 4. A clean, reusable codebase that is well documented
+
+# Organization
+![[Unity Volume Mixer Naive Setup.png]]
+
+ ![[Gas Sim Unity Port - Project Structure (I22).png]]

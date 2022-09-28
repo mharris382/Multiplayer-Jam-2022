@@ -1,7 +1,7 @@
 using Game.core;
 using Godot;
 
-namespace Game.Blocks.Gas.Sinks
+namespace Game.Blocks.Gas.Tilemaps
 {
     public class SinkTileMap : TileMap
     {
