@@ -7,8 +7,12 @@
         "id": "f709a1b4e360c2af",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "Game Design Document/Technology/Official GitHub Repository.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Game Design Document/Technology/Official GitHub Repository.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Game Design Document/Technology/Official GitHub Repository.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Game Design Document/Technology/Official GitHub Repository.md"
+              }
             }
           }
         ],
@@ -123,6 +131,8 @@
   },
   "active": "f709a1b4e360c2af",
   "lastOpenFiles": [
+    "Game Design Document/Technology/Refactoring the Gas Simulation.md",
+    "assets/Excalidraw/Drawing 2022-09-27 18.12.32.excalidraw.md",
     "assets/media/reference art/Pasted image 20220925203753.png",
     "assets/media/Concept Art.md",
     "assets/media/Concept_sketches.jpg",
@@ -130,8 +140,6 @@
     "assets/Excalidraw/Drawing 2022-09-25 14.37.42.excalidraw.md",
     "Brain Dump.md",
     "GDD - Credits.md",
-    "Game Design Document/Storytelling/Chapter 1 - The Departure.md",
-    "Game Design Document/Storytelling/Storytelling.md",
-    "Game Design Document/Storytelling/Writing Tips/How to Write Good Dialogue.md"
+    "Game Design Document/Storytelling/Chapter 1 - The Departure.md"
   ]
 }
