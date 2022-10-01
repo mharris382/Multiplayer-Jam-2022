@@ -175,13 +175,13 @@ points = PoolVector2Array( 0, 32, 128, 32, 128, 128, 0, 128 )
 points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=247]
-points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
+points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=256]
-points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
+points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=258]
-points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
+points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=260]
 points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
@@ -1168,13 +1168,13 @@ polygon = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=249]
-points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
+points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=251]
 points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=253]
-points = PoolVector2Array( 0, 16, 128, 16, 128, 128, 0, 128 )
+points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
 [resource]
 1/name = "Block_Conveyor"

@@ -86,7 +86,7 @@ namespace Game.Blocks.Solids
                 var blockCell =  GasStuff.BlockTilemap.GetHoveringCell();
                 if (blockCell != _dragCells[BLOCK])
                 {
-                        EmitSignal("OnBlockHoverChanged", GasStuff.BlockTilemap.MapToWorld(blockCell)+blockOffset);
+                        EmitSignal("OnBlockHoverChanged", GasStuff.BlockTilemap.GetHoveringCell());
                         _dragCells[BLOCK] = blockCell;
                 }
             //}
@@ -148,26 +148,26 @@ namespace Game.Blocks.Solids
 
         private void HandleMouseButtonEvent(InputEventMouseButton mbEvent)
         {
-            var cell = GasStuff.BlockTilemap.WorldToMap(GetGlobalMousePosition());
-            var hoveringCell = GasStuff.BlockTilemap.GetHoveringCell();
-            if (GasStuff.BlockTilemap.IsCellEditable(hoveringCell))
+            var gasCell = GasStuff.BlockTilemap.WorldToMap(GetGlobalMousePosition());
+            var blockCell = GasStuff.BlockTilemap.GetHoveringCell();
+            if (GasStuff.BlockTilemap.IsCellEditable(blockCell))
             {
                 if (mbEvent.ButtonIndex == LEFT_MOUSE_BTN)
                 {
-                    BuildBlockOnCell(hoveringCell);
+                    BuildBlockOnCell(blockCell);
                     
                 }
                 else if (mbEvent.ButtonIndex == RIGHT_MOUSE_BTN)
                 {
-                    RemoveBlockOnCell(cell);
+                    RemoveBlockOnCell(blockCell);
                 }
                 else if (mbEvent.ButtonIndex == MIDDLE_MOUSE_BTN)
                 {
-                    AddGasToCell(cell);
+                    AddGasToCell(gasCell);
                 }
                 else
                 {
-                    Debug.Log($"Cursor is on cell: {cell} which is outside rect ");
+                    Debug.Log($"Cursor is on cell: {gasCell} which is outside rect ");
                 }
             }
         }

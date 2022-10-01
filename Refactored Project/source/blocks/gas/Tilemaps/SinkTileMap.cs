@@ -14,7 +14,7 @@ namespace Game.Blocks.Gas.Tilemaps
         {
             Debug.AssertNotNull(TileSet);
             Debug.Log($"Sink tiles are {TileSet.TileGetName(sinkID)}");
-            var cells = GetUsedCellsById(sinkID);
+            var cells = GetUsedCells();
             if(cells == null)
                 return;
             var cnt = cells.Count;
