@@ -45,6 +45,8 @@ namespace Game.Blocks.Fluid
         {
             public readonly int GasCellsPerBlockCell;
 
+            public int GasToBlock => GasCellsPerBlockCell;
+
             public GasToBlockConverterConverter(int gasCellsPerBlockCell)
             {
                 GasCellsPerBlockCell = gasCellsPerBlockCell;

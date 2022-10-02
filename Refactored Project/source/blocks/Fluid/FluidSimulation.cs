@@ -50,6 +50,7 @@ namespace Game.Blocks.Fluid
         }
 
 
+
         
         private IEnumerable<Vector2Int> ProcessCells()
         {
@@ -68,13 +69,72 @@ namespace Game.Blocks.Fluid
         {
 #if TEST
             TestUpdate();
-#else   
+#else
+            int gasPerBlock = _converter.GasToBlock;
+            Graph<Vector2Int> graph = new Graph<Vector2Int>(GraphType.UNDIRECTED_UNWEIGHTED);
             _prevStateLookup = new CellDataDictionary<int>();
-            foreach (var cellState in _state.GetCellStates())
+            var cellStates = _state.GetCellStates().ToList();
+            foreach (var cellState in cellStates)
             {
                 _prevStateLookup.AddOrReplace(cellState.Item1, cellState.Item2);
+                var cell = cellState.Item1;
+                var pressure = cellState.Item2;
+                graph.AddVertex(cellState.Item1);
+                Debug.Log($"Cell {cell}, P={pressure}");
             }
+            UpdateSourceSinks();
+            UpdateGridFromState(GetGasCells());
+            UpdateStateFromGrid(GetGasCells());
+            //all non-empty nodes are now on the graph, need to build buffer zone around non-empty nodes
+            // foreach (var cellState in cellStates)
+            // {
+            //     var cell = cellState.Item1;
+            //     var pressure = cellState.Item2;
+            //     void AddNeighbor(Vector2Int offset)
+            //     {
+            //         var neighbor = cell + offset;
+            //         if (!IsNeighborBlocked(cell, offset))
+            //         {
+            //             
+            //         }
+            //     }
+            // }
             
+            
+            //
+            //AdvanceVelocityField();
+            //
+            //UpdateStateFromGrid(GetCellsToUpdate(_gridGraph.GetNewPressureStates()));
+            
+            
+            bool IsCellBlocked(Vector2Int cell)
+            {
+                return _blockMap.IsCellBlocked(_converter.GasToBlockCell(cell));
+            }
+
+            bool IsNeighborBlocked(Vector2Int cell, Vector2Int offset)
+            {
+                var modX = cell.x % gasPerBlock;
+                var modY = cell.y % gasPerBlock;
+                if ((modX != 0 && modY != 0) || (modX != (gasPerBlock - 1) && modY != (gasPerBlock-1)))
+                {
+                    return false;
+                }
+                var neighbor = cell + offset;
+                return IsCellBlocked(neighbor);
+            }
+            IEnumerable<(Vector2Int cell, int gas)> GetGasCells()
+            {
+                foreach (var kvp in _prevStateLookup)
+                {
+                    yield return (kvp.Key, kvp.Value);
+                }
+            }
+#endif
+        }
+
+        private void UpdateSourceSinks()
+        {
             foreach (var source in _io.GetActiveCellSources())
             {
                 if (_prevStateLookup.ContainsKey(source.Position))
@@ -98,22 +158,6 @@ namespace Game.Blocks.Fluid
                         Mathf.Max(_prevStateLookup[activeCellSink.GasPosition], 0);
                 }
             }
-            UpdateStateFromGrid(GetGasCells());
-            //UpdateGridFromState(GetGasCells());
-            //
-            //AdvanceVelocityField();
-            //
-            //UpdateStateFromGrid(GetCellsToUpdate(_gridGraph.GetNewPressureStates()));
-            
-            
-            IEnumerable<(Vector2Int cell, int gas)> GetGasCells()
-            {
-                foreach (var kvp in _prevStateLookup)
-                {
-                    yield return (kvp.Key, kvp.Value);
-                }
-            }
-#endif
         }
 
         private void UpdateStateFromGrid(IEnumerable<(Vector2Int, int)> getCellsToUpdate)

@@ -52,12 +52,14 @@ namespace Game.core
 
         public void RemoveEdge(T from, T to)
         {
-            if (!ContainsVertex(from)|| !ContainsVertex(to)) return;
-            
-            if (_incomingEdges[to].Contains(from)) 
+            if (!HasEdge(from, to)) return;
+
+            if (_incomingEdges[to].Contains(from))
+            {
                 _edgeLookup[from].Remove(to);
-            
-            if ((_type & GraphType.DIRECTED) != 0) 
+                _incomingEdges[to].Remove(from);
+            }
+            if ((_type & GraphType.DIRECTED) == 0) 
                 RemoveEdge(to, from);
         }
         
