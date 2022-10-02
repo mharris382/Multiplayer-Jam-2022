@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 namespace Game.core
 {
+    [Flags]
     public enum GraphType
     {
         DIRECTED_WEIGHTED = 0b11, 
@@ -41,7 +42,7 @@ namespace Game.core
         /// TODO: write unit tests for all cases (1 per graph type) 
         /// </summary>
         /// <param name="vertex"></param>
-        public void AddVertex(T vertex)
+        public virtual void AddVertex(T vertex)
         {
             if (ContainsVertex(vertex)) return;
             _edgeLookup.Add(vertex, new Dictionary<T, float>());
@@ -49,12 +50,25 @@ namespace Game.core
             _vertexCount++;
         }
 
+        public void RemoveEdge(T from, T to)
+        {
+            if (!ContainsVertex(from)|| !ContainsVertex(to)) return;
+            
+            if (_incomingEdges[to].Contains(from)) 
+                _edgeLookup[from].Remove(to);
+            
+            if ((_type & GraphType.DIRECTED) != 0) 
+                RemoveEdge(to, from);
+        }
+        
+        
+
         /// <summary>
         /// removes a vertex from the graph, as well as all connected edges
         /// TODO: write unit tests for all cases (1 per graph type) 
         /// </summary>
         /// <param name="vertex"></param>
-        public void RemoveVertex(T vertex)
+        public virtual void RemoveVertex(T vertex)
         {
             var incomingEdges = GetIncomingEdges(vertex).ToArray();
             foreach (var incomingEdge in incomingEdges)
@@ -152,6 +166,7 @@ namespace Game.core
                 throw new KeyNotFoundException($"Edge from {from} to {to} does not exist");
             return _edgeLookup[from][to];
         }
+        
         public void AddEdge(T from, T to, float weight = 0)
         {
             //if not weighted, don't accept weighted input values
@@ -224,4 +239,6 @@ namespace Game.core
             }
         }
     }
+
+    
 }

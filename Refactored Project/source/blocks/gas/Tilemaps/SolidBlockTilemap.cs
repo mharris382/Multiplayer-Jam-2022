@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.core;
 using Godot;
 
@@ -34,6 +35,9 @@ namespace Game.Blocks.Gas.Tilemaps
         public delegate void OnBlockRemoved(Vector2 cell);
         public delegate void OnBlockBuilt(Vector2 cell, int gasRemoved);
 
+        public event Action<Vector2Int, int> OnBlockCellRemoved;
+        public event Action<Vector2Int, int> OnBlockCellAdded;
+        
 
         public override void _Ready()
         {
@@ -114,6 +118,7 @@ namespace Game.Blocks.Gas.Tilemaps
             if (IsCellSolid(cell)) return false;
             GasStuff.GasTilemap.ClearCells(GetGasCellsInBlockCell(cell));
             SetCellv(cell, _defaultBlockId);
+            OnBlockCellAdded?.Invoke(cell , _defaultBlockId);
             return true;
         }
 
@@ -127,7 +132,9 @@ namespace Game.Blocks.Gas.Tilemaps
         {
             if (!IsCellEditable(cell)) return false;
             if (!IsCellSolid(cell)) return false;
+            var removedTileId = GetCellv(cell);
             SetCellv(cell, -1);
+            OnBlockCellRemoved?.Invoke(cell, removedTileId);
             return true;
         }
 
@@ -168,6 +175,15 @@ namespace Game.Blocks.Gas.Tilemaps
             return true;
         }
 
+
+        public IEnumerable<Vector2> GetAllBlockedCells()
+        {
+            foreach (var cell in GetUsedCells() )
+            {
+                var v = (Vector2)cell;
+                yield return v;
+            }
+        }
 
         public IEnumerable<Vector2> GetGasCellsInBlockCell(Vector2 blockCell)
         {

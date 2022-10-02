@@ -73,26 +73,23 @@ namespace Game.Blocks.Solids
         {
             base._Process(delta);
             var mp = GetGlobalMousePosition();
-            //if (_dragging)
-            //{
-                var gasCell = GasStuff.GasTilemap.WorldToMap(mp);
-                if (gasCell != _dragCells[GAS])
-                {
-                    EmitSignal("OnGasHoverChanged", GasStuff.GasTilemap.MapToWorld(gasCell));
-                    _dragCells[GAS] = gasCell;
-                }
+            var gasCell = GasStuff.GasTilemap.WorldToMap(mp);
+            if (gasCell != _dragCells[GAS])
+            {
+                EmitSignal("OnGasHoverChanged", GasStuff.GasTilemap.MapToWorld(gasCell));
+                _dragCells[GAS] = gasCell;
+            }
 
-                var blockOffset = GasStuff.BlockTilemap.CellSize / 2;
-                var blockCell =  GasStuff.BlockTilemap.GetHoveringCell();
-                if (blockCell != _dragCells[BLOCK])
-                {
-                        EmitSignal("OnBlockHoverChanged", GasStuff.BlockTilemap.GetHoveringCell());
-                        _dragCells[BLOCK] = blockCell;
-                }
-            //}
+            var blockOffset = GasStuff.BlockTilemap.CellSize / 2;
+            var blockCell =  GasStuff.BlockTilemap.GetHoveringCell();
+            if (blockCell != _dragCells[BLOCK])
+            {
+                    EmitSignal("OnBlockHoverChanged", GasStuff.BlockTilemap.GetHoveringCell());
+                    _dragCells[BLOCK] = blockCell;
+            }
         }
 
-        public override async void _Input(InputEvent @event)
+        public override void _Input(InputEvent @event)
         {
             if (!_ready || GasStuff.BlockTilemap == null)
             {

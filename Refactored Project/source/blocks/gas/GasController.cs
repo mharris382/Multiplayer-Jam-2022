@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.Blocks.Fluid;
 using Game.blocks.gas;
 using Game.Blocks.Gas;
 using Game.Blocks.Gas.Tilemaps;
@@ -13,7 +14,8 @@ using JetBrains.Annotations;
 using Array = Godot.Collections.Array;
 using UnblockedNeighborsList = System.Collections.Generic.List<(Godot.Vector2 cell, int gasAmount)>;
 using GasOutflowLookup = System.Collections.Generic.Dictionary<Godot.Vector2, int>;
-using GasOutflowRecord = System.Collections.Generic.Dictionary<Godot.Vector2, System.Collections.Generic.Dictionary<Godot.Vector2, int>>;
+using GasOutflowRecord =
+    System.Collections.Generic.Dictionary<Godot.Vector2, System.Collections.Generic.Dictionary<Godot.Vector2, int>>;
 
 //#define SORTED
 //#define SHUFFLED
@@ -22,31 +24,40 @@ using GasOutflowRecord = System.Collections.Generic.Dictionary<Godot.Vector2, Sy
 public class GasController : Node
 {
     public bool autoStart = true;
-    [Export()]
-    public int flowCapacity = 2;
-    
-    [Export()]
-    NodePath gasTilemapPath = new NodePath();
+    [Export()] public int flowCapacity = 2;
 
-    [Export()]
-    public bool skipOnUnequalNeighbors = false;
-    
-    
+    [Export()] public bool runFluidSimulation;
+    [Export()] NodePath gasTilemapPath = new NodePath();
+    [Export()] private NodePath sourceTilemapPath = new NodePath();
+    [Export()] private NodePath sinkTilemapPath = new NodePath();
+    [Export()] public bool skipOnUnequalNeighbors = false;
+
+
     private GasTilemap _gasTilemap;
     private SolidBlockTilemap _blockTilemap;
 
-    private readonly RandomNumberGenerator  _rng = new Godot.RandomNumberGenerator();
+    private readonly RandomNumberGenerator _rng = new Godot.RandomNumberGenerator();
     private bool _valid = false;
     private Task _currentTask;
 
+    private FluidSimulation _fluidSimulation;
 
-    
     /// <summary>
     /// resolves all dependencies prior to running the cellular automata algorithm
     /// </summary>
     public override async void _Ready()
     {
         await GetTilemaps();
+        if (!Debug.AssertNotNull(_blockTilemap)) return;
+        if (!Debug.AssertNotNull(_gasTilemap)) return;
+        var sinkTilemap = GetNode<SinkTileMap>(sinkTilemapPath);
+        var sourceTilemap = GetNode<GasSourceTilemap>(sourceTilemapPath);
+        Debug.AssertNotNull(sinkTilemap);
+        Debug.AssertNotNull(sourceTilemap);
+        var builder = new FluidSimulationBuilder(_gasTilemap, _blockTilemap,
+            sourceTilemap: sourceTilemap,
+            sinkTileMap: sinkTilemap);
+        _fluidSimulation = builder.BuildSimulation();
     }
 
     /// <summary>
@@ -69,10 +80,45 @@ public class GasController : Node
         Debug.Log("Successfully found Tilemaps");
     }
 
+    private void UpdateSimulation()
+    {
+        if (runFluidSimulation)
+        {
+            IterateFluidSim();
+        }
+        else
+        {
+            IterateGasSim();
+        }
+    }
+
+    private void IterateFluidSim()
+    {
+        if (_fluidSimulation == null)
+        {
+            if (_gasTilemap == null || _blockTilemap == null)
+            {
+                return;
+            }
+            var sinkTilemap = GetNode<SinkTileMap>(sinkTilemapPath);
+            var sourceTilemap = GetNode<GasSourceTilemap>(sourceTilemapPath);
+            Debug.AssertNotNull(sinkTilemap);
+            Debug.AssertNotNull(sourceTilemap);
+            var builder = new FluidSimulationBuilder(_gasTilemap, _blockTilemap,
+                sourceTilemap: sourceTilemap,
+                sinkTileMap: sinkTilemap);
+            _fluidSimulation = builder.BuildSimulation();
+        }
+        else
+        {
+            _fluidSimulation.UpdateSimulation();
+        }
+    }
+
     /// <summary>
     /// cellular automata algorithm
     /// </summary>
-    private void IterateSources()
+    private void IterateGasSim()
     {
         if (!_valid)
         {
@@ -92,7 +138,6 @@ public class GasController : Node
 
     private void RemoveGasFromSinks()
     {
-        
         foreach (var sink in GasStuff.GetSinks())
         {
             var amount = _gasTilemap.RemoveSteam(sink.Item1, sink.Item2);
@@ -103,7 +148,7 @@ public class GasController : Node
         }
     }
 
-    
+
     private void PullTowardsSinks()
     {
         foreach (var pullingCell in GasStuff.GetPullingCells())
@@ -115,7 +160,7 @@ public class GasController : Node
                 {
                     GasStuff.GasTilemap.MoveSteam(pullingCell.cell, neighbor.Position, 1);
                 }
-                else 
+                else
                 {
                     var amt = neighbor.GasAmount / 2;
                     GasStuff.GasTilemap.MoveSteam(pullingCell.cell, neighbor.Position, amt);
@@ -125,7 +170,6 @@ public class GasController : Node
     }
 
 
-    
     /// <summary>
     /// selects the order to traverse the graph <seealso cref="DiffuseGas()"/>
     /// </summary>
@@ -140,7 +184,7 @@ public class GasController : Node
             unvisited.AddRange(lastStateLookup[i]);
         }
 
-        GasOutflowRecord outflows = new GasOutflowRecord(); 
+        GasOutflowRecord outflows = new GasOutflowRecord();
         UnblockedNeighborsList unblockedNeighbors;
 
         int curOutflow = 0;
@@ -153,15 +197,19 @@ public class GasController : Node
 
             UnblockedNeighborsList neighbors;
             if (!TryGetValidNeighbors(cell, out neighbors)) continue;
-            
-            if (CheckForEmptyNeighbors(cell, neighbors)) { }
-            else if (CheckForLowerNeighbors(cell, neighbors)) { }
+
+            if (CheckForEmptyNeighbors(cell, neighbors))
+            {
+            }
+            else if (CheckForLowerNeighbors(cell, neighbors))
+            {
+            }
             else
             {
                 curOutflow = FlowToNeighbors(cell, neighbors, flowLimit);
             }
         }
-        
+
         bool TryGetValidNeighbors(Vector2 cell, out UnblockedNeighborsList neighbors)
         {
             neighbors = GasStuff.GetUnblockedNeighbors(cell).ToList();
@@ -177,7 +225,7 @@ public class GasController : Node
             });
             return true;
         }
-        
+
         bool HasOutflow(Vector2 from, Vector2 to)
         {
             if (outflows.ContainsKey(from) == false)
@@ -186,7 +234,7 @@ public class GasController : Node
                 return false;
             return true;
         }
-        
+
         void TransferAmountAndRecordOutflow(Vector2 from, Vector2 to, int amount)
         {
             if (outflows[from].ContainsKey(to))
@@ -205,7 +253,7 @@ public class GasController : Node
                 outflows[from].Add(to, _gasTilemap.MoveSteam(from, to, amount));
             }
         }
-        
+
         bool CheckForEmptyNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)
         {
             int emptyCount = GasSim.GetEmptyNeighbors(valueTuples, out var emptyNeighbors);
@@ -222,12 +270,14 @@ public class GasController : Node
 
                 return true;
             }
+
             return false;
         }
 
         bool CheckForLowerNeighbors(Vector2 cell, UnblockedNeighborsList valueTuples)
         {
-            int lowerCount = GasSim.GetLowerNeighbors(cell.GetCellHandle().GasAmount, valueTuples, out Array<Vector2> lowerNeighbors);
+            int lowerCount = GasSim.GetLowerNeighbors(cell.GetCellHandle().GasAmount, valueTuples,
+                out Array<Vector2> lowerNeighbors);
             if (lowerCount > 0)
             {
                 if (_rng.RandiRange(1, 5) <= 2)
@@ -241,6 +291,7 @@ public class GasController : Node
 
                 return true;
             }
+
             return false;
         }
 
@@ -285,16 +336,16 @@ public class GasController : Node
     }
 
 
-
     public void _on_Clear_Button_pressed()
     {
         _gasTilemap.Clear();
     }
+
 //timer callback, setup in scene
     [UsedImplicitly]
-    public async void _iterate_sources()
+    public void _iterate_sources()
     {
-        IterateSources();
+        UpdateSimulation();
         // if (_currentTask != null)
         // {
         //     if (!_currentTask.IsCompleted)
@@ -306,7 +357,7 @@ public class GasController : Node
         // _currentTask = Task.Run(IterateSources);
     }
 
-#region [Playing with code]
+    #region [Playing with code]
 
 #if PLAY_WITH_CODE
         private PriorityQueue<Vector2> priorityQueue;
@@ -434,5 +485,6 @@ public class GasController : Node
         }
     }
 #endif
-#endregion 
+
+    #endregion
 }

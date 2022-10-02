@@ -19,7 +19,7 @@ namespace Game.Blocks.Gas.Tilemaps
         public override void _Ready()
         {
             GasStuff.GasTilemap = this;
-        
+
         }
 
 
@@ -29,24 +29,35 @@ namespace Game.Blocks.Gas.Tilemaps
         /// <param name="tileIndex">0-15</param>
         /// <returns>steam value [1-16]</returns>
         private static int TileIdToSteam(int tileIndex) => tileIndex + 1;
-        
-        
+
+
         /// <summary> gets the tileset tile index for a given steam value </summary>
         /// <param name="steamValue">should range from 1-16</param>
         /// <returns>tile set id [0-15]</returns>
         private static int SteamToTileId(int steamValue) => steamValue - 1;
 
-        
-        
+
+
         /// <summary> adds gas to the tilemap from a gas source </summary>
         /// <returns>amount of gas added</returns>
         public int AddGasFromSource(Vector2 cell, int gasAmount)
         {
             return ModifySteam(cell, gasAmount);
         }
-        
-        
-        public int ModifySteam(Vector2 tilePosition, int amountToAdd)
+
+        public IEnumerable<(Vector2 cell, int gas)> GetGasCells()
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                int s = 16 - i;
+                foreach (var cell in GetUsedCellsById(s-1))
+                {
+                    yield return (cell, s);
+                }
+            }
+        }
+
+    public int ModifySteam(Vector2 tilePosition, int amountToAdd)
         {
             var current = GetSteam(tilePosition);
             if (current + amountToAdd <= MAX_STEAM_VALUE)
