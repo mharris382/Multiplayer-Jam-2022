@@ -80,7 +80,7 @@ namespace Game.Blocks.Fluid
                 if (_prevStateLookup.ContainsKey(source.Position))
                 {
                     _prevStateLookup[source.Position] += source.Rate;
-                    _prevStateLookup[source.Position] = Mathf.Clamp(_prevStateLookup[source.Position], 0, 16);
+                    _prevStateLookup[source.Position] = Mathf.Min(_prevStateLookup[source.Position], 16);
                 }
                 else
                 {
@@ -88,7 +88,16 @@ namespace Game.Blocks.Fluid
                     _prevStateLookup.Add(source.Position, source.Rate);
                 }
             }
-            
+
+            foreach (var activeCellSink in _io.GetActiveCellSinks())
+            {
+                if (_prevStateLookup.ContainsKey(activeCellSink.GasPosition))
+                {
+                    _prevStateLookup[activeCellSink.GasPosition] -= activeCellSink.Rate;
+                    _prevStateLookup[activeCellSink.GasPosition] =
+                        Mathf.Max(_prevStateLookup[activeCellSink.GasPosition], 0);
+                }
+            }
             UpdateStateFromGrid(GetGasCells());
             //UpdateGridFromState(GetGasCells());
             //
