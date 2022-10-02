@@ -48,43 +48,40 @@ namespace Game.Blocks.Fluid
                 c => _blockMap.IsCellBlocked(_blockMap.ConvertToBlockCell(c)),
                 s, GraphType.DIRECTED_WEIGHTED);
         }
-
-
-
         
-        private IEnumerable<Vector2Int> ProcessCells()
-        {
-            while (_cells.Count > 0)
-            {
-                var next = _cells.ExtractMin();
-                yield return next;
-
-            }
-        }
-
-
-        private CellDataDictionary<int> _prevStateLookup;
-
+        
+        
+        
+        private CellDataDictionary<int> _gasStates;
+        private Graph<Vector2Int> _gasGraph;
         public void UpdateSimulation()
         {
-#if TEST
-            TestUpdate();
-#else
-            int gasPerBlock = _converter.GasToBlock;
-            Graph<Vector2Int> graph = new Graph<Vector2Int>(GraphType.UNDIRECTED_UNWEIGHTED);
-            _prevStateLookup = new CellDataDictionary<int>();
+            _gasGraph = _gasGraph ?? new Graph<Vector2Int>(GraphType.UNDIRECTED_UNWEIGHTED);
+            _gasStates = _gasStates ?? new CellDataDictionary<int>();
+            IEnumerable<(Vector2Int cell, int gas)> GetGasCells()
+            {
+                foreach (var kvp in _gasStates)
+                {
+                    yield return (kvp.Key, !IsCellBlocked(kvp.Key) ? kvp.Value : 0);
+                }
+            }
+            
             var cellStates = _state.GetCellStates().ToList();
             foreach (var cellState in cellStates)
             {
-                _prevStateLookup.AddOrReplace(cellState.Item1, cellState.Item2);
                 var cell = cellState.Item1;
                 var pressure = cellState.Item2;
-                graph.AddVertex(cellState.Item1);
-                Debug.Log($"Cell {cell}, P={pressure}");
+                
+                _gasGraph.AddVertex(cell);
+                _gasStates.AddOrReplace(cell, pressure);
             }
-            UpdateSourceSinks();
+            
             UpdateGridFromState(GetGasCells());
+            UpdateSourceSinks();
             UpdateStateFromGrid(GetGasCells());
+
+            #region [Save for later]
+
             //all non-empty nodes are now on the graph, need to build buffer zone around non-empty nodes
             // foreach (var cellState in cellStates)
             // {
@@ -99,63 +96,51 @@ namespace Game.Blocks.Fluid
             //         }
             //     }
             // }
-            
-            
-            //
-            //AdvanceVelocityField();
-            //
-            //UpdateStateFromGrid(GetCellsToUpdate(_gridGraph.GetNewPressureStates()));
-            
-            
-            bool IsCellBlocked(Vector2Int cell)
-            {
-                return _blockMap.IsCellBlocked(_converter.GasToBlockCell(cell));
-            }
 
-            bool IsNeighborBlocked(Vector2Int cell, Vector2Int offset)
-            {
-                var modX = cell.x % gasPerBlock;
-                var modY = cell.y % gasPerBlock;
-                if ((modX != 0 && modY != 0) || (modX != (gasPerBlock - 1) && modY != (gasPerBlock-1)))
-                {
-                    return false;
-                }
-                var neighbor = cell + offset;
-                return IsCellBlocked(neighbor);
-            }
-            IEnumerable<(Vector2Int cell, int gas)> GetGasCells()
-            {
-                foreach (var kvp in _prevStateLookup)
-                {
-                    yield return (kvp.Key, kvp.Value);
-                }
-            }
-#endif
+            //bool IsNeighborBlocked(Vector2Int cell, Vector2Int offset)
+            //{
+            //    var modX = cell.x % gasPerBlock;
+            //    var modY = cell.y % gasPerBlock;
+            //    if ((modX != 0 && modY != 0) || (modX != (gasPerBlock - 1) && modY != (gasPerBlock-1)))
+            //    {
+            //        return false;
+            //    }
+            //    var neighbor = cell + offset;
+            //    return IsCellBlocked(neighbor);
+            //}
+
+            #endregion
+            
+            
+            bool IsCellBlocked(Vector2Int cell) => _blockMap.IsCellBlocked(_converter.GasToBlockCell(cell));
+            
         }
 
+        
         private void UpdateSourceSinks()
         {
-            foreach (var source in _io.GetActiveCellSources())
+            foreach (var source in _io.GetActiveCellSources().Where(t => !_blockMap.IsCellBlocked(t.Position)))
             {
-                if (_prevStateLookup.ContainsKey(source.Position))
+                if (_gasStates.ContainsKey(source.Position))
                 {
-                    _prevStateLookup[source.Position] += source.Rate;
-                    _prevStateLookup[source.Position] = Mathf.Min(_prevStateLookup[source.Position], 16);
+                    _gasStates[source.Position] += source.Rate;
+                    _gasStates[source.Position] = Mathf.Min(_gasStates[source.Position], 16);
                 }
                 else
                 {
-                    Debug.Log($"Source Added {source.Rate} to {source.Position}");
-                    _prevStateLookup.Add(source.Position, source.Rate);
+                    //Debug.Log($"Source Added {source.Rate} to {source.Position}");
+                    _gasStates.Add(source.Position, source.Rate);
                 }
             }
 
-            foreach (var activeCellSink in _io.GetActiveCellSinks())
+            
+            foreach (var activeCellSink in _io.GetActiveCellSinks().Where(t => !_blockMap.IsCellBlocked(t.GasPosition)))
             {
-                if (_prevStateLookup.ContainsKey(activeCellSink.GasPosition))
+                if (_gasStates.ContainsKey(activeCellSink.GasPosition))
                 {
-                    _prevStateLookup[activeCellSink.GasPosition] -= activeCellSink.Rate;
-                    _prevStateLookup[activeCellSink.GasPosition] =
-                        Mathf.Max(_prevStateLookup[activeCellSink.GasPosition], 0);
+                    _gasStates[activeCellSink.GasPosition] -= activeCellSink.Rate;
+                    _gasStates[activeCellSink.GasPosition] =
+                        Mathf.Max(_gasStates[activeCellSink.GasPosition], 0);
                 }
             }
         }
@@ -165,36 +150,12 @@ namespace Game.Blocks.Fluid
             foreach (var valueTuple in getCellsToUpdate)
             {
                 var cell = valueTuple.Item1;
-                var pressure = valueTuple.Item2;
+                var pressure = _blockMap.IsCellBlocked(cell) ? 0 : valueTuple.Item2;
                 _state.SetCell(cell, pressure);
-                Debug.Log($"Updated cell state: {cell}={pressure}" );
+                //Debug.Log($"Updated cell state: {cell}={pressure}" );
             }
         }
-
-        private IEnumerable<(Vector2Int, int)> GetCellsToUpdate(IEnumerable<(Vector2Int, int)> cellPressures)
-        {
-            foreach (var newPressureState in cellPressures )
-            {
-                var cell = newPressureState.Item1;
-                var gas = newPressureState.Item2;
-                //was added or was changed
-                if (!_prevStateLookup.ContainsKey(cell) || (_prevStateLookup[cell] != gas))
-                {
-                    _prevStateLookup.Remove(cell);
-                    yield return newPressureState;
-                }
-            }
-
-            if (_prevStateLookup.Count > 0)
-            {
-                //if the cell is still in the collection, it means the cell just became empty 
-                foreach (var kvp in _prevStateLookup)
-                {
-                    yield return (kvp.Key, 0);
-                }
-            }
-        }
-
+        
        
         public void UpdateGridFromState(IEnumerable<(Vector2Int cell, int gas)> cells)
         {
@@ -207,71 +168,12 @@ namespace Game.Blocks.Fluid
                 var cell = valueTuple.Item1;
                 var pressure = valueTuple.Item2;
                 //TODO: try remove
-                if (!_prevStateLookup.ContainsKey(cell) || (_prevStateLookup[cell] != pressure))
+                if (!_gasStates.ContainsKey(cell) || (_gasStates[cell] != pressure))
                     _state.SetCell(cell, pressure);
             }
 
         }
         
 
-        private void AdvanceVelocityField()
-        {
-            ApplyConvection();
-            ApplyExternalForces();
-            CalculatePressureToSatisfy();
-            ApplyPressure();
-            ExtrapolateFluidVelocitiesIntoBufferZone();
-            SetSolidCellVelocities();
-            
-            void ApplyConvection()
-            {
-            
-            }
-
-            void ApplyExternalForces()
-            {
-            
-            }
-
-            void CalculatePressureToSatisfy()
-            {
-            
-            }
-
-            void ApplyPressure()
-            {
-            
-            }
-
-            void ExtrapolateFluidVelocitiesIntoBufferZone()
-            {
-            
-            }
-
-            void SetSolidCellVelocities()
-            {
-            
-            }
-        }
-
-        
-
-
-        public void TestUpdate()
-        {
-            int cnt = 0;
-            HashSet<Vector2Int> modifiedCells = new HashSet<Vector2Int>();
-            foreach (var processCell in ProcessCells())
-            {
-                cnt++;
-                modifiedCells.Add(processCell);
-            }
-            
-            Debug.Log($"Counted: {cnt}");
-            foreach (var modifiedCell in modifiedCells)
-            {
-               // _state.SetCell(modifiedCell, GetGasValue(modifiedCell));
-            }
-        }
     }
 }

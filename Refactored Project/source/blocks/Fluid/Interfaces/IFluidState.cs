@@ -8,7 +8,5 @@ namespace Game.Blocks.Fluid
         void SetCell(Vector2Int cell, int gasValue);
 
         IEnumerable<(Vector2Int, int)> GetCellStates();
-        
-        
     }
 }
