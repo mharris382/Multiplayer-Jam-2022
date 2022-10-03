@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Game.Blocks.Gas;
 using Game.Blocks.Solids;
 using Game.core;
 using Godot;
+using Debug = Game.core.Debug;
 
 namespace Game.Blocks.Fluid
 {
@@ -131,29 +133,70 @@ namespace Game.Blocks.Fluid
             }
         }
 
+        private Stopwatch _gridFromFluidStopwatch = new Stopwatch();
+        private Stopwatch _fluidFromGridStopwatch = new Stopwatch();
+        private Stopwatch _postStepGridStopwatch = new Stopwatch();
+        private Stopwatch _preStepGridStopwatch = new Stopwatch();
+        private long _gffMs;
+        private long _ffgMs;
+        private long _postStepMs;
+        private long _preStepMs;
+
+        private int cellCount = 0;
+        private const int RECORD_COUNT = 10;
+        private (long, long, long, long, int)[] msRecord = new (long, long, long, long, int)[RECORD_COUNT];
+        private long _maxFFG, _maxGFF, _maxPost, _maxPre;
+        
         public void UpdateSimulation()
         {
             _stepCount++;
             
-            Debug.Log("Starting Pre Simulation Step");
+            _preStepGridStopwatch.Restart();
             PreSimulationStep?.Invoke(_stepCount);
-            Debug.Log("Finished Pre Simulation Step");
+            _preStepGridStopwatch.Stop();
+            _preStepMs = _preStepGridStopwatch.ElapsedMilliseconds;
+            if (_preStepMs > _maxPre) _maxPre = _preStepMs;
             
-            UpdateGridFromFluid();
+            
+            _gridFromFluidStopwatch.Restart();
+            FluidToGrid();
+            _gridFromFluidStopwatch.Stop();
+            _gffMs = _gridFromFluidStopwatch.ElapsedMilliseconds;
+            if (_gffMs > _maxGFF) _maxGFF = _gffMs;
+            
             
             CalculationStep?.Invoke(_stepCount);
-            
             SimulationTimeStep?.Invoke(_stepCount);
             
-            UpdateFluidFromGrid();
+            cellCount = _simCells.Count;
             
-            Debug.Log("Starting Post Simulation Step");
+            _fluidFromGridStopwatch.Restart();
+            GridToFluid();
+            _fluidFromGridStopwatch.Stop();
+            _ffgMs = _fluidFromGridStopwatch.ElapsedMilliseconds;
+            if (_ffgMs > _maxFFG) _maxFFG = _ffgMs;
+            
+            
+            
+            
+            _postStepGridStopwatch.Restart();
             PostSimulationStep?.Invoke(_stepCount);
-            Debug.Log("Finished Post Simulation Step");
-            
+            _postStepGridStopwatch.Stop();
+            _postStepMs = _postStepGridStopwatch.ElapsedMilliseconds;
+            if (_postStepMs > _maxPost) _maxPost = _postStepMs;
+
+
+            RecordTimings();
         }
 
 
+        void RecordTimings()
+        {
+            int head = _stepCount % RECORD_COUNT;
+            msRecord[head] = (_gffMs, _ffgMs, _postStepMs, _preStepMs, _simCells.Count);
+            Debug.Log($"\nCell Count = {_simCells.Count}\n \tGrid from Fluid (Fluid>Grid):\t {_gffMs} (Max:{_maxGFF})\n \tFluid from Grid (Grid>Fluid): \t{_ffgMs} (Max:{_maxFFG}\n \tPost Simulation Step:\t {_postStepMs}(Max:{_maxPost})\n \tPre Simulation Step:\t {_preStepMs}(Max:{_maxPre})\n");
+        }
+        
         IEnumerable<SimulationCell> GetGridCells() => _simCells.Values;
 
         /// <summary>
@@ -168,16 +211,12 @@ namespace Game.Blocks.Fluid
         }
 
         
-        void UpdateFluidFromGrid()
+        void GridToFluid()
         {
-            var r = 
-                from c in _simCells.Values
-                select (c.Position, c.Gas);
-            _fluid.WriteCells(r, CellWriteMode.OVERWRITE);
-
+            _fluid.WriteCells(_simCells.Values.Select(t => (t.Position, t.Gas)), CellWriteMode.OVERWRITE);
         }
 
-        void UpdateGridFromFluid()
+        void FluidToGrid()
         {
             foreach (var simulationCell in GetFluidCells())
             {
