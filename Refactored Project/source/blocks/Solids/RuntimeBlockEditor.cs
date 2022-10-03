@@ -164,7 +164,7 @@ namespace Game.Blocks.Solids
                 }
                 else
                 {
-                    Debug.Log($"Cursor is on cell: {gasCell} which is outside rect ");
+                    //Debug.Log($"Cursor is on cell: {gasCell} which is outside rect ");
                 }
             }
         }

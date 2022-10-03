@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Game.core;
 using Godot.Collections;
 using JetBrains.Annotations;
 using Array = Godot.Collections.Array;
+using Debug = Game.core.Debug;
 using UnblockedNeighborsList = System.Collections.Generic.List<(Godot.Vector2 cell, int gasAmount)>;
 using GasOutflowLookup = System.Collections.Generic.Dictionary<Godot.Vector2, int>;
 using GasOutflowRecord =
@@ -40,6 +42,7 @@ public class GasController : Node
     private bool _valid = false;
     private Task _currentTask;
 
+    private Stopwatch _simulationWatch = new Stopwatch();
     private FluidSimulation _fluidSimulation;
 
     /// <summary>
@@ -80,6 +83,7 @@ public class GasController : Node
         Debug.Log("Successfully found Tilemaps");
     }
 
+    private int cnt = 0;
     private void UpdateSimulation()
     {
         if (runFluidSimulation)
@@ -88,7 +92,15 @@ public class GasController : Node
         }
         else
         {
+            
+            _simulationWatch.Restart();
             IterateGasSim();
+            _simulationWatch.Stop();
+            if (GasStuff.GasTilemap == null) return;
+            int cellCount = GasStuff.GasTilemap.GetUsedCells().Count;
+            float rate = _simulationWatch.ElapsedMilliseconds/ (float)cellCount;
+            
+            Debug.Log($"ITERATION: \t # of CELLS: {cellCount} \t TIME: {_simulationWatch.ElapsedMilliseconds} MS\t {rate:F4} ms per cell");
         }
     }
 
@@ -143,7 +155,7 @@ public class GasController : Node
             var amount = _gasTilemap.RemoveSteam(sink.Item1, sink.Item2);
             if (amount > 0)
             {
-                Debug.Log($"Removed {amount} from {sink.Item1}");
+                //Debug.Log($"Removed {amount} from {sink.Item1}");
             }
         }
     }

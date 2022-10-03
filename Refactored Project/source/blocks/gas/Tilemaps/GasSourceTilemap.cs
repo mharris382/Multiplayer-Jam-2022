@@ -25,6 +25,8 @@ public class GasSourceTilemap : TileMap, FluidIO.ISources
 
     public override async void _Ready()
     {
+       
+        await GasStuff.WaitForAssignments();
         await Task.Run(() =>
         {
             foreach (var cell in GetUsedCells())
@@ -34,7 +36,6 @@ public class GasSourceTilemap : TileMap, FluidIO.ISources
             }
             Debug.Log($"Gas Sources Done! Count = {_fixedSources.Count}\n Sum = {_fixedSources.Sum(t => t.Rate)}");
         });
-        await GasStuff.WaitForAssignments();
         RegisterSources();
         Visible = false;
     }
@@ -69,24 +70,32 @@ public class GasSourceTilemap : TileMap, FluidIO.ISources
     
     private GasSourceCell GetSource(Vector2 v)
     {
-        return new GasSourceCell(this, v, rate);
+        return new GasSourceCell(this, v, GetCellv(v)+1);
     }
     
     private struct GasSourceCell : ISteamSource
     {
+        private const int RATIO = 5;
+        private const int RATE = 10;
         public GasSourceCell(GasSourceTilemap tilemap, Vector2 cell, int output)
         {
             this.cell = cell;
             this.tilemap = tilemap;
             this.size = Vector2.One;
+            count = 0;
         }
 
         private Vector2 cell;
         private readonly GasSourceTilemap tilemap;
 
+        private int count ;
         public int Output
         {
-            get => tilemap.rate; 
+            get
+            {
+                count++;
+                return (count % RATE/RATIO == 0) ? tilemap.rate : 0; 
+            }
             set { }
         }
         public bool Enabled
