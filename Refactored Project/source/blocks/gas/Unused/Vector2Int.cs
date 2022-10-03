@@ -2,18 +2,26 @@
 
 namespace Game.Blocks.Gas
 {
+    
     public struct Vector2Int
     {
         public int x { get; set; }
     
         public int y { get; set; }
 
-        public static Vector2Int left = new Vector2Int(-1, 0);
-        public static Vector2Int right = new Vector2Int(1, 0);
-        public static Vector2Int Up => new Vector2Int(0, -1);
-        public static Vector2Int Down => new Vector2Int(0, 1);
+        public static readonly Vector2Int Z = new Vector2Int(0, 0);
+        public static readonly Vector2Int R = new Vector2Int(1, 0);
+        public static readonly Vector2Int RU = new Vector2Int(1, 1);
+        public static readonly Vector2Int U = new Vector2Int(0, 1);
+        public static readonly Vector2Int LU = new Vector2Int(-1, 1);
+        public static readonly Vector2Int L = new Vector2Int(-1, 0);
+        public static readonly Vector2Int LD = new Vector2Int(-1, -1);
+        public static readonly Vector2Int D = new Vector2Int(0, -1);
+        public static readonly Vector2Int RD = new Vector2Int(1, -1);
 
-        public static Vector2Int Zero { get; }
+
+
+        public static Vector2Int Zero => Z;
 
         public Vector2Int(Vector2 vector2)
         {

@@ -58,10 +58,10 @@ namespace Game.Blocks.Fluid
             
             _pressure.AddOrChange(cell, gas);
             
-            CheckNeighbor(Vector2Int.Up);
-            CheckNeighbor(Vector2Int.Down);
-            CheckNeighbor(Vector2Int.right);
-            CheckNeighbor(Vector2Int.left);
+            CheckNeighbor(Vector2Int.U);
+            CheckNeighbor(Vector2Int.D);
+            CheckNeighbor(Vector2Int.R);
+            CheckNeighbor(Vector2Int.L);
             
             void CheckNeighbor(Vector2Int offset)
             {

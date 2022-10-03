@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.Blocks.Gas;
 using Game.Blocks.Gas.Tilemaps;
+using Game.Blocks.Solids;
 using Game.core;
 using Godot;
 
@@ -14,6 +15,8 @@ namespace Game.Blocks.Fluid
         private readonly  IFluidState _fluid;
         private readonly GasTilemap _gasTilemap;
         private readonly SolidBlockTilemap _solidBlockTilemap;
+        private readonly FluidIO.ISinks _sinks;
+        private readonly FluidIO.ISources _sources;
 
         public FluidSimulationBuilder(
             GasTilemap gasTilemap,
@@ -21,6 +24,8 @@ namespace Game.Blocks.Fluid
             GasSourceTilemap sourceTilemap,
             SinkTileMap sinkTileMap)
         {
+            _sources = sourceTilemap;
+            _sinks = sinkTileMap;
             int gasCellSize = (int)gasTilemap.CellSize.x;
             int blockCellSize = (int)solidBlockTilemap.CellSize.x;
             _solidBlockTilemap = solidBlockTilemap;
@@ -36,8 +41,7 @@ namespace Game.Blocks.Fluid
             IEnumerable<CellSink> fixedSinks = sinkTileMap.GetSinkCells();
             IEnumerable<CellSource> fixedSources = sourceTilemap.GetSourceCells();
             
-            _fluidIo = new FluidIO(blockMap, fixedSinks, fixedSources);
-            _fluid = new FluidState(gasTilemap);
+            _fluidIo = new FluidIO(gasTilemap, blockMap, sourceTilemap, sinkTileMap);
         }
         
         
@@ -70,28 +74,6 @@ namespace Game.Blocks.Fluid
             }
         }
 
-        struct FluidState : IFluidState
-        {
-            private readonly GasTilemap _gasTilemap;
-
-            public FluidState(GasTilemap gasTilemap)
-            {
-                this._gasTilemap = gasTilemap;
-            }
-
-            public void SetCell(Vector2Int cell, int gasValue)
-            {
-                _gasTilemap.SetSteam(new Vector2(cell.x, cell.y),  gasValue);
-            }
-
-            public IEnumerable<(Vector2Int, int)> GetCellStates()
-            {
-                foreach (var gasCells in _gasTilemap.GetGasCells())
-                {
-                    yield return (gasCells.cell, gasCells.gas);
-                }
-            }
-        }
         public FluidSimulation BuildSimulation()
         {
             List<(Vector2Int, int, Vector2Int)> initialState = new List<(Vector2Int, int, Vector2Int)>();
@@ -100,11 +82,39 @@ namespace Game.Blocks.Fluid
                 var cells = _gasTilemap.GetUsedCellsById(i);
                 foreach (var cell in cells)
                 {
-                    initialState.Add((cell,i+1, Vector2Int.Up));
+                    initialState.Add((cell,i+1, Vector2Int.U));
                 }
             }
             
-            return new FluidSimulation(_fluid, _fluidIo, initialState, _gridConverter, new BlockMap(_gridConverter, _solidBlockTilemap));
+            FluidTests.RunAllFluidTests(null);
+            
+            var vectorField = new VectorField2();
+            IBlockMap blockMap = new BlockMap(_gridConverter, _solidBlockTilemap);
+            IFluid fluidInterface = _gasTilemap;
+            
+            var simulation = new FluidSimulation(
+                fluidInterface, 
+                _fluid,
+                _fluidIo,
+                initialState, 
+                _gridConverter,
+                blockMap, 
+                vectorField);
+            
+            _gasTilemap.InjectBlockMap(blockMap);
+            _gasTilemap.SyncToSim(simulation);
+            
+            var solidGrid = new DynamicSolidGrid(
+                simulation,
+                _solidBlockTilemap,
+                _gridConverter,
+                fluidInterface);
+            
+            _fluidIo.ConnectToSim(simulation);
+            
+            return simulation;
         }
+        
+     
     }
 }

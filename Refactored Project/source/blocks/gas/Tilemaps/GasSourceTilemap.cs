@@ -1,9 +1,13 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Game.Blocks.Fluid;
+using Game.Blocks.Gas;
 using Game.core;
 
-public class GasSourceTilemap : TileMap
+public class GasSourceTilemap : TileMap, FluidIO.ISources
 {
     [Export()]
     public int rate = 6;
@@ -11,8 +15,25 @@ public class GasSourceTilemap : TileMap
     // Called when the node enters the scene tree for the first time.
     private Dictionary<Vector2, ISteamSource> _sources = new Dictionary<Vector2, ISteamSource>();
 
+    public void SetConverter(IGasToBlockConverter converter)
+    {
+        this.converter = converter;
+    }
+    private bool ready = false;
+    private List<CellSource> _fixedSources = new List<CellSource>();
+    private IGasToBlockConverter converter;
+
     public override async void _Ready()
     {
+        await Task.Run(() =>
+        {
+            foreach (var cell in GetUsedCells())
+            {
+                var v = (Vector2)cell;
+                _fixedSources.Add(new CellSource(v, (byte)(GetCellv(v) + 1)));
+            }
+            Debug.Log($"Gas Sources Done! Count = {_fixedSources.Count}\n Sum = {_fixedSources.Sum(t => t.Rate)}");
+        });
         await GasStuff.WaitForAssignments();
         RegisterSources();
         Visible = false;
@@ -91,5 +112,19 @@ public class GasSourceTilemap : TileMap
         {
             return tilemap.MapToWorld(cell);
         }
+    }
+
+
+    public IEnumerable<CellSource> GetActiveSources(Predicate<Vector2Int> condition)
+    {
+        
+        var res = (from c in _fixedSources
+            where condition(c.Position)
+            select c);
+        foreach (var cellSource in res)
+        {
+            yield return cellSource;
+        }
+        
     }
 }

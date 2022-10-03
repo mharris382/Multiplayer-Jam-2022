@@ -170,7 +170,7 @@ dif_min = Vector2( 2048, 12048 )
 
 [node name="Camera2D" parent="Players and Camera/Camera" index="0"]
 position = Vector2( 2195.5, 2602 )
-zoom = Vector2( 2.66859, 2.66859 )
+zoom = Vector2( 2.71176, 2.71176 )
 limit_left = 0
 limit_top = -312
 limit_right = 5322

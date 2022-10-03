@@ -1,11 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Game.Blocks.Fluid;
 using Game.blocks.gas;
+using Game.Blocks.Solids;
+using Game.core;
 using Godot;
 using Godot.Collections;
+using Debug = Game.core.Debug;
 
 namespace Game.Blocks.Gas.Tilemaps
 {
-    public class GasTilemap : TileMap
+    public class GasTilemap : TileMap, IFluid
     {
         private const int MAX_STEAM_VALUE = 16;
 
@@ -14,12 +22,56 @@ namespace Game.Blocks.Gas.Tilemaps
         public int steamTilesPerBlockTile = 4;
 
         [Export()] public NodePath pathToBlockTilemap = "./Block TileMap";
+        
+
+        private System.Collections.Generic.Dictionary<Vector2Int, int> _knownGasStates = new CellDataDictionary<int>();
 
 
+        private Vector2Int[] _blockToGasOffsets;
+
+        public void ClearBlockCell(Vector2Int blockCell)
+        {
+            var gasCell = blockCell * steamTilesPerBlockTile;
+            foreach (var blockToGasOffset in _blockToGasOffsets)
+            {
+                var c = gasCell + blockToGasOffset;
+                SetSteam(c, 0);
+                _knownGasStates.Remove(c);
+            }
+        }
+
+        public void ReadGasStatesFromTileMap()
+        {
+            _knownGasStates.Clear();
+            
+            int foundCells = 0;
+            int foundGas = 0;
+            
+            foreach (var cellState in GetUseCellStates())
+            {
+                _knownGasStates.AddOrReplace(cellState.cell, cellState.pressure);
+                foundCells++;
+                foundGas += cellState.pressure;
+            }
+        }
+        
         public override void _Ready()
         {
+            OnCellClearedOfGas += i =>
+            {
+                _knownGasStates.Remove(i);
+            };
+            _blockToGasOffsets = new Vector2Int[steamTilesPerBlockTile * steamTilesPerBlockTile];
+            int cnt = 0;
+            for (int i = 0; i < steamTilesPerBlockTile; i++)
+            {
+                for (int j = 0; j < steamTilesPerBlockTile; j++)
+                {
+                    _blockToGasOffsets[cnt++] = new Vector2Int(i, j);
+                }
+            }
             GasStuff.GasTilemap = this;
-
+            
         }
 
 
@@ -57,7 +109,21 @@ namespace Game.Blocks.Gas.Tilemaps
             }
         }
 
-    public int ModifySteam(Vector2 tilePosition, int amountToAdd)
+        public void SyncToSim(ISimulationUpdater updater)
+        {
+            updater.PreSimulationStep += UpdaterOnPreSimulationStep;
+            
+        }
+
+
+        private void UpdaterOnPreSimulationStep(int obj)
+        {
+            ReadGasStatesFromTileMap();
+        }
+        
+        
+
+        public int ModifySteam(Vector2 tilePosition, int amountToAdd)
         {
             var current = GetSteam(tilePosition);
             if (current + amountToAdd <= MAX_STEAM_VALUE)
@@ -147,6 +213,12 @@ namespace Game.Blocks.Gas.Tilemaps
             if (current != steamValue)
             {
                 SetCell(x, y, SteamToTileId(steamValue));
+                if (steamValue == 0)
+                {
+                    var obj = new Vector2Int(x, y);
+                    _knownGasStates.Remove(obj);
+                    OnCellClearedOfGas?.Invoke(obj);
+                }
             }
         }
 
@@ -187,6 +259,160 @@ namespace Game.Blocks.Gas.Tilemaps
         public new Array<Vector2> GetUsedCells() => new Array<Vector2>(base.GetUsedCells());
         
         public new Array<Vector2> GetUsedCellsById(int tileId) => new Array<Vector2>(base.GetUsedCellsById(tileId));
+
+
+        private System.Collections.Generic.Dictionary<Vector2Int, Vector2Int> gasToCellCache =
+            new CellDataDictionary<Vector2Int>();
+
+        Vector2Int GetBlockCell(Vector2Int gasCell)
+        {
+            if (gasToCellCache.TryGetValue(gasCell, out var blockCell))
+            {
+                return blockCell;
+            }
+            gasToCellCache.Add(gasCell, BlockMap.ConvertToBlockCell(gasCell));
+            return gasToCellCache[gasCell];
+        }
+        public void WriteCells(IEnumerable<(Vector2Int gasCell, int pressure)> cellsToWrite, CellWriteMode mode)
+        {
+            System.Collections.Generic.Dictionary<Vector2Int, int> _modifiedCells =
+                new System.Collections.Generic.Dictionary<Vector2Int, int>();
+            
+            int totalCount = 0;
+            int totalChanged = 0;
+
+            IEnumerable<(Vector2Int, int)> GetGasCells((Vector2Int gasCell, int gas) t)
+            {
+                if (BlockMap.IsCellBlocked(BlockMap.ConvertToBlockCell(t.gasCell)))
+                {
+                    for (int i = 0; i < steamTilesPerBlockTile; i++)
+                    {
+                        for (int j = 0; j < steamTilesPerBlockTile; j++)
+                        {
+                            var cell = t.gasCell + new Vector2Int(i, j);
+                            yield return (cell, 0);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < steamTilesPerBlockTile; i++)
+                    {
+                        for (int j = 0; j < steamTilesPerBlockTile; j++)
+                        {
+                            var cell = t.gasCell + new Vector2Int(i, j);
+                            yield return (cell , GetSteam(cell));
+                        }
+                    }
+                }
+            }
+
+            var resu = cellsToWrite.ToList();
+                //.Where(t => (t.gasCell.x % steamTilesPerBlockTile) == 0 && (t.gasCell.y % steamTilesPerBlockTile) == 0)
+                //.SelectMany(GetGasCells).ToList();
+            
+            foreach (var cell in resu
+                         //.AsParallel()
+                     )
+            {
+                
+                AddValueTup(cell);
+            }
+          
+            
+            
+            if (mode == CellWriteMode.OVERWRITE_CLEAR)
+            {
+                foreach (var knownGasState in _knownGasStates)
+                {
+                    if (!_modifiedCells.ContainsKey(knownGasState.Key))
+                    {
+                        SetSteam(knownGasState.Key, 0);
+                    }
+                }
+            }
+            if(totalCount > 0)
+                Debug.Log($"{totalChanged} cell changes made from {totalCount} given cells");
+            
+            void AddValueTup((Vector2Int gasCell, int pressure) valueTuple)
+            {
+                totalCount++;
+                var cell = valueTuple.gasCell;
+                var gasValue = valueTuple.pressure;
+                var prevGasValue = GetSteam(cell.x, cell.y);
+                var newGasValue = prevGasValue;
+                
+                switch (mode)
+                {
+                    case CellWriteMode.OVERWRITE:
+                    case CellWriteMode.OVERWRITE_CLEAR:
+                        newGasValue = gasValue;
+                        break;
+                    case CellWriteMode.BLEND_ADD:
+                        newGasValue = gasValue + prevGasValue;
+                        
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+                }
+                newGasValue = BlockMap.IsCellBlocked(GetBlockCell(cell)) ? 0 : Mathf.Clamp(newGasValue, 0, 16);
+                if (prevGasValue != newGasValue)
+                {
+                    totalChanged++;
+                    SetSteam(cell.x, cell.y,   newGasValue);
+                    _modifiedCells.Add(cell, newGasValue);
+                }
+            }
+
+        }
+
         
+
+        public IBlockMap BlockMap;
+
+        
+        public void InjectBlockMap(IBlockMap blockMap)
+        {
+            BlockMap = blockMap;
+            BlockMap.BlockCellAdded += ClearBlockCell;
+            BlockMap.BlockCellRemoved += ClearBlockCell;
+        }
+        public IEnumerable<(Vector2Int cell, int pressure)> GetUseCellStates()
+        {
+            HashSet<Vector2Int> _found = new HashSet<Vector2Int>();
+            for (int i = 0; i < 16; i++)
+            {
+                foreach (var vec in GetUsedCellsById(i))
+                {
+                    if (_knownGasStates.ContainsKey(vec))
+                    {
+                        _knownGasStates[vec] = GetSteam(vec);
+                    }
+                    else
+                    {
+                        _knownGasStates.Add(vec, GetSteam(vec));
+                    }
+
+                    _found.Add(vec);
+                    yield return (new Vector2Int(vec),_knownGasStates[vec]);
+                }
+            }
+
+            
+            Task.Run(() =>
+            {
+                var keys = _knownGasStates.Keys.ToList();
+                foreach (var key in keys)
+                {
+                    if (_found.Contains(key) == false)
+                    {
+                        _knownGasStates.Remove(key);
+                    }
+                }
+            });
+
+        }
+
+        public event Action<Vector2Int> OnCellClearedOfGas;
     }
 }
